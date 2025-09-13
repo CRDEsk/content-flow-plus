@@ -47,6 +47,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        yellow: {
+          DEFAULT: "hsl(var(--accent-yellow))",
+          foreground: "hsl(0 0% 10%)",
+        },
+        purple: {
+          DEFAULT: "hsl(280 100% 70%)",
+          light: "hsl(320 100% 75%)",
+          dark: "hsl(280 50% 25%)",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
