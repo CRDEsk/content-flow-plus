@@ -9,24 +9,23 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90 font-medium",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-        // Custom variants for Content Removal Desk
-        cta: "gradient-primary text-white font-semibold shadow-lg hover:scale-105 glow-purple border-0",
-        "cta-yellow": "bg-yellow text-yellow-foreground font-semibold shadow-lg hover:scale-105 hover:shadow-2xl border-0",
-        glass: "glass-card text-foreground hover:bg-card/80 border border-border/50",
-        "nav-outline": "border border-border/30 bg-transparent text-foreground hover:bg-card/50 hover:border-accent/50",
-        premium: "bg-gradient-to-r from-purple to-purple-light text-white font-semibold shadow-xl hover:scale-105 glow-strong border-0"
+        outline: "border border-border bg-transparent hover:bg-accent/10 hover:text-accent transition-all duration-300",
+        secondary: "bg-secondary/20 text-secondary-foreground hover:bg-secondary/30",
+        ghost: "hover:bg-accent/10 hover:text-accent transition-all duration-300",
+        link: "text-accent underline-offset-4 hover:underline",
+        // Variantes luxueuses avec les couleurs exactes
+        luxury: "bg-gradient-to-r from-gold to-gold-dark text-black font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300",
+        "luxury-outline": "border-2 border-gold bg-transparent text-gold hover:bg-gold hover:text-black font-medium transition-all duration-300",
+        minimal: "bg-card border border-border text-foreground hover:border-accent hover:text-accent transition-all duration-300",
+        elegant: "glass-card text-foreground hover:glow-gold border border-border/20 hover:border-accent/50 transition-all duration-300"
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        xl: "h-12 rounded-lg px-10 text-base",
+        sm: "h-8 px-3 text-xs",
+        lg: "h-12 px-8 text-base",
+        xl: "h-14 px-10 text-lg",
         icon: "h-10 w-10",
       },
     },

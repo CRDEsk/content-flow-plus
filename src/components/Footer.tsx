@@ -104,8 +104,8 @@ const Footer = () => {
               </div>
             </div>
 
-            <Button variant="cta-yellow" size="sm" className="mt-6 w-full">
-              Get Free Consultation
+            <Button variant="luxury" size="sm" className="mt-6 w-full">
+              Consultation gratuite
             </Button>
           </div>
         </div>
@@ -120,8 +120,8 @@ const Footer = () => {
                 <div className="text-sm text-muted-foreground">Crisis situations require immediate action</div>
               </div>
             </div>
-            <Button variant="premium" size="lg">
-              Emergency Line: 1-800-REMOVAL
+            <Button variant="luxury" size="lg">
+              Ligne d'urgence: 1-800-REMOVAL
             </Button>
           </div>
         </div>

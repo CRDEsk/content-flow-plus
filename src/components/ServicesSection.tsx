@@ -107,8 +107,8 @@ const ServicesSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button variant="cta-yellow" size="xl">
-            Get Free Consultation
+          <Button variant="luxury" size="xl">
+            Consultation gratuite
           </Button>
           <p className="text-sm text-muted-foreground mt-4">
             No obligation • Completely confidential • Expert advice

@@ -47,14 +47,16 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        yellow: {
-          DEFAULT: "hsl(var(--accent-yellow))",
-          foreground: "hsl(0 0% 10%)",
+        // Couleurs exactes spécifiées
+        gold: {
+          DEFAULT: "#FFDF7D",
+          dark: "#E6C967",
+          light: "#FFF2B3",
         },
-        purple: {
-          DEFAULT: "hsl(280 100% 70%)",
-          light: "hsl(320 100% 75%)",
-          dark: "hsl(280 50% 25%)",
+        gray: {
+          DEFAULT: "#808080",
+          light: "#A0A0A0",
+          dark: "#606060",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
