@@ -1,9 +1,12 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import StatsSection from "@/components/StatsSection";
-import ServicesSection from "@/components/ServicesSection";
-import FAQSection from "@/components/FAQSection";
+import DashboardSection from "@/components/DashboardSection";
+import TrustSection from "@/components/TrustSection";
+import HelpSection from "@/components/HelpSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import FAQSection from "@/components/FAQSection";
+import CaseStudiesSection from "@/components/CaseStudiesSection";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/hooks/useLanguage";
 import { useState } from "react";
@@ -38,10 +41,13 @@ const Index = () => {
         />
         <main>
           <HeroSection isLoggedIn={isLoggedIn} />
-          <StatsSection />
-          <ServicesSection />
-          <FAQSection />
+          <DashboardSection />
+          <TrustSection />
+          <HelpSection />
+          <HowItWorksSection />
           <TestimonialsSection />
+          <FAQSection />
+          <CaseStudiesSection />
         </main>
         <Footer />
       </div>
