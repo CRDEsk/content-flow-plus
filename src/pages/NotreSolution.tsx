@@ -126,20 +126,24 @@ const NotreSolution = () => {
 
             {/* Main Headline */}
             <div className="space-y-6">
-              <h1 className="font-display font-bold leading-[1.1] tracking-tight">
-                <span className="block text-4xl sm:text-5xl lg:text-7xl text-zinc-300">
-                  La <span className="text-primary">première</span> plateforme <span className="text-primary">française</span>
-                </span>
-                <span className="block text-4xl sm:text-5xl lg:text-7xl mt-2 text-zinc-300">
-                  de{" "}
-                  <span className="relative inline-block">
-                    <span className="bg-gradient-to-r from-primary via-primary to-primary/80 bg-clip-text text-transparent">
-                      protection digitale
-                    </span>
-                    <div className="absolute -bottom-2 left-0 right-0 h-1.5 bg-gradient-to-r from-primary/40 via-primary/60 to-primary/40 blur-sm" />
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary" />
+              <h1 className="font-display font-bold leading-[1.15] tracking-tight">
+                <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl">
+                  <span className="text-zinc-300">La </span>
+                  <span className="bg-gradient-to-r from-primary via-yellow-400 to-primary bg-clip-text text-transparent animate-pulse">
+                    première
                   </span>
-                  {" "}pour créateurs.
+                </span>
+                <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl mt-3">
+                  <span className="text-zinc-300">plateforme </span>
+                  <span className="bg-gradient-to-r from-primary to-yellow-500 bg-clip-text text-transparent">
+                    française
+                  </span>
+                </span>
+                <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mt-6 text-zinc-400">
+                  de protection digitale
+                </span>
+                <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mt-2 text-zinc-400">
+                  pour créateurs.
                 </span>
               </h1>
             </div>
@@ -275,20 +279,23 @@ const NotreSolution = () => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-primary/20 rounded-full blur-[150px]" />
         </div>
 
-        <div className="container mx-auto max-w-4xl relative z-10 text-center">
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold">
-                <span className="text-foreground">Prête à savoir si ton</span><br />
-                <span className="text-foreground">contenu est </span>
-                <span className="relative inline-block">
-                  <span className="bg-gradient-to-r from-red-500 via-red-400 to-orange-500 bg-clip-text text-transparent">
-                    leaké
-                  </span>
-                  <div className="absolute -bottom-2 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500/40 via-red-400/60 to-orange-500/40 blur-md" />
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-red-500 to-orange-500" />
+        <div className="container mx-auto max-w-5xl relative z-10 text-center">
+          <div className="space-y-10">
+            <div className="space-y-8">
+              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold leading-[1.15]">
+                <span className="block text-foreground mb-4">
+                  Prête à savoir si ton
                 </span>
-                <span className="text-foreground"> ?</span>
+                <span className="block">
+                  <span className="text-foreground">contenu est </span>
+                  <span className="relative inline-block">
+                    <span className="text-primary text-6xl sm:text-7xl lg:text-8xl font-black italic">
+                      leaké
+                    </span>
+                    <div className="absolute -inset-2 bg-primary/20 blur-2xl -z-10" />
+                  </span>
+                  <span className="text-foreground"> ?</span>
+                </span>
               </h2>
             </div>
 
