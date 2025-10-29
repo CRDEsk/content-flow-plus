@@ -27,7 +27,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   }, [isMenuOpen]);
 
   const navItems = [
-    { label: "Mon espace", href: "/mon-espace" },
+    { label: "Mon espace", href: "https://espace.contentremovaldesk.com", external: true },
     { label: "Notre solution", href: "/notre-solution" },
     { label: "Cas Clients", href: "/#cases" },
     { label: "Tarifs", href: "/tarifs" },
@@ -68,18 +68,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               </div>
             </Link>
 
-            {/* Desktop Navigation & CTA */}
+            {/* Desktop CTA & Menu */}
             <div className="hidden lg:flex items-center gap-3 ml-auto">
-              <Button 
-                size="sm"
-                variant="ghost"
-                className="text-zinc-400 hover:text-foreground font-medium transition-all duration-300 hover:bg-zinc-900/50"
-                asChild
-              >
-                <a href="https://espace.contentremovaldesk.com/auth?mode=login" target="_blank" rel="noopener noreferrer">
-                  Connexion
-                </a>
-              </Button>
               <Button 
                 size="sm"
                 className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-semibold rounded-full px-6 shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all duration-300 relative overflow-hidden group"
@@ -90,7 +80,6 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </a>
               </Button>
-              <div className="w-px h-8 bg-zinc-800/50 mx-2"></div>
               <button
                 className="relative p-2 rounded-xl text-foreground hover:bg-zinc-900/80 transition-all duration-300 border border-zinc-800/50 hover:border-primary/30"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -130,36 +119,50 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               onClick={() => setIsMenuOpen(false)}
             />
             
-            {/* Desktop Menu - Dropdown expansion from button */}
+            {/* Desktop Menu - Sleek dropdown */}
             <motion.nav
-              initial={{ opacity: 0, scaleY: 0, scaleX: 0.8 }}
+              initial={{ opacity: 0, scaleY: 0, scaleX: 0.9 }}
               animate={{ opacity: 1, scaleY: 1, scaleX: 1 }}
-              exit={{ opacity: 0, scaleY: 0, scaleX: 0.8 }}
+              exit={{ opacity: 0, scaleY: 0, scaleX: 0.9 }}
               transition={{ 
-                duration: 0.2,
+                duration: 0.15,
                 ease: [0.16, 1, 0.3, 1]
               }}
-              className="hidden lg:block fixed top-20 right-6 z-50 w-96"
+              className="hidden lg:block fixed top-[4.5rem] right-6 z-50"
               style={{ transformOrigin: "top right" }}
             >
-              <div className="bg-gradient-to-br from-primary/95 to-primary/90 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-primary/30 overflow-hidden border border-primary/20">
-                <div className="p-8 space-y-3">
+              <div className="bg-black/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 overflow-hidden border border-primary/20 min-w-[240px]">
+                <div className="py-2">
                   {navItems.map((item, index) => {
-                    const isActive = item.href.startsWith('/#') 
+                    const isActive = !item.external && (item.href.startsWith('/#') 
                       ? location.pathname === '/' && location.hash === item.href.slice(1)
-                      : location.pathname === item.href;
+                      : location.pathname === item.href);
                     
                     return (
                       <motion.div
                         key={item.label}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.05 }}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.03 }}
                       >
-                        {item.href.startsWith('/#') ? (
+                        {item.external ? (
                           <a
                             href={item.href}
-                            className="block px-6 py-4 text-lg font-semibold text-black rounded-2xl transition-all duration-300 hover:bg-black/10 hover:scale-105"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block px-4 py-2.5 text-sm font-medium text-foreground hover:bg-primary/10 hover:text-primary transition-all duration-200 border-l-2 border-transparent hover:border-primary"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {item.label}
+                          </a>
+                        ) : item.href.startsWith('/#') ? (
+                          <a
+                            href={item.href}
+                            className={`block px-4 py-2.5 text-sm font-medium transition-all duration-200 border-l-2 ${
+                              isActive 
+                                ? 'text-primary bg-primary/10 border-primary' 
+                                : 'text-foreground border-transparent hover:bg-primary/10 hover:text-primary hover:border-primary'
+                            }`}
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {item.label}
@@ -167,7 +170,11 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                         ) : (
                           <Link
                             to={item.href}
-                            className="block px-6 py-4 text-lg font-semibold text-black rounded-2xl transition-all duration-300 hover:bg-black/10 hover:scale-105"
+                            className={`block px-4 py-2.5 text-sm font-medium transition-all duration-200 border-l-2 ${
+                              isActive 
+                                ? 'text-primary bg-primary/10 border-primary' 
+                                : 'text-foreground border-transparent hover:bg-primary/10 hover:text-primary hover:border-primary'
+                            }`}
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {item.label}
@@ -215,9 +222,9 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 {/* Navigation Items */}
                 <div className="flex-1 p-6 space-y-2">
                   {navItems.map((item, index) => {
-                    const isActive = item.href.startsWith('/#') 
+                    const isActive = !item.external && (item.href.startsWith('/#') 
                       ? location.pathname === '/' && location.hash === item.href.slice(1)
-                      : location.pathname === item.href;
+                      : location.pathname === item.href);
                     
                     return (
                       <motion.div
@@ -226,7 +233,17 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.05 }}
                       >
-                        {item.href.startsWith('/#') ? (
+                        {item.external ? (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-between px-4 py-3 text-base font-medium rounded-xl transition-all duration-300 text-zinc-300 hover:text-foreground hover:bg-zinc-900/50"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <span>{item.label}</span>
+                          </a>
+                        ) : item.href.startsWith('/#') ? (
                           <a
                             href={item.href}
                             className={`flex items-center justify-between px-4 py-3 text-base font-medium rounded-xl transition-all duration-300 group ${
