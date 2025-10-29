@@ -50,18 +50,18 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
             
             {/* Logo */}
             <Link to="/" className="group relative z-10 flex-shrink-0">
-              <div className="flex items-center gap-3">
-                <div className={`relative transition-all duration-700 ${scrolled ? 'w-10 h-10' : 'w-12 h-12'}`}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-xl blur-sm group-hover:blur-md transition-all duration-300 opacity-70 group-hover:opacity-100"></div>
-                  <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/90 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary/30">
-                    <Shield className={`text-black transition-all duration-700 ${scrolled ? 'w-5 h-5' : 'w-6 h-6'}`} strokeWidth={2.5} />
+              <div className="flex items-center gap-2.5">
+                <div className={`relative transition-all duration-700 ${scrolled ? 'w-9 h-9' : 'w-11 h-11'}`}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-xl blur-md group-hover:blur-lg transition-all duration-300 opacity-60 group-hover:opacity-90"></div>
+                  <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-xl shadow-primary/20">
+                    <Shield className={`text-black transition-all duration-700 ${scrolled ? 'w-4 h-4' : 'w-5 h-5'}`} strokeWidth={2.5} />
                   </div>
                 </div>
-                <div className={`transition-all duration-700 ${scrolled ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
-                  <div className="font-display font-bold tracking-tight text-foreground text-lg whitespace-nowrap">
+                <div className="flex flex-col">
+                  <div className={`font-display font-bold tracking-tight text-foreground transition-all duration-700 ${scrolled ? 'text-base' : 'text-lg'}`}>
                     CRD
                   </div>
-                  <div className="text-[9px] text-primary uppercase tracking-[0.2em] leading-none font-medium">
+                  <div className={`text-[8px] text-primary/90 uppercase tracking-[0.25em] leading-none font-semibold transition-all duration-700 ${scrolled ? 'opacity-70' : 'opacity-100'}`}>
                     Protection
                   </div>
                 </div>
@@ -193,29 +193,29 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/95 backdrop-blur-xl border-r border-zinc-800/50 shadow-2xl"
+              className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/98 backdrop-blur-xl border-r border-zinc-800/50 shadow-2xl"
             >
               <div className="flex flex-col h-full overflow-y-auto">
                 {/* Menu Header */}
-                <div className="flex items-center justify-between p-6 border-b border-zinc-800/50">
-                  <div className="flex items-center gap-3">
-                    <div className="relative w-10 h-10">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-xl blur-sm"></div>
-                      <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/90 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
-                        <Shield className="w-5 h-5 text-black" strokeWidth={2.5} />
+                <div className="flex items-center justify-between p-6 border-b border-zinc-800/50 bg-zinc-950/50">
+                  <div className="flex items-center gap-2.5">
+                    <div className="relative w-9 h-9">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-xl blur-md"></div>
+                      <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-xl shadow-primary/20">
+                        <Shield className="w-4 h-4 text-black" strokeWidth={2.5} />
                       </div>
                     </div>
-                    <div>
-                      <div className="font-display font-bold text-foreground text-lg">CRD</div>
-                      <div className="text-[9px] text-primary uppercase tracking-wider">Protection</div>
+                    <div className="flex flex-col">
+                      <div className="font-display font-bold text-foreground text-base">CRD</div>
+                      <div className="text-[8px] text-primary/90 uppercase tracking-[0.25em] font-semibold">Protection</div>
                     </div>
                   </div>
                   <button
                     onClick={() => setIsMenuOpen(false)}
-                    className="p-2 rounded-lg hover:bg-zinc-900/50 transition-colors"
+                    className="p-2 rounded-lg hover:bg-zinc-900/80 transition-all duration-200 border border-zinc-800/50 hover:border-primary/30"
                     aria-label="Close menu"
                   >
-                    <X className="w-5 h-5 text-zinc-400" />
+                    <X className="w-5 h-5 text-zinc-400 hover:text-foreground transition-colors" />
                   </button>
                 </div>
 
@@ -280,11 +280,11 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 </div>
 
                 {/* CTA Buttons at Bottom */}
-                <div className="p-6 border-t border-zinc-800/50 space-y-3 bg-zinc-950/50">
+                <div className="p-6 border-t border-zinc-800/50 space-y-3 bg-gradient-to-b from-zinc-950/50 to-zinc-950">
                   <Button 
                     size="lg"
                     variant="outline"
-                    className="w-full border-zinc-800 hover:border-primary/50 text-foreground hover:bg-zinc-900/50 transition-all duration-300"
+                    className="w-full border-zinc-800 hover:border-primary/50 text-foreground hover:bg-zinc-900/80 transition-all duration-300 font-medium"
                     asChild
                   >
                     <a href="https://espace.contentremovaldesk.com/auth?mode=login" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
@@ -293,7 +293,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   </Button>
                   <Button 
                     size="lg"
-                    className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-semibold rounded-full shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300"
+                    className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-bold rounded-full shadow-xl shadow-primary/30 hover:shadow-primary/50 hover:scale-[1.02] transition-all duration-300"
                     asChild
                   >
                     <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
