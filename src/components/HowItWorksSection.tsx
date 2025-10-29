@@ -88,7 +88,7 @@ const HowItWorksSection = () => {
                 <button
                   key={index}
                   onClick={() => setActiveTab(index)}
-                  className={`relative flex items-center gap-2 px-6 py-4 rounded-xl font-medium text-sm transition-all duration-300 ${
+                  className={`relative overflow-hidden flex items-center gap-2 px-6 py-4 rounded-xl font-medium text-sm transition-all duration-300 ${
                     activeTab === index
                       ? "bg-zinc-800 text-foreground shadow-lg scale-105"
                       : "text-zinc-400 hover:text-foreground hover:bg-zinc-800/50"
