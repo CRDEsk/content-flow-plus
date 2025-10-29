@@ -127,16 +127,19 @@ const NotreSolution = () => {
             {/* Main Headline */}
             <div className="space-y-6">
               <h1 className="font-display font-bold leading-[1.1] tracking-tight">
-                <span className="block text-4xl sm:text-5xl lg:text-7xl text-foreground">
-                  La première plateforme française
+                <span className="block text-4xl sm:text-5xl lg:text-7xl text-zinc-300">
+                  La <span className="text-primary">première</span> plateforme <span className="text-primary">française</span>
                 </span>
-                <span className="block text-4xl sm:text-5xl lg:text-7xl mt-2">
-                  <span className="text-foreground">de </span>
+                <span className="block text-4xl sm:text-5xl lg:text-7xl mt-2 text-zinc-300">
+                  de{" "}
                   <span className="relative inline-block">
-                    <span className="text-primary">protection digitale</span>
-                    <div className="absolute -bottom-2 left-0 right-0 h-1 bg-primary/30 blur-sm" />
+                    <span className="bg-gradient-to-r from-primary via-primary to-primary/80 bg-clip-text text-transparent">
+                      protection digitale
+                    </span>
+                    <div className="absolute -bottom-2 left-0 right-0 h-1.5 bg-gradient-to-r from-primary/40 via-primary/60 to-primary/40 blur-sm" />
+                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary" />
                   </span>
-                  <span className="text-foreground"> pour créateurs.</span>
+                  {" "}pour créateurs.
                 </span>
               </h1>
             </div>
@@ -275,8 +278,17 @@ const NotreSolution = () => {
         <div className="container mx-auto max-w-4xl relative z-10 text-center">
           <div className="space-y-8">
             <div className="space-y-6">
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground">
-                Prête à savoir si ton<br />contenu est leaké ?
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold">
+                <span className="text-foreground">Prête à savoir si ton</span><br />
+                <span className="text-foreground">contenu est </span>
+                <span className="relative inline-block">
+                  <span className="bg-gradient-to-r from-red-500 via-red-400 to-orange-500 bg-clip-text text-transparent">
+                    leaké
+                  </span>
+                  <div className="absolute -bottom-2 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500/40 via-red-400/60 to-orange-500/40 blur-md" />
+                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-red-500 to-orange-500" />
+                </span>
+                <span className="text-foreground"> ?</span>
               </h2>
             </div>
 
