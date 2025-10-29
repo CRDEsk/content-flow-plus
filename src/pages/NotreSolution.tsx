@@ -31,7 +31,10 @@ const NotreSolution = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setScrollMarquee(prev => prev - 1);
+      setScrollMarquee(prev => {
+        if (prev <= -2000) return 0; // Reset to create infinite loop
+        return prev - 1;
+      });
     }, 30);
     return () => clearInterval(interval);
   }, []);
@@ -273,45 +276,23 @@ const NotreSolution = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-primary/20 rounded-full blur-[150px]" />
-        </div>
-
-        <div className="container mx-auto max-w-5xl relative z-10 text-center">
-          <div className="space-y-10">
-            <div className="space-y-8">
-              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold leading-[1.15]">
-                <span className="block text-foreground mb-4">
-                  Prête à savoir si ton
-                </span>
-                <span className="block">
-                  <span className="text-foreground">contenu est </span>
-                  <span className="relative inline-block">
-                    <span className="text-primary text-6xl sm:text-7xl lg:text-8xl font-black italic">
-                      leaké
-                    </span>
-                    <div className="absolute -inset-2 bg-primary/20 blur-2xl -z-10" />
-                  </span>
-                  <span className="text-foreground"> ?</span>
-                </span>
-              </h2>
-            </div>
-
+      <section className="relative py-24 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-3xl relative z-10">
+          <div className="text-center space-y-8">
             <Button 
               size="lg"
-              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-black font-bold rounded-full px-12 py-8 text-xl shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-black font-bold rounded-full px-10 py-6 text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
               asChild
             >
               <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer">
                 <span className="relative z-10 flex items-center gap-3">
                   Effectue un scan gratuit
-                  <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               </a>
             </Button>
+            <p className="text-sm text-zinc-500">Aucune carte bancaire requise</p>
           </div>
         </div>
       </section>
