@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Check, X, ArrowRight, Info } from "lucide-react";
@@ -6,6 +7,16 @@ import { useState } from "react";
 
 const Tarifs = () => {
   const [billing, setBilling] = useState<'monthly' | 'quarterly'>('monthly');
+
+  useEffect(() => {
+    // SEO optimization for Tarifs page
+    document.title = "Tarifs & Plans | ContentRemovalDesk - Protection Digitale Abordable";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Plans de protection digitale adaptés à tous les créateurs. Essai gratuit 7 jours, Core Plan dès €199, Pro Plan €397. Suppression illimitée, surveillance 24/7.");
+    }
+  }, []);
 
   const plans = {
     monthly: [

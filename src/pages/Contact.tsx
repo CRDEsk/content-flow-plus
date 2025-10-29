@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Mail, MessageSquare, Clock } from "lucide-react";
@@ -6,6 +7,16 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 const Contact = () => {
+  useEffect(() => {
+    // SEO optimization for Contact page
+    document.title = "Contact | ContentRemovalDesk - Assistance 24/7 pour Créateurs";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Contactez ContentRemovalDesk pour une assistance immédiate. Équipe disponible 24/7 pour protéger votre contenu. Réponse en moins d'1h.");
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />

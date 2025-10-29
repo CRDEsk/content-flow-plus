@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ArrowRight } from "lucide-react";
@@ -6,6 +7,16 @@ import { useState } from "react";
 
 const CasClients = () => {
   const [selectedCase, setSelectedCase] = useState<number | null>(null);
+
+  useEffect(() => {
+    // SEO optimization for Case Studies page
+    document.title = "Cas Clients | ContentRemovalDesk - Témoignages & Succès de Protection";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Découvrez nos cas clients et témoignages réels. Suppressions réussies, protection juridique, et actions efficaces contre les fuites de contenu. 99.2% de réussite.");
+    }
+  }, []);
 
   const cases = [
     {

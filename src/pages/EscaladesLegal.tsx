@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Scale, FileText, Shield, Target, CheckCircle2, AlertCircle, Lock, Gavel, Globe, Eye, Zap, TrendingUp, Award, Users, Phone, ChevronRight, ArrowRight } from "lucide-react";
@@ -11,6 +12,16 @@ import {
 } from "@/components/ui/accordion";
 
 const EscaladesLegal = () => {
+  useEffect(() => {
+    // SEO optimization for Escalades & Legal page
+    document.title = "Escalades & Actions Légales | ContentRemovalDesk - Protection Juridique Renforcée";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Service d'escalades légales et actions juridiques pour créateurs. Procédures DMCA, actions ICANN, dépôt de marques, injonctions judiciaires. 99.2% de réussite.");
+    }
+  }, []);
+
   const interventionDomains = [
     { icon: AlertCircle, text: "Sites pirates & forums de leaks" },
     { icon: Globe, text: "Hébergeurs & CDN internationaux" },

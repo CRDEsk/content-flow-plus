@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -15,13 +16,21 @@ import {
   Activity,
   BarChart3
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const NotreSolution = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollMarquee, setScrollMarquee] = useState(0);
 
   useEffect(() => {
+    // SEO optimization for Solution page
+    document.title = "Notre Solution | ContentRemovalDesk - Technologie de Protection Digitale";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Découvrez notre solution complète de protection digitale : détection automatique, suppression DMCA, surveillance 24/7, et protection juridique pour créateurs de contenu.");
+    }
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };

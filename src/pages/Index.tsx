@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import DashboardSection from "@/components/DashboardSection";
@@ -33,6 +34,7 @@ const Index = () => {
 
   return (
     <LanguageProvider>
+      <SEO />
       <div className="min-h-screen bg-background antialiased">
         <Header 
           isLoggedIn={isLoggedIn} 
