@@ -85,8 +85,7 @@ const Tarifs = () => {
       {
         name: "Core Plan",
         badge: "Préféré des créateurs",
-        price: "79",
-        originalPrice: "199",
+        price: "199",
         period: "/mois",
         description: "Protection continue et automatisée pour créateurs actifs, avec tableau de bord et rapports mensuels.",
         tagline: "Votre protection mensuelle comprend",
