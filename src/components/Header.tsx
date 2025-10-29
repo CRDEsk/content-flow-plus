@@ -43,10 +43,10 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-4">
             
             {/* Logo */}
-            <Link to="/" className="group relative z-10">
+            <Link to="/" className="group relative z-10 flex-shrink-0">
               <div className="flex items-center gap-3">
                 <div className={`relative transition-all duration-700 ${scrolled ? 'w-10 h-10' : 'w-12 h-12'}`}>
                   <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-xl blur-sm group-hover:blur-md transition-all duration-300 opacity-70 group-hover:opacity-100"></div>
@@ -65,8 +65,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               </div>
             </Link>
 
-            {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-4">
+            {/* Desktop Navigation & CTA */}
+            <div className="hidden lg:flex items-center gap-3 ml-auto">
               <Button 
                 size="sm"
                 variant="ghost"
@@ -81,11 +81,19 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 <span className="relative z-10">Commencer</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Button>
+              <div className="w-px h-8 bg-zinc-800/50 mx-2"></div>
+              <button
+                className="relative p-2 rounded-xl text-foreground hover:bg-zinc-900/80 transition-all duration-300 border border-zinc-800/50 hover:border-primary/30"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Menu"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
             </div>
 
-            {/* Burger Menu Button */}
+            {/* Mobile Burger Menu Button */}
             <button
-              className="relative p-2.5 rounded-xl text-foreground hover:bg-zinc-900/80 transition-all duration-300 group border border-zinc-800/50 hover:border-primary/30"
+              className="lg:hidden relative p-2.5 rounded-xl text-foreground hover:bg-zinc-900/80 transition-all duration-300 group border border-zinc-800/50 hover:border-primary/30 ml-auto"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Menu"
             >
@@ -116,10 +124,10 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="fixed top-24 left-0 right-0 z-40 px-4 sm:px-6 lg:px-8"
+              className="fixed top-20 left-0 right-0 z-40 px-4 sm:px-6 max-h-[calc(100vh-6rem)] overflow-y-auto"
             >
-              <div className="container mx-auto max-w-4xl">
-                <div className="glass-card rounded-2xl p-8 border-primary/20 shadow-2xl shadow-primary/10">
+              <div className="container mx-auto max-w-2xl">
+                <div className="glass-card rounded-2xl p-6 sm:p-8 border-primary/20 shadow-2xl shadow-primary/10">
                   <div className="space-y-2">
                     {navItems.map((item, index) => {
                       const isActive = item.href.startsWith('/#') 
@@ -175,7 +183,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                     })}
                   </div>
 
-                  <div className="mt-8 pt-8 border-t border-zinc-800/50 space-y-3">
+                  {/* Mobile CTA Buttons */}
+                  <div className="mt-6 pt-6 border-t border-zinc-800/50 space-y-3 lg:hidden">
                     <Button 
                       size="lg"
                       variant="outline"
