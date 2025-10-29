@@ -128,24 +128,24 @@ const NotreSolution = () => {
             </div>
 
             {/* Main Headline */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <h1 className="font-display font-bold leading-[1.15] tracking-tight">
-                <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl">
+                <span className="block text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
                   <span className="text-zinc-300">La </span>
                   <span className="bg-gradient-to-r from-primary via-yellow-400 to-primary bg-clip-text text-transparent animate-pulse">
                     première
                   </span>
                 </span>
-                <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl mt-3">
+                <span className="block text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-2 sm:mt-3">
                   <span className="text-zinc-300">plateforme </span>
                   <span className="bg-gradient-to-r from-primary to-yellow-500 bg-clip-text text-transparent">
                     française
                   </span>
                 </span>
-                <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mt-6 text-zinc-400">
+                <span className="block text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-4 sm:mt-6 text-zinc-400">
                   de protection digitale
                 </span>
-                <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mt-2 text-zinc-400">
+                <span className="block text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-1 sm:mt-2 text-zinc-400">
                   pour créateurs.
                 </span>
               </h1>
@@ -179,10 +179,11 @@ const NotreSolution = () => {
         </div>
 
         <div className="container mx-auto max-w-6xl relative z-10 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-6">
-            Ton tableau de bord<br />devient ton arme digitale
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6 leading-tight">
+            Ton tableau de bord<br className="hidden sm:block" />
+            <span className="sm:hidden"> </span>devient ton arme digitale
           </h2>
-          <p className="text-lg sm:text-xl text-zinc-400 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
             Rapports détaillés, logs complets et escalades intégrées : tout est réuni pour protéger ton contenu en temps réel.
           </p>
         </div>
@@ -202,34 +203,34 @@ const NotreSolution = () => {
                   {/* Gradient overlay */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                   
-                  <div className="relative z-10 p-8 lg:p-12">
-                    <div className="flex flex-col lg:flex-row gap-8 items-start">
-                      <div className="flex-1 space-y-6">
+                  <div className="relative z-10 p-6 sm:p-8 lg:p-12">
+                    <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start">
+                      <div className="flex-1 space-y-4 sm:space-y-6">
                         {/* Badges */}
-                        <div className="flex items-center gap-3">
-                          <span className="px-3 py-1 rounded-full bg-primary text-black text-xs font-bold uppercase tracking-wider">
+                        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                          <span className="px-2.5 sm:px-3 py-1 rounded-full bg-primary text-black text-[10px] sm:text-xs font-bold uppercase tracking-wider">
                             {feature.badge}
                           </span>
-                          <span className="px-3 py-1 rounded-full bg-zinc-800/50 text-zinc-300 text-xs font-medium uppercase tracking-wider">
+                          <span className="px-2.5 sm:px-3 py-1 rounded-full bg-zinc-800/50 text-zinc-300 text-[10px] sm:text-xs font-medium uppercase tracking-wider">
                             {feature.badgeType}
                           </span>
                         </div>
 
                         {/* Content */}
-                        <div className="space-y-4">
-                          <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
+                        <div className="space-y-3 sm:space-y-4">
+                          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight">
                             {feature.title}
                           </h3>
-                          <p className="text-base text-zinc-400 leading-relaxed">
+                          <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
                             {feature.description}
                           </p>
                         </div>
                       </div>
 
                       {/* Icon */}
-                      <div className="relative">
-                        <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-zinc-800/50 to-zinc-900/50 flex items-center justify-center border border-zinc-700/50 group-hover:scale-110 group-hover:border-primary/30 transition-all duration-500">
-                          <Icon className="w-12 h-12 text-primary" />
+                      <div className="relative self-center lg:self-start">
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-zinc-800/50 to-zinc-900/50 flex items-center justify-center border border-zinc-700/50 group-hover:scale-110 group-hover:border-primary/30 transition-all duration-500">
+                          <Icon className="w-10 h-10 sm:w-12 sm:h-12 text-primary" />
                         </div>
                       </div>
                     </div>
