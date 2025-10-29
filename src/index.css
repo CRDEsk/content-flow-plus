@@ -2,13 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-/* Bureau de Suppression de Contenu - Design System Luxe Minimal */
+/* CRD - Premium Design System */
 
 @layer base {
   :root {
-    /* Palette de couleurs exacte */
+    /* Core Colors - FFDF7D, BLACK, WHITE, 808080 */
     --background: 0 0% 0%;           /* BLACK */
     --foreground: 0 0% 100%;         /* WHITE */
 
@@ -18,18 +16,17 @@
     --popover: 0 0% 5%;
     --popover-foreground: 0 0% 100%;
 
-    /* FFDF7D - Or/Jaune principal */
+    /* FFDF7D - Primary Gold */
     --primary: 48 100% 74%;
     --primary-foreground: 0 0% 0%;
 
-    /* 808080 - Gris */
+    /* 808080 - Gray */
     --secondary: 0 0% 50%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 10%;
     --muted-foreground: 0 0% 50%;
 
-    /* Accent doré */
     --accent: 48 100% 74%;
     --accent-foreground: 0 0% 0%;
 
@@ -40,43 +37,134 @@
     --input: 0 0% 8%;
     --ring: 48 100% 74%;
 
-    --radius: 0.5rem;
-
-    /* Gradients luxueux */
-    --gradient-primary: linear-gradient(135deg, hsl(48 100% 74%) 0%, hsl(45 100% 68%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 3%) 100%);
-    --gradient-dark: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(0 0% 5%) 100%);
-    
-    /* Effets de verre minimal */
-    --glass-bg: hsla(0, 0%, 5%, 0.8);
-    --glass-border: hsla(48, 100%, 74%, 0.1);
-    
-    /* Ombres élégantes */
-    --shadow-gold: 0 0 40px hsl(48 100% 74% / 0.2);
-    --shadow-card: 0 20px 60px hsl(0 0% 0% / 0.4);
-    --shadow-elegant: 0 10px 40px hsl(0 0% 0% / 0.3);
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  .dark {
-    /* Keep same dark theme as root */
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1, 'ss01' 1;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.3);
   }
 }
+
+@layer utilities {
+  /* Premium Animations */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.4);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out forwards;
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  /* Glass Effects */
+  .glass-card {
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-strong {
+    background: rgba(15, 15, 15, 0.8);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Premium Gradients */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(45 100% 68%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--primary)), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    border-radius: inherit;
+  }
+}
+
 
 @layer base {
   * {
