@@ -88,10 +88,10 @@ const translations = {
     // Case Studies
     'cases.title': 'Histoires',
     'cases.titleHighlight': 'vraies',
-    'cases.case1': 'Tout a disparu. Même les pires. En moins d'un mois.',
+    'cases.case1': "Tout a disparu. Même les pires. En moins d'un mois.",
     'cases.case2': 'Dossier confidentiel – Leakimedia supprimé. Dossier clos.',
     'cases.case3': 'Dossier Ava21 / Petitabricot',
-    'cases.testimonial': '"Leur système de scan et suppression m\'a bluffée. Ils ont identifié tous les leaks, supprimé plus de 50 liens, et me tiennent informée chaque semaine. Sérieux, efficaces et discrets – je recommande à 100%"',
+    'cases.testimonial': "\"Leur système de scan et suppression m'a bluffée. Ils ont identifié tous les leaks, supprimé plus de 50 liens, et me tiennent informée chaque semaine. Sérieux, efficaces et discrets – je recommande à 100%\"",
 
     // Final CTA
     'finalCta.title': 'Prête à savoir si ton contenu est leaké ?',
@@ -101,7 +101,7 @@ const translations = {
     'footer.tagline': 'Tu crées. On protège.',
     'footer.legal': 'Mentions légales',
     'footer.privacy': 'Politique de confidentialité',
-    'footer.terms': 'Conditions d'utilisation',
+    'footer.terms': "Conditions d'utilisation",
     'footer.copyright': '© 2025 Content Removal Desk. Tous droits réservés.',
   },
   en: {
