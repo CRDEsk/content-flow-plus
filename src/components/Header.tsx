@@ -18,10 +18,13 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      if (isMenuOpen) {
+        setIsMenuOpen(false);
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isMenuOpen]);
 
   const navItems = [
     { label: "Mon espace", href: "/mon-espace" },
@@ -71,15 +74,21 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 size="sm"
                 variant="ghost"
                 className="text-zinc-400 hover:text-foreground font-medium transition-all duration-300 hover:bg-zinc-900/50"
+                asChild
               >
-                Connexion
+                <a href="https://espace.contentremovaldesk.com/auth?mode=login" target="_blank" rel="noopener noreferrer">
+                  Connexion
+                </a>
               </Button>
               <Button 
                 size="sm"
                 className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-semibold rounded-full px-6 shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all duration-300 relative overflow-hidden group"
+                asChild
               >
-                <span className="relative z-10">Commencer</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer">
+                  <span className="relative z-10">Commencer</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
               </Button>
               <div className="w-px h-8 bg-zinc-800/50 mx-2"></div>
               <button
@@ -107,7 +116,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
         </div>
       </header>
 
-      {/* Full Screen Menu Overlay */}
+      {/* Slide-in Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
@@ -115,92 +124,112 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/95 backdrop-blur-2xl z-40"
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
               onClick={() => setIsMenuOpen(false)}
             />
             <motion.nav
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="fixed top-20 left-0 right-0 z-40 px-4 sm:px-6 max-h-[calc(100vh-6rem)] overflow-y-auto"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/95 backdrop-blur-xl border-r border-zinc-800/50 shadow-2xl"
             >
-              <div className="container mx-auto max-w-2xl">
-                <div className="glass-card rounded-2xl p-6 sm:p-8 border-primary/20 shadow-2xl shadow-primary/10">
-                  <div className="space-y-2">
-                    {navItems.map((item, index) => {
-                      const isActive = item.href.startsWith('/#') 
-                        ? location.pathname === '/' && location.hash === item.href.slice(1)
-                        : location.pathname === item.href;
-                      
-                      return (
-                        <motion.div
-                          key={item.label}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                        >
-                          {item.href.startsWith('/#') ? (
-                            <a
-                              href={item.href}
-                              className={`block px-6 py-4 text-lg font-medium rounded-xl transition-all duration-300 group relative overflow-hidden ${
-                                isActive 
-                                  ? 'text-primary bg-primary/10 border border-primary/30' 
-                                  : 'text-zinc-300 hover:text-foreground hover:bg-zinc-900/50 border border-transparent hover:border-zinc-800'
-                              }`}
-                              onClick={() => setIsMenuOpen(false)}
-                            >
-                              <span className="relative z-10 flex items-center justify-between">
-                                {item.label}
-                                {isActive && (
-                                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                                )}
-                              </span>
-                              <div className={`absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                            </a>
-                          ) : (
-                            <Link
-                              to={item.href}
-                              className={`block px-6 py-4 text-lg font-medium rounded-xl transition-all duration-300 group relative overflow-hidden ${
-                                isActive 
-                                  ? 'text-primary bg-primary/10 border border-primary/30' 
-                                  : 'text-zinc-300 hover:text-foreground hover:bg-zinc-900/50 border border-transparent hover:border-zinc-800'
-                              }`}
-                              onClick={() => setIsMenuOpen(false)}
-                            >
-                              <span className="relative z-10 flex items-center justify-between">
-                                {item.label}
-                                {isActive && (
-                                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                                )}
-                              </span>
-                              <div className={`absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                            </Link>
-                          )}
-                        </motion.div>
-                      );
-                    })}
+              <div className="flex flex-col h-full overflow-y-auto">
+                {/* Menu Header */}
+                <div className="flex items-center justify-between p-6 border-b border-zinc-800/50">
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-10 h-10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-xl blur-sm"></div>
+                      <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/90 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+                        <Shield className="w-5 h-5 text-black" strokeWidth={2.5} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-display font-bold text-foreground text-lg">CRD</div>
+                      <div className="text-[9px] text-primary uppercase tracking-wider">Protection</div>
+                    </div>
                   </div>
+                  <button
+                    onClick={() => setIsMenuOpen(false)}
+                    className="p-2 rounded-lg hover:bg-zinc-900/50 transition-colors"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-5 h-5 text-zinc-400" />
+                  </button>
+                </div>
 
-                  {/* Mobile CTA Buttons */}
-                  <div className="mt-6 pt-6 border-t border-zinc-800/50 space-y-3 lg:hidden">
-                    <Button 
-                      size="lg"
-                      variant="outline"
-                      className="w-full border-zinc-800 hover:border-primary/50 text-foreground hover:bg-zinc-900/50 transition-all duration-300"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
+                {/* Navigation Items */}
+                <div className="flex-1 p-6 space-y-2">
+                  {navItems.map((item, index) => {
+                    const isActive = item.href.startsWith('/#') 
+                      ? location.pathname === '/' && location.hash === item.href.slice(1)
+                      : location.pathname === item.href;
+                    
+                    return (
+                      <motion.div
+                        key={item.label}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        {item.href.startsWith('/#') ? (
+                          <a
+                            href={item.href}
+                            className={`flex items-center justify-between px-4 py-3 text-base font-medium rounded-xl transition-all duration-300 group ${
+                              isActive 
+                                ? 'text-primary bg-primary/10 border border-primary/30' 
+                                : 'text-zinc-300 hover:text-foreground hover:bg-zinc-900/50'
+                            }`}
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <span>{item.label}</span>
+                            {isActive && (
+                              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                            )}
+                          </a>
+                        ) : (
+                          <Link
+                            to={item.href}
+                            className={`flex items-center justify-between px-4 py-3 text-base font-medium rounded-xl transition-all duration-300 group ${
+                              isActive 
+                                ? 'text-primary bg-primary/10 border border-primary/30' 
+                                : 'text-zinc-300 hover:text-foreground hover:bg-zinc-900/50'
+                            }`}
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <span>{item.label}</span>
+                            {isActive && (
+                              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                            )}
+                          </Link>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* CTA Buttons at Bottom */}
+                <div className="p-6 border-t border-zinc-800/50 space-y-3 bg-zinc-950/50">
+                  <Button 
+                    size="lg"
+                    variant="outline"
+                    className="w-full border-zinc-800 hover:border-primary/50 text-foreground hover:bg-zinc-900/50 transition-all duration-300"
+                    asChild
+                  >
+                    <a href="https://espace.contentremovaldesk.com/auth?mode=login" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
                       Connexion
-                    </Button>
-                    <Button 
-                      size="lg"
-                      className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-semibold rounded-full shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
+                    </a>
+                  </Button>
+                  <Button 
+                    size="lg"
+                    className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-semibold rounded-full shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300"
+                    asChild
+                  >
+                    <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
                       Commencer maintenant
-                    </Button>
-                  </div>
+                    </a>
+                  </Button>
                 </div>
               </div>
             </motion.nav>

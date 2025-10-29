@@ -73,26 +73,26 @@ const TrustSection = () => {
         </div>
 
         {/* Metrics Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
           {metrics.map((metric, index) => {
             const Icon = metric.icon;
             return (
               <div 
                 key={index} 
-                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-8 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-500 hover:scale-105"
+                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-500 hover:scale-105"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Animated gradient overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${metric.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                 
                 <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-xl bg-zinc-800/50 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                    <Icon className="h-7 w-7 text-primary" />
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-zinc-800/50 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <div className="text-5xl font-bold font-display text-primary mb-3">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-primary mb-2 sm:mb-3">
                     {metric.value}
                   </div>
-                  <p className="text-sm text-zinc-400 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                     {metric.label}
                   </p>
                 </div>
@@ -105,21 +105,21 @@ const TrustSection = () => {
         </div>
 
         {/* Bottom Cards */}
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
           
           {/* Google Badge */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-8 border border-zinc-800/50 hover:border-primary/50 transition-all duration-500">
+          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 hover:border-primary/50 transition-all duration-500">
             <div className="relative z-10">
-              <div className="flex items-start gap-6">
-                <div className="w-16 h-16 rounded-2xl bg-zinc-800/50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <Shield className="h-8 w-8 text-primary" />
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-800/50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <Shield className="h-7 w-7 sm:h-8 sm:w-8 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-foreground mb-3">
+                  <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
                     Agence reconnue par Google
                   </h3>
-                  <div className="inline-flex items-center gap-4 px-6 py-4 bg-white rounded-xl shadow-2xl">
-                    <div className="w-10 h-10 relative flex-shrink-0">
+                  <div className="inline-flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-3 sm:py-4 bg-white rounded-xl shadow-2xl">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 relative flex-shrink-0">
                       <svg viewBox="0 0 48 48" className="w-full h-full">
                         <circle cx="24" cy="24" r="20" fill="none" stroke="#4285F4" strokeWidth="4"/>
                         <path d="M24 4 A20 20 0 0 1 44 24" fill="none" stroke="#EA4335" strokeWidth="4"/>
@@ -128,8 +128,8 @@ const TrustSection = () => {
                       </svg>
                     </div>
                     <div className="text-left">
-                      <div className="font-bold text-gray-900 text-sm">Google's Trusted</div>
-                      <div className="font-bold text-gray-900 text-sm">Copyright Removal Program</div>
+                      <div className="font-bold text-gray-900 text-xs sm:text-sm">Google's Trusted</div>
+                      <div className="font-bold text-gray-900 text-xs sm:text-sm">Copyright Removal Program</div>
                     </div>
                   </div>
                 </div>
@@ -139,20 +139,20 @@ const TrustSection = () => {
           </div>
 
           {/* Guarantee */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-8 border border-zinc-800/50 hover:border-green-500/50 transition-all duration-500">
+          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 hover:border-green-500/50 transition-all duration-500">
             <div className="relative z-10">
-              <div className="flex items-start gap-6">
-                <div className="w-16 h-16 rounded-2xl bg-zinc-800/50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <Lock className="h-8 w-8 text-green-500" />
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-800/50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <Lock className="h-7 w-7 sm:h-8 sm:w-8 text-green-500" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-foreground mb-3">
+                  <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
                     Garantie & confidentialité
                   </h3>
-                  <p className="text-zinc-400 leading-relaxed">
+                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
                     Protection <span className="text-foreground font-semibold">100% confidentielle</span>. Aucune info partagée. Chaque demande est traitée manuellement, sans bots, dans un environnement sécurisé.
                   </p>
-                  <div className="mt-6 flex flex-wrap gap-2">
+                  <div className="mt-4 sm:mt-6 flex flex-wrap gap-2">
                     <div className="px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-medium">
                       ✓ RGPD Compliant
                     </div>
