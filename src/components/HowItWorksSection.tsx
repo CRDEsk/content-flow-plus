@@ -161,14 +161,11 @@ const HowItWorksSection = () => {
                 <div className="px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 text-xs font-medium text-zinc-400">
                   🔒 Sécurisé
                 </div>
-                <div className="px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 text-xs font-medium text-zinc-400">
-                  ⚡ Temps réel
-                </div>
               </div>
             </div>
 
             {/* Corner decoration */}
-            <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/10 transition-colors duration-500" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/10 transition-colors duration-500 overflow-hidden" />
           </div>
         </div>
       </div>

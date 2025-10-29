@@ -19,32 +19,27 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-black overflow-hidden pt-20">
-      {/* Animated gradient background */}
+      {/* Premium mesh gradient background */}
       <div className="absolute inset-0">
         <div 
-          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-pulse"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] rounded-full opacity-30 blur-[120px]"
           style={{
-            background: `radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)`,
-            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
+            background: `radial-gradient(circle, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.3) 40%, transparent 70%)`,
+            transform: `translate(calc(-50% + ${mousePosition.x * 0.03}px), ${mousePosition.y * 0.03}px)`
           }}
         />
         <div 
-          className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl animate-pulse"
+          className="absolute bottom-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-20 blur-[100px]"
           style={{
-            background: `radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)`,
-            animationDelay: '2s',
-            transform: `translate(-${mousePosition.x * 0.01}px, -${mousePosition.y * 0.01}px)`
+            background: `radial-gradient(circle, hsl(var(--primary) / 0.6) 0%, transparent 60%)`,
+            transform: `translate(${mousePosition.x * 0.02}px, -${mousePosition.y * 0.02}px)`
           }}
         />
-        {/* Grid pattern overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full opacity-15 blur-[90px]"
           style={{
-            backgroundImage: `
-              linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
-              linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px'
+            background: `radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, transparent 70%)`,
+            transform: `translate(-${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`
           }}
         />
       </div>
@@ -76,12 +71,13 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
             </h1>
             
             <div className="space-y-4 max-w-4xl mx-auto">
-              <p className="text-xl sm:text-2xl lg:text-3xl text-zinc-400 font-light leading-relaxed">
-                Ton nom circule sur des sites chelous ? Tu sais pas quoi faire ?
+              <p className="text-xl sm:text-2xl lg:text-3xl text-zinc-300 font-medium leading-relaxed">
+                Ton nom circule sur des sites chelous ?<br className="hidden sm:block" /> Tu sais pas quoi faire ?
               </p>
               
-              <p className="text-lg sm:text-xl text-zinc-500 font-normal max-w-3xl mx-auto leading-relaxed">
-                On protège ton contenu, ton image, ta tranquillité. Service hybride légal-tech avec intervention humaine garantie.
+              <p className="text-lg sm:text-xl text-zinc-400 font-normal max-w-3xl mx-auto leading-relaxed">
+                On protège ton contenu, ton image, ta tranquillité.<br className="hidden sm:block" />
+                <span className="text-primary font-semibold">Service hybride légal-tech</span> avec intervention humaine garantie.
               </p>
             </div>
           </div>

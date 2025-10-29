@@ -186,14 +186,9 @@ const Footer = () => {
                 </span>
               </div>
               
-              <div className="flex items-center gap-6">
-                <a href="https://instagram.com/crdprotect" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-primary transition-colors">
-                  <Instagram className="h-5 w-5" />
-                </a>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-xs text-zinc-500 font-medium">Service actif</span>
-                </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-xs text-zinc-500 font-medium">Service actif</span>
               </div>
             </div>
           </div>

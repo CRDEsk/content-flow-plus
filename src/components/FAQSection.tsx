@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { HelpCircle, Mail, MessageCircle } from "lucide-react";
 
 const FAQSection = () => {
   const faqs = [
@@ -42,16 +43,48 @@ const FAQSection = () => {
   ];
 
   return (
-    <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-black">
-      <div className="container mx-auto max-w-4xl">
+    <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
+      {/* Animated background grid */}
+      <div 
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `
+            linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px'
+        }}
+      />
+
+      <div className="container mx-auto max-w-4xl relative z-10">
         {/* Section Header */}
-        <div className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
-            Des questions ?<br />On est là pour toi.
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 mb-8">
+            <HelpCircle className="h-4 w-4 text-primary" />
+            <span className="text-sm text-zinc-400 font-medium">Questions fréquentes</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold mb-6 text-foreground">
+            Des questions ?<br />
+            <span className="gradient-text">On est là pour toi.</span>
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Écris-nous à <a href="mailto:support@contentremovaldesk.com" className="text-primary hover:underline">support@contentremovaldesk.com</a> ou sur Insta <a href="https://instagram.com/crdprotect" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">@crdprotect</a> on répond vite (souvent en moins d&apos;1h).
+          <p className="text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-8">
+            Écris-nous à <a href="mailto:support@contentremovaldesk.com" className="text-primary hover:underline font-medium">support@contentremovaldesk.com</a> on répond vite (souvent en moins d'1h).
           </p>
+
+          {/* Quick contact buttons */}
+          <div className="flex flex-wrap gap-4 justify-center">
+            <a 
+              href="mailto:support@contentremovaldesk.com"
+              className="group inline-flex items-center gap-2 px-6 py-3 bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/50 hover:border-primary/50 rounded-full transition-all duration-300"
+            >
+              <Mail className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium text-zinc-300 group-hover:text-foreground">Email direct</span>
+            </a>
+            <button className="group inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-black rounded-full transition-all duration-300 font-medium">
+              <MessageCircle className="h-4 w-4" />
+              <span className="text-sm">Démarrer une conversation</span>
+            </button>
+          </div>
         </div>
 
         {/* FAQ Accordion */}
@@ -60,12 +93,17 @@ const FAQSection = () => {
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="border border-zinc-800 rounded-xl px-6 bg-zinc-900/30 hover:bg-zinc-900/50 transition-colors duration-200"
+              className="group border border-zinc-800/50 rounded-2xl px-6 bg-gradient-to-br from-zinc-900/30 to-zinc-950/30 backdrop-blur-sm hover:from-zinc-900/50 hover:to-zinc-950/50 hover:border-zinc-700/50 transition-all duration-300 overflow-hidden"
             >
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="font-semibold text-foreground">{faq.question}</span>
+              {/* Gradient accent on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              
+              <AccordionTrigger className="text-left hover:no-underline py-6 relative">
+                <span className="font-semibold text-foreground pr-4 group-hover:text-primary transition-colors">
+                  {faq.question}
+                </span>
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
+              <AccordionContent className="text-zinc-400 pb-6 leading-relaxed relative">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

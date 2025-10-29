@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 
 const DashboardSection = () => {
   const [activeTab, setActiveTab] = useState("stats");
+  const [timeView, setTimeView] = useState<"month" | "alltime">("month");
   const [liveCount, setLiveCount] = useState(15312);
 
+  // Simulate real-time counter updates
   useEffect(() => {
     const interval = setInterval(() => {
       setLiveCount(prev => prev + Math.floor(Math.random() * 3));
@@ -12,10 +14,21 @@ const DashboardSection = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const stats = [
+  // Daily fluctuation - stats change by max 20% each day
+  useEffect(() => {
+    const dailyUpdate = setInterval(() => {
+      setLiveCount(prev => {
+        const variation = Math.floor(Math.random() * (prev * 0.2)); // Max 20%
+        return prev + variation;
+      });
+    }, 86400000); // 24 hours
+    return () => clearInterval(dailyUpdate);
+  }, []);
+
+  const monthStats = [
     { 
       value: `+${liveCount.toLocaleString()}`, 
-      change: "+4%", 
+      change: "+12%", 
       label: "Contenus supprimés",
       trend: true,
       icon: Zap,
@@ -23,7 +36,7 @@ const DashboardSection = () => {
     },
     { 
       value: "223", 
-      change: "+12%", 
+      change: "+3%", 
       label: "Clients protégés",
       trend: true,
       icon: Activity,
@@ -31,7 +44,7 @@ const DashboardSection = () => {
     },
     { 
       value: "30+", 
-      change: "+3%", 
+      change: "+8%", 
       label: "Plateformes scannées",
       trend: true,
       icon: Eye,
@@ -39,13 +52,50 @@ const DashboardSection = () => {
     },
     { 
       value: "246", 
-      change: "+8%", 
+      change: "+15%", 
       label: "Contenus détectés",
       trend: true,
       icon: Clock,
       color: "from-purple-500/20 to-purple-500/5"
     },
   ];
+
+  const alltimeStats = [
+    { 
+      value: "500k+", 
+      change: "+156%", 
+      label: "Contenus supprimés",
+      trend: true,
+      icon: Zap,
+      color: "from-primary/20 to-primary/5"
+    },
+    { 
+      value: "2,847", 
+      change: "+234%", 
+      label: "Clients protégés",
+      trend: true,
+      icon: Activity,
+      color: "from-green-500/20 to-green-500/5"
+    },
+    { 
+      value: "500+", 
+      change: "+412%", 
+      label: "Plateformes scannées",
+      trend: true,
+      icon: Eye,
+      color: "from-blue-500/20 to-blue-500/5"
+    },
+    { 
+      value: "15k+", 
+      change: "+289%", 
+      label: "Contenus détectés",
+      trend: true,
+      icon: Clock,
+      color: "from-purple-500/20 to-purple-500/5"
+    },
+  ];
+
+  const stats = timeView === "month" ? monthStats : alltimeStats;
 
   const topClients = [
     { name: "Ava", avatar: "bg-gradient-to-br from-pink-500 to-rose-500", protected: "142 liens" },
@@ -162,10 +212,24 @@ const DashboardSection = () => {
                   <p className="text-sm text-zinc-400">Taux de suppression réussi</p>
                 </div>
                 <div className="flex gap-2">
-                  <button className="px-4 py-2 rounded-lg bg-primary text-black text-sm font-medium">
+                  <button 
+                    onClick={() => setTimeView("month")}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      timeView === "month" 
+                        ? "bg-primary text-black" 
+                        : "bg-zinc-800/50 text-zinc-400 hover:text-foreground"
+                    }`}
+                  >
                     Ce mois
                   </button>
-                  <button className="px-4 py-2 rounded-lg bg-zinc-800/50 text-zinc-400 text-sm font-medium hover:text-foreground transition-colors">
+                  <button 
+                    onClick={() => setTimeView("alltime")}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      timeView === "alltime" 
+                        ? "bg-primary text-black" 
+                        : "bg-zinc-800/50 text-zinc-400 hover:text-foreground"
+                    }`}
+                  >
                     Tout temps
                   </button>
                 </div>
