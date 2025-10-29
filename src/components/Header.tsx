@@ -29,7 +29,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   const navItems = [
     { label: "Mon espace", href: "https://espace.contentremovaldesk.com", external: true },
     { label: "Notre solution", href: "/notre-solution" },
-    { label: "Cas Clients", href: "/#cases" },
+    { label: "Cas Clients", href: "/cas-clients" },
     { label: "Tarifs", href: "/tarifs" },
     { label: "Escalades & Légal", href: "/escalades-legal" },
     { label: "À propos", href: "/a-propos" },
@@ -134,9 +134,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               <div className="bg-black/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 overflow-hidden border border-primary/20 min-w-[240px]">
                 <div className="py-2">
                   {navItems.map((item, index) => {
-                    const isActive = !item.external && (item.href.startsWith('/#') 
-                      ? location.pathname === '/' && location.hash === item.href.slice(1)
-                      : location.pathname === item.href);
+                    const isActive = !item.external && (item.href === location.pathname);
                     
                     return (
                       <motion.div
@@ -151,18 +149,6 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="block px-4 py-2.5 text-sm font-medium text-foreground hover:bg-primary/10 hover:text-primary transition-all duration-200 border-l-2 border-transparent hover:border-primary"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            {item.label}
-                          </a>
-                        ) : item.href.startsWith('/#') ? (
-                          <a
-                            href={item.href}
-                            className={`block px-4 py-2.5 text-sm font-medium transition-all duration-200 border-l-2 ${
-                              isActive 
-                                ? 'text-primary bg-primary/10 border-primary' 
-                                : 'text-foreground border-transparent hover:bg-primary/10 hover:text-primary hover:border-primary'
-                            }`}
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {item.label}
@@ -222,9 +208,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 {/* Navigation Items */}
                 <div className="flex-1 p-6 space-y-2">
                   {navItems.map((item, index) => {
-                    const isActive = !item.external && (item.href.startsWith('/#') 
-                      ? location.pathname === '/' && location.hash === item.href.slice(1)
-                      : location.pathname === item.href);
+                    const isActive = !item.external && (item.href === location.pathname);
                     
                     return (
                       <motion.div
@@ -242,21 +226,6 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                             onClick={() => setIsMenuOpen(false)}
                           >
                             <span>{item.label}</span>
-                          </a>
-                        ) : item.href.startsWith('/#') ? (
-                          <a
-                            href={item.href}
-                            className={`flex items-center justify-between px-4 py-3 text-base font-medium rounded-xl transition-all duration-300 group ${
-                              isActive 
-                                ? 'text-primary bg-primary/10 border border-primary/30' 
-                                : 'text-zinc-300 hover:text-foreground hover:bg-zinc-900/50'
-                            }`}
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            <span>{item.label}</span>
-                            {isActive && (
-                              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                            )}
                           </a>
                         ) : (
                           <Link

@@ -11,6 +11,7 @@ import Tarifs from "./pages/Tarifs";
 import EscaladesLegal from "./pages/EscaladesLegal";
 import APropos from "./pages/APropos";
 import Contact from "./pages/Contact";
+import CasClients from "./pages/CasClients";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/mon-espace" element={<MonEspace />} />
           <Route path="/notre-solution" element={<NotreSolution />} />
+          <Route path="/cas-clients" element={<CasClients />} />
           <Route path="/tarifs" element={<Tarifs />} />
           <Route path="/escalades-legal" element={<EscaladesLegal />} />
           <Route path="/a-propos" element={<APropos />} />
