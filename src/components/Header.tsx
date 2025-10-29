@@ -132,10 +132,13 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
             
             {/* Desktop Menu - Dropdown expansion from button */}
             <motion.nav
-              initial={{ opacity: 0, scale: 0.95, y: -20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              transition={{ type: "spring", damping: 25, stiffness: 400, duration: 0.3 }}
+              initial={{ opacity: 0, scaleY: 0, scaleX: 0.8 }}
+              animate={{ opacity: 1, scaleY: 1, scaleX: 1 }}
+              exit={{ opacity: 0, scaleY: 0, scaleX: 0.8 }}
+              transition={{ 
+                duration: 0.2,
+                ease: [0.16, 1, 0.3, 1]
+              }}
               className="hidden lg:block fixed top-20 right-6 z-50 w-96"
               style={{ transformOrigin: "top right" }}
             >
