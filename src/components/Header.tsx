@@ -116,7 +116,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
         </div>
       </header>
 
-      {/* Desktop Popup Menu (Right side) */}
+      {/* Desktop Dropdown Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
@@ -130,13 +130,14 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               onClick={() => setIsMenuOpen(false)}
             />
             
-            {/* Desktop Menu - Slide from right as popup */}
+            {/* Desktop Menu - Dropdown expansion from button */}
             <motion.nav
-              initial={{ x: "100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "100%", opacity: 0 }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="hidden lg:block fixed top-24 right-6 z-50 w-96"
+              initial={{ opacity: 0, scale: 0.95, y: -20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 400, duration: 0.3 }}
+              className="hidden lg:block fixed top-20 right-6 z-50 w-96"
+              style={{ transformOrigin: "top right" }}
             >
               <div className="bg-gradient-to-br from-primary/95 to-primary/90 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-primary/30 overflow-hidden border border-primary/20">
                 <div className="p-8 space-y-3">
@@ -148,8 +149,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                     return (
                       <motion.div
                         key={item.label}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
                       >
                         {item.href.startsWith('/#') ? (
