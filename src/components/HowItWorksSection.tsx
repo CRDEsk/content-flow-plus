@@ -1,82 +1,115 @@
-import { useLanguage } from "@/hooks/useLanguage";
-import { Search, Flag, BarChart3, CheckCircle } from "lucide-react";
+import { useState } from "react";
 
 const HowItWorksSection = () => {
-  const { t } = useLanguage();
+  const [activeTab, setActiveTab] = useState(0);
 
-  const steps = [
-    { icon: Search, label: t('howItWorks.step1') },
-    { icon: Flag, label: t('howItWorks.step2') },
-    { icon: BarChart3, label: t('howItWorks.step3') },
-  ];
-
-  const features = [
-    t('howItWorks.feature1'),
-    t('howItWorks.feature2'),
-    t('howItWorks.feature3'),
+  const tabs = [
+    {
+      label: "Scan complet",
+      badge: "Détection intelligente, scan global & audit manuel",
+      title: "Protéger ton nom.",
+      titleHighlight: "Défendre ton image.",
+      description: "Nous lançons une détection intelligente sur l'ensemble du web : sites de leaks, forums, moteurs de recherche, hébergeurs, etc. Chaque lien est identifié, analysé et classé par niveau de gravité. Nos agents vérifient manuellement pour s'assurer qu'aucune fuite ne passe entre les mailles du filet.",
+      features: [
+        "Agent propriétaire de détection intelligente",
+        "Analyse complète par nom, pseudo, contenu privé",
+        "Classement automatique par priorité"
+      ]
+    },
+    {
+      label: "Signalement",
+      badge: "Soumissions puissantes + suppression Google",
+      title: "Takedowns &",
+      titleHighlight: "suppression de Google",
+      description: "Chaque contenu signalé est traité via un système automatisé renforcé par des soumissions manuelles. Nous envoyons des signalements puissants, même pour les sites les plus compliqués. Tous les liens sont également désindexés de Google pour qu'ils disparaissent des recherches. On relance les sites si nécessaire, et on agit rapidement en cas de reposts.",
+      features: [
+        "Signalements renforcés (manuels + automatisés)",
+        "Modèles DMCA personnalisés pour chaque plateforme",
+        "Compatible avec +50 sites",
+        "Suppression des résultats Google & des reposts"
+      ]
+    },
+    {
+      label: "Suivi & tableau",
+      badge: "Contrôle en temps réel, visible et organisé",
+      title: "Suivi en temps réel +",
+      titleHighlight: "tableau client",
+      description: "Vous accédez à un tableau de bord privé et mis à jour en continu : liens trouvés, état des signalements, suppressions en cours… Vous gardez le contrôle sans rien gérer.",
+      features: [
+        "Suivi intelligent de chaque lien détecté",
+        "Mises à jour continues, visibles à tout moment",
+        "Espace privé dédié, sans rien à gérer"
+      ]
+    }
   ];
 
   return (
-    <section id="how-it-works" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto max-w-6xl">
+    <section id="how-it-works" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
+      <div className="container mx-auto max-w-7xl">
         
-        {/* Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            {t('howItWorks.title')}
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-block px-4 py-2 border border-primary rounded-full mb-8">
+            <span className="text-sm text-foreground">Comment ça marche</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground">
+            Détection, retrait et protection,<br />
+            <span className="text-primary">Sans stress, sans délai.</span>
           </h2>
-          <p className="text-xl text-muted-foreground mb-1">
-            {t('howItWorks.subtitle')}
-          </p>
-          <p className="text-xl text-muted-foreground">
-            {t('howItWorks.subtitleEnd')}
-          </p>
         </div>
 
-        {/* Steps */}
-        <div className="flex justify-center items-center space-x-8 mb-16">
-          {steps.map((step, index) => {
-            const IconComponent = step.icon;
-            return (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3 hover:bg-primary/30 transition-colors">
-                  <IconComponent className="h-8 w-8 text-primary" />
-                </div>
-                <p className="text-sm font-semibold">{step.label}</p>
-              </div>
-            );
-          })}
+        {/* Tabs Navigation */}
+        <div className="flex justify-center mb-12 relative">
+          <div className="inline-flex gap-8 relative">
+            {tabs.map((tab, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveTab(index)}
+                className={`text-lg font-medium transition-colors pb-4 relative ${
+                  activeTab === index
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground/70"
+                }`}
+              >
+                {tab.label}
+                {index < tabs.length - 1 && (
+                  <span className="absolute right-[-16px] top-1/2 -translate-y-1/2 text-muted-foreground/30">|</span>
+                )}
+              </button>
+            ))}
+          </div>
+          {/* Active indicator */}
+          <div 
+            className="absolute bottom-0 h-0.5 bg-primary transition-all duration-300"
+            style={{
+              left: `${activeTab * 33.33}%`,
+              width: "33.33%"
+            }}
+          />
         </div>
 
-        {/* Detection Section */}
-        <div className="glass-card p-8 sm:p-12 rounded-2xl border border-border/20">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+        {/* Tab Content */}
+        <div className="bg-zinc-900/50 backdrop-blur-sm p-12 rounded-2xl border border-zinc-800 min-h-[500px]">
+          <div className="max-w-5xl">
+            <p className="text-sm text-muted-foreground mb-8">{tabs[activeTab].badge}</p>
             
-            {/* Left: Title & Description */}
-            <div>
-              <p className="text-sm text-primary font-semibold mb-4">
-                {t('howItWorks.detectionTitle')}
-              </p>
-              <h3 className="text-2xl sm:text-3xl font-bold mb-2">
-                {t('howItWorks.protectTitle')}
-              </h3>
-              <h4 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
-                {t('howItWorks.protectSubtitle')}
-              </h4>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                {t('howItWorks.description')}
-              </p>
-            </div>
+            <h3 className="text-4xl sm:text-5xl font-bold mb-8 text-foreground">
+              {tabs[activeTab].title}<br />
+              <span className="text-primary">{tabs[activeTab].titleHighlight}</span>
+            </h3>
+            
+            <p className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-4xl">
+              {tabs[activeTab].description}
+            </p>
 
-            {/* Right: Features */}
-            <div className="space-y-4">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-muted-foreground">{feature}</p>
-                </div>
+            <ul className="space-y-4">
+              {tabs[activeTab].features.map((feature, index) => (
+                <li key={index} className="flex items-start gap-3 text-foreground">
+                  <span className="text-primary mt-1">•</span>
+                  <span>{feature}</span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
       </div>
