@@ -116,24 +116,73 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
         </div>
       </header>
 
-      {/* Slide-in Menu Overlay */}
+      {/* Desktop Popup Menu (Right side) */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:bg-transparent lg:backdrop-blur-none"
               onClick={() => setIsMenuOpen(false)}
             />
+            
+            {/* Desktop Menu - Slide from right as popup */}
+            <motion.nav
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: "100%", opacity: 0 }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className="hidden lg:block fixed top-24 right-6 z-50 w-96"
+            >
+              <div className="bg-gradient-to-br from-primary/95 to-primary/90 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-primary/30 overflow-hidden border border-primary/20">
+                <div className="p-8 space-y-3">
+                  {navItems.map((item, index) => {
+                    const isActive = item.href.startsWith('/#') 
+                      ? location.pathname === '/' && location.hash === item.href.slice(1)
+                      : location.pathname === item.href;
+                    
+                    return (
+                      <motion.div
+                        key={item.label}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        {item.href.startsWith('/#') ? (
+                          <a
+                            href={item.href}
+                            className="block px-6 py-4 text-lg font-semibold text-black rounded-2xl transition-all duration-300 hover:bg-black/10 hover:scale-105"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {item.label}
+                          </a>
+                        ) : (
+                          <Link
+                            to={item.href}
+                            className="block px-6 py-4 text-lg font-semibold text-black rounded-2xl transition-all duration-300 hover:bg-black/10 hover:scale-105"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {item.label}
+                          </Link>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            </motion.nav>
+
+            {/* Mobile Menu - Slide from left */}
             <motion.nav
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/95 backdrop-blur-xl border-r border-zinc-800/50 shadow-2xl"
+              className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/95 backdrop-blur-xl border-r border-zinc-800/50 shadow-2xl"
             >
               <div className="flex flex-col h-full overflow-y-auto">
                 {/* Menu Header */}
