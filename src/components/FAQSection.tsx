@@ -8,93 +8,69 @@ import {
 const FAQSection = () => {
   const faqs = [
     {
-      question: "How long does the content removal process take?",
-      answer: "The timeline varies depending on the platform and type of content. Simple removals can take 24-72 hours, while more complex cases involving legal processes may take 2-4 weeks. We provide regular updates throughout the process."
+      question: "Pourquoi ContentRemovalDesk ?",
+      answer: "Fondée en France, notre agence est pionnière dans la protection digitale des créateurs de contenu. Contrairement aux services anonymes à l'étranger, nous vous offrons une expertise locale, un suivi humain, et une discrétion totale."
     },
     {
-      question: "What types of content can you remove?",
-      answer: "We can remove various types of unwanted content including negative reviews, defamatory articles, personal information, photos, social media posts, search results, and more. We work with all major platforms including Google, Facebook, Twitter, Instagram, and hundreds of websites."
+      question: "Comment ça fonctionne exactement ?",
+      answer: "Tu nous donnes ton pseudo, on scanne plus de 30+ sites français et internationaux. On identifie les fuites, on les signale, et on suit chaque retrait. Tout est visible dans ton tableau de bord privé."
     },
     {
-      question: "Is the removal process guaranteed?",
-      answer: "While we cannot guarantee 100% removal due to varying platform policies and legal restrictions, we have a 94.8% success rate. We only take on cases where we're confident we can achieve results, and we provide a detailed assessment before starting."
+      question: "Combien de temps faut-il pour voir des résultats ?",
+      answer: "Tu reçois les premiers liens détectés en 24h. Les retraits commencent dès que les premiers signalements sont envoyés. On te tient informée de chaque étape."
     },
     {
-      question: "How much does content removal cost?",
-      answer: "Costs vary based on the complexity and number of items to be removed. We offer free consultations to assess your case and provide transparent pricing. Many simple removals start at $299, while comprehensive reputation management packages are available for ongoing protection."
+      question: "Est-ce que vous connaissez les sites français ?",
+      answer: "Oui, c'est notre spécialité. On connaît tous les sites français de leaks (forums, plateformes, réseaux) et on sait comment les signaler efficacement."
     },
     {
-      question: "Will the removed content stay removed permanently?",
-      answer: "In most cases, yes. However, some content may reappear if it's republished or if new similar content is created. We offer ongoing monitoring services to detect and address any reappearing content quickly."
+      question: "Est-ce que je peux voir des preuves avant de payer ?",
+      answer: "Bien sûr. On peut te montrer quelques liens détectés gratuitement, sans engagement. Ensuite, tu choisis si tu veux qu'on lance les suppressions."
     },
     {
-      question: "Do you work internationally?",
-      answer: "Yes, we work with clients and platforms globally. We understand international privacy laws including GDPR, CCPA, and other regional regulations, allowing us to effectively remove content worldwide."
+      question: "Comment je suis les suppressions ?",
+      answer: "Tu as un tableau de bord privé où tu vois : les liens détectés, les retraits confirmés, et les plateformes surveillées. Tout est mis à jour en temps réel."
     },
     {
-      question: "Is my information kept confidential?",
-      answer: "Absolutely. We maintain strict confidentiality and use secure, encrypted systems for all communications and data storage. We can also work with you anonymously if needed and never disclose client information."
+      question: "Que se passe-t-il si des liens réapparaissent ?",
+      answer: "Si un lien revient après suppression, on le signale à nouveau immédiatement sans frais supplémentaires. C'est inclus dans tous nos plans. On garde un œil constant sur les plateformes connues pour les reposts."
     },
     {
-      question: "Can you help with positive content creation?",
-      answer: "Yes, in addition to removing negative content, we offer reputation management services that include creating and promoting positive content to improve your online presence and search results."
+      question: "Pourquoi vos prix sont plus bas que d'autres ?",
+      answer: "Certaines agences facturent 400€/mois ou plus, sans résultats concrets. Nous, on est transparents, efficaces, et abordables avec un vrai suivi, et une vraie différence."
     }
   ];
 
   return (
-    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-card/30 to-background">
+    <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-black">
       <div className="container mx-auto max-w-4xl">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Frequently Asked <span className="gradient-text">Questions</span>
+        <div className="mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
+            Des questions ?<br />On est là pour toi.
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Get answers to the most common questions about our content removal services
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Écris-nous à <a href="mailto:support@contentremovaldesk.com" className="text-primary hover:underline">support@contentremovaldesk.com</a> ou sur Insta <a href="https://instagram.com/crdprotect" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">@crdprotect</a> on répond vite (souvent en moins d&apos;1h).
           </p>
         </div>
 
         {/* FAQ Accordion */}
-        <div className="glass-card p-8 rounded-2xl border border-border/20">
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="border border-border/20 rounded-lg px-6 bg-card/30 hover:bg-card/40 transition-colors duration-200"
-              >
-                <AccordionTrigger className="text-left hover:no-underline py-6">
-                  <span className="font-semibold">{faq.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-6">
-            Have a specific question not covered here?
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="mailto:support@contentremovaldesk.com"
-              className="text-accent hover:text-accent/80 transition-colors"
+        <Accordion type="single" collapsible className="w-full space-y-4">
+          {faqs.map((faq, index) => (
+            <AccordionItem 
+              key={index} 
+              value={`item-${index}`}
+              className="border border-zinc-800 rounded-xl px-6 bg-zinc-900/30 hover:bg-zinc-900/50 transition-colors duration-200"
             >
-              support@contentremovaldesk.com
-            </a>
-            <span className="text-muted-foreground hidden sm:block">•</span>
-            <a 
-              href="tel:+1-800-REMOVAL"
-              className="text-accent hover:text-accent/80 transition-colors"
-            >
-              1-800-REMOVAL
-            </a>
-          </div>
-        </div>
+              <AccordionTrigger className="text-left hover:no-underline py-6">
+                <span className="font-semibold text-foreground">{faq.question}</span>
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </section>
   );
