@@ -63,11 +63,14 @@ const HelpSection = () => {
           <Button 
             size="lg"
             className="group bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-8 py-6 shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all duration-300"
+            asChild
           >
-            <span className="flex items-center gap-2">
-              Commencer maintenant
-              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </span>
+            <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer">
+              <span className="flex items-center gap-2">
+                Commencer maintenant
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </a>
           </Button>
         </div>
 
@@ -121,11 +124,14 @@ const HelpSection = () => {
             <Button 
               size="lg"
               className="group bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-8 py-6 shadow-2xl hover:scale-105 transition-all duration-300"
+              asChild
             >
-              <span className="flex items-center gap-2">
-                Scan gratuit
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </span>
+              <a href="https://scan.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
+                <span className="flex items-center gap-2">
+                  Scan gratuit
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </a>
             </Button>
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
