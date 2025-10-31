@@ -145,8 +145,8 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
             </div>
           </div>
 
-          {/* Stats bar & Real Stories */}
-          <div className="pt-16 space-y-12">
+          {/* Stats bar */}
+          <div className="pt-16">
             <div className="inline-flex items-center divide-x divide-zinc-800 bg-zinc-900/30 backdrop-blur-xl rounded-2xl border border-zinc-800/50 p-1">
               <div className="px-8 py-4">
                 <div className="text-3xl font-bold text-primary mb-1">500k+</div>
@@ -159,31 +159,6 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
               <div className="px-8 py-4">
                 <div className="text-3xl font-bold text-primary mb-1">&lt;24h</div>
                 <div className="text-xs text-zinc-500 uppercase tracking-wider">Délai moyen</div>
-              </div>
-            </div>
-
-            {/* Histoires vraies - Case Studies Preview */}
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-2">
-                  Histoires vraies
-                </h3>
-                <p className="text-zinc-400">Découvrez comment nous avons aidé nos clients</p>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-                {[1, 2, 3, 4, 5].map((num) => (
-                  <div 
-                    key={num}
-                    className="group relative overflow-hidden rounded-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 cursor-pointer"
-                  >
-                    <img 
-                      src={`/src/assets/case-study-${num}.png`}
-                      alt={`Cas client ${num}`}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                ))}
               </div>
             </div>
           </div>
