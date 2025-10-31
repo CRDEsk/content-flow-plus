@@ -200,22 +200,22 @@ const NotreSolution = () => {
       {/* Main Feature Cards */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {mainFeatures.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <div 
                   key={index}
-                  className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl border border-zinc-800/50 hover:border-zinc-700 transition-all duration-500"
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl border border-zinc-800/50 hover:border-zinc-700 transition-all duration-500"
                 >
                   {/* Gradient overlay */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                   
-                  <div className="relative z-10 p-8 lg:p-12">
-                    <div className="flex flex-col lg:flex-row gap-8 items-start">
-                      <div className="flex-1 space-y-6">
+                  <div className="relative z-10 p-6 sm:p-8 lg:p-12">
+                    <div className="flex flex-col gap-6 sm:gap-8 items-start">
+                      <div className="flex-1 space-y-4 sm:space-y-6 w-full">
                         {/* Badges */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                           <span className="px-3 py-1 rounded-full bg-primary text-black text-xs font-bold uppercase tracking-wider">
                             {feature.badge}
                           </span>
@@ -225,56 +225,22 @@ const NotreSolution = () => {
                         </div>
 
                         {/* Content */}
-                        <div className="space-y-4">
-                          <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
+                        <div className="space-y-3 sm:space-y-4">
+                          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
                             {feature.title}
                           </h3>
-                          <p className="text-base text-zinc-400 leading-relaxed">
+                          <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
                             {feature.description}
                           </p>
                         </div>
                       </div>
 
                       {/* Icon */}
-                      <div className="relative">
-                        <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-zinc-800/50 to-zinc-900/50 flex items-center justify-center border border-zinc-700/50 group-hover:scale-110 group-hover:border-primary/30 transition-all duration-500">
-                          <Icon className="w-12 h-12 text-primary" />
+                      <div className="relative self-center sm:self-start">
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-zinc-800/50 to-zinc-900/50 flex items-center justify-center border border-zinc-700/50 group-hover:scale-110 group-hover:border-primary/30 transition-all duration-500">
+                          <Icon className="w-10 h-10 sm:w-12 sm:h-12 text-primary" />
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Grid */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <div 
-                  key={index}
-                  className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-500"
-                >
-                  {/* Gradient overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                  
-                  <div className="relative z-10 space-y-4">
-                    <div className="w-14 h-14 rounded-xl bg-zinc-800/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-7 h-7 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-foreground mb-2">
-                        {feature.title}
-                      </h3>
-                      <p className="text-sm text-zinc-400 leading-relaxed">
-                        {feature.description}
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -285,23 +251,23 @@ const NotreSolution = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-24 px-4 sm:px-6 lg:px-8">
+      <section className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-3xl relative z-10">
-          <div className="text-center space-y-8">
+          <div className="text-center space-y-6 sm:space-y-8">
             <Button 
               size="lg"
-              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-black font-bold rounded-full px-10 py-6 text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-black font-bold rounded-full px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
               asChild
             >
-              <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer">
-                <span className="relative z-10 flex items-center gap-3">
+              <a href="https://scan.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
+                <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
                   Effectue un scan gratuit
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               </a>
             </Button>
-            <p className="text-sm text-zinc-500">Aucune carte bancaire requise</p>
+            <p className="text-xs sm:text-sm text-zinc-500">Aucune carte bancaire requise</p>
           </div>
         </div>
       </section>

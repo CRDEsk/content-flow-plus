@@ -320,11 +320,11 @@ const EscaladesLegal = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12">
             {trademarkStats.map((stat, index) => (
-              <Card key={index} className="p-6 bg-zinc-900/50 border-zinc-800 text-center">
-                <div className="text-4xl font-bold text-primary mb-2">{stat.number}</div>
-                <div className="text-sm text-zinc-400">{stat.label}</div>
+              <Card key={index} className="p-4 sm:p-6 bg-zinc-900/50 border-zinc-800 text-center">
+                <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">{stat.number}</div>
+                <div className="text-xs sm:text-sm text-zinc-400">{stat.label}</div>
               </Card>
             ))}
           </div>

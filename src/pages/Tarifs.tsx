@@ -85,7 +85,7 @@ const Tarifs = () => {
         tagline: "Scan illimité + 5 suppressions réelles offertes.",
         features: [
           "Audit complet de ton nom et pseudo",
-          "Retrait manuel et ciblé sans limite de liens",
+          "Retrait de 5 liens fuites",
           "Rapport avant / après suppression",
           "Accès au tableau de bord complet",
           "Sans carte ni engagement"
@@ -97,7 +97,8 @@ const Tarifs = () => {
         name: "Core Plan",
         badge: "Préféré des créateurs",
         price: "199",
-        period: "/mois",
+        originalPrice: "237",
+        period: "/3 mois",
         description: "Protection continue et automatisée pour créateurs actifs, avec tableau de bord et rapports mensuels.",
         tagline: "Votre protection mensuelle comprend",
         features: [
@@ -116,7 +117,8 @@ const Tarifs = () => {
       {
         name: "Elite Plan",
         price: "269",
-        period: "/mois",
+        originalPrice: "297",
+        period: "/3 mois",
         description: "Pour les créateurs à forte visibilité ou très exposés. Notre service le plus complet, discret et ultra réactif.",
         tagline: "Protection maximale + DMCA inclus",
         features: [
@@ -213,23 +215,23 @@ const Tarifs = () => {
             </p>
 
             {/* Billing Toggle */}
-            <div className="inline-flex items-center gap-2 p-1.5 rounded-full bg-zinc-900/50 border border-zinc-800/50">
+            <div className="inline-flex items-center gap-2 p-1.5 rounded-full bg-zinc-900/50 border-2 border-zinc-800/50">
               <button
                 onClick={() => setBilling('monthly')}
-                className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+                className={`px-4 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-500 ${
                   billing === 'monthly'
-                    ? 'bg-zinc-800 text-foreground'
-                    : 'text-zinc-400 hover:text-foreground'
+                    ? 'bg-zinc-800 text-foreground scale-105 shadow-lg'
+                    : 'text-zinc-400 hover:text-foreground scale-100'
                 }`}
               >
                 Mensuel
               </button>
               <button
                 onClick={() => setBilling('quarterly')}
-                className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+                className={`px-4 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-500 ${
                   billing === 'quarterly'
-                    ? 'bg-zinc-800 text-foreground'
-                    : 'text-zinc-400 hover:text-foreground'
+                    ? 'bg-zinc-800 text-foreground scale-105 shadow-lg'
+                    : 'text-zinc-400 hover:text-foreground scale-100'
                 }`}
               >
                 Trimestriel
@@ -254,10 +256,10 @@ const Tarifs = () => {
                   </div>
                 )}
 
-                <div className="p-8">
+                <div className="p-6 sm:p-8">
                   {/* Header */}
                   <div className="mb-6">
-                    <h3 className="text-2xl font-bold text-foreground mb-2">{plan.name}</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">{plan.name}</h3>
                     <div className="flex items-baseline gap-2 mb-4">
                       {plan.originalPrice && (
                         <span className="text-2xl text-zinc-600 line-through">€{plan.originalPrice}</span>
@@ -306,12 +308,12 @@ const Tarifs = () => {
           {/* Payment Methods */}
           <div className="text-center mb-16">
             <p className="text-sm text-zinc-500 mb-6">Méthodes de paiement acceptées</p>
-            <div className="flex justify-center items-center gap-12 flex-wrap">
-              <img src="/visa-logo.png" alt="Visa" className="h-10 opacity-80 hover:opacity-100 transition-opacity" />
-              <img src="/mastercard-logo.png" alt="Mastercard" className="h-10 opacity-80 hover:opacity-100 transition-opacity" />
-              <img src="/paypal-logo.png" alt="PayPal" className="h-8 opacity-80 hover:opacity-100 transition-opacity" />
+            <div className="flex justify-center items-center gap-6 sm:gap-8 lg:gap-12 flex-wrap px-4">
+              <img src="/visa-logo.png" alt="Visa" className="h-8 sm:h-10 opacity-80 hover:opacity-100 transition-opacity" />
+              <img src="/mastercard-logo.png" alt="Mastercard" className="h-8 sm:h-10 opacity-80 hover:opacity-100 transition-opacity" />
+              <img src="/paypal-logo.png" alt="PayPal" className="h-6 sm:h-8 opacity-80 hover:opacity-100 transition-opacity" />
             </div>
-            <p className="text-xs text-zinc-600 mt-6">Paiement sécurisé. Traitement rapide après validation.</p>
+            <p className="text-xs text-zinc-600 mt-6 px-4">Paiement sécurisé. Traitement rapide après validation.</p>
           </div>
         </div>
       </section>
@@ -428,21 +430,21 @@ const Tarifs = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-3xl text-center">
           <Button
             size="lg"
-            className="group bg-primary hover:bg-primary/90 text-black font-bold rounded-full px-10 py-6 text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+            className="group bg-primary hover:bg-primary/90 text-black font-bold rounded-full px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
             asChild
           >
-            <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer">
-              <span className="flex items-center gap-3">
+            <a href="https://scan.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
+              <span className="flex items-center justify-center gap-2 sm:gap-3">
                 Effectuer un scan gratuit
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </a>
           </Button>
-          <p className="text-sm text-zinc-500 mt-4">Aucune carte bancaire requise</p>
+          <p className="text-xs sm:text-sm text-zinc-500 mt-4">Aucune carte bancaire requise</p>
         </div>
       </section>
 

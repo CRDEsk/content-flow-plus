@@ -18,7 +18,7 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-black overflow-hidden pt-24 sm:pt-28">
+    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-black overflow-hidden pt-32 sm:pt-28 md:pt-24">
       {/* Premium mesh gradient background */}
       <div className="absolute inset-0">
         <div 
@@ -48,10 +48,11 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
         <div className="text-center space-y-12">
           
           {/* Trust badge */}
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 group">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-zinc-400 group-hover:text-foreground transition-colors">
-              Agence certifiée • Google Trusted • Intervention 24/7
+          <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 group mt-4 sm:mt-0">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse flex-shrink-0" />
+            <span className="text-xs sm:text-sm font-medium text-zinc-400 group-hover:text-foreground transition-colors text-center">
+              <span className="hidden sm:inline">Agence certifiée • Google Trusted • Intervention 24/7</span>
+              <span className="sm:hidden">Agence certifiée • Intervention 24/7</span>
             </span>
           </div>
 

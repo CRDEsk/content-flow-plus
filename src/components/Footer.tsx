@@ -38,30 +38,30 @@ const Footer = () => {
         
         {/* Emergency Bar - Premium highlight */}
         <div className="border-b border-zinc-800/50">
-          <div className="py-8 px-4 sm:px-6 lg:px-8">
-            <div className="bg-gradient-to-r from-zinc-900/50 via-zinc-900/80 to-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 rounded-2xl p-6 sm:p-8 hover:border-primary/30 transition-all duration-500 group">
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-red-500/20 to-red-600/20 flex items-center justify-center border border-red-500/30 group-hover:border-red-500/50 transition-all">
-                    <Phone className="h-7 w-7 text-red-500 animate-pulse" />
+          <div className="py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
+            <div className="bg-gradient-to-r from-zinc-900/50 via-zinc-900/80 to-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 rounded-2xl p-4 sm:p-6 lg:p-8 hover:border-primary/30 transition-all duration-500 group">
+              <div className="flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-6">
+                <div className="flex items-start gap-3 sm:gap-4 w-full lg:w-auto">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-red-500/20 to-red-600/20 flex items-center justify-center border border-red-500/30 group-hover:border-red-500/50 transition-all flex-shrink-0">
+                    <Phone className="h-6 w-6 sm:h-7 sm:w-7 text-red-500 animate-pulse" />
                   </div>
-                  <div className="text-left">
+                  <div className="text-left flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                      <span className="text-sm font-bold text-red-500 uppercase tracking-wider">Ligne d'urgence 24/7</span>
+                      <span className="text-xs sm:text-sm font-bold text-red-500 uppercase tracking-wider">Ligne d'urgence 24/7</span>
                     </div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Intervention immédiate</h3>
-                    <p className="text-sm text-zinc-400">Pour les cas critiques nécessitant une action rapide</p>
+                    <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-foreground mb-1">Intervention immédiate</h3>
+                    <p className="text-xs sm:text-sm text-zinc-400">Pour les cas critiques nécessitant une action rapide</p>
                   </div>
                 </div>
                 <a 
                   href="https://wa.me/32460236990" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-3xl sm:text-4xl font-bold font-display text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group-hover:scale-105 transition-transform duration-300"
+                  className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group-hover:scale-105 transition-transform duration-300 w-full lg:w-auto justify-center lg:justify-start"
                 >
-                  +32 460 23 69 90
-                  <ExternalLink className="h-6 w-6" />
+                  <span className="break-all sm:break-normal">+32 460 23 69 90</span>
+                  <ExternalLink className="h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
                 </a>
               </div>
             </div>
@@ -182,20 +182,9 @@ const Footer = () => {
                 </span>
               </div>
               
-              <div className="flex items-center gap-6">
-                <Link to="/tarifs" className="text-xs text-zinc-500 hover:text-primary transition-colors">
-                  Tarifs
-                </Link>
-                <Link to="/a-propos" className="text-xs text-zinc-500 hover:text-primary transition-colors">
-                  À propos
-                </Link>
-                <Link to="/contact" className="text-xs text-zinc-500 hover:text-primary transition-colors">
-                  Contact
-                </Link>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-xs text-zinc-500 font-medium">Service actif</span>
-                </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-xs text-zinc-500 font-medium">Service actif</span>
               </div>
             </div>
           </div>
