@@ -1,14 +1,15 @@
 import { Phone, Mail, Instagram, Shield, Clock, MapPin, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { label: "Accueil", href: "#" },
-    { label: "Comment ça marche", href: "#how-it-works" },
-    { label: "Avis clients", href: "#testimonials" },
-    { label: "FAQ", href: "#faq" },
-    { label: "Cas réels", href: "#cases" }
+    { label: "Accueil", href: "/" },
+    { label: "Comment ça marche", href: "/#how-it-works" },
+    { label: "Avis clients", href: "/#testimonials" },
+    { label: "FAQ", href: "/#faq" },
+    { label: "Cas réels", href: "/cas-clients" }
   ];
 
   const legal = [
@@ -19,11 +20,11 @@ const Footer = () => {
   ];
 
   const services = [
-    { label: "Suppression de contenu", href: "#" },
-    { label: "Protection d'image", href: "#" },
-    { label: "Surveillance continue", href: "#" },
-    { label: "Conseil juridique", href: "#" },
-    { label: "Intervention d'urgence", href: "#" }
+    { label: "Suppression de contenu", href: "/notre-solution" },
+    { label: "Protection d'image", href: "/notre-solution" },
+    { label: "Surveillance continue", href: "/notre-solution" },
+    { label: "Conseil juridique", href: "https://wa.me/32460236990", external: true },
+    { label: "Intervention d'urgence", href: "https://wa.me/32460236990", external: true }
   ];
 
   return (
@@ -116,13 +117,25 @@ const Footer = () => {
               <ul className="space-y-3">
                 {services.map((item, index) => (
                   <li key={index}>
-                    <a 
-                      href={item.href} 
-                      className="text-sm text-zinc-400 hover:text-primary transition-colors flex items-center gap-2 group"
-                    >
-                      <div className="w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                      {item.label}
-                    </a>
+                    {item.external ? (
+                      <a 
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-zinc-400 hover:text-primary transition-all duration-300 flex items-center gap-2 group"
+                      >
+                        <div className="w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">{item.label}</span>
+                      </a>
+                    ) : (
+                      <Link 
+                        to={item.href}
+                        className="text-sm text-zinc-400 hover:text-primary transition-all duration-300 flex items-center gap-2 group"
+                      >
+                        <div className="w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">{item.label}</span>
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -134,13 +147,23 @@ const Footer = () => {
               <ul className="space-y-3">
                 {quickLinks.map((item, index) => (
                   <li key={index}>
-                    <a 
-                      href={item.href} 
-                      className="text-sm text-zinc-400 hover:text-primary transition-colors flex items-center gap-2 group"
-                    >
-                      <div className="w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                      {item.label}
-                    </a>
+                    {item.href.startsWith("/#") ? (
+                      <a 
+                        href={item.href} 
+                        className="text-sm text-zinc-400 hover:text-primary transition-all duration-300 flex items-center gap-2 group"
+                      >
+                        <div className="w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">{item.label}</span>
+                      </a>
+                    ) : (
+                      <Link 
+                        to={item.href} 
+                        className="text-sm text-zinc-400 hover:text-primary transition-all duration-300 flex items-center gap-2 group"
+                      >
+                        <div className="w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">{item.label}</span>
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -152,13 +175,13 @@ const Footer = () => {
               <ul className="space-y-3">
                 {legal.map((item, index) => (
                   <li key={index}>
-                    <a 
-                      href={item.href} 
-                      className="text-sm text-zinc-400 hover:text-primary transition-colors flex items-center gap-2 group"
+                    <Link 
+                      to={item.href} 
+                      className="text-sm text-zinc-400 hover:text-primary transition-all duration-300 flex items-center gap-2 group"
                     >
-                      <div className="w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                      {item.label}
-                    </a>
+                      <div className="w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                      <span className="group-hover:translate-x-1 transition-transform duration-300">{item.label}</span>
+                    </Link>
                   </li>
                 ))}
               </ul>

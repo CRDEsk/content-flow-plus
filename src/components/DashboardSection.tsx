@@ -174,14 +174,14 @@ const DashboardSection = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as "scan" | "signalement" | "suivi")}
-                  className={`relative px-6 py-3 rounded-xl font-medium text-sm transition-all duration-500 ${
+                  className={`relative px-6 py-3 rounded-xl font-medium text-sm transition-all duration-500 ease-out transform ${
                     activeTab === tab.id
                       ? "bg-zinc-800 text-foreground shadow-lg scale-105"
-                      : "text-zinc-400 hover:text-foreground"
+                      : "text-zinc-400 hover:text-foreground hover:scale-102"
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-4 w-4 transition-transform duration-300" />
                     {tab.label}
                   </span>
                   {activeTab === tab.id && (
@@ -198,7 +198,7 @@ const DashboardSection = () => {
           
           {/* Stats Grid */}
           <div className="lg:col-span-8 space-y-6">
-            <div className={`grid grid-cols-2 gap-4 transition-all duration-500 ${isTransitioning ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
+            <div className={`grid grid-cols-2 gap-4 transition-all duration-500 ease-out ${isTransitioning ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
@@ -249,10 +249,10 @@ const DashboardSection = () => {
                         setIsTransitioning(false);
                       }, 300);
                     }}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-500 ${
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-500 ease-out transform ${
                       timeView === "month" 
                         ? "bg-primary text-black scale-105 shadow-lg shadow-primary/20" 
-                        : "bg-zinc-800/50 text-zinc-400 hover:text-foreground"
+                        : "bg-zinc-800/50 text-zinc-400 hover:text-foreground hover:scale-102"
                     }`}
                   >
                     Ce mois
@@ -265,10 +265,10 @@ const DashboardSection = () => {
                         setIsTransitioning(false);
                       }, 300);
                     }}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-500 ${
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-500 ease-out transform ${
                       timeView === "alltime" 
                         ? "bg-primary text-black scale-105 shadow-lg shadow-primary/20" 
-                        : "bg-zinc-800/50 text-zinc-400 hover:text-foreground"
+                        : "bg-zinc-800/50 text-zinc-400 hover:text-foreground hover:scale-102"
                     }`}
                   >
                     Tout temps

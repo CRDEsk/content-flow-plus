@@ -25,14 +25,20 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
+    // Instant scroll for better UX
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   return null;
+};
+
+// Page transition wrapper
+const PageTransition = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="animate-fade-in">
+      {children}
+    </div>
+  );
 };
 
 const App = () => (
@@ -43,20 +49,20 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/mon-espace" element={<MonEspace />} />
-          <Route path="/notre-solution" element={<NotreSolution />} />
-          <Route path="/cas-clients" element={<CasClients />} />
-          <Route path="/tarifs" element={<Tarifs />} />
-          <Route path="/escalades-legal" element={<EscaladesLegal />} />
-          <Route path="/a-propos" element={<APropos />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/mentions-legales" element={<MentionsLegales />} />
-          <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
-          <Route path="/cgv" element={<CGV />} />
-          <Route path="/politique-remboursement" element={<PolitiqueRemboursement />} />
+          <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+          <Route path="/mon-espace" element={<PageTransition><MonEspace /></PageTransition>} />
+          <Route path="/notre-solution" element={<PageTransition><NotreSolution /></PageTransition>} />
+          <Route path="/cas-clients" element={<PageTransition><CasClients /></PageTransition>} />
+          <Route path="/tarifs" element={<PageTransition><Tarifs /></PageTransition>} />
+          <Route path="/escalades-legal" element={<PageTransition><EscaladesLegal /></PageTransition>} />
+          <Route path="/a-propos" element={<PageTransition><APropos /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+          <Route path="/mentions-legales" element={<PageTransition><MentionsLegales /></PageTransition>} />
+          <Route path="/politique-confidentialite" element={<PageTransition><PolitiqueConfidentialite /></PageTransition>} />
+          <Route path="/cgv" element={<PageTransition><CGV /></PageTransition>} />
+          <Route path="/politique-remboursement" element={<PageTransition><PolitiqueRemboursement /></PageTransition>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
