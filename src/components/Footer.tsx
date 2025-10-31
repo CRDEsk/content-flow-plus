@@ -112,7 +112,7 @@ const Footer = () => {
             </div>
 
             {/* Services */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-4">
               <h4 className="text-sm font-bold text-foreground mb-6 uppercase tracking-wider">Nos Services</h4>
               <ul className="space-y-3">
                 {services.map((item, index) => (
@@ -141,36 +141,8 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Quick Links */}
-            <div className="lg:col-span-2">
-              <h4 className="text-sm font-bold text-foreground mb-6 uppercase tracking-wider">Navigation</h4>
-              <ul className="space-y-3">
-                {quickLinks.map((item, index) => (
-                  <li key={index}>
-                    {item.href.startsWith("/#") ? (
-                      <a 
-                        href={item.href} 
-                        className="text-sm text-zinc-400 hover:text-primary transition-all duration-300 flex items-center gap-2 group"
-                      >
-                        <div className="w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                        <span className="group-hover:translate-x-1 transition-transform duration-300">{item.label}</span>
-                      </a>
-                    ) : (
-                      <Link 
-                        to={item.href} 
-                        className="text-sm text-zinc-400 hover:text-primary transition-all duration-300 flex items-center gap-2 group"
-                      >
-                        <div className="w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                        <span className="group-hover:translate-x-1 transition-transform duration-300">{item.label}</span>
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
             {/* Legal */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-4">
               <h4 className="text-sm font-bold text-foreground mb-6 uppercase tracking-wider">Légal</h4>
               <ul className="space-y-3">
                 {legal.map((item, index) => (

@@ -58,11 +58,11 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <div className={`font-display font-bold tracking-tight text-foreground transition-all duration-700 ${scrolled ? 'text-base' : 'text-lg'}`}>
-                    CRD
+                  <div className={`font-display font-bold tracking-tight text-foreground transition-all duration-700 ${scrolled ? 'text-[11px]' : 'text-xs'} leading-tight`}>
+                    ContentRemovalDesk
                   </div>
-                  <div className={`text-[8px] text-primary/90 uppercase tracking-[0.25em] leading-none font-semibold transition-all duration-700 ${scrolled ? 'opacity-70' : 'opacity-100'}`}>
-                    Protection
+                  <div className={`text-[7px] text-primary/90 uppercase tracking-[0.2em] leading-none font-semibold transition-all duration-700 ${scrolled ? 'opacity-70' : 'opacity-100'}`}>
+                    Protection Numérique
                   </div>
                 </div>
               </div>
@@ -192,8 +192,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                       </div>
                     </div>
                     <div className="flex flex-col">
-                      <div className="font-display font-bold text-foreground text-base">CRD</div>
-                      <div className="text-[8px] text-primary/90 uppercase tracking-[0.25em] font-semibold">Protection</div>
+                      <div className="font-display font-bold text-foreground text-xs">ContentRemovalDesk</div>
+                      <div className="text-[7px] text-primary/90 uppercase tracking-[0.2em] font-semibold">Protection Numérique</div>
                     </div>
                   </div>
                   <button

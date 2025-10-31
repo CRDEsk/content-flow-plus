@@ -1,9 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import caseStudy1 from "@/assets/case-study-1.png";
+import caseStudy2 from "@/assets/case-study-2.png";
+import caseStudy3 from "@/assets/case-study-3.png";
+import caseStudy4 from "@/assets/case-study-4.png";
+import caseStudy5 from "@/assets/case-study-5.png";
 
 const CasClients = () => {
   const [selectedCase, setSelectedCase] = useState<number | null>(null);
@@ -23,14 +27,7 @@ const CasClients = () => {
       id: 1,
       title: "Tout a disparu. Même les pires. En moins d'un mois.",
       subtitle: "P★H★★★S OUT",
-      badge: {
-        line1: "TOUT A",
-        highlight: "DISPARU",
-        line2: "MÊME LES",
-        highlight2: "PIRES",
-        line3: "EN MOINS D'UN",
-        highlight3: "MOIS"
-      },
+      image: caseStudy1,
       description: "Elle ne voulait pas un service. Elle voulait une solution. Une sortie. Une paix qu'on ne trouve rarement dans ce genre d'affaires. Elle voulait que tout disparaisse rapidement, discrètement, et sans bruit.",
       gradient: "from-pink-500/30 via-purple-500/20 to-pink-500/30",
       author: "Content Removal Desk"
@@ -39,12 +36,7 @@ const CasClients = () => {
       id: 2,
       title: "Dossier confidentiel — Leakimedia supprimé. Dossier clos.",
       subtitle: "LEAKIMEDIA",
-      badge: {
-        line1: "LEAKIMEDIA",
-        highlight: "SUPPRIMÉ",
-        line2: "POUR DE VRAI",
-        highlight2: "CONFIDENTIEL"
-      },
+      image: caseStudy2,
       description: "Un dossier sensible sur une des plateformes les plus résistantes. Mission accomplie avec discrétion totale. Chaque lien éradiqué, chaque trace effacée. Le dossier est maintenant fermé.",
       gradient: "from-purple-500/30 via-blue-500/20 to-purple-500/30",
       author: "Content Removal Desk"
@@ -53,12 +45,7 @@ const CasClients = () => {
       id: 3,
       title: "Dossier Ava21 / Petitabricot",
       subtitle: "AVA21",
-      badge: {
-        line1: "AVA21 :",
-        highlight: "TOUS SES LEAKS",
-        line2: "SUPPRIMÉS",
-        line3: "EN 1 MOIS"
-      },
+      image: caseStudy3,
       description: "Une intervention complète pour effacer toute trace de fuites. Opération menée avec succès en un temps record. Protection totale restaurée.",
       gradient: "from-orange-500/30 via-red-500/20 to-orange-500/30",
       author: "Content Removal Desk"
@@ -67,12 +54,7 @@ const CasClients = () => {
       id: 4,
       title: "On a fait tomber Born to be f*ck",
       subtitle: "BORNTOBEF*CK",
-      badge: {
-        line1: "ON A FAIT",
-        highlight: "TOMBER",
-        line2: "BORN TO BE",
-        highlight2: "F*CK"
-      },
+      image: caseStudy4,
       description: "Site majeur de piratage neutralisé. Une victoire stratégique qui a permis de protéger des centaines de créateurs.",
       gradient: "from-red-500/30 via-orange-500/20 to-red-500/30",
       author: "Content Removal Desk"
@@ -81,14 +63,7 @@ const CasClients = () => {
       id: 5,
       title: "Talu_lax : On surveille toutes les Cam Girls. Elle l'a vécu en pire. Et on a tout inversé.",
       subtitle: "TALU_LAX",
-      badge: {
-        line1: "TALU_LAX :",
-        highlight: "ON SURVEILLE TOUTES",
-        line2: "LES CAM GIRLS",
-        line3: "ELLE L'A VÉCU EN PIRE.",
-        line4: "ET ON A TOUT",
-        highlight2: "INVERSÉ"
-      },
+      image: caseStudy5,
       description: "Surveillance proactive et intervention rapide pour une créatrice ciblée. Situation renversée avec succès.",
       gradient: "from-yellow-500/30 via-green-500/20 to-yellow-500/30",
       author: "Content Removal Desk"
@@ -120,25 +95,13 @@ const CasClients = () => {
               
               <div className="relative z-10 p-8 lg:p-12">
                 <div className="grid lg:grid-cols-2 gap-8 items-center">
-                  {/* Image placeholder */}
-                  <div className="relative aspect-[4/3] rounded-2xl bg-zinc-800/50 border border-zinc-700/50 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center space-y-4">
-                        {Object.entries(cases[selectedCase].badge).map(([key, value], idx) => (
-                          <div key={idx}>
-                            {key.includes('highlight') ? (
-                              <div className="text-3xl sm:text-4xl font-black text-primary">
-                                {value}
-                              </div>
-                            ) : (
-                              <div className="text-xl sm:text-2xl font-bold text-foreground">
-                                {value}
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                  {/* Case Study Image */}
+                  <div className="relative aspect-video rounded-2xl overflow-hidden border border-zinc-700/50">
+                    <img 
+                      src={cases[selectedCase].image} 
+                      alt={cases[selectedCase].title}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
 
                   {/* Content */}
@@ -185,25 +148,13 @@ const CasClients = () => {
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${caseItem.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                 
-                {/* Image placeholder */}
-                <div className="relative aspect-[4/3] bg-zinc-800/50 border-b border-zinc-800/50">
-                  <div className="absolute inset-0 flex items-center justify-center p-6">
-                    <div className="text-center space-y-2">
-                      {Object.entries(caseItem.badge).map(([key, value], idx) => (
-                        <div key={idx}>
-                          {key.includes('highlight') ? (
-                            <div className="text-xl sm:text-2xl font-black text-primary">
-                              {value}
-                            </div>
-                          ) : (
-                            <div className="text-sm sm:text-base font-bold text-foreground">
-                              {value}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                {/* Case Study Image */}
+                <div className="relative aspect-video overflow-hidden border-b border-zinc-800/50">
+                  <img 
+                    src={caseItem.image} 
+                    alt={caseItem.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
 
                 {/* Content */}
