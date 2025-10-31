@@ -6,36 +6,19 @@ const CaseStudiesSection = () => {
   const cases = [
     {
       title: "Tout a disparu. Même les pires. En moins d'un mois.",
-      badge: {
-        line1: "TOUT A",
-        highlight: "DISPARU",
-        line2: "MÊME LES",
-        highlight2: "PIRES",
-        line3: "EN MOINS D'UN",
-        highlight3: "MOIS"
-      },
+      image: "/src/assets/case-study-1.png",
       gradient: "from-pink-500/30 via-purple-500/20 to-pink-500/30",
       author: "Content Removal Desk"
     },
     {
       title: "Dossier confidentiel — Leakimedia supprimé. Dossier clos.",
-      badge: {
-        line1: "LEAKIMEDIA",
-        highlight: "SUPPRIMÉ",
-        line2: "POUR DE VRAI",
-        highlight2: "CONFIDENTIEL"
-      },
+      image: "/src/assets/case-study-2.png",
       gradient: "from-purple-500/30 via-blue-500/20 to-purple-500/30",
       author: "Content Removal Desk"
     },
     {
       title: "Dossier Ava21 / Petitabricot",
-      badge: {
-        line1: "AVA21 :",
-        highlight: "TOUS SES LEAKS",
-        line2: "SUPPRIMÉS",
-        line3: "EN 1 MOIS"
-      },
+      image: "/src/assets/case-study-3.png",
       gradient: "from-orange-500/30 via-red-500/20 to-orange-500/30",
       author: "Content Removal Desk"
     }
@@ -82,25 +65,14 @@ const CaseStudiesSection = () => {
               
               <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors duration-500" />
               
-              {/* Image Badge */}
-              <div className="relative aspect-[4/3] bg-zinc-800/50 border-b border-zinc-800/50">
-                <div className="absolute inset-0 flex items-center justify-center p-8">
-                  <div className="text-center space-y-2">
-                    {Object.entries(caseItem.badge).map(([key, value], idx) => (
-                      <div key={idx}>
-                        {key.includes('highlight') ? (
-                          <div className="text-2xl sm:text-3xl font-black text-primary">
-                            {value}
-                          </div>
-                        ) : (
-                          <div className="text-base sm:text-lg font-bold text-foreground">
-                            {value}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              {/* Image */}
+              <div className="relative aspect-[4/3] bg-zinc-800/50 border-b border-zinc-800/50 overflow-hidden">
+                <img 
+                  src={caseItem.image} 
+                  alt={caseItem.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               </div>
 
               {/* Content */}

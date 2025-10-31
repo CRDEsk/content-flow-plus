@@ -174,17 +174,28 @@ const Footer = () => {
 
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-zinc-800/50">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="text-sm text-zinc-500 text-center md:text-left">
-                © {currentYear} Content Removal Desk. Tous droits réservés.
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="text-xs sm:text-sm text-zinc-500 text-center md:text-left">
+                <span className="font-semibold">© {currentYear} ContentRemovalDesk.</span> Tous droits réservés.
                 <span className="block md:inline md:ml-2 mt-1 md:mt-0">
                   Développé avec excellence en France.
                 </span>
               </div>
               
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-xs text-zinc-500 font-medium">Service actif</span>
+              <div className="flex items-center gap-6">
+                <Link to="/tarifs" className="text-xs text-zinc-500 hover:text-primary transition-colors">
+                  Tarifs
+                </Link>
+                <Link to="/a-propos" className="text-xs text-zinc-500 hover:text-primary transition-colors">
+                  À propos
+                </Link>
+                <Link to="/contact" className="text-xs text-zinc-500 hover:text-primary transition-colors">
+                  Contact
+                </Link>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-xs text-zinc-500 font-medium">Service actif</span>
+                </div>
               </div>
             </div>
           </div>
