@@ -112,9 +112,7 @@ const HowItWorksSection = () => {
 
               {/* Tech Stack Pills */}
               <div className="flex flex-wrap gap-2 mt-10 pt-10 border-t border-zinc-800/50">
-                <div className="px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 text-xs font-medium text-zinc-400">
-                  🤖 IA Propriétaire
-                </div>
+                
                 
                 
               </div>
