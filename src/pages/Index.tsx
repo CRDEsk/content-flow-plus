@@ -9,6 +9,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import Footer from "@/components/Footer";
+import CookieConsent from "@/components/CookieConsent";
 import { LanguageProvider } from "@/hooks/useLanguage";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
@@ -52,6 +53,7 @@ const Index = () => {
           <CaseStudiesSection />
         </main>
         <Footer />
+        <CookieConsent />
       </div>
     </LanguageProvider>
   );

@@ -132,7 +132,10 @@ const DashboardSection = () => {
     { name: "Jade Belle", avatar: "bg-gradient-to-br from-red-500 to-pink-500", protected: "134 liens" },
   ];
 
-  const chartData = [85, 92, 78, 96, 88, 94, 87, 98, 91, 95, 89, 97];
+  const monthChartData = [85, 92, 78, 96, 88, 94, 87, 98, 91, 95, 89, 97];
+  const alltimeChartData = [62, 71, 68, 78, 82, 85, 88, 91, 93, 94, 96, 97];
+  
+  const chartData = timeView === "month" ? monthChartData : alltimeChartData;
 
   return (
     <section id="dashboard" className="py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">

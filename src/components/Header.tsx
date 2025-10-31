@@ -39,11 +39,12 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   return (
     <>
       <header 
-        className={`fixed top-0 w-full z-50 transition-all duration-700 ${
+        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-700 ${
           scrolled 
             ? "bg-black/98 backdrop-blur-3xl border-b border-primary/10 shadow-2xl shadow-primary/5 py-3" 
             : "bg-gradient-to-b from-black/50 via-black/30 to-transparent backdrop-blur-sm py-5"
         }`}
+        style={{ position: 'fixed' }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
@@ -91,15 +92,37 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
 
             {/* Mobile Burger Menu Button */}
             <button
-              className="lg:hidden relative p-2.5 rounded-xl text-foreground hover:bg-zinc-900/80 transition-all duration-300 group border border-zinc-800/50 hover:border-primary/30 ml-auto"
+              className={`lg:hidden relative p-2.5 rounded-xl text-foreground transition-all duration-500 group ml-auto overflow-hidden ${
+                isMenuOpen 
+                  ? 'bg-primary border-primary scale-110 shadow-lg shadow-primary/30' 
+                  : 'bg-zinc-900/50 border-zinc-800/50 hover:border-primary/30 hover:bg-zinc-900/80'
+              }`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Menu"
+              style={{ borderWidth: '1px' }}
             >
               <div className="relative w-6 h-6">
-                <span className={`absolute left-0 w-full h-0.5 bg-current transition-all duration-300 ${isMenuOpen ? 'top-3 rotate-45' : 'top-1'}`}></span>
-                <span className={`absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 bg-current transition-all duration-300 ${isMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`}></span>
-                <span className={`absolute left-0 w-full h-0.5 bg-current transition-all duration-300 ${isMenuOpen ? 'top-3 -rotate-45' : 'bottom-1'}`}></span>
+                <span className={`absolute left-0 w-full h-0.5 rounded-full transition-all duration-500 ease-out ${
+                  isMenuOpen 
+                    ? 'top-3 rotate-45 bg-black w-5 left-0.5' 
+                    : 'top-1 rotate-0 bg-current'
+                }`}></span>
+                <span className={`absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 rounded-full transition-all duration-300 ${
+                  isMenuOpen 
+                    ? 'opacity-0 scale-0 bg-black' 
+                    : 'opacity-100 scale-100 bg-current'
+                }`}></span>
+                <span className={`absolute left-0 w-full h-0.5 rounded-full transition-all duration-500 ease-out ${
+                  isMenuOpen 
+                    ? 'top-3 -rotate-45 bg-black w-5 left-0.5' 
+                    : 'bottom-1 rotate-0 bg-current'
+                }`}></span>
               </div>
+              
+              {/* Ripple effect */}
+              <div className={`absolute inset-0 bg-primary/20 rounded-xl transition-all duration-300 ${
+                isMenuOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+              }`} />
             </button>
           </div>
         </div>

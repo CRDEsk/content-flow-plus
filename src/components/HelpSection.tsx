@@ -1,4 +1,4 @@
-import { DollarSign, Shield, Crown, Lock, ArrowRight, Sparkles } from "lucide-react";
+import { DollarSign, Shield, Crown, Lock, ArrowRight, Sparkles, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HelpSection = () => {
@@ -110,8 +110,52 @@ const HelpSection = () => {
           })}
         </div>
 
+        {/* Emergency Intervention Stats */}
+        <div className="mt-16 rounded-2xl bg-gradient-to-br from-red-500/10 via-orange-500/5 to-red-500/10 backdrop-blur-xl p-8 border border-red-500/20 relative overflow-hidden">
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center">
+                <Zap className="h-6 w-6 text-red-500" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-foreground">Intervention d'urgence</h3>
+                <p className="text-zinc-400">Disponible 24/7 pour les cas critiques</p>
+              </div>
+            </div>
+            
+            <div className="grid sm:grid-cols-3 gap-6 mb-6">
+              <div className="text-center p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/50">
+                <div className="text-3xl font-bold text-red-400 mb-1">&lt;2h</div>
+                <div className="text-sm text-zinc-400">Temps de réponse</div>
+              </div>
+              <div className="text-center p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/50">
+                <div className="text-3xl font-bold text-orange-400 mb-1">98.7%</div>
+                <div className="text-sm text-zinc-400">Cas urgents résolus</div>
+              </div>
+              <div className="text-center p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/50">
+                <div className="text-3xl font-bold text-yellow-400 mb-1">750+</div>
+                <div className="text-sm text-zinc-400">Interventions ce mois</div>
+              </div>
+            </div>
+
+            <Button 
+              size="lg"
+              className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full px-8 py-6 shadow-2xl hover:scale-105 transition-all duration-300"
+              asChild
+            >
+              <a href="https://wa.me/32460236990" target="_blank" rel="noopener noreferrer">
+                <span className="flex items-center gap-2">
+                  <Zap className="h-5 w-5" />
+                  Contacter en urgence
+                </span>
+              </a>
+            </Button>
+          </div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/10 rounded-full blur-3xl" />
+        </div>
+
         {/* Bottom CTA Banner */}
-        <div className="mt-16 rounded-2xl bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 backdrop-blur-xl p-8 border border-primary/20 relative overflow-hidden group">
+        <div className="mt-12 rounded-2xl bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 backdrop-blur-xl p-8 border border-primary/20 relative overflow-hidden group">
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <h3 className="text-2xl font-bold text-foreground mb-2">

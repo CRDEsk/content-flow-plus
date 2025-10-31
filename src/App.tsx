@@ -17,6 +17,7 @@ import MentionsLegales from "./pages/MentionsLegales";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import CGV from "./pages/CGV";
 import PolitiqueRemboursement from "./pages/PolitiqueRemboursement";
+import PolitiqueCookies from "./pages/PolitiqueCookies";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +62,7 @@ const App = () => (
           <Route path="/politique-confidentialite" element={<PageTransition><PolitiqueConfidentialite /></PageTransition>} />
           <Route path="/cgv" element={<PageTransition><CGV /></PageTransition>} />
           <Route path="/politique-remboursement" element={<PageTransition><PolitiqueRemboursement /></PageTransition>} />
+          <Route path="/politique-cookies" element={<PageTransition><PolitiqueCookies /></PageTransition>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>

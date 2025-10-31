@@ -16,7 +16,8 @@ const Footer = () => {
     { label: "Mentions légales", href: "/mentions-legales" },
     { label: "Politique de confidentialité", href: "/politique-confidentialite" },
     { label: "CGV", href: "/cgv" },
-    { label: "Politique de remboursement", href: "/politique-remboursement" }
+    { label: "Politique de remboursement", href: "/politique-remboursement" },
+    { label: "Cookies", href: "/politique-cookies" }
   ];
 
   const services = [
