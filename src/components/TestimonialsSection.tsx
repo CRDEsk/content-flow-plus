@@ -5,51 +5,50 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Quote, Star } from "lucide-react";
+import { Quote, Star, ExternalLink, CheckCircle2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const TestimonialsSection = () => {
   const testimonials = [
     {
-      quote: "On bosse avec plusieurs créatrices et c'est devenu notre partenaire officiel pour gérer les leaks. Ils sont sérieux, à jour, et surtout très réactifs. Chaque semaine, on reçoit un rapport clair pour chaque modèle. Ils savent gérer la pression et les urgences, surtout sur les sites français.",
-      author: "Mathieu R.",
-      role: "Agent & fondateur d'une agence de créateurs",
-      rating: 5
+      quote: "Un service impeccable ! L'équipe est très professionnelle, agréable et réactive. Toujours à l'écoute, ils réagissent rapidement. Je suis vraiment contente du service, tout est clair, efficace et sérieux. Très pros, je recommande sans hésiter ✨",
+      author: "Jessexnihilo",
+      role: "BE",
+      location: "Belgique",
+      rating: 5,
+      verified: true
     },
     {
-      quote: "J'ai testé d'autres services mais là c'est carré. Chaque lien est suivi, j'ai un tableau avec toutes les preuves, les statuts, même les emails envoyés. J'ai repris le contrôle sur mon image.",
-      author: "Sonia R.",
-      role: "Créatrice OF",
-      rating: 5
+      quote: "Super expérience. Le prix est très bas pour un tel travail! Je recommande à toutes mes collègues ! Je suis très satisfaite, la communication est super et le travail est effectué en un temps record. Merci 🙏",
+      author: "Talulla",
+      role: "US",
+      location: "États-Unis",
+      rating: 5,
+      verified: true
     },
     {
-      quote: "Leur tableau est propre, simple, et tout est visible : liens détectés, supprimés, preuves, scans. Zéro prise de tête, je peux bosser tranquille pendant qu'ils gèrent mes leaks.",
-      author: "Laury D.",
-      role: "Créatrice digitale",
-      rating: 5
+      quote: "Service impeccable, bon suivi, l'équipe est très disponible et compétente.",
+      author: "J.M",
+      role: "BE",
+      location: "Belgique",
+      rating: 5,
+      verified: true
     },
     {
-      quote: "Ce que j'ai aimé ? Ils me donnent un update chaque semaine sans que j'aie à demander. Ils m'ont supprimé 14 liens en quelques jours, surtout sur des forums FR que je ne connaissais même pas.",
-      author: "Élodie G.",
-      role: "Créatrice MYM",
-      rating: 5
+      quote: "Je recommande ! Prix très raisonnable pour le travail de qualité effectué et le suivis régulier toutes les semaines ! Merci beaucoup ☺️",
+      author: "Looana Paul",
+      role: "FR",
+      location: "France",
+      rating: 5,
+      verified: true
     },
     {
-      quote: "Franchement j'étais sceptique. Mais en 24h ils m'ont envoyé un scan avec plus de 30 liens exposés. Et en 1 semaine y'avait déjà des suppressions actives.",
-      author: "Mélina V.",
-      role: "Créatrice indépendante",
-      rating: 5
-    },
-    {
-      quote: "Merci infiniment 🙏 Votre sérieux et professionnalisme me soulagent énormément. Grâce à vous je peux avancer sereinement, me sentir clean et en sécurité à 100%. Toute ma gratitude 💜✨",
-      author: "Chloinpanama.",
-      role: "Créatrice MYM & OF",
-      rating: 5
-    },
-    {
-      quote: "J'ai testé un service à 200€/mois avant eux… aucune comparaison. Ici, le taf est mieux fait, plus rapide, et surtout on voit vraiment les résultats. Franchement, pour ce prix-là, c'est une pépite. Ils méritent d'être connus.",
-      author: "Nina Z.",
-      role: "Créatrice MYM & OF",
-      rating: 5
+      quote: "J'utilise ces services depuis 5 mois et j'en suis très satisfaites, il est très pro, j'ai la possibilité d'avoir des rapports semestriel et des tableaux, il prend le temps de m'expliquer les choses, voilà que du positif ! Aillant beaucoup beaucoup de leak j'ai fais pas mal de recherche et je n'ai jamais trouvé un prestataire avec des prix aussi intéressants..",
+      author: "Little Ava",
+      role: "FR",
+      location: "France",
+      rating: 5,
+      verified: true
     }
   ];
 
@@ -74,8 +73,28 @@ const TestimonialsSection = () => {
             <span className="gradient-text">qui nous font confiance</span>
           </h2>
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-            Découvrez ce que nos clients disent de leur expérience avec nous
+            Avis vérifiés sur Trustpilot
           </p>
+          
+          <div className="flex justify-center mt-6">
+            <Button 
+              variant="outline" 
+              size="lg"
+              className="group border-primary/30 hover:border-primary/50 bg-zinc-900/50 hover:bg-zinc-800/50"
+              asChild
+            >
+              <a 
+                href="https://www.trustpilot.com/review/contentremovaldesk.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2"
+              >
+                <CheckCircle2 className="h-5 w-5 text-primary" />
+                Vérifier nos avis sur Trustpilot
+                <ExternalLink className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity" />
+              </a>
+            </Button>
+          </div>
         </div>
 
         {/* Carousel */}
@@ -119,12 +138,17 @@ const TestimonialsSection = () => {
                             {testimonial.author.charAt(0)}
                           </span>
                         </div>
-                        <div>
-                          <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                            {testimonial.author}
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                              {testimonial.author}
+                            </div>
+                            {testimonial.verified && (
+                              <CheckCircle2 className="h-4 w-4 text-primary" />
+                            )}
                           </div>
                           <div className="text-sm text-zinc-500 mt-1">
-                            {testimonial.role}
+                            {testimonial.role} • {testimonial.location}
                           </div>
                         </div>
                       </div>

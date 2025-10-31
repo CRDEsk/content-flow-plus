@@ -12,11 +12,10 @@ const Footer = () => {
   ];
 
   const legal = [
-    { label: "Mentions légales", href: "#" },
-    { label: "Politique de confidentialité", href: "#" },
-    { label: "Conditions d'utilisation", href: "#" },
-    { label: "RGPD", href: "#" },
-    { label: "Conformité légale", href: "#" }
+    { label: "Mentions légales", href: "/mentions-legales" },
+    { label: "Politique de confidentialité", href: "/politique-confidentialite" },
+    { label: "CGV", href: "/cgv" },
+    { label: "Politique de remboursement", href: "/politique-remboursement" }
   ];
 
   const services = [
@@ -54,10 +53,12 @@ const Footer = () => {
                   </div>
                 </div>
                 <a 
-                  href="tel:+33123456789" 
+                  href="https://wa.me/32460236990" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-3xl sm:text-4xl font-bold font-display text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group-hover:scale-105 transition-transform duration-300"
                 >
-                  +33 1 23 45 67 89
+                  +32 460 23 69 90
                   <ExternalLink className="h-6 w-6" />
                 </a>
               </div>

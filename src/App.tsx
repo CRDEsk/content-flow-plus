@@ -12,6 +12,10 @@ import EscaladesLegal from "./pages/EscaladesLegal";
 import APropos from "./pages/APropos";
 import Contact from "./pages/Contact";
 import CasClients from "./pages/CasClients";
+import MentionsLegales from "./pages/MentionsLegales";
+import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
+import CGV from "./pages/CGV";
+import PolitiqueRemboursement from "./pages/PolitiqueRemboursement";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +34,10 @@ const App = () => (
           <Route path="/escalades-legal" element={<EscaladesLegal />} />
           <Route path="/a-propos" element={<APropos />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
+          <Route path="/cgv" element={<CGV />} />
+          <Route path="/politique-remboursement" element={<PolitiqueRemboursement />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

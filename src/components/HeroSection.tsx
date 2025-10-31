@@ -87,22 +87,28 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
             <Button 
               size="lg"
               className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-10 py-7 text-lg shadow-2xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 hover:scale-105"
+              asChild
             >
-              <span className="relative z-10 flex items-center gap-2">
-                Scan gratuit immédiat
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <a href="https://scan.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
+                <span className="relative z-10 flex items-center gap-2">
+                  Scan gratuit immédiat
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              </a>
             </Button>
             <Button 
               size="lg"
               variant="outline"
               className="group border-2 border-zinc-800 hover:border-primary/50 bg-black/50 backdrop-blur-xl text-foreground font-semibold rounded-full px-10 py-7 text-lg hover:bg-zinc-900/50 transition-all duration-300"
+              asChild
             >
-              <span className="flex items-center gap-2">
-                <Scale className="h-5 w-5" />
-                Expertise légale
-              </span>
+              <a href="https://wa.me/32460236990" target="_blank" rel="noopener noreferrer">
+                <span className="flex items-center gap-2">
+                  <Scale className="h-5 w-5" />
+                  Expertise légale
+                </span>
+              </a>
             </Button>
           </div>
 
