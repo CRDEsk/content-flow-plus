@@ -72,18 +72,23 @@ const FAQSection = () => {
           </p>
 
           {/* Quick contact buttons */}
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="mailto:support@contentremovaldesk.com"
               className="group inline-flex items-center gap-2 px-6 py-3 bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/50 hover:border-primary/50 rounded-full transition-all duration-300"
             >
               <Mail className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-zinc-300 group-hover:text-foreground">Email direct</span>
+              <span className="text-sm font-medium text-zinc-300 group-hover:text-foreground">Envoyer un email</span>
             </a>
-            <button className="group inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-black rounded-full transition-all duration-300 font-medium">
+            <a 
+              href="https://wa.me/32460236990"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-black rounded-full transition-all duration-300 font-medium"
+            >
               <MessageCircle className="h-4 w-4" />
               <span className="text-sm">Démarrer une conversation</span>
-            </button>
+            </a>
           </div>
         </div>
 

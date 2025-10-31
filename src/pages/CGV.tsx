@@ -53,49 +53,28 @@ const CGV = () => {
                 
                 <div className="space-y-4 text-zinc-300">
                   <p>
-                    Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre ContentRemovalDesk (Aoufi Ventures LLC) et ses clients pour la fourniture de services de protection digitale, de détection et de suppression de contenus non autorisés.
-                  </p>
-                  <p>
-                    Toute commande de service implique l'acceptation sans réserve des présentes CGV.
+                    Les présentes CGV encadrent les relations entre Content Removal Desk (le Prestataire) et toute personne (le Client) souhaitant utiliser ses services de détection et de suppression de contenus non autorisés en ligne.
                   </p>
                 </div>
               </section>
 
               {/* Article 2 */}
               <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 2 - Services Proposés</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-6">Article 2 - Prestations</h2>
                 <div className="space-y-4 text-zinc-300">
-                  <p>ContentRemovalDesk propose les services suivants :</p>
                   <ul className="list-disc list-inside space-y-2 ml-4">
-                    <li><strong className="text-foreground">Détection automatique :</strong> Scan et surveillance des contenus non autorisés</li>
-                    <li><strong className="text-foreground">Suppression de contenu :</strong> Takedowns via notifications DMCA et contacts directs</li>
-                    <li><strong className="text-foreground">Protection continue :</strong> Surveillance régulière et alertes</li>
-                    <li><strong className="text-foreground">Escalades légales :</strong> Actions renforcées et accompagnement juridique</li>
-                    <li><strong className="text-foreground">Rapports détaillés :</strong> Tableaux de bord et rapports d'activité</li>
+                    <li><strong className="text-foreground">Scan & Clean :</strong> Retrait manuel et ciblé sans limite de liens</li>
+                    <li><strong className="text-foreground">Abonnements mensuels</strong> (Core Plan, Elite Plan) : veille continue, alertes, rapports personnalisés</li>
                   </ul>
-                  <p className="pt-4">
-                    Les détails spécifiques de chaque formule sont disponibles sur notre page Tarifs.
-                  </p>
                 </div>
               </section>
 
               {/* Article 3 */}
               <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 3 - Commande et Souscription</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-6">Article 3 - Commande</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
-                    La souscription à nos services s'effectue en ligne via notre plateforme ou par contact direct avec notre équipe.
-                  </p>
-                  <p><strong className="text-foreground">Processus de commande :</strong></p>
-                  <ul className="list-disc list-inside space-y-2 ml-4">
-                    <li>Sélection de la formule souhaitée</li>
-                    <li>Création d'un compte client</li>
-                    <li>Acceptation des présentes CGV</li>
-                    <li>Paiement sécurisé</li>
-                    <li>Confirmation de commande par email</li>
-                  </ul>
-                  <p className="pt-4">
-                    Toute commande vaut acceptation des prix et descriptions des services disponibles au moment de la commande.
+                    Toute commande vaut acceptation des présentes CGV. Les services sont activés sous 24 à 48h après validation du paiement.
                   </p>
                 </div>
               </section>
@@ -113,40 +92,28 @@ const CGV = () => {
                 </div>
                 
                 <div className="space-y-4 text-zinc-300">
-                  <p><strong className="text-foreground">Tarification :</strong></p>
-                  <ul className="list-disc list-inside space-y-2 ml-4">
-                    <li>Les prix sont indiqués en euros (EUR), toutes taxes comprises</li>
-                    <li>Les tarifs peuvent être modifiés à tout moment, sans effet rétroactif</li>
-                    <li>Les formules d'abonnement sont facturées mensuellement ou annuellement</li>
-                  </ul>
-                  
-                  <p className="pt-4"><strong className="text-foreground">Modalités de paiement :</strong></p>
-                  <ul className="list-disc list-inside space-y-2 ml-4">
-                    <li>Paiement par carte bancaire via plateforme sécurisée</li>
-                    <li>Paiement par virement bancaire (sur demande)</li>
-                    <li>Le paiement est exigible immédiatement à la commande</li>
-                    <li>En cas de défaut de paiement, l'accès aux services peut être suspendu</li>
-                  </ul>
+                  <p>
+                    Les prix sont indiqués en euros TTC. Content Removal Desk se réserve le droit de les modifier sans préavis, hors contrats en cours.
+                  </p>
                 </div>
               </section>
 
               {/* Article 5 */}
               <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 5 - Durée et Résiliation</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-6">Article 5 - Paiement</h2>
                 <div className="space-y-4 text-zinc-300">
-                  <p><strong className="text-foreground">Durée du contrat :</strong></p>
-                  <ul className="list-disc list-inside space-y-2 ml-4">
-                    <li>Les abonnements sont souscrits pour une durée d'un mois ou d'un an selon la formule choisie</li>
-                    <li>Renouvellement automatique sauf résiliation avant la fin de la période en cours</li>
-                  </ul>
-                  
-                  <p className="pt-4"><strong className="text-foreground">Résiliation :</strong></p>
-                  <ul className="list-disc list-inside space-y-2 ml-4">
-                    <li>Le client peut résilier à tout moment depuis son espace client</li>
-                    <li>La résiliation prend effet à la fin de la période de facturation en cours</li>
-                    <li>Aucun remboursement au prorata pour les périodes non utilisées</li>
-                    <li>ContentRemovalDesk se réserve le droit de résilier en cas de violation des CGV</li>
-                  </ul>
+                  <p>
+                    Paiement sécurisé via Stripe ou PayPal. Pour les abonnements, un prélèvement mensuel automatique est effectué jusqu'à résiliation.
+                  </p>
+                </div>
+              </section>
+
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+                <h2 className="text-2xl font-bold text-foreground mb-6">Article 6 - Durée & Résiliation</h2>
+                <div className="space-y-4 text-zinc-300">
+                  <p>
+                    Les abonnements sont sans engagement. Le client peut résilier à tout moment. Aucun remboursement ne sera effectué pour le mois en cours.
+                  </p>
                 </div>
               </section>
 
@@ -157,67 +124,87 @@ const CGV = () => {
                     <Shield className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground mb-2">Article 6 - Obligations du Client</h2>
+                    <h2 className="text-2xl font-bold text-foreground mb-2">Article 7 - Obligations du Prestataire</h2>
                     <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full" />
                   </div>
                 </div>
                 
                 <div className="space-y-4 text-zinc-300">
-                  <p>Le client s'engage à :</p>
+                  <p className="mb-4">Le Prestataire s'engage à :</p>
                   <ul className="list-disc list-inside space-y-2 ml-4">
-                    <li>Fournir des informations exactes et à jour</li>
-                    <li>Détenir les droits légitimes sur les contenus à protéger</li>
-                    <li>Ne pas utiliser nos services à des fins illégales ou abusives</li>
-                    <li>Respecter la confidentialité de ses identifiants de connexion</li>
-                    <li>Informer ContentRemovalDesk de tout changement dans sa situation</li>
-                    <li>Coopérer lors des procédures de vérification de propriété</li>
+                    <li>Mettre en œuvre tous les moyens raisonnables pour effectuer les suppressions</li>
+                    <li>Fournir un rapport clair</li>
+                    <li>Protéger la confidentialité des données transmises</li>
+                    <li>Agir dans la limite des moyens techniques et juridiques disponibles</li>
                   </ul>
-                </div>
-              </section>
-
-              {/* Article 7 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 7 - Garanties et Limitations</h2>
-                <div className="space-y-4 text-zinc-300">
-                  <p><strong className="text-foreground">Engagement de moyens :</strong></p>
-                  <p>
-                    ContentRemovalDesk s'engage à mettre en œuvre tous les moyens nécessaires pour fournir les services décrits. Toutefois, nos services constituent une obligation de moyens et non de résultat.
-                  </p>
-                  
-                  <p className="pt-4"><strong className="text-foreground">Limitations :</strong></p>
-                  <ul className="list-disc list-inside space-y-2 ml-4">
-                    <li>Nous ne garantissons pas la suppression à 100% de tous les contenus</li>
-                    <li>Les délais peuvent varier selon les plateformes et juridictions</li>
-                    <li>Certaines plateformes peuvent refuser de coopérer</li>
-                    <li>Nous ne sommes pas responsables des contenus réapparaissant après suppression</li>
-                  </ul>
-                  
-                  <p className="pt-4">
-                    Notre responsabilité est limitée au montant des sommes effectivement payées par le client au cours des 12 derniers mois.
-                  </p>
                 </div>
               </section>
 
               {/* Article 8 */}
               <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center border border-primary/20">
-                    <AlertCircle className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-foreground mb-2">Article 8 - Données Personnelles</h2>
-                    <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full" />
-                  </div>
-                </div>
-                
+                <h2 className="text-2xl font-bold text-foreground mb-6">Article 8 - Obligations du Client</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
-                    Les données personnelles collectées font l'objet d'un traitement conforme au RGPD. Pour plus d'informations, consultez notre <a href="/politique-confidentialite" className="text-primary hover:underline">Politique de Confidentialité</a>.
+                    Le Client s'engage à fournir des informations exactes et à ne pas utiliser les services dans un but frauduleux ou illégal.
                   </p>
                 </div>
               </section>
 
               {/* Article 9 */}
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+                <h2 className="text-2xl font-bold text-foreground mb-6">Article 9 - Responsabilité</h2>
+                <div className="space-y-4 text-zinc-300">
+                  <p className="mb-4">Le Prestataire ne peut être tenu responsable :</p>
+                  <ul className="list-disc list-inside space-y-2 ml-4">
+                    <li>Des plateformes, hébergeurs ou registrars qui refusent, ignorent ou retardent les demandes de suppression</li>
+                    <li>Des délais imposés par des tiers, ou des procédures relevant de juridictions étrangères</li>
+                    <li>De l'impossibilité de garantir la suppression totale de certains contenus hébergés sur des sites connus pour leur résistance aux demandes légales et techniques</li>
+                    <li>Des contenus qui réapparaissent après suppression, via de nouveaux dépôts ou sur des miroirs/clones</li>
+                  </ul>
+                </div>
+              </section>
+
+              {/* Article 10 */}
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+                <h2 className="text-2xl font-bold text-foreground mb-6">Article 10 - Droit de rétractation</h2>
+                <div className="space-y-4 text-zinc-300">
+                  <p>
+                    Aucun droit de rétractation ne s'applique (article L221-28 du Code de la consommation) dès lors que l'exécution a débuté avec votre accord.
+                  </p>
+                </div>
+              </section>
+
+              {/* Article 11 */}
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+                <h2 className="text-2xl font-bold text-foreground mb-6">Article 11 - Données personnelles</h2>
+                <div className="space-y-4 text-zinc-300">
+                  <p>
+                    Les données sont traitées dans le strict cadre de la relation client. Voir notre <a href="/politique-confidentialite" className="text-primary hover:underline">politique de confidentialité</a>.
+                  </p>
+                </div>
+              </section>
+
+              {/* Article 12 */}
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+                <h2 className="text-2xl font-bold text-foreground mb-6">Article 12 - Litiges</h2>
+                <div className="space-y-4 text-zinc-300">
+                  <p>
+                    En cas de litige, une solution amiable sera recherchée. À défaut, compétence sera attribuée aux tribunaux français.
+                  </p>
+                </div>
+              </section>
+
+              {/* Article 13 */}
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+                <h2 className="text-2xl font-bold text-foreground mb-6">Article 13 - Modifications</h2>
+                <div className="space-y-4 text-zinc-300">
+                  <p>
+                    Content Removal Desk se réserve le droit de modifier les présentes CGV à tout moment. Les nouvelles dispositions s'appliquent uniquement aux commandes passées après leur mise en ligne.
+                  </p>
+                </div>
+              </section>
+
+              {/* Contact */}
               <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
                 <h2 className="text-2xl font-bold text-foreground mb-6">Article 9 - Force Majeure</h2>
                 <div className="space-y-4 text-zinc-300">
@@ -264,7 +251,7 @@ const CGV = () => {
 
               {/* Date */}
               <div className="text-center text-sm text-zinc-500 pt-8 border-t border-zinc-800/50">
-                <p>Dernière mise à jour : Janvier 2025</p>
+                <p>Dernière mise à jour : 29 Mars 2025</p>
               </div>
 
             </div>

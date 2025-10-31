@@ -2,9 +2,35 @@ import { TrendingUp, TrendingDown, Eye, Settings, HeadphonesIcon, Activity, Zap,
 import { useState, useEffect } from "react";
 
 const DashboardSection = () => {
-  const [activeTab, setActiveTab] = useState("stats");
+  const [activeTab, setActiveTab] = useState<"scan" | "signalement" | "suivi">("scan");
   const [timeView, setTimeView] = useState<"month" | "alltime">("month");
   const [liveCount, setLiveCount] = useState(15312);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Auto-rotate time view every 15 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setTimeView(prev => prev === "month" ? "alltime" : "month");
+        setIsTransitioning(false);
+      }, 300);
+    }, 15000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Auto-rotate active tab every 15 seconds
+  useEffect(() => {
+    const tabs: Array<"scan" | "signalement" | "suivi"> = ["scan", "signalement", "suivi"];
+    let currentIndex = 0;
+    
+    const interval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % tabs.length;
+      setActiveTab(tabs[currentIndex]);
+    }, 15000);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   // Simulate real-time counter updates
   useEffect(() => {
@@ -139,19 +165,18 @@ const DashboardSection = () => {
           {/* Navigation Tabs */}
           <div className="flex items-center gap-2 bg-zinc-900/30 backdrop-blur-xl rounded-2xl p-1.5 border border-zinc-800/50 w-fit">
             {[
-              { id: "stats", label: "Statistiques", icon: Activity },
-              { id: "scan", label: "Scan en cours", icon: Eye },
-              { id: "settings", label: "Paramètres", icon: Settings },
-              { id: "support", label: "Assistance", icon: HeadphonesIcon }
+              { id: "scan", label: "Scan complet", icon: Eye },
+              { id: "signalement", label: "Signalement", icon: Activity },
+              { id: "suivi", label: "Suivi & tableau", icon: Settings }
             ].map((tab) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`relative px-6 py-3 rounded-xl font-medium text-sm transition-all duration-300 ${
+                  onClick={() => setActiveTab(tab.id as "scan" | "signalement" | "suivi")}
+                  className={`relative px-6 py-3 rounded-xl font-medium text-sm transition-all duration-500 ${
                     activeTab === tab.id
-                      ? "bg-zinc-800 text-foreground shadow-lg"
+                      ? "bg-zinc-800 text-foreground shadow-lg scale-105"
                       : "text-zinc-400 hover:text-foreground"
                   }`}
                 >
@@ -160,7 +185,7 @@ const DashboardSection = () => {
                     {tab.label}
                   </span>
                   {activeTab === tab.id && (
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-primary" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-primary animate-in slide-in-from-left duration-500" />
                   )}
                 </button>
               );
@@ -173,31 +198,35 @@ const DashboardSection = () => {
           
           {/* Stats Grid */}
           <div className="lg:col-span-8 space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className={`grid grid-cols-2 gap-4 transition-all duration-500 ${isTransitioning ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
                   <div 
-                    key={index} 
-                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-500"
+                    key={`${timeView}-${index}`} 
+                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-500 animate-in fade-in slide-in-from-bottom-4"
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {/* Gradient overlay */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                     
+                    {/* Loading shimmer effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    
                     <div className="relative z-10">
                       <div className="flex items-start justify-between mb-4">
                         <div className="w-12 h-12 rounded-xl bg-zinc-800/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                          <Icon className="h-6 w-6 text-primary" />
+                          <Icon className="h-6 w-6 text-primary animate-in zoom-in duration-300" style={{ animationDelay: `${index * 150}ms` }} />
                         </div>
-                        <div className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
+                        <div className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium animate-in slide-in-from-right duration-300 ${
                           stat.trend ? "bg-green-500/10 text-green-400" : "bg-red-500/10 text-red-400"
-                        }`}>
+                        }`} style={{ animationDelay: `${index * 150}ms` }}>
                           {stat.trend ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
                           {stat.change}
                         </div>
                       </div>
-                      <div className="text-4xl font-bold font-display text-foreground mb-2">{stat.value}</div>
-                      <p className="text-sm text-zinc-400">{stat.label}</p>
+                      <div className="text-4xl font-bold font-display text-foreground mb-2 animate-in fade-in zoom-in duration-500" style={{ animationDelay: `${index * 200}ms` }}>{stat.value}</div>
+                      <p className="text-sm text-zinc-400 animate-in fade-in duration-300" style={{ animationDelay: `${index * 250}ms` }}>{stat.label}</p>
                     </div>
                   </div>
                 );
@@ -213,20 +242,32 @@ const DashboardSection = () => {
                 </div>
                 <div className="flex gap-2">
                   <button 
-                    onClick={() => setTimeView("month")}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    onClick={() => {
+                      setIsTransitioning(true);
+                      setTimeout(() => {
+                        setTimeView("month");
+                        setIsTransitioning(false);
+                      }, 300);
+                    }}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-500 ${
                       timeView === "month" 
-                        ? "bg-primary text-black" 
+                        ? "bg-primary text-black scale-105 shadow-lg shadow-primary/20" 
                         : "bg-zinc-800/50 text-zinc-400 hover:text-foreground"
                     }`}
                   >
                     Ce mois
                   </button>
                   <button 
-                    onClick={() => setTimeView("alltime")}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    onClick={() => {
+                      setIsTransitioning(true);
+                      setTimeout(() => {
+                        setTimeView("alltime");
+                        setIsTransitioning(false);
+                      }, 300);
+                    }}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-500 ${
                       timeView === "alltime" 
-                        ? "bg-primary text-black" 
+                        ? "bg-primary text-black scale-105 shadow-lg shadow-primary/20" 
                         : "bg-zinc-800/50 text-zinc-400 hover:text-foreground"
                     }`}
                   >

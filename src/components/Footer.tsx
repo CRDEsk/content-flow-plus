@@ -74,8 +74,7 @@ const Footer = () => {
             <div className="lg:col-span-4">
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-3xl font-display font-bold text-foreground mb-2 tracking-tight">CRD</h3>
-                  <p className="text-lg font-semibold text-primary mb-3">Content Removal Desk</p>
+                  <h3 className="text-3xl font-display font-bold text-foreground mb-3 tracking-tight">ContentRemovalDesk</h3>
                   <p className="text-zinc-400 leading-relaxed">
                     Agence française spécialisée en protection digitale. Service hybride légal-tech avec intervention humaine garantie.
                   </p>
