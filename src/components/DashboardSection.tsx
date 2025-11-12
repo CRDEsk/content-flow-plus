@@ -165,7 +165,7 @@ const DashboardSection = () => {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex items-center gap-1 sm:gap-1.5 lg:gap-2 bg-zinc-900/30 backdrop-blur-xl rounded-lg sm:rounded-xl lg:rounded-2xl p-0.5 sm:p-1 lg:p-1.5 border border-zinc-800/50 w-full sm:w-fit overflow-x-auto">
+          <div className="flex items-center gap-0.5 sm:gap-1.5 lg:gap-2 bg-zinc-900/30 sm:bg-zinc-900/30/90 backdrop-blur-md sm:backdrop-blur-xl rounded-xl sm:rounded-xl lg:rounded-2xl p-0.5 sm:p-1 lg:p-1.5 border border-zinc-800/40 sm:border-zinc-800/50 w-full sm:w-fit overflow-x-auto">
             {[
               { id: "scan", label: t("dashboard.tabScan"), shortLabel: "Scan", icon: Eye },
               { id: "signalement", label: t("dashboard.tabReporting"), shortLabel: "Signalement", icon: Activity },
@@ -177,23 +177,23 @@ const DashboardSection = () => {
                 <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as "scan" | "signalement" | "suivi")}
-                  className={`relative px-2 sm:px-3 lg:px-4 xl:px-6 py-1.5 sm:py-2 lg:py-2.5 xl:py-3 rounded-md sm:rounded-lg lg:rounded-xl font-medium text-[10px] sm:text-xs lg:text-sm transition-all duration-300 ease-out flex-shrink-0 flex-1 sm:flex-none ${
+                  className={`relative px-1.5 sm:px-3 lg:px-4 xl:px-6 py-1 sm:py-2 lg:py-2.5 xl:py-3 rounded-lg sm:rounded-lg lg:rounded-xl font-medium text-[11px] sm:text-xs lg:text-sm transition-all duration-250 ease-out flex-shrink-0 flex-1 sm:flex-none ${
                     isActive
-                      ? "bg-zinc-800 text-foreground shadow-lg"
+                      ? "bg-zinc-800 text-foreground shadow-md sm:shadow-lg"
                       : "text-zinc-400 hover:text-foreground"
                   }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.015 }}
+                  whileTap={{ scale: 0.97 }}
                   initial={false}
                   animate={{
                     scale: isActive ? 1.05 : 1,
                   }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  transition={{ type: "spring", stiffness: 280, damping: 22 }}
                 >
-                  <span className="flex items-center justify-center gap-1 sm:gap-1.5 lg:gap-2">
+                  <span className="flex items-center justify-center gap-0.5 sm:gap-1.5 lg:gap-2">
                     <motion.div
-                      animate={{ rotate: isActive ? [0, -10, 10, 0] : 0 }}
-                      transition={{ duration: 0.5 }}
+                      animate={{ rotate: isActive ? [0, -6, 6, 0] : 0, scale: isActive ? 1.05 : 1 }}
+                      transition={{ duration: 0.4 }}
                     >
                       <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4" />
                     </motion.div>
@@ -206,7 +206,7 @@ const DashboardSection = () => {
                       layoutId="activeTab"
                       initial={false}
                       style={{ width: "50%" }}
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 26 }}
                     />
                   )}
                 </motion.button>

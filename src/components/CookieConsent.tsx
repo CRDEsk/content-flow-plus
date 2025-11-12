@@ -12,6 +12,23 @@ const CookieConsent = () => {
   const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const updateScreenSize = () => {
+      if (typeof window === "undefined") return;
+      setIsSmallScreen(window.matchMedia("(max-width: 640px)").matches);
+    };
+
+    updateScreenSize();
+
+    if (typeof window !== "undefined") {
+      const mediaQuery = window.matchMedia("(max-width: 640px)");
+      const listener = (event: MediaQueryListEvent) => setIsSmallScreen(event.matches);
+      mediaQuery.addEventListener("change", listener);
+      return () => mediaQuery.removeEventListener("change", listener);
+    }
+  }, []);
 
   useEffect(() => {
     // Check both cookie and localStorage for backward compatibility
@@ -25,7 +42,7 @@ const CookieConsent = () => {
     
     const consent = cookieConsent || localConsent;
     if (!consent) {
-      const timer = setTimeout(() => setIsVisible(true), 1200);
+      const timer = setTimeout(() => setIsVisible(true), 2500);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -77,74 +94,80 @@ const CookieConsent = () => {
             >
               <div className="relative overflow-hidden rounded-3xl border border-zinc-800/60 bg-zinc-950/95 backdrop-blur-2xl shadow-[0_25px_80px_rgba(0,0,0,0.45)]">
                 {/* Animated gradient overlay */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                  className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent"
-                />
+                {!isSmallScreen && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                    className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent"
+                  />
+                )}
 
                 {/* Shine effect on entrance */}
-                <motion.div
-                  initial={{ x: "-100%" }}
-                  animate={{ x: "100%" }}
-                  transition={{ delay: 0.4, duration: 0.8, ease: "easeInOut" }}
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-                />
+                {!isSmallScreen && (
+                  <motion.div
+                    initial={{ x: "-100%" }}
+                    animate={{ x: "100%" }}
+                    transition={{ delay: 0.4, duration: 0.8, ease: "easeInOut" }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                  />
+                )}
 
-                <div className="relative flex flex-col sm:flex-row gap-5 px-6 py-5 sm:px-8 sm:py-6">
-                  <div className="flex items-start gap-4 flex-1">
-                    {/* Enhanced Cookie Icon - 3D Realistic Design */}
-                    <motion.div
-                      initial={{ scale: 0, rotate: -180 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{
-                        type: "spring",
-                        damping: 15,
-                        stiffness: 200,
-                        delay: 0.2
-                      }}
-                      className="relative mt-0.5 flex-shrink-0"
-                    >
-                      {/* Cookie glow effect */}
-                      <div className="absolute inset-0 bg-primary/30 rounded-2xl blur-md animate-pulse" />
-                      
-                      {/* Main cookie container with 3D effect */}
-                      <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-600 via-amber-500 to-amber-700 shadow-lg shadow-amber-900/50 border-2 border-amber-400/30 flex items-center justify-center overflow-hidden">
-                        {/* Cookie texture - chocolate chips */}
-                        <div className="absolute inset-0">
-                          {/* Top chips */}
-                          <div className="absolute top-2 left-3 w-1.5 h-1.5 rounded-full bg-amber-900/80" />
-                          <div className="absolute top-3 right-4 w-1 h-1 rounded-full bg-amber-900/80" />
-                          <div className="absolute top-4 left-1/2 w-1.5 h-1.5 rounded-full bg-amber-900/80" />
-                          {/* Bottom chips */}
-                          <div className="absolute bottom-3 left-2 w-1 h-1 rounded-full bg-amber-900/80" />
-                          <div className="absolute bottom-2 right-3 w-1.5 h-1.5 rounded-full bg-amber-900/80" />
-                          {/* Middle chip */}
-                          <div className="absolute top-1/2 left-1/3 w-1 h-1 rounded-full bg-amber-900/80" />
-                        </div>
-                        
-                        {/* Cookie highlight for 3D effect */}
-                        <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-amber-300/40 to-transparent rounded-t-2xl" />
-                        
-                        {/* Cookie icon overlay */}
-                        <Cookie className="relative h-6 w-6 text-amber-900/60 z-10" strokeWidth={2} />
-                      </div>
-                      
-                      {/* Sparkle effect */}
+                <div className="relative flex flex-col sm:flex-row gap-4 sm:gap-5 px-5 py-4 sm:px-8 sm:py-6">
+                  <div className="flex items-start gap-3 sm:gap-4 flex-1">
+                    {/* Enhanced Cookie Icon - 3D Realistic Design (desktop) / minimal (mobile) */}
+                    {isSmallScreen ? (
                       <motion.div
-                        animate={{
-                          scale: [1, 1.2, 1],
-                          opacity: [0.5, 1, 0.5],
-                        }}
+                        initial={{ scale: 0, rotate: -90 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ type: "spring", damping: 18, stiffness: 280, delay: 0.2 }}
+                        className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-amber-600 shadow-md shadow-amber-900/30"
+                      >
+                        <Cookie className="h-4 w-4 text-amber-950/70" strokeWidth={2.5} />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
                         transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
+                          type: "spring",
+                          damping: 15,
+                          stiffness: 200,
+                          delay: 0.2
                         }}
-                        className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full blur-sm"
-                      />
-                    </motion.div>
+                        className="relative mt-0.5 flex-shrink-0"
+                      >
+                        {/* Cookie glow effect */}
+                        <div className="absolute inset-0 bg-primary/30 rounded-2xl blur-md animate-pulse" />
+                        
+                        {/* Main cookie container with 3D effect */}
+                        <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-600 via-amber-500 to-amber-700 shadow-lg shadow-amber-900/50 border-2 border-amber-400/30 flex items-center justify-center overflow-hidden">
+                          {/* Cookie texture - chocolate chips */}
+                          <div className="absolute inset-0">
+                            <div className="absolute top-2 left-3 w-1.5 h-1.5 rounded-full bg-amber-900/80" />
+                            <div className="absolute top-3 right-4 w-1 h-1 rounded-full bg-amber-900/80" />
+                            <div className="absolute top-4 left-1/2 w-1.5 h-1.5 rounded-full bg-amber-900/80" />
+                            <div className="absolute bottom-3 left-2 w-1 h-1 rounded-full bg-amber-900/80" />
+                            <div className="absolute bottom-2 right-3 w-1.5 h-1.5 rounded-full bg-amber-900/80" />
+                            <div className="absolute top-1/2 left-1/3 w-1 h-1 rounded-full bg-amber-900/80" />
+                          </div>
+                          <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-amber-300/40 to-transparent rounded-t-2xl" />
+                          <Cookie className="relative h-6 w-6 text-amber-900/60 z-10" strokeWidth={2} />
+                        </div>
+                        <motion.div
+                          animate={{
+                            scale: [1, 1.2, 1],
+                            opacity: [0.5, 1, 0.5],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                          className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full blur-sm"
+                        />
+                      </motion.div>
+                    )}
 
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
@@ -155,7 +178,7 @@ const CookieConsent = () => {
                       <h3 className="text-sm sm:text-base font-semibold text-foreground tracking-wide uppercase">
                         {t('cookies.title')}
                       </h3>
-                      <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-zinc-400 leading-snug sm:leading-relaxed overflow-hidden">
                         {t('cookies.description')}{" "}
                         <Link to="/politique-cookies" className="text-primary hover:underline font-medium">
                           {t('cookies.policy')}

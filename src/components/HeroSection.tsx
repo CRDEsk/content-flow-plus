@@ -24,21 +24,21 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
       {/* Premium mesh gradient background */}
       <div className="absolute inset-0">
         <div 
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] rounded-full opacity-30 blur-[120px]"
+          className="absolute -top-40 sm:-top-10 left-1/2 -translate-x-1/2 w-[900px] sm:w-[1200px] h-[720px] sm:h-[800px] rounded-full opacity-25 sm:opacity-30 blur-[120px]"
           style={{
-            background: `radial-gradient(circle, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.3) 40%, transparent 70%)`,
-            transform: `translate(calc(-50% + ${mousePosition.x * 0.03}px), ${mousePosition.y * 0.03}px)`
+            background: `radial-gradient(circle, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.28) 38%, transparent 68%)`,
+            transform: `translate(calc(-50% + ${mousePosition.x * 0.03}px), ${mousePosition.y * 0.02}px)`
           }}
         />
         <div 
-          className="absolute bottom-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-20 blur-[100px]"
+          className="absolute bottom-0 left-1/4 w-[420px] sm:w-[600px] h-[420px] sm:h-[600px] rounded-full opacity-15 sm:opacity-20 blur-[80px] sm:blur-[100px]"
           style={{
             background: `radial-gradient(circle, hsl(var(--primary) / 0.6) 0%, transparent 60%)`,
             transform: `translate(${mousePosition.x * 0.02}px, -${mousePosition.y * 0.02}px)`
           }}
         />
         <div 
-          className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full opacity-15 blur-[90px]"
+          className="absolute top-1/3 right-1/4 w-[360px] sm:w-[500px] h-[360px] sm:h-[500px] rounded-full opacity-10 sm:opacity-15 blur-[70px] sm:blur-[90px]"
           style={{
             background: `radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, transparent 70%)`,
             transform: `translate(-${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`
