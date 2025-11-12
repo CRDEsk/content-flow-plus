@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Mail, MessageSquare, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Mail, MessageSquare } from "lucide-react";
 
 const Contact = () => {
   useEffect(() => {
@@ -18,83 +15,79 @@ const Contact = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-black text-white">
       <Header />
-      <main className="pt-32 pb-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-6xl font-display font-bold mb-6">
-                Contactez-Nous
-              </h1>
-              <p className="text-xl text-zinc-400">
-                Une question ? Notre équipe vous répond en moins d'1h
-              </p>
+      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-4xl">
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight">
+              <span className="text-foreground block">Des questions ?</span>
+              <span className="text-primary block">On est là pour toi.</span>
+            </h1>
+            <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+              Contacte-nous directement. Nous répondons rapidement, souvent en moins d'1h.
+            </p>
+          </div>
+
+          {/* Contact Methods */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 border border-zinc-800/50 hover:border-primary/30 transition-all duration-300 group overflow-hidden">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-zinc-800/50 group-hover:bg-primary/10 flex items-center justify-center transition-colors flex-shrink-0">
+                  <Mail className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg font-bold text-foreground">Email</h3>
+                  <p className="text-sm text-zinc-400">Réponse rapide</p>
+                </div>
+              </div>
+              <a 
+                href="mailto:support@contentremovaldesk.com" 
+                className="block text-primary hover:text-primary/80 transition-colors text-sm font-medium break-all break-words overflow-wrap-anywhere"
+              >
+                support@contentremovaldesk.com
+              </a>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-12">
-              <div>
-                <div className="glass-card p-8 rounded-2xl mb-8">
-                  <h2 className="text-2xl font-bold mb-6">Envoyez-nous un message</h2>
-                  <form className="space-y-6">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Nom complet</label>
-                      <Input placeholder="Votre nom" className="bg-zinc-900/50 border-zinc-800" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Email</label>
-                      <Input type="email" placeholder="votre@email.com" className="bg-zinc-900/50 border-zinc-800" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Sujet</label>
-                      <Input placeholder="Objet de votre message" className="bg-zinc-900/50 border-zinc-800" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Message</label>
-                      <Textarea 
-                        placeholder="Décrivez votre demande..." 
-                        className="bg-zinc-900/50 border-zinc-800 min-h-[150px]" 
-                      />
-                    </div>
-                    <Button className="w-full bg-primary hover:bg-primary/90 text-black font-semibold">
-                      Envoyer le message
-                    </Button>
-                  </form>
+            <div className="rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 border border-zinc-800/50 hover:border-primary/30 transition-all duration-300 group">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-zinc-800/50 group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                  <MessageSquare className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground">WhatsApp</h3>
+                  <p className="text-sm text-zinc-400">Chat direct</p>
                 </div>
               </div>
+              <a 
+                href="https://wa.me/32460236990" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary/80 transition-colors text-sm font-medium"
+              >
+                +32 460 23 69 90
+              </a>
+            </div>
 
-              <div className="space-y-8">
-                <div className="glass-card p-8 rounded-2xl">
-                  <Mail className="w-12 h-12 text-primary mb-4" />
-                  <h3 className="text-xl font-bold mb-2">Email</h3>
-                  <p className="text-zinc-400 mb-2">support@contentremovaldesk.com</p>
-                  <p className="text-sm text-zinc-500">Réponse en moins d'1h</p>
+            <div className="rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 border border-zinc-800/50 hover:border-primary/30 transition-all duration-300 group">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-zinc-800/50 group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                  <MessageSquare className="h-6 w-6 text-primary" />
                 </div>
-
-                <div className="glass-card p-8 rounded-2xl">
-                  <MessageSquare className="w-12 h-12 text-primary mb-4" />
-                  <h3 className="text-xl font-bold mb-2">Instagram</h3>
-                  <p className="text-zinc-400 mb-2">@crdprotect</p>
-                  <p className="text-sm text-zinc-500">DM ouverts 24/7</p>
-                </div>
-
-                <div className="glass-card p-8 rounded-2xl">
-                  <Clock className="w-12 h-12 text-primary mb-4" />
-                  <h3 className="text-xl font-bold mb-2">Disponibilité</h3>
-                  <p className="text-zinc-400 mb-2">Support 24/7</p>
-                  <p className="text-sm text-zinc-500">Équipe disponible jour et nuit</p>
-                </div>
-
-                <div className="glass-card p-8 rounded-2xl bg-primary/5 border-primary/20">
-                  <h3 className="text-xl font-bold mb-4">Urgence ?</h3>
-                  <p className="text-zinc-400 mb-4">
-                    Pour les cas urgents nécessitant une intervention immédiate, contactez-nous directement sur Instagram.
-                  </p>
-                  <Button variant="outline" className="border-primary/50 hover:bg-primary/10">
-                    Contact urgent
-                  </Button>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground">Instagram</h3>
+                  <p className="text-sm text-zinc-400">DM ouverts 24/7</p>
                 </div>
               </div>
+              <a 
+                href="https://instagram.com/crdprotect" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary/80 transition-colors text-sm font-medium"
+              >
+                @crdprotect
+              </a>
             </div>
           </div>
         </div>

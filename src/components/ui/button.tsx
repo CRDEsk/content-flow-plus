@@ -45,7 +45,43 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+    const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
+    const buttonRef = React.useRef<HTMLButtonElement>(null);
+
+    React.useEffect(() => {
+      const handleMouseMove = (e: MouseEvent) => {
+        if (buttonRef.current) {
+          const rect = buttonRef.current.getBoundingClientRect();
+          setMousePosition({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+          });
+        }
+      };
+
+      const button = buttonRef.current;
+      if (button) {
+        button.addEventListener("mousemove", handleMouseMove);
+        return () => button.removeEventListener("mousemove", handleMouseMove);
+      }
+    }, []);
+
+    return (
+      <Comp
+        ref={ref || buttonRef}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          "particle-effect relative"
+        )}
+        style={
+          {
+            "--x": `${mousePosition.x}px`,
+            "--y": `${mousePosition.y}px`,
+          } as React.CSSProperties
+        }
+        {...props}
+      />
+    );
   },
 );
 Button.displayName = "Button";

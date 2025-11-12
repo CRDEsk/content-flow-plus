@@ -59,7 +59,130 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #000000;
+    color: #ffffff;
   }
+  
+  /* Skip to content link for accessibility */
+  .skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: hsl(var(--primary));
+    color: #000000;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 100;
+    border-radius: 0 0 8px 0;
+    font-weight: 600;
+  }
+  
+  .skip-to-content:focus {
+    top: 0;
+  }
+  
+  html {
+    background-color: #000000;
+  }
+  
+  #root {
+    background-color: #000000;
+    min-height: 100vh;
+    color: #ffffff;
+  }
+  
+  /* Ensure all text elements have white text by default on black background */
+  body, html, #root {
+    color: #ffffff !important;
+  }
+  
+  /* Ensure text elements have white text by default - but don't force it on all divs */
+  p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label {
+    color: #ffffff !important;
+  }
+  
+  /* Ensure all elements inside black backgrounds have white text */
+  .bg-black, .bg-background {
+    color: #ffffff !important;
+  }
+  
+  
+  /* Override for specific elements that need different colors - these must come after the general rules with higher specificity */
+  .text-primary {
+    color: hsl(var(--primary)) !important;
+  }
+  
+  .text-zinc-400 {
+    color: rgb(161 161 170) !important;
+  }
+  
+  .text-zinc-300 {
+    color: rgb(212 212 216) !important;
+  }
+  
+  .text-zinc-500 {
+    color: rgb(113 113 122) !important;
+  }
+  
+  .text-white {
+    color: #ffffff !important;
+  }
+  
+  .text-foreground {
+    color: #ffffff !important;
+  }
+  
+  /* Ensure buttons with primary background have black text */
+  button.bg-primary, button[class*="bg-primary"], 
+  a.bg-primary, a[class*="bg-primary"],
+  .bg-primary button, [class*="bg-primary"] button,
+  .bg-primary a, [class*="bg-primary"] a {
+    color: #000000 !important;
+  }
+  
+  /* Text inside primary buttons should be black */
+  button.bg-primary *, button[class*="bg-primary"] *,
+  a.bg-primary *, a[class*="bg-primary"] *,
+  .bg-primary button *, [class*="bg-primary"] button *,
+  .bg-primary a *, [class*="bg-primary"] a * {
+    color: #000000 !important;
+  }
+  
+  /* But allow specific color classes to override */
+  .bg-primary .text-white, [class*="bg-primary"] .text-white,
+  button.bg-primary .text-white, button[class*="bg-primary"] .text-white {
+    color: #ffffff !important;
+  }
+  
+.bg-primary .text-primary, [class*="bg-primary"] .text-primary {
+  color: hsl(var(--primary)) !important;
+}
+
+/* Desktop dropdown menu text visibility */
+nav[class*="lg:block"] a,
+nav[class*="lg:block"] a *,
+nav[class*="lg:block"] div[class*="bg-zinc-900"] a,
+nav[class*="lg:block"] div[class*="bg-zinc-900"] a *,
+nav[class*="lg:block"] div[class*="bg-zinc-800"] a,
+nav[class*="lg:block"] div[class*="bg-zinc-800"] a *,
+div[class*="bg-zinc-900"][class*="backdrop-blur"] a,
+div[class*="bg-zinc-900"][class*="backdrop-blur"] a * {
+  color: #ffffff !important;
+}
+
+nav[class*="lg:block"] a:hover,
+nav[class*="lg:block"] a:hover *,
+div[class*="bg-zinc-900"][class*="backdrop-blur"] a:hover,
+div[class*="bg-zinc-900"][class*="backdrop-blur"] a:hover * {
+  color: hsl(var(--primary)) !important;
+}
+
+/* Mobile menu active state - ensure primary color is visible */
+nav[class*="lg:hidden"] a[class*="from-primary"],
+nav[class*="lg:hidden"] a[class*="from-primary"] *,
+nav[class*="lg:hidden"] a[class*="from-primary"] span {
+  color: hsl(var(--primary)) !important;
+}
 
   /* Mobile-first responsive adjustments */
   @media (max-width: 640px) {
@@ -98,11 +221,21 @@
   /* Prevent layout shift on mobile */
   html {
     overflow-x: hidden;
+    position: relative;
   }
 
   body {
     overflow-x: hidden;
     width: 100%;
+    position: relative;
+  }
+  
+  /* Prevent horizontal scroll on mobile menu */
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
   }
   
   /* Better touch targets on mobile */
@@ -169,7 +302,9 @@
 
   .animate-fade-in {
     animation: fade-in 0.8s ease-out forwards;
+    opacity: 1 !important; /* Ensure content is visible even if animation hasn't started */
   }
+  
 
   .animate-slide-up {
     animation: slide-up 0.6s ease-out forwards;
@@ -179,17 +314,196 @@
     animation: glow-pulse 3s ease-in-out infinite;
   }
 
+  /* Particle effects for buttons */
+  @keyframes particle-float {
+    0% {
+      opacity: 0;
+      transform: translateY(0) translateX(0) scale(0);
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-20px) translateX(var(--tx)) scale(1);
+    }
+  }
+
+  .particle-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .particle-effect::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--x) var(--y), hsl(var(--primary) / 0.3) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .particle-effect:hover::before {
+    opacity: 1;
+  }
+
+  /* Scroll reveal animations */
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes reveal-down {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes reveal-left {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes reveal-right {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes reveal-scale {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .reveal-up {
+    animation: reveal-up 0.6s ease-out forwards;
+  }
+
+  .reveal-down {
+    animation: reveal-down 0.6s ease-out forwards;
+  }
+
+  .reveal-left {
+    animation: reveal-left 0.6s ease-out forwards;
+  }
+
+  .reveal-right {
+    animation: reveal-right 0.6s ease-out forwards;
+  }
+
+  .reveal-scale {
+    animation: reveal-scale 0.6s ease-out forwards;
+  }
+
+  /* Branded loading spinner */
+  @keyframes spin-gold {
+    0% {
+      transform: rotate(0deg);
+      border-top-color: hsl(var(--primary));
+    }
+    25% {
+      border-top-color: hsl(var(--primary) / 0.8);
+    }
+    50% {
+      border-top-color: hsl(var(--primary) / 0.6);
+    }
+    75% {
+      border-top-color: hsl(var(--primary) / 0.8);
+    }
+    100% {
+      transform: rotate(360deg);
+      border-top-color: hsl(var(--primary));
+    }
+  }
+
+  .spinner-branded {
+    width: 40px;
+    height: 40px;
+    border: 3px solid hsl(var(--primary) / 0.2);
+    border-top-color: hsl(var(--primary));
+    border-radius: 50%;
+    animation: spin-gold 0.8s linear infinite;
+  }
+
+  /* Standardized animation durations */
+  :root {
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+    --duration-slow: 500ms;
+    --duration-slower: 800ms;
+  }
+
+  /* Standardized spacing scale */
+  :root {
+    --spacing-xs: 0.25rem;   /* 4px */
+    --spacing-sm: 0.5rem;    /* 8px */
+    --spacing-md: 1rem;      /* 16px */
+    --spacing-lg: 1.5rem;    /* 24px */
+    --spacing-xl: 2rem;      /* 32px */
+    --spacing-2xl: 3rem;     /* 48px */
+    --spacing-3xl: 4rem;     /* 64px */
+  }
+
+  /* Standardized typography scale */
+  :root {
+    --font-size-xs: 0.75rem;    /* 12px */
+    --font-size-sm: 0.875rem;   /* 14px */
+    --font-size-base: 1rem;      /* 16px */
+    --font-size-lg: 1.125rem;   /* 18px */
+    --font-size-xl: 1.25rem;     /* 20px */
+    --font-size-2xl: 1.5rem;     /* 24px */
+    --font-size-3xl: 1.875rem;   /* 30px */
+    --font-size-4xl: 2.25rem;    /* 36px */
+    --font-size-5xl: 3rem;       /* 48px */
+    --font-size-6xl: 3.75rem;    /* 60px */
+    --font-size-7xl: 4.5rem;     /* 72px */
+    --font-size-8xl: 6rem;       /* 96px */
+  }
+
   /* Glass Effects */
   .glass-card {
-    background: rgba(10, 10, 10, 0.5);
+    background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: hsl(var(--foreground));
   }
 
   .glass-strong {
     background: rgba(15, 15, 15, 0.8);
     backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.08);
+    color: hsl(var(--foreground));
   }
 
   /* Premium Gradients */
@@ -221,10 +535,12 @@
 @layer base {
   /* Composants de verre luxueux */
   .glass-card {
-    background: var(--glass-bg);
+    background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(24px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-elegant);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: hsl(var(--foreground));
   }
   
   .gradient-primary {

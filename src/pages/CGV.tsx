@@ -16,7 +16,7 @@ const CGV = () => {
         description="Conditions générales de vente et d'utilisation des services ContentRemovalDesk."
       />
       
-      <div className="min-h-screen bg-black flex flex-col">
+      <div className="min-h-screen bg-black text-white flex flex-col">
         <Header />
         
         <main className="flex-1 pt-24 pb-16">
@@ -28,7 +28,7 @@ const CGV = () => {
                 <FileText className="h-4 w-4 text-primary" />
                 <span className="text-sm text-zinc-400 font-medium">Conditions contractuelles</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6">
                 Conditions Générales de Vente
               </h1>
               <p className="text-lg text-zinc-400">
@@ -40,13 +40,13 @@ const CGV = () => {
             <div className="space-y-8">
               
               {/* Article 1 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center border border-primary/20">
                     <FileText className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground mb-2">Article 1 - Objet</h2>
+                    <h2 className="text-2xl font-bold text-white mb-2">Article 1 - Objet</h2>
                     <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full" />
                   </div>
                 </div>
@@ -59,19 +59,19 @@ const CGV = () => {
               </section>
 
               {/* Article 2 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 2 - Prestations</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 2 - Prestations</h2>
                 <div className="space-y-4 text-zinc-300">
                   <ul className="list-disc list-inside space-y-2 ml-4">
-                    <li><strong className="text-foreground">Scan & Clean :</strong> Retrait manuel et ciblé sans limite de liens</li>
-                    <li><strong className="text-foreground">Abonnements mensuels</strong> (Core Plan, Elite Plan) : veille continue, alertes, rapports personnalisés</li>
+                    <li><strong className="text-white">Scan & Clean :</strong> Retrait manuel et ciblé sans limite de liens</li>
+                    <li><strong className="text-white">Abonnements mensuels</strong> (Core Plan, Elite Plan) : veille continue, alertes, rapports personnalisés</li>
                   </ul>
                 </div>
               </section>
 
               {/* Article 3 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 3 - Commande</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 3 - Commande</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     Toute commande vaut acceptation des présentes CGV. Les services sont activés sous 24 à 48h après validation du paiement.
@@ -80,13 +80,13 @@ const CGV = () => {
               </section>
 
               {/* Article 4 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center border border-primary/20">
                     <CheckCircle2 className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground mb-2">Article 4 - Prix et Paiement</h2>
+                    <h2 className="text-2xl font-bold text-white mb-2">Article 4 - Prix et Paiement</h2>
                     <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full" />
                   </div>
                 </div>
@@ -99,8 +99,8 @@ const CGV = () => {
               </section>
 
               {/* Article 5 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 5 - Paiement</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 5 - Paiement</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     Paiement sécurisé via Stripe ou PayPal. Pour les abonnements, un prélèvement mensuel automatique est effectué jusqu'à résiliation.
@@ -108,8 +108,8 @@ const CGV = () => {
                 </div>
               </section>
 
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 6 - Durée & Résiliation</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 6 - Durée & Résiliation</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     Les abonnements sont sans engagement. Le client peut résilier à tout moment. Aucun remboursement ne sera effectué pour le mois en cours.
@@ -118,13 +118,13 @@ const CGV = () => {
               </section>
 
               {/* Article 6 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center border border-primary/20">
                     <Shield className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground mb-2">Article 7 - Obligations du Prestataire</h2>
+                    <h2 className="text-2xl font-bold text-white mb-2">Article 7 - Obligations du Prestataire</h2>
                     <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full" />
                   </div>
                 </div>
@@ -141,8 +141,8 @@ const CGV = () => {
               </section>
 
               {/* Article 8 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 8 - Obligations du Client</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 8 - Obligations du Client</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     Le Client s'engage à fournir des informations exactes et à ne pas utiliser les services dans un but frauduleux ou illégal.
@@ -151,8 +151,8 @@ const CGV = () => {
               </section>
 
               {/* Article 9 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 9 - Responsabilité</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 9 - Responsabilité</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p className="mb-4">Le Prestataire ne peut être tenu responsable :</p>
                   <ul className="list-disc list-inside space-y-2 ml-4">
@@ -165,8 +165,8 @@ const CGV = () => {
               </section>
 
               {/* Article 10 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 10 - Droit de rétractation</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 10 - Droit de rétractation</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     Aucun droit de rétractation ne s'applique (article L221-28 du Code de la consommation) dès lors que l'exécution a débuté avec votre accord.
@@ -175,8 +175,8 @@ const CGV = () => {
               </section>
 
               {/* Article 11 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 11 - Données personnelles</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 11 - Données personnelles</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     Les données sont traitées dans le strict cadre de la relation client. Voir notre <a href="/politique-confidentialite" className="text-primary hover:underline">politique de confidentialité</a>.
@@ -185,8 +185,8 @@ const CGV = () => {
               </section>
 
               {/* Article 12 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 12 - Litiges</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 12 - Litiges</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     En cas de litige, une solution amiable sera recherchée. À défaut, compétence sera attribuée aux tribunaux français.
@@ -195,8 +195,8 @@ const CGV = () => {
               </section>
 
               {/* Article 13 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 13 - Modifications</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 13 - Modifications</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     Content Removal Desk se réserve le droit de modifier les présentes CGV à tout moment. Les nouvelles dispositions s'appliquent uniquement aux commandes passées après leur mise en ligne.
@@ -205,8 +205,8 @@ const CGV = () => {
               </section>
 
               {/* Contact */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 9 - Force Majeure</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 9 - Force Majeure</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     ContentRemovalDesk ne pourra être tenu responsable en cas de force majeure ou d'événements indépendants de sa volonté (pannes techniques, catastrophes naturelles, conflits sociaux, etc.).
@@ -215,8 +215,8 @@ const CGV = () => {
               </section>
 
               {/* Article 10 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 10 - Droit Applicable et Litiges</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 10 - Droit Applicable et Litiges</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     Les présentes CGV sont soumises au droit applicable dans les juridictions où ContentRemovalDesk opère (principalement France et Belgique).
@@ -228,8 +228,8 @@ const CGV = () => {
               </section>
 
               {/* Article 11 */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Article 11 - Modification des CGV</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Article 11 - Modification des CGV</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     ContentRemovalDesk se réserve le droit de modifier les présentes CGV à tout moment. Les clients seront informés par email de toute modification substantielle. Les nouvelles CGV s'appliquent aux services souscrits après leur mise en ligne.
@@ -238,8 +238,8 @@ const CGV = () => {
               </section>
 
               {/* Contact */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Contact</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Contact</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>Pour toute question concernant ces CGV :</p>
                   <ul className="list-disc list-inside space-y-2 ml-4">

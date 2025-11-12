@@ -16,7 +16,7 @@ const MentionsLegales = () => {
         description="Mentions légales de ContentRemovalDesk, service de protection digitale et suppression de contenu non autorisé."
       />
       
-      <div className="min-h-screen bg-black flex flex-col">
+      <div className="min-h-screen bg-black text-white flex flex-col">
         <Header />
         
         <main className="flex-1 pt-24 pb-16">
@@ -28,7 +28,7 @@ const MentionsLegales = () => {
                 <Scale className="h-4 w-4 text-primary" />
                 <span className="text-sm text-zinc-400 font-medium">Informations légales</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6">
                 Mentions Légales
               </h1>
               <p className="text-lg text-zinc-400">
@@ -40,36 +40,36 @@ const MentionsLegales = () => {
             <div className="space-y-8">
               
               {/* Éditeur */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center border border-primary/20">
                     <Building2 className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground mb-2">Éditeur du site</h2>
+                    <h2 className="text-2xl font-bold text-white mb-2">Éditeur du site</h2>
                     <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full" />
                   </div>
                 </div>
                 
                 <div className="space-y-4 text-zinc-300">
-                  <p><strong className="text-foreground">Raison sociale :</strong> Aoufi Ventures LLC</p>
-                  <p><strong className="text-foreground">Nom commercial :</strong> ContentRemovalDesk</p>
-                  <p><strong className="text-foreground">Forme juridique :</strong> Limited Liability Company (LLC)</p>
-                  <p><strong className="text-foreground">Pays d'enregistrement :</strong> États-Unis</p>
-                  <p><strong className="text-foreground">Zone d'activité principale :</strong> Europe (France, Belgique)</p>
-                  <p><strong className="text-foreground">Email :</strong> <a href="mailto:support@contentremovaldesk.com" className="text-primary hover:underline">support@contentremovaldesk.com</a></p>
-                  <p><strong className="text-foreground">Téléphone :</strong> <a href="https://wa.me/32460236990" className="text-primary hover:underline">+32 460 23 69 90</a></p>
+                  <p><strong className="text-white">Raison sociale :</strong> Aoufi Ventures LLC</p>
+                  <p><strong className="text-white">Nom commercial :</strong> ContentRemovalDesk</p>
+                  <p><strong className="text-white">Forme juridique :</strong> Limited Liability Company (LLC)</p>
+                  <p><strong className="text-white">Pays d'enregistrement :</strong> États-Unis</p>
+                  <p><strong className="text-white">Zone d'activité principale :</strong> Europe (France, Belgique)</p>
+                  <p><strong className="text-white">Email :</strong> <a href="mailto:support@contentremovaldesk.com" className="text-primary hover:underline">support@contentremovaldesk.com</a></p>
+                  <p><strong className="text-white">Téléphone :</strong> <a href="https://wa.me/32460236990" className="text-primary hover:underline">+32 460 23 69 90</a></p>
                 </div>
               </section>
 
               {/* Hébergement */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center border border-primary/20">
                     <MapPin className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground mb-2">Hébergement</h2>
+                    <h2 className="text-2xl font-bold text-white mb-2">Hébergement</h2>
                     <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full" />
                   </div>
                 </div>
@@ -81,8 +81,8 @@ const MentionsLegales = () => {
               </section>
 
               {/* Propriété intellectuelle */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Propriété Intellectuelle</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Propriété Intellectuelle</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     L'ensemble du contenu présent sur ce site (textes, images, logos, design, etc.) est la propriété exclusive de ContentRemovalDesk / Aoufi Ventures LLC, sauf mention contraire.
@@ -94,8 +94,8 @@ const MentionsLegales = () => {
               </section>
 
               {/* Limitation de responsabilité */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Limitation de Responsabilité</h2>
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
+                <h2 className="text-2xl font-bold text-white mb-6">Limitation de Responsabilité</h2>
                 <div className="space-y-4 text-zinc-300">
                   <p>
                     ContentRemovalDesk met tout en œuvre pour offrir des informations fiables et à jour. Toutefois, nous ne pouvons garantir l'exactitude, la précision ou l'exhaustivité des informations mises à disposition sur ce site.
@@ -107,13 +107,13 @@ const MentionsLegales = () => {
               </section>
 
               {/* Contact */}
-              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50">
+              <section className="glass-card p-8 rounded-2xl border border-zinc-800/50 text-white">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center border border-primary/20">
                     <Mail className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground mb-2">Contact</h2>
+                    <h2 className="text-2xl font-bold text-white mb-2">Contact</h2>
                     <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full" />
                   </div>
                 </div>

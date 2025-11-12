@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <!-- Circle with stars -->
+  <circle cx="60" cy="60" r="50" fill="none" stroke="#FFD700" stroke-width="2"/>
+  <g fill="#FFD700">
+    <!-- 12 stars around circle -->
+    <path d="M 60 15 L 63 25 L 73 25 L 65 32 L 68 42 L 60 35 L 52 42 L 55 32 L 47 25 L 57 25 Z"/>
+    <path d="M 95 30 L 98 40 L 108 40 L 100 47 L 103 57 L 95 50 L 87 57 L 90 47 L 82 40 L 92 40 Z"/>
+    <path d="M 110 60 L 113 70 L 123 70 L 115 77 L 118 87 L 110 80 L 102 87 L 105 77 L 97 70 L 107 70 Z"/>
+    <path d="M 95 90 L 98 100 L 108 100 L 100 107 L 103 117 L 95 110 L 87 117 L 90 107 L 82 100 L 92 100 Z"/>
+    <path d="M 60 105 L 63 115 L 73 115 L 65 122 L 68 132 L 60 125 L 52 132 L 55 122 L 47 115 L 57 115 Z"/>
+    <path d="M 25 90 L 28 100 L 38 100 L 30 107 L 33 117 L 25 110 L 17 117 L 20 107 L 12 100 L 22 100 Z"/>
+    <path d="M 10 60 L 13 70 L 23 70 L 15 77 L 18 87 L 10 80 L 2 87 L 5 77 L -3 70 L 7 70 Z"/>
+    <path d="M 25 30 L 28 40 L 38 40 L 30 47 L 33 57 L 25 50 L 17 57 L 20 47 L 12 40 L 22 40 Z"/>
+  </g>
+  <!-- Blue R with yellow circle -->
+  <path d="M 35 25 L 35 95 L 50 95 L 70 70 L 70 50 L 50 25 Z" fill="#0066CC"/>
+  <path d="M 50 25 L 50 50 L 60 50 L 60 25 Z" fill="#0066CC"/>
+  <circle cx="60" cy="40" r="8" fill="#FFD700"/>
+  <!-- EUIPO text -->
+  <text x="130" y="50" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#0066CC">EU</text>
+  <text x="180" y="50" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#666666">IPO</text>
+  <text x="130" y="75" font-family="Arial, sans-serif" font-size="10" fill="#666666">EUROPEAN UNION</text>
+  <text x="130" y="90" font-family="Arial, sans-serif" font-size="10" fill="#666666">INTELLECTUAL PROPERTY OFFICE</text>
+</svg>
+

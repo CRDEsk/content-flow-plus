@@ -7,9 +7,19 @@ import {
 } from "@/components/ui/carousel";
 import { Quote, Star, ExternalLink, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const TestimonialsSection = () => {
+  const { t } = useLanguage();
   const testimonials = [
+    {
+      quote: "Une équipe très professionnelle et réactive ! Grâce à eux, j'ai pu retirer plusieurs contenus indésirables, notamment sur Google, avec un suivi clair et efficace. Leur travail m'a permis de défendre mes droits à l'image et de reprendre le contrôle sur ma vie en ligne. Je recommande cette entreprise à 100 % 👏",
+      author: "Claire Moineau",
+      role: "FR",
+      location: "France",
+      rating: 5,
+      verified: true
+    },
     {
       quote: "Un service impeccable ! L'équipe est très professionnelle, agréable et réactive. Toujours à l'écoute, ils réagissent rapidement. Je suis vraiment contente du service, tout est clair, efficace et sérieux. Très pros, je recommande sans hésiter ✨",
       author: "Jessexnihilo",
@@ -53,7 +63,7 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section id="testimonials" className="py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
+    <section id="testimonials" className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
@@ -63,35 +73,29 @@ const TestimonialsSection = () => {
       <div className="container mx-auto max-w-7xl relative z-10">
         
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 mb-8">
-            <Star className="h-4 w-4 text-primary fill-primary" />
-            <span className="text-sm text-zinc-400 font-medium">Témoignages vérifiés</span>
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 mb-4 sm:mb-6 lg:mb-8">
+            <Star className="h-3 w-3 sm:h-4 sm:w-4 text-primary fill-primary" />
+            <span className="text-xs sm:text-sm text-zinc-400 font-medium">{t("testimonials.badge")}</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground mb-6">
-            Avis de créateurs<br />
-            <span className="gradient-text">qui nous font confiance</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-foreground mb-4 sm:mb-6 leading-tight">
+            {t("testimonials.title")}<br />
+            <span className="gradient-text">{t("testimonials.subtitle")}</span>
           </h2>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-            Avis vérifiés sur Trustpilot
-          </p>
-          
-          <div className="flex justify-center mt-6">
+          <div className="flex justify-center mt-4 sm:mt-6">
             <Button 
               variant="outline" 
               size="lg"
-              className="group border-primary/30 hover:border-primary/50 bg-zinc-900/50 hover:bg-zinc-800/50"
+              className="group border-primary/30 hover:border-primary/50 bg-zinc-900/50 hover:bg-zinc-800/50 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5 text-xs sm:text-sm lg:text-base rounded-full"
               asChild
             >
               <a 
-                href="https://www.trustpilot.com/review/contentremovaldesk.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-2"
+                href="https://www.trustpilot.com/review/contentremovaldesk.com"
+                className="flex items-center gap-2 justify-center"
               >
-                <CheckCircle2 className="h-5 w-5 text-primary" />
-                Vérifier nos avis sur Trustpilot
-                <ExternalLink className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity" />
+                <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary" />
+                {t("testimonials.trustpilotButton")}
+                <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 opacity-50 group-hover:opacity-100 transition-opacity" />
               </a>
             </Button>
           </div>

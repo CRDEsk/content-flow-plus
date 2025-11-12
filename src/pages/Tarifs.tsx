@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { Check, X, ArrowRight, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Tarifs = () => {
   const [billing, setBilling] = useState<'monthly' | 'quarterly'>('monthly');
@@ -40,9 +41,8 @@ const Tarifs = () => {
         name: "Core Plan",
         badge: "Préféré des créateurs",
         price: "79",
-        originalPrice: "199",
         period: "/month",
-        description: "Protection continue et automatisée pour créateurs actifs, avec tableau de bord et rapports mensuels.",
+        description: "Protection continue et automatisée pour créateurs actifs, avec tableau de bord, rapports mensuels et agent spécialisé dédié à votre protection.",
         tagline: "Votre protection mensuelle comprend",
         features: [
           "Scan intelligent hebdomadaire",
@@ -51,7 +51,8 @@ const Tarifs = () => {
           "Suivi en temps réel + retraits automatiques",
           "Désindexation moteur de recherches",
           "Tableau de bord privé",
-          "Outils de scan avancés (Bing, Yandex…)"
+          "Outils de scan avancés (Bing, Yandex…)",
+          "Agent spécialisé dédié à votre protection"
         ],
         cta: "Commencer",
         variant: "primary" as const,
@@ -61,7 +62,7 @@ const Tarifs = () => {
         name: "Elite Plan",
         price: "99",
         period: "/month",
-        description: "Pour les créateurs à forte visibilité ou très exposés. Notre service le plus complet, discret et ultra réactif.",
+        description: "Pour les créateurs à forte visibilité ou très exposés. Notre service le plus complet, discret et ultra réactif, avec agent spécialisé dédié à votre protection.",
         tagline: "Protection maximale + DMCA inclus",
         features: [
           "Scan intelligent quotidien",
@@ -70,7 +71,8 @@ const Tarifs = () => {
           "Reposts retirés automatiquement",
           "Support prioritaire + gestionnaire dédié",
           "Enregistrement DMCA officiel",
-          "Veille proactive 7j/7"
+          "Veille proactive 7j/7",
+          "Agent spécialisé dédié à votre protection"
         ],
         cta: "Activer",
         variant: "outline" as const
@@ -99,7 +101,7 @@ const Tarifs = () => {
         price: "199",
         originalPrice: "237",
         period: "/3 mois",
-        description: "Protection continue et automatisée pour créateurs actifs, avec tableau de bord et rapports mensuels.",
+        description: "Protection continue et automatisée pour créateurs actifs, avec tableau de bord, rapports mensuels et agent spécialisé dédié à votre protection.",
         tagline: "Votre protection mensuelle comprend",
         features: [
           "Scan intelligent hebdomadaire",
@@ -108,7 +110,8 @@ const Tarifs = () => {
           "Suivi en temps réel + retraits automatiques",
           "Désindexation moteur de recherches",
           "Tableau de bord privé",
-          "Outils de scan avancés (Bing, Yandex…)"
+          "Outils de scan avancés (Bing, Yandex…)",
+          "Agent spécialisé dédié à votre protection"
         ],
         cta: "Commencer",
         variant: "primary" as const,
@@ -119,7 +122,7 @@ const Tarifs = () => {
         price: "269",
         originalPrice: "297",
         period: "/3 mois",
-        description: "Pour les créateurs à forte visibilité ou très exposés. Notre service le plus complet, discret et ultra réactif.",
+        description: "Pour les créateurs à forte visibilité ou très exposés. Notre service le plus complet, discret et ultra réactif, avec agent spécialisé dédié à votre protection.",
         tagline: "Protection maximale + DMCA inclus",
         features: [
           "Scan intelligent quotidien",
@@ -128,7 +131,8 @@ const Tarifs = () => {
           "Reposts retirés automatiquement",
           "Support prioritaire + gestionnaire dédié",
           "Enregistrement DMCA officiel",
-          "Veille proactive 7j/7"
+          "Veille proactive 7j/7",
+          "Agent spécialisé dédié à votre protection"
         ],
         cta: "Activer",
         variant: "outline" as const
@@ -141,7 +145,7 @@ const Tarifs = () => {
       category: "Fonctionnalités essentielles",
       items: [
         { name: "Scan intelligent IA", free: "1 scan complet", core: "Hebdomadaire", elite: "Quotidien" },
-        { name: "Suppression manuelle", free: "Illimitée", core: "50 liens/mois", elite: "Illimitée + prioritaire" },
+        { name: "Suppression manuelle", free: false, core: "50 liens/mois", elite: "Illimitée + prioritaire" },
         { name: "Suppression automatique", free: false, core: true, elite: true },
         { name: "Désindexation moteurs de recherche", free: false, core: true, elite: true },
         { name: "Rapport PDF", free: "1 rapport avec preuves", core: "Rapport mensuel", elite: "Rapport complet" },
@@ -180,7 +184,8 @@ const Tarifs = () => {
       items: [
         { name: "Support email", free: true, core: true, elite: true },
         { name: "Support prioritaire", free: false, core: false, elite: true },
-        { name: "Gestionnaire dédié", free: false, core: false, elite: true }
+        { name: "Gestionnaire dédié", free: false, core: false, elite: true },
+        { name: "Agent spécialisé dédié à votre protection", free: false, core: true, elite: true }
       ]
     },
     {
@@ -194,184 +199,208 @@ const Tarifs = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black antialiased">
+    <div className="min-h-screen bg-black text-white antialiased">
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 mb-6">
-              <span className="text-sm text-zinc-400 font-medium">Tarifs</span>
-            </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8 sm:mb-12"
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1, duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 mb-4 sm:mb-6"
+            >
+              <span className="text-xs sm:text-sm text-zinc-400 font-medium">Tarifs</span>
+            </motion.div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground mb-6 leading-tight">
-              Commence à protéger ton contenu<br />dès aujourd'hui.
-            </h1>
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-foreground mb-4 sm:mb-6 leading-tight px-2"
+            >
+              Commence à protéger ton contenu<br className="hidden sm:block" /> dès aujourd'hui.
+            </motion.h1>
             
-            <p className="text-lg text-zinc-400 max-w-3xl mx-auto mb-10">
-              Simple, évolutif et sans prise de tête. Scans, suppressions<br />
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="text-base sm:text-lg text-zinc-400 max-w-3xl mx-auto mb-6 sm:mb-10 px-4"
+            >
+              Simple, évolutif et sans prise de tête. Scans, suppressions<br className="hidden sm:block" />
               et mises à jour régulières tout est géré pour toi.
-            </p>
+            </motion.p>
 
             {/* Billing Toggle */}
-            <div className="inline-flex items-center gap-2 p-1.5 rounded-full bg-zinc-900/50 border-2 border-zinc-800/50">
-              <button
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4, duration: 0.4 }}
+              className="inline-flex items-center gap-2 p-1 sm:p-1.5 rounded-full bg-zinc-900/50 border-2 border-zinc-800/50"
+            >
+              <motion.button
                 onClick={() => setBilling('monthly')}
-                className={`px-4 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-500 ${
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-500 ${
                   billing === 'monthly'
-                    ? 'bg-zinc-800 text-foreground scale-105 shadow-lg'
-                    : 'text-zinc-400 hover:text-foreground scale-100'
+                    ? 'bg-zinc-800 text-foreground shadow-lg'
+                    : 'text-zinc-400 hover:text-foreground'
                 }`}
               >
                 Mensuel
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 onClick={() => setBilling('quarterly')}
-                className={`px-4 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-500 ${
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-500 ${
                   billing === 'quarterly'
-                    ? 'bg-zinc-800 text-foreground scale-105 shadow-lg'
-                    : 'text-zinc-400 hover:text-foreground scale-100'
+                    ? 'bg-zinc-800 text-foreground shadow-lg'
+                    : 'text-zinc-400 hover:text-foreground'
                 }`}
               >
                 Trimestriel
-              </button>
-            </div>
-          </div>
+              </motion.button>
+            </motion.div>
+          </motion.div>
 
           {/* Pricing Cards */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="grid md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
             {plans[billing].map((plan, index) => (
-              <div
-                key={index}
-                className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${
+              <motion.div
+                key={`${billing}-${index}`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + (index * 0.1), duration: 0.5 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className={`relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br ${
                   plan.highlighted
                     ? 'from-zinc-900/90 to-zinc-950/90 border-2 border-primary/50'
                     : 'from-zinc-900/50 to-zinc-950/50 border border-zinc-800/50'
                 } backdrop-blur-xl transition-all duration-500 hover:border-primary/50`}
               >
                 {plan.badge && (
-                  <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-semibold">
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.7 + (index * 0.1) }}
+                    className="absolute top-3 sm:top-4 right-3 sm:right-4 px-2.5 sm:px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-[10px] sm:text-xs font-semibold"
+                  >
                     {plan.badge}
-                  </div>
+                  </motion.div>
                 )}
 
-                <div className="p-6 sm:p-8">
+                <div className="p-5 sm:p-6 lg:p-8">
                   {/* Header */}
-                  <div className="mb-6">
-                    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">{plan.name}</h3>
-                    <div className="flex items-baseline gap-2 mb-4">
+                  <div className="mb-5 sm:mb-6">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-3 sm:mb-4 leading-tight">{plan.name}</h3>
+                    <div className="flex items-baseline gap-2 mb-3 sm:mb-4 flex-wrap">
                       {plan.originalPrice && (
-                        <span className="text-2xl text-zinc-600 line-through">€{plan.originalPrice}</span>
+                        <span className="text-xl sm:text-2xl text-zinc-600 line-through">€{plan.originalPrice}</span>
                       )}
-                      <span className="text-5xl font-bold text-primary">€{plan.price}</span>
-                      <span className="text-zinc-400">{plan.period}</span>
+                      <span className="text-4xl sm:text-5xl font-bold text-primary">€{plan.price}</span>
+                      <span className="text-sm sm:text-base text-zinc-400">{plan.period}</span>
                     </div>
-                    <p className="text-sm text-zinc-400 leading-relaxed">{plan.description}</p>
+                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">{plan.description}</p>
                   </div>
 
                   {/* CTA */}
                   <Button
-                    className={`w-full mb-6 rounded-full font-semibold ${
+                    className={`w-full mb-5 sm:mb-6 rounded-full font-semibold transition-all duration-300 ${
                       plan.variant === 'primary'
-                        ? 'bg-primary hover:bg-primary/90 text-black'
-                        : 'bg-transparent border-2 border-zinc-700 hover:border-primary text-foreground'
+                        ? 'bg-primary hover:bg-primary/90 text-black !important'
+                        : 'bg-transparent border-2 border-zinc-500 hover:border-primary/60 text-white !important hover:text-white hover:bg-zinc-900/30'
                     }`}
                     size="lg"
                     asChild
                   >
-                    <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer">
+                    <a href="https://espace.contentremovaldesk.com/auth?mode=signup" className="!text-white">
                       {plan.cta}
                     </a>
                   </Button>
 
                   {/* Features */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-sm text-zinc-400 mb-3">
-                      <Check className="h-4 w-4 text-primary" />
+                  <div className="space-y-3 sm:space-y-4">
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-zinc-400 mb-2 sm:mb-3">
+                      <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary flex-shrink-0" />
                       <span className="font-medium">{plan.tagline}</span>
                     </div>
-                    <ul className="space-y-3">
+                    <ul className="space-y-2 sm:space-y-3">
                       {plan.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-sm">
-                          <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                          <span className="text-zinc-300">{feature}</span>
-                        </li>
+                        <motion.li 
+                          key={idx}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.6 + (index * 0.1) + (idx * 0.05), duration: 0.3 }}
+                          className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm"
+                        >
+                          <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary shrink-0 mt-0.5" />
+                          <span className="text-zinc-300 leading-relaxed">{feature}</span>
+                        </motion.li>
                       ))}
                     </ul>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           {/* Payment Methods */}
-          <div className="text-center mb-16">
-            <p className="text-sm text-zinc-500 mb-6">Méthodes de paiement acceptées</p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <p className="text-xs sm:text-sm text-zinc-500 mb-4 sm:mb-6">Méthodes de paiement acceptées</p>
             <div className="flex justify-center items-center gap-6 sm:gap-8 lg:gap-12 flex-wrap px-4">
-              <img src="/visa-logo.png" alt="Visa" className="h-8 sm:h-10 opacity-80 hover:opacity-100 transition-opacity" />
-              <img src="/mastercard-logo.png" alt="Mastercard" className="h-8 sm:h-10 opacity-80 hover:opacity-100 transition-opacity" />
-              <img src="/paypal-logo.png" alt="PayPal" className="h-6 sm:h-8 opacity-80 hover:opacity-100 transition-opacity" />
+              <img src="/visa-logo.png" alt="Visa" className="h-8 sm:h-10 lg:h-12 opacity-80 hover:opacity-100 transition-opacity" />
+              <img src="/mastercard-logo.png" alt="Mastercard" className="h-8 sm:h-10 lg:h-12 opacity-80 hover:opacity-100 transition-opacity" />
+              <img src="/apple-pay-logo.svg" alt="Apple Pay" className="h-10 sm:h-12 lg:h-14 w-auto opacity-80 hover:opacity-100 transition-opacity" />
             </div>
-            <p className="text-xs text-zinc-600 mt-6 px-4">Paiement sécurisé. Traitement rapide après validation.</p>
-          </div>
+            <p className="text-[10px] sm:text-xs text-zinc-600 mt-4 sm:mt-6 px-4">Paiement sécurisé. Traitement rapide après validation.</p>
+          </motion.div>
         </div>
       </section>
 
       {/* Comparison Table */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-zinc-950/50">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-zinc-950/50">
         <div className="container mx-auto max-w-7xl">
-          <div className="mb-12">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-8 sm:mb-12"
+          >
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-foreground mb-6 sm:mb-8 text-center sm:text-left">
               Compare our plans
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="overflow-x-auto -mx-4 sm:mx-0">
-            <table className="w-full border-collapse min-w-[640px]">
+          <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+            <table className="w-full border-collapse min-w-[600px] sm:min-w-[640px]">
               <thead>
                 <tr className="border-b border-zinc-800/50">
-                  <th className="text-left py-4 px-3 sm:px-4 text-xs sm:text-sm font-medium text-zinc-400 w-2/5 sm:w-1/2"></th>
-                  <th className="text-center py-4 px-2 sm:px-4">
+                  <th className="text-left py-3 sm:py-4 px-2 sm:px-3 lg:px-4 text-xs sm:text-sm font-medium text-zinc-400 w-2/5 sm:w-1/2"></th>
+                  <th className="text-center py-3 sm:py-4 px-2 sm:px-4">
                     <div className="text-xs sm:text-sm font-medium text-zinc-400">Free Trial</div>
-                    <div className="text-lg sm:text-xl font-bold text-primary mt-1">€0</div>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="mt-2 rounded-full text-xs sm:text-sm px-3 sm:px-4"
-                      asChild
-                    >
-                      <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer">
-                        Essayer
-                      </a>
-                    </Button>
                   </th>
-                  <th className="text-center py-4 px-2 sm:px-4 bg-zinc-900/30 rounded-t-2xl">
+                  <th className="text-center py-3 sm:py-4 px-2 sm:px-4 bg-zinc-900/30 rounded-t-2xl">
                     <div className="text-xs sm:text-sm font-medium text-zinc-400">Core Plan</div>
-                    <div className="text-lg sm:text-xl font-bold text-primary mt-1">€79 / mois</div>
-                    <Button 
-                      size="sm" 
-                      className="mt-2 rounded-full bg-primary text-black hover:bg-primary/90 text-xs sm:text-sm px-3 sm:px-4"
-                      asChild
-                    >
-                      <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer">
-                        Commencer
-                      </a>
-                    </Button>
                   </th>
-                  <th className="text-center py-4 px-2 sm:px-4">
+                  <th className="text-center py-3 sm:py-4 px-2 sm:px-4">
                     <div className="text-xs sm:text-sm font-medium text-zinc-400">Elite Plan</div>
-                    <div className="text-lg sm:text-xl font-bold text-primary mt-1">€99 / mois</div>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="mt-2 rounded-full text-xs sm:text-sm px-3 sm:px-4"
-                      asChild
-                    >
-                      <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer">
-                        Activer
-                      </a>
-                    </Button>
                   </th>
                 </tr>
               </thead>
@@ -379,44 +408,44 @@ const Tarifs = () => {
                 {comparisonFeatures.map((category, catIdx) => (
                   <>
                     <tr key={`cat-${catIdx}`} className="border-t border-zinc-800">
-                      <td colSpan={4} className="py-3 sm:py-4 px-3 sm:px-4 text-sm sm:text-base font-bold text-foreground">
+                      <td colSpan={4} className="py-2.5 sm:py-3 lg:py-4 px-2 sm:px-3 lg:px-4 text-xs sm:text-sm lg:text-base font-bold text-foreground">
                         {category.category}
                       </td>
                     </tr>
                     {category.items.map((item, itemIdx) => (
                       <tr key={`item-${catIdx}-${itemIdx}`} className="border-t border-zinc-800/30 hover:bg-zinc-900/20">
-                        <td className="py-2 sm:py-3 px-3 sm:px-4 text-xs sm:text-sm text-zinc-400">{item.name}</td>
-                        <td className="py-2 sm:py-3 px-2 sm:px-4 text-center text-xs sm:text-sm">
+                        <td className="py-2 sm:py-2.5 lg:py-3 px-2 sm:px-3 lg:px-4 text-[11px] sm:text-xs lg:text-sm text-zinc-400 leading-relaxed">{item.name}</td>
+                        <td className="py-2 sm:py-2.5 lg:py-3 px-1.5 sm:px-2 lg:px-4 text-center text-[11px] sm:text-xs lg:text-sm">
                           {typeof item.free === 'boolean' ? (
                             item.free ? (
-                              <Check className="h-4 w-4 sm:h-5 sm:w-5 text-primary mx-auto" />
+                              <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary mx-auto" />
                             ) : (
-                              <X className="h-4 w-4 sm:h-5 sm:w-5 text-zinc-700 mx-auto" />
+                              <X className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-zinc-700 mx-auto" />
                             )
                           ) : (
-                            <span className="text-zinc-300 text-xs sm:text-sm">{item.free}</span>
+                            <span className="text-zinc-300 text-[10px] sm:text-xs lg:text-sm">{item.free}</span>
                           )}
                         </td>
-                        <td className="py-2 sm:py-3 px-2 sm:px-4 text-center text-xs sm:text-sm bg-zinc-900/10">
+                        <td className="py-2 sm:py-2.5 lg:py-3 px-1.5 sm:px-2 lg:px-4 text-center text-[11px] sm:text-xs lg:text-sm bg-zinc-900/10">
                           {typeof item.core === 'boolean' ? (
                             item.core ? (
-                              <Check className="h-4 w-4 sm:h-5 sm:w-5 text-primary mx-auto" />
+                              <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary mx-auto" />
                             ) : (
-                              <X className="h-4 w-4 sm:h-5 sm:w-5 text-zinc-700 mx-auto" />
+                              <X className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-zinc-700 mx-auto" />
                             )
                           ) : (
-                            <span className="text-zinc-300 text-xs sm:text-sm">{item.core}</span>
+                            <span className="text-zinc-300 text-[10px] sm:text-xs lg:text-sm">{item.core}</span>
                           )}
                         </td>
-                        <td className="py-2 sm:py-3 px-2 sm:px-4 text-center text-xs sm:text-sm">
+                        <td className="py-2 sm:py-2.5 lg:py-3 px-1.5 sm:px-2 lg:px-4 text-center text-[11px] sm:text-xs lg:text-sm">
                           {typeof item.elite === 'boolean' ? (
                             item.elite ? (
-                              <Check className="h-4 w-4 sm:h-5 sm:w-5 text-primary mx-auto" />
+                              <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary mx-auto" />
                             ) : (
-                              <X className="h-4 w-4 sm:h-5 sm:w-5 text-zinc-700 mx-auto" />
+                              <X className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-zinc-700 mx-auto" />
                             )
                           ) : (
-                            <span className="text-zinc-300 text-xs sm:text-sm">{item.elite}</span>
+                            <span className="text-zinc-300 text-[10px] sm:text-xs lg:text-sm">{item.elite}</span>
                           )}
                         </td>
                       </tr>
@@ -430,22 +459,28 @@ const Tarifs = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto max-w-3xl text-center">
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="container mx-auto max-w-3xl text-center"
+        >
           <Button
             size="lg"
-            className="group bg-primary hover:bg-primary/90 text-black font-bold rounded-full px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
+            className="group bg-primary hover:bg-primary/90 text-black font-bold rounded-full px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
             asChild
           >
-            <a href="https://scan.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://scan.contentremovaldesk.com/scan">
               <span className="flex items-center justify-center gap-2 sm:gap-3">
                 Effectuer un scan gratuit
                 <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </a>
           </Button>
-          <p className="text-xs sm:text-sm text-zinc-500 mt-4">Aucune carte bancaire requise</p>
-        </div>
+          <p className="text-xs sm:text-sm text-zinc-500 mt-3 sm:mt-4">Aucune carte bancaire requise</p>
+        </motion.div>
       </section>
 
       <Footer />

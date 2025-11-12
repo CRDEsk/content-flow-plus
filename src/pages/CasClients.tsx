@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ArrowRight } from "lucide-react";
@@ -10,8 +10,6 @@ import caseStudy4 from "@/assets/case-study-4.png";
 import caseStudy5 from "@/assets/case-study-5.png";
 
 const CasClients = () => {
-  const [selectedCase, setSelectedCase] = useState<number | null>(null);
-
   useEffect(() => {
     // SEO optimization for Case Studies page
     document.title = "Cas Clients | ContentRemovalDesk - Témoignages & Succès de Protection";
@@ -61,8 +59,8 @@ const CasClients = () => {
     },
     {
       id: 5,
-      title: "Talu_lax : On surveille toutes les Cam Girls. Elle l'a vécu en pire. Et on a tout inversé.",
-      subtitle: "TALU_LAX",
+      title: "talullax : On surveille toutes les Cam Girls. Elle l'a vécu en pire. Et on a tout inversé.",
+      subtitle: "talullax",
       image: caseStudy5,
       description: "Surveillance proactive et intervention rapide pour une créatrice ciblée. Situation renversée avec succès.",
       gradient: "from-yellow-500/30 via-green-500/20 to-yellow-500/30",
@@ -71,7 +69,7 @@ const CasClients = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black antialiased">
+    <div className="min-h-screen bg-black text-white antialiased">
       <Header />
 
       {/* Hero Section */}
@@ -86,65 +84,63 @@ const CasClients = () => {
         </div>
       </section>
 
-      {/* Featured Case */}
-      {selectedCase !== null && (
-        <section className="pb-12 px-4 sm:px-6 lg:px-8">
-          <div className="container mx-auto max-w-7xl">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900/90 to-zinc-950/90 backdrop-blur-xl border border-zinc-800/50">
-              <div className={`absolute inset-0 bg-gradient-to-br ${cases[selectedCase].gradient} opacity-50`} />
-              
-              <div className="relative z-10 p-8 lg:p-12">
-                <div className="grid lg:grid-cols-2 gap-8 items-center">
-                  {/* Case Study Image */}
-                  <div className="relative aspect-video rounded-2xl overflow-hidden border border-zinc-700/50">
-                    <img 
-                      src={cases[selectedCase].image} 
-                      alt={cases[selectedCase].title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+      {/* Featured Case - Headline Case Study */}
+      <section className="pb-12 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900/90 to-zinc-950/90 backdrop-blur-xl border border-zinc-800/50">
+            <div className={`absolute inset-0 bg-gradient-to-br ${cases[0].gradient} opacity-50`} />
+            
+            <div className="relative z-10 p-8 lg:p-12">
+              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                {/* Case Study Image */}
+                <div className="relative aspect-video rounded-2xl overflow-hidden border border-zinc-700/50">
+                  <img 
+                    src={cases[0].image} 
+                    alt={cases[0].title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
 
-                  {/* Content */}
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-2 text-xs text-zinc-500">
-                      <div className="w-6 h-6 rounded-full bg-zinc-800/50 border border-zinc-700/50 flex items-center justify-center">
-                        <span className="text-[10px] text-primary">®</span>
-                      </div>
-                      <span>{cases[selectedCase].author}</span>
+                {/* Content */}
+                <div className="space-y-6">
+                  <div className="flex items-center gap-2 text-xs text-zinc-500">
+                    <div className="w-6 h-6 rounded-full bg-zinc-800/50 border border-zinc-700/50 flex items-center justify-center">
+                      <span className="text-[10px] text-primary">®</span>
                     </div>
-
-                    <h2 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
-                      {cases[selectedCase].title}
-                    </h2>
-
-                    <p className="text-lg text-zinc-400 leading-relaxed">
-                      {cases[selectedCase].description}
-                    </p>
-
-                    <Link 
-                      to={`/cas-clients/${cases[selectedCase].id}`}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-black font-semibold hover:bg-primary/90 transition-all duration-300 group"
-                    >
-                      Lire
-                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                    <span>{cases[0].author}</span>
                   </div>
+
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+                    {cases[0].title}
+                  </h2>
+
+                  <p className="text-lg text-zinc-400 leading-relaxed">
+                    {cases[0].description}
+                  </p>
+
+                  <Link 
+                    to={`/cas-clients/${cases[0].id}`}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-black font-semibold hover:bg-primary/90 transition-all duration-300 group"
+                  >
+                    Lire
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Cases Grid */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {cases.map((caseItem, index) => (
-              <button
+            {cases.filter((caseItem) => caseItem.id !== cases[0].id).map((caseItem) => (
+              <Link
                 key={caseItem.id}
-                onClick={() => setSelectedCase(index)}
-                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/70 to-zinc-950/70 backdrop-blur-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 text-left"
+                to={`/cas-clients/${caseItem.id}`}
+                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/70 to-zinc-950/70 backdrop-blur-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 block"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${caseItem.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                 
@@ -158,11 +154,7 @@ const CasClients = () => {
                 </div>
 
                 {/* Content */}
-                <div className="relative z-10 p-6 space-y-4">
-                  <h3 className="text-xl font-bold text-foreground leading-tight line-clamp-2">
-                    {caseItem.title}
-                  </h3>
-
+                <div className="relative z-10 p-6">
                   <div className="flex items-center gap-2 text-xs text-zinc-500">
                     <div className="w-5 h-5 rounded-full bg-zinc-800/50 border border-zinc-700/50 flex items-center justify-center">
                       <span className="text-[10px] text-primary">®</span>
@@ -175,7 +167,7 @@ const CasClients = () => {
                 <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                   <ArrowRight className="h-5 w-5 text-primary" />
                 </div>
-              </button>
+              </Link>
             ))}
           </div>
         </div>

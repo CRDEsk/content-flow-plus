@@ -1,36 +1,39 @@
 import { DollarSign, Shield, Crown, Lock, ArrowRight, Sparkles, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const HelpSection = () => {
+  const { t } = useLanguage();
+  
   const benefits = [
     {
       icon: DollarSign,
-      title: "Récupère tes revenus",
-      description: "Le piratage te fait perdre de l'argent. On te permet de récupérer ce qui t'appartient.",
+      title: t("help.revenueTitle"),
+      description: t("help.revenueDesc"),
       color: "from-green-500/20 to-emerald-500/20",
       iconBg: "bg-green-500/10",
       iconColor: "text-green-500"
     },
     {
       icon: Shield,
-      title: "Sérénité garantie",
-      description: "Les fuites de contenu sont stressantes. On gère pour que tu restes concentré sur ta création.",
+      title: t("help.serenityTitle"),
+      description: t("help.serenityDesc"),
       color: "from-blue-500/20 to-cyan-500/20",
       iconBg: "bg-blue-500/10",
       iconColor: "text-blue-500"
     },
     {
       icon: Crown,
-      title: "Protège ta réputation",
-      description: "On défend ton image et ton nom contre les imposteurs et le contenu volé.",
+      title: t("help.reputationTitle"),
+      description: t("help.reputationDesc"),
       color: "from-purple-500/20 to-pink-500/20",
       iconBg: "bg-purple-500/10",
       iconColor: "text-purple-500"
     },
     {
       icon: Lock,
-      title: "Tu décides, pas eux",
-      description: "On t'aide à contrôler l'usage de ton contenu et à faire respecter ton consentement.",
+      title: t("help.controlTitle"),
+      description: t("help.controlDesc"),
       color: "from-red-500/20 to-orange-500/20",
       iconBg: "bg-red-500/10",
       iconColor: "text-red-500"
@@ -38,7 +41,7 @@ const HelpSection = () => {
   ];
 
   return (
-    <section id="help" className="py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
+    <section id="help" className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
@@ -48,53 +51,53 @@ const HelpSection = () => {
       <div className="container mx-auto max-w-7xl relative z-10">
         
         {/* Header */}
-        <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 mb-8">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm text-zinc-400 font-medium">On peut t'aider</span>
+        <div className="max-w-3xl mb-8 sm:mb-12 lg:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 mb-4 sm:mb-6 lg:mb-8">
+            <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
+            <span className="text-xs sm:text-sm text-zinc-400 font-medium">{t("help.badge")}</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground mb-6 leading-tight">
-            On protège ton contenu,<br />
-            ton image, et ta <span className="gradient-text">tranquillité.</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-foreground mb-4 sm:mb-6 leading-tight">
+            {t("help.title")}<br />
+            <span className="gradient-text">{t("help.titleHighlight")}</span>
           </h2>
-          <p className="text-xl text-zinc-400 leading-relaxed mb-8">
-            Chaque jour, on te rend ce qui t'appartient.
+          <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-zinc-400 leading-relaxed mb-6 sm:mb-8">
+            {t("help.subtitle")}
           </p>
           <Button 
             size="lg"
-            className="group bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-8 py-6 shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all duration-300"
+            className="group bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all duration-300 w-full sm:w-auto"
             asChild
           >
-            <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer">
-              <span className="flex items-center gap-2">
-                Commencer maintenant
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            <a href="https://espace.contentremovaldesk.com/auth?mode=signup">
+              <span className="flex items-center gap-2 justify-center">
+                {t("common.getStarted")}
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </a>
           </Button>
         </div>
 
         {/* Benefits Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
               <div 
                 key={index}
-                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-8 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-500"
+                className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-4 sm:p-6 lg:p-8 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-500"
               >
                 {/* Gradient overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                 
-                <div className="relative z-10 flex items-start gap-6">
-                  <div className={`flex-shrink-0 w-16 h-16 rounded-2xl ${benefit.iconBg} flex items-center justify-center group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300`}>
-                    <Icon className={`h-8 w-8 ${benefit.iconColor}`} />
+                <div className="relative z-10 flex items-start gap-3 sm:gap-4 lg:gap-6">
+                  <div className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl ${benefit.iconBg} flex items-center justify-center group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300`}>
+                    <Icon className={`h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 ${benefit.iconColor}`} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-2 sm:mb-3 group-hover:text-primary transition-colors duration-300 leading-tight">
                       {benefit.title}
                     </h3>
-                    <p className="text-zinc-400 leading-relaxed">
+                    <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
                       {benefit.description}
                     </p>
                   </div>
@@ -111,42 +114,42 @@ const HelpSection = () => {
         </div>
 
         {/* Emergency Intervention Stats */}
-        <div className="mt-16 rounded-2xl bg-gradient-to-br from-red-500/10 via-orange-500/5 to-red-500/10 backdrop-blur-xl p-8 border border-red-500/20 relative overflow-hidden">
+        <div className="mt-12 sm:mt-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-red-500/10 via-orange-500/5 to-red-500/10 backdrop-blur-xl p-4 sm:p-6 lg:p-8 border border-red-500/20 relative overflow-hidden">
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center">
-                <Zap className="h-6 w-6 text-red-500" />
+            <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-red-500" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-foreground">Intervention d'urgence</h3>
-                <p className="text-zinc-400">Disponible 24/7 pour les cas critiques</p>
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground leading-tight">{t("help.emergencyTitle")}</h3>
+                <p className="text-xs sm:text-sm text-zinc-400">{t("help.emergencySubtitle")}</p>
               </div>
             </div>
             
-            <div className="grid sm:grid-cols-3 gap-6 mb-6">
-              <div className="text-center p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/50">
-                <div className="text-3xl font-bold text-red-400 mb-1">&lt;2h</div>
-                <div className="text-sm text-zinc-400">Temps de réponse</div>
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-6 mb-4 sm:mb-6">
+              <div className="text-center p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl bg-zinc-900/30 border border-zinc-800/50">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-red-400 mb-1 leading-tight">&lt;2h</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm text-zinc-400">{t("help.emergencyResponse")}</div>
               </div>
-              <div className="text-center p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/50">
-                <div className="text-3xl font-bold text-orange-400 mb-1">98.7%</div>
-                <div className="text-sm text-zinc-400">Cas urgents résolus</div>
+              <div className="text-center p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl bg-zinc-900/30 border border-zinc-800/50">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-orange-400 mb-1 leading-tight">98.7%</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm text-zinc-400">{t("help.emergencyResolved")}</div>
               </div>
-              <div className="text-center p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/50">
-                <div className="text-3xl font-bold text-yellow-400 mb-1">750+</div>
-                <div className="text-sm text-zinc-400">Interventions ce mois</div>
+              <div className="text-center p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl bg-zinc-900/30 border border-zinc-800/50">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-400 mb-1 leading-tight">750+</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm text-zinc-400">{t("help.emergencyInterventions")}</div>
               </div>
             </div>
 
             <Button 
               size="lg"
-              className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full px-8 py-6 shadow-2xl hover:scale-105 transition-all duration-300"
+              className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg shadow-2xl hover:scale-105 transition-all duration-300"
               asChild
             >
               <a href="https://wa.me/32460236990" target="_blank" rel="noopener noreferrer">
-                <span className="flex items-center gap-2">
-                  <Zap className="h-5 w-5" />
-                  Contacter en urgence
+                <span className="flex items-center gap-2 justify-center">
+                  <Zap className="h-4 w-4 sm:h-5 sm:w-5" />
+                  {t("help.emergencyCta")}
                 </span>
               </a>
             </Button>
@@ -159,10 +162,10 @@ const HelpSection = () => {
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <h3 className="text-2xl font-bold text-foreground mb-2">
-                Prêt à protéger ton contenu ?
+                {t("help.ctaTitle")}
               </h3>
               <p className="text-zinc-400">
-                Rejoins les 223+ créateurs qui nous font confiance
+                {t("help.ctaSubtitle")}
               </p>
             </div>
             <Button 
@@ -170,9 +173,9 @@ const HelpSection = () => {
               className="group bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-8 py-6 shadow-2xl hover:scale-105 transition-all duration-300"
               asChild
             >
-              <a href="https://scan.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://scan.contentremovaldesk.com/scan">
                 <span className="flex items-center gap-2">
-                  Scan gratuit
+                  {t("help.ctaButton")}
                   <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </span>
               </a>

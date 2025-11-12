@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface SEOProps {
   title?: string;
@@ -10,17 +11,35 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "ContentRemovalDesk - Protection Digitale pour Créateurs | Suppression de Fuites",
-  description = "Service professionnel de suppression de contenu et protection d'image pour créateurs. 99.2% de réussite, intervention 48h, surveillance 24/7. Protégez votre contenu maintenant.",
-  keywords = "suppression contenu, protection digitale, retrait fuite, DMCA, protection créateurs, suppression image, droit auteur, protection vie privée, cyberprotection",
-  ogImage = "https://contentremovaldesk.com/og-image.jpg",
+  title,
+  description,
+  keywords,
+  ogImage = "https://contentremovaldesk.com/og-image.png",
   canonical,
 }: SEOProps) => {
   const location = useLocation();
+  const { language, t } = useLanguage();
+
+  // Default SEO content based on language
+  const defaultTitle = language === 'en' 
+    ? "ContentRemovalDesk - Digital Protection for Creators | Content Removal Service"
+    : "ContentRemovalDesk - Protection Digitale pour Créateurs | Suppression de Fuites";
+  
+  const defaultDescription = language === 'en'
+    ? "Professional content removal and image protection service for creators. 99.2% success rate, 48h intervention, 24/7 monitoring. Protect your content now."
+    : "Service professionnel de suppression de contenu et protection d'image pour créateurs. 99.2% de réussite, intervention 48h, surveillance 24/7. Protégez votre contenu maintenant.";
+  
+  const defaultKeywords = language === 'en'
+    ? "content removal, digital protection, leak removal, DMCA, creator protection, image removal, copyright, privacy protection, cyber protection"
+    : "suppression contenu, protection digitale, retrait fuite, DMCA, protection créateurs, suppression image, droit auteur, protection vie privée, cyberprotection";
+
+  const finalTitle = title || defaultTitle;
+  const finalDescription = description || defaultDescription;
+  const finalKeywords = keywords || defaultKeywords;
 
   useEffect(() => {
     // Update document title
-    document.title = title;
+    document.title = finalTitle;
 
     // Update or create meta description
     let metaDescription = document.querySelector('meta[name="description"]');
@@ -29,7 +48,7 @@ const SEO = ({
       metaDescription.setAttribute("name", "description");
       document.head.appendChild(metaDescription);
     }
-    metaDescription.setAttribute("content", description);
+    metaDescription.setAttribute("content", finalDescription);
 
     // Update or create meta keywords
     let metaKeywords = document.querySelector('meta[name="keywords"]');
@@ -38,16 +57,17 @@ const SEO = ({
       metaKeywords.setAttribute("name", "keywords");
       document.head.appendChild(metaKeywords);
     }
-    metaKeywords.setAttribute("content", keywords);
+    metaKeywords.setAttribute("content", finalKeywords);
 
     // Update Open Graph tags
     const ogTags = [
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
+      { property: "og:title", content: finalTitle },
+      { property: "og:description", content: finalDescription },
       { property: "og:image", content: ogImage },
       { property: "og:url", content: `https://contentremovaldesk.com${location.pathname}` },
       { property: "og:type", content: "website" },
-      { property: "og:locale", content: "fr_FR" },
+      { property: "og:locale", content: language === 'en' ? "en_US" : "fr_FR" },
+      { property: "og:locale:alternate", content: language === 'en' ? "fr_FR" : "en_US" },
     ];
 
     ogTags.forEach(({ property, content }) => {
@@ -63,8 +83,8 @@ const SEO = ({
     // Update Twitter Card tags
     const twitterTags = [
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: title },
-      { name: "twitter:description", content: description },
+      { name: "twitter:title", content: finalTitle },
+      { name: "twitter:description", content: finalDescription },
       { name: "twitter:image", content: ogImage },
     ];
 
@@ -102,7 +122,7 @@ const SEO = ({
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "ContentRemovalDesk",
-      "description": description,
+      "description": finalDescription,
       "url": "https://contentremovaldesk.com",
       "logo": "https://contentremovaldesk.com/logo.png",
       "image": ogImage,
@@ -111,17 +131,35 @@ const SEO = ({
         "@type": "Country",
         "name": "France"
       },
-      "availableLanguage": ["fr"],
+      "availableLanguage": language === 'en' ? ["en", "fr"] : ["fr", "en"],
       "serviceType": ["Content Removal", "Digital Protection", "DMCA Takedown"],
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
-        "reviewCount": "223"
+        "reviewCount": "500"
       }
     };
 
     structuredData.textContent = JSON.stringify(schemaData);
-  }, [title, description, keywords, ogImage, canonical, location.pathname]);
+
+    // Add hreflang tags for multilingual support
+    const existingHreflangs = document.querySelectorAll('link[rel="alternate"][hreflang]');
+    existingHreflangs.forEach(link => link.remove());
+
+    const hreflangs = [
+      { lang: 'fr', url: `https://contentremovaldesk.com${location.pathname}` },
+      { lang: 'en', url: `https://contentremovaldesk.com/en${location.pathname}` },
+      { lang: 'x-default', url: `https://contentremovaldesk.com${location.pathname}` },
+    ];
+
+    hreflangs.forEach(({ lang, url }) => {
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', lang);
+      link.setAttribute('href', url);
+      document.head.appendChild(link);
+    });
+  }, [finalTitle, finalDescription, finalKeywords, ogImage, canonical, location.pathname, language]);
 
   return null;
 };

@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" width="100" height="120">
+  <defs>
+    <!-- Golden gradient with brushed metallic effect -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F4D03F;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#B8941F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Darker gold for borders -->
+    <linearGradient id="borderGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#B8941F;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8B6914;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8941F;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effect behind shield -->
+    <radialGradient id="glow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:0.6" />
+      <stop offset="40%" style="stop-color:#F4D03F;stop-opacity:0.3" />
+      <stop offset="70%" style="stop-color:#D4AF37;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Highlight gradient for 3D effect -->
+    <linearGradient id="highlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF9E6;stop-opacity:0.4" />
+      <stop offset="50%" style="stop-color:#F4D03F;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:transparent;stop-opacity:0" />
+    </linearGradient>
+    
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.4"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Texture pattern for brushed metal effect -->
+    <pattern id="texture" patternUnits="userSpaceOnUse" width="4" height="4">
+      <rect width="4" height="4" fill="url(#goldGradient)" opacity="0.1"/>
+      <path d="M0,0 L4,4 M4,0 L0,4" stroke="#D4AF37" stroke-width="0.3" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background glow -->
+  <ellipse cx="50" cy="60" rx="48" ry="55" fill="url(#glow)" opacity="0.8"/>
+  
+  <!-- Outer shield border (thick) -->
+  <path d="M 15 15 
+           Q 15 10, 20 10 
+           L 30 10 
+           Q 35 10, 35 15 
+           L 35 25 
+           Q 35 30, 40 30 
+           L 45 35 
+           L 50 40 
+           L 55 35 
+           L 60 30 
+           Q 65 30, 65 25 
+           L 65 15 
+           Q 65 10, 70 10 
+           L 80 10 
+           Q 85 10, 85 15 
+           L 85 50 
+           Q 85 75, 75 90 
+           Q 65 105, 50 115 
+           Q 35 105, 25 90 
+           Q 15 75, 15 50 
+           Z" 
+        fill="url(#borderGold)" 
+        filter="url(#shadow)"/>
+  
+  <!-- Inner shield border (thinner) -->
+  <path d="M 20 20 
+           Q 20 17, 23 17 
+           L 30 17 
+           Q 33 17, 33 20 
+           L 33 28 
+           Q 33 31, 37 31 
+           L 42 36 
+           L 50 42 
+           L 58 36 
+           L 63 31 
+           Q 67 31, 67 28 
+           L 67 20 
+           Q 67 17, 70 17 
+           L 77 17 
+           Q 80 17, 80 20 
+           L 80 48 
+           Q 80 70, 71 83 
+           Q 62 96, 50 105 
+           Q 38 96, 29 83 
+           Q 20 70, 20 48 
+           Z" 
+        fill="none" 
+        stroke="url(#borderGold)" 
+        stroke-width="1.2"
+        opacity="0.6"/>
+  
+  <!-- Main shield body -->
+  <path d="M 20 20 
+           Q 20 17, 23 17 
+           L 30 17 
+           Q 33 17, 33 20 
+           L 33 28 
+           Q 33 31, 37 31 
+           L 42 36 
+           L 50 42 
+           L 58 36 
+           L 63 31 
+           Q 67 31, 67 28 
+           L 67 20 
+           Q 67 17, 70 17 
+           L 77 17 
+           Q 80 17, 80 20 
+           L 80 48 
+           Q 80 70, 71 83 
+           Q 62 96, 50 105 
+           Q 38 96, 29 83 
+           Q 20 70, 20 48 
+           Z" 
+        fill="url(#goldGradient)" 
+        filter="url(#shadow)"/>
+  
+  <!-- Texture overlay for brushed metal -->
+  <path d="M 20 20 
+           Q 20 17, 23 17 
+           L 30 17 
+           Q 33 17, 33 20 
+           L 33 28 
+           Q 33 31, 37 31 
+           L 42 36 
+           L 50 42 
+           L 58 36 
+           L 63 31 
+           Q 67 31, 67 28 
+           L 67 20 
+           Q 67 17, 70 17 
+           L 77 17 
+           Q 80 17, 80 20 
+           L 80 48 
+           Q 80 70, 71 83 
+           Q 62 96, 50 105 
+           Q 38 96, 29 83 
+           Q 20 70, 20 48 
+           Z" 
+        fill="url(#texture)" 
+        opacity="0.3"/>
+  
+  <!-- Highlight for 3D effect -->
+  <path d="M 20 20 
+           Q 20 17, 23 17 
+           L 30 17 
+           Q 33 17, 33 20 
+           L 33 28 
+           Q 33 31, 37 31 
+           L 42 36 
+           L 50 42 
+           L 58 36 
+           L 63 31 
+           Q 67 31, 67 28 
+           L 67 20 
+           Q 67 17, 70 17 
+           L 77 17 
+           Q 80 17, 80 20 
+           L 80 48 
+           Q 80 70, 71 83 
+           Q 62 96, 50 105 
+           Q 38 96, 29 83 
+           Q 20 70, 20 48 
+           Z" 
+        fill="url(#highlight)"/>
+  
+  <!-- CRD Letters - Bold and metallic -->
+  <text x="50" y="58" font-family="Arial, sans-serif" font-size="26" font-weight="900" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle" letter-spacing="-1">CRD</text>
+  
+  <!-- Letter highlights for 3D effect -->
+  <text x="50" y="58" font-family="Arial, sans-serif" font-size="26" font-weight="900" fill="url(#highlight)" text-anchor="middle" dominant-baseline="middle" letter-spacing="-1" opacity="0.3">CRD</text>
+</svg>
