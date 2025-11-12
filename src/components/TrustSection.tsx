@@ -1,9 +1,20 @@
 import { Shield, CheckCircle, TrendingUp, Award, Lock, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useState, useEffect } from "react";
 
 const TrustSection = () => {
   const { t } = useLanguage();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   const metrics = [
     {
@@ -78,13 +89,7 @@ const TrustSection = () => {
       <div className="container mx-auto max-w-7xl relative z-10">
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12 lg:mb-16"
-        >
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 mb-4 sm:mb-6 lg:mb-8">
             <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
             <span className="text-xs sm:text-sm text-zinc-400 font-medium">{t("trust.badge")}</span>
@@ -96,51 +101,42 @@ const TrustSection = () => {
           <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed px-2">
             {t("trust.description")}
           </p>
-        </motion.div>
+        </div>
 
         {/* Metrics Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
           {metrics.map((metric, index) => {
             const Icon = metric.icon;
             return (
-              <motion.div
+              <div
                 key={index}
-                variants={numberVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.4 }}
-                custom={index}
-                className={`group relative overflow-hidden rounded-2xl backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 ${
+                className={`group relative overflow-hidden rounded-2xl sm:backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 transition-all duration-300 ${
                   metric.highlight
-                    ? "bg-gradient-to-br from-zinc-900/70 via-zinc-950/60 to-zinc-950/80 hover:scale-110"
-                    : "bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 hover:scale-105"
+                    ? "bg-gradient-to-br from-zinc-900/80 via-zinc-950/70 to-zinc-950/90 sm:bg-gradient-to-br sm:from-zinc-900/70 sm:via-zinc-950/60 sm:to-zinc-950/80 sm:hover:scale-110"
+                    : "bg-gradient-to-br from-zinc-900/60 to-zinc-950/60 sm:bg-gradient-to-br sm:from-zinc-900/50 sm:to-zinc-950/50 sm:hover:scale-105"
                 }`}
               >
                 {/* Animated gradient overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${metric.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                 <div className="relative z-10 text-center">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto rounded-xl bg-zinc-800/50 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-125 group-hover:rotate-6 transition-all duration-300">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto rounded-xl bg-zinc-800/50 flex items-center justify-center mb-4 sm:mb-6 sm:group-hover:scale-125 sm:group-hover:rotate-6 transition-all duration-300">
                     <Icon className={`h-6 w-6 sm:h-7 sm:w-7 ${metric.highlight ? "text-primary" : "text-primary/80"}`} />
                   </div>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3 + index * 0.1, duration: 0.5, type: "spring", stiffness: 200 }}
-                    className={`text-3xl sm:text-4xl lg:text-5xl font-bold font-display ${
+                  <div className={`text-3xl sm:text-4xl lg:text-5xl font-bold font-display ${
                       metric.highlight ? "text-primary" : "text-primary/90"
                     } mb-2 sm:mb-3 tracking-tight`}
                   >
                     {metric.value}
-                  </motion.div>
+                  </div>
                   <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed uppercase tracking-[0.28em]">
                     {metric.label}
                   </p>
                 </div>
 
-                {/* Shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              </motion.div>
+                {/* Shine effect - only on desktop */}
+                <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              </div>
             );
           })}
         </div>
@@ -149,10 +145,10 @@ const TrustSection = () => {
         <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
 
           {/* Google Badge */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 hover:border-primary/50 transition-all duration-500">
+          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/60 to-zinc-950/60 sm:from-zinc-900/50 sm:to-zinc-950/50 sm:backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 transition-all duration-300">
             <div className="relative z-10">
               <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-800/50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-800/50 flex items-center justify-center flex-shrink-0 sm:group-hover:scale-110 transition-transform duration-300">
                   <Shield className="h-7 w-7 sm:h-8 sm:w-8 text-primary" />
                 </div>
                 <div className="flex-1">
@@ -180,10 +176,10 @@ const TrustSection = () => {
           </div>
 
           {/* Guarantee */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 hover:border-green-500/50 transition-all duration-500">
+          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900/60 to-zinc-950/60 sm:from-zinc-900/50 sm:to-zinc-950/50 sm:backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 transition-all duration-300">
             <div className="relative z-10">
               <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-800/50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-800/50 flex items-center justify-center flex-shrink-0 sm:group-hover:scale-110 transition-transform duration-300">
                   <Lock className="h-7 w-7 sm:h-8 sm:w-8 text-green-500" />
                 </div>
                 <div className="flex-1">

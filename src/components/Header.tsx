@@ -122,8 +122,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
       <header 
         className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
           scrolled 
-            ? "bg-black/98 backdrop-blur-md border-b border-primary/10 shadow-2xl shadow-primary/5 py-3" 
-            : "bg-gradient-to-b from-black/50 via-black/30 to-transparent backdrop-blur-sm py-5"
+            ? "bg-black/98 sm:backdrop-blur-md border-b border-primary/10 shadow-2xl shadow-primary/5 py-3" 
+            : "bg-gradient-to-b from-black/50 via-black/30 to-transparent sm:backdrop-blur-sm py-5"
         }`}
         style={{ 
           position: 'fixed',
@@ -368,14 +368,14 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               </div>
             </motion.nav>
 
-            {/* Mobile Menu - Premium slide animation */}
+            {/* Mobile Menu - Optimized for Safari */}
             <motion.nav
               id="mobile-menu"
-              initial={{ x: "-100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "-102%", opacity: 0 }}
-              transition={{ duration: 0.2, ease: [0.25, 0.8, 0.25, 1] }}
-              className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/98 border-r border-zinc-900/60 shadow-xl overflow-hidden"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.15, ease: [0.25, 0.8, 0.25, 1] }}
+              className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950 border-r border-zinc-900/60 shadow-xl overflow-hidden"
               style={{ 
                 touchAction: 'pan-y',
                 WebkitTransform: 'translateZ(0)',
@@ -402,12 +402,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 }}
               >
                 {/* Menu Header */}
-                <motion.div 
-                  initial={{ opacity: 0, y: -16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05, duration: 0.2, ease: [0.25, 0.8, 0.25, 1] }}
-                  className="flex items-center p-5 border-b border-zinc-900/60 bg-gradient-to-b from-zinc-950/85 to-zinc-950/55"
-                >
+                <div className="flex items-center p-5 border-b border-zinc-900/60 bg-zinc-950">
                   <div className="flex items-center gap-2.5">
                     <div className="relative w-9 h-9">
                       <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
@@ -419,75 +414,54 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                       <div className="text-[7px] text-primary/90 uppercase tracking-[0.2em] font-semibold">Protection Numérique</div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Navigation Items */}
                 <div className="flex-1 p-5 overflow-x-hidden">
                   <div className="space-y-1.5">
-                    {navItems.map((item, index) => {
+                    {navItems.map((item) => {
                       const isActive = !item.external && (item.href === location.pathname);
                       
                       return (
-                        <motion.div
+                        <div
                           key={item.label}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ 
-                            delay: 0.05 + (index * 0.02),
-                            duration: 0.2,
-                            ease: [0.25, 0.8, 0.25, 1]
-                          }}
                           className="relative mb-1.5 last:mb-0"
                         >
                           {item.external ? (
                             <a
                               href={item.href}
-                              className="group relative flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-xl transition-colors duration-200 text-zinc-300 hover:text-foreground hover:bg-zinc-900/60 active:scale-[0.98] overflow-hidden"
+                              className="relative flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-xl transition-colors duration-150 text-zinc-300 active:bg-zinc-900/60 active:scale-[0.98]"
                               onClick={() => setIsMenuOpen(false)}
-                              style={{ isolation: 'isolate' }}
                             >
-                              <span className="relative z-10 flex-1 min-w-0 truncate">{item.label}</span>
-                              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2 flex-shrink-0 relative z-10">
-                                →
-                              </span>
+                              <span className="flex-1 min-w-0 truncate">{item.label}</span>
                             </a>
                           ) : (
                           <Link
                             to={item.href}
-                            className={`group relative flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-xl transition-colors duration-200 active:scale-[0.98] overflow-hidden ${
+                            className={`relative flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-xl transition-colors duration-150 active:scale-[0.98] ${
                               isActive 
-                                ? 'bg-gradient-to-r from-primary/20 to-primary/10 border-2 border-primary/50 shadow-lg shadow-primary/20' 
-                                : 'text-zinc-300 hover:text-foreground hover:bg-zinc-900/60'
+                                ? 'bg-primary/20 border-2 border-primary/50' 
+                                : 'text-zinc-300 active:bg-zinc-900/60'
                             }`}
                             onClick={() => setIsMenuOpen(false)}
                             style={{ 
-                              isolation: 'isolate',
                               color: isActive ? 'hsl(var(--primary))' : undefined
                             }}
                           >
-                            <span className={`relative z-10 flex-1 min-w-0 truncate ${isActive ? 'font-semibold' : ''}`} style={{ color: isActive ? 'hsl(var(--primary))' : undefined }}>{item.label}</span>
+                            <span className={`flex-1 min-w-0 truncate ${isActive ? 'font-semibold' : ''}`} style={{ color: isActive ? 'hsl(var(--primary))' : undefined }}>{item.label}</span>
                             {isActive && (
-                              <motion.span 
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                className="w-2.5 h-2.5 rounded-full bg-primary ml-2 flex-shrink-0 relative z-10 shadow-lg shadow-primary/50"
-                              />
+                              <span className="w-2.5 h-2.5 rounded-full bg-primary ml-2 flex-shrink-0 relative z-10" />
                             )}
                           </Link>
                           )}
-                        </motion.div>
+                        </div>
                       );
                     })}
                   </div>
                 </div>
 
                 {/* CTA Button at Bottom */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15, duration: 0.2, ease: [0.25, 0.8, 0.25, 1] }}
-                  className="p-5 border-t border-zinc-900/60 bg-gradient-to-b from-zinc-950/60 to-zinc-950/70"
-                >
+                <div className="p-5 border-t border-zinc-900/60 bg-zinc-950">
                   <Button 
                     size="lg"
                     className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-bold rounded-full shadow-lg shadow-primary/30 hover:shadow-primary/45 hover:scale-[1.015] active:scale-95 transition-all duration-250"
@@ -497,7 +471,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                       {t("common.getStarted")}
                     </a>
                   </Button>
-                </motion.div>
+                </div>
               </div>
             </motion.nav>
           </>

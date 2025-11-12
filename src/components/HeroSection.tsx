@@ -10,38 +10,58 @@ interface HeroSectionProps {
 const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
   const { t, language } = useLanguage();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Detect mobile devices
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    // Only enable mouse tracking on desktop (not mobile/touch devices)
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isMobile]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-black overflow-hidden pt-32 sm:pt-28 md:pt-24">
-      {/* Premium mesh gradient background */}
+      {/* Premium mesh gradient background - Optimized for mobile */}
       <div className="absolute inset-0">
         <div 
-          className="absolute -top-40 sm:-top-10 left-1/2 -translate-x-1/2 w-[900px] sm:w-[1200px] h-[720px] sm:h-[800px] rounded-full opacity-25 sm:opacity-30 blur-[120px]"
+          className="absolute -top-40 sm:-top-10 left-1/2 -translate-x-1/2 w-[900px] sm:w-[1200px] h-[720px] sm:h-[800px] rounded-full opacity-25 sm:opacity-30 blur-[40px] sm:blur-[120px]"
           style={{
             background: `radial-gradient(circle, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.28) 38%, transparent 68%)`,
-            transform: `translate(calc(-50% + ${mousePosition.x * 0.03}px), ${mousePosition.y * 0.02}px)`
+            transform: !isMobile 
+              ? `translate(calc(-50% + ${mousePosition.x * 0.03}px), ${mousePosition.y * 0.02}px)`
+              : 'translate(-50%, 0)'
           }}
         />
         <div 
-          className="absolute bottom-0 left-1/4 w-[420px] sm:w-[600px] h-[420px] sm:h-[600px] rounded-full opacity-15 sm:opacity-20 blur-[80px] sm:blur-[100px]"
+          className="absolute bottom-0 left-1/4 w-[420px] sm:w-[600px] h-[420px] sm:h-[600px] rounded-full opacity-15 sm:opacity-20 blur-[30px] sm:blur-[100px]"
           style={{
             background: `radial-gradient(circle, hsl(var(--primary) / 0.6) 0%, transparent 60%)`,
-            transform: `translate(${mousePosition.x * 0.02}px, -${mousePosition.y * 0.02}px)`
+            transform: !isMobile
+              ? `translate(${mousePosition.x * 0.02}px, -${mousePosition.y * 0.02}px)`
+              : 'translate(0, 0)'
           }}
         />
         <div 
-          className="absolute top-1/3 right-1/4 w-[360px] sm:w-[500px] h-[360px] sm:h-[500px] rounded-full opacity-10 sm:opacity-15 blur-[70px] sm:blur-[90px]"
+          className="absolute top-1/3 right-1/4 w-[360px] sm:w-[500px] h-[360px] sm:h-[500px] rounded-full opacity-10 sm:opacity-15 blur-[25px] sm:blur-[90px]"
           style={{
             background: `radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, transparent 70%)`,
-            transform: `translate(-${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`
+            transform: !isMobile
+              ? `translate(-${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`
+              : 'translate(0, 0)'
           }}
         />
       </div>
@@ -50,8 +70,8 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
         <div className="text-center space-y-12">
           
           {/* Trust badge */}
-          <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 group mt-4 sm:mt-0">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse flex-shrink-0" />
+          <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-zinc-900/80 sm:bg-zinc-900/50 sm:backdrop-blur-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-300 group mt-4 sm:mt-0">
+            <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0" />
             <span className="text-xs sm:text-sm font-medium text-zinc-400 group-hover:text-foreground transition-colors text-center">
               {language === 'en' ? (
                 <>
