@@ -42,10 +42,10 @@ const HelpSection = () => {
 
   return (
     <section id="help" className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
-      {/* Background effects - Optimized for Safari */}
-      <div className="absolute inset-0" style={{ willChange: 'opacity', WebkitTransform: 'translateZ(0)' }}>
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" style={{ animation: 'none' }} />
-        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" style={{ animation: 'none' }} />
+      {/* Background effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="container mx-auto max-w-7xl relative z-10">
@@ -84,8 +84,7 @@ const HelpSection = () => {
             return (
               <div 
                 key={index}
-                className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 p-4 sm:p-6 lg:p-8 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-300"
-                style={{ WebkitTransform: 'translateZ(0)' }}
+                className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-4 sm:p-6 lg:p-8 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-500"
               >
                 {/* Gradient overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />

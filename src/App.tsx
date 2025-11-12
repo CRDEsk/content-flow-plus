@@ -28,24 +28,23 @@ import PolitiqueCookies from "./pages/PolitiqueCookies";
 
 const queryClient = new QueryClient();
 
-// Enhanced page transition wrapper - Safari optimized
+// Enhanced page transition wrapper
 const PageTransition = ({ children }: { children: React.ReactNode }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: 20, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -20, scale: 0.98 }}
       transition={{ 
-        duration: 0.3, 
-        ease: [0.25, 0.8, 0.25, 1],
-        opacity: { duration: 0.2 }
+        duration: 0.5, 
+        ease: [0.16, 1, 0.3, 1],
+        opacity: { duration: 0.3 },
+        scale: { duration: 0.4 }
       }}
       style={{ 
         position: 'relative',
         isolation: 'isolate',
-        contain: 'layout style paint',
-        WebkitTransform: 'translateZ(0)',
-        transform: 'translateZ(0)'
+        contain: 'layout style paint'
       }}
     >
       {children}
