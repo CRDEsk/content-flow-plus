@@ -222,12 +222,65 @@ nav[class*="lg:hidden"] a[class*="from-primary"] span {
   html {
     overflow-x: hidden;
     position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     overflow-x: hidden;
     width: 100%;
     position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Safari performance optimizations */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  /* Safari-specific optimizations */
+  @supports (-webkit-touch-callout: none) {
+    /* iOS Safari specific */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Reduce backdrop-blur on mobile Safari for performance */
+    @media (max-width: 1024px) {
+      [class*="backdrop-blur"] {
+        backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
+      }
+    }
+    
+    /* Optimize scrolling on Safari */
+    body, html {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+    }
+    
+    /* Hardware acceleration for fixed elements */
+    header, nav, [class*="fixed"] {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      will-change: transform;
+    }
+    
+    /* Reduce animation complexity on mobile Safari */
+    @media (max-width: 1024px) {
+      [class*="animate-"] {
+        animation-duration: 0.3s !important;
+        animation-timing-function: ease-out !important;
+      }
+      
+      /* Disable heavy animations on mobile */
+      [class*="blur-3xl"] {
+        filter: blur(20px) !important;
+      }
+    }
   }
   
   /* Prevent horizontal scroll on mobile menu */

@@ -138,10 +138,10 @@ const DashboardSection = () => {
 
   return (
     <section id="dashboard" className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/3 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      {/* Animated background - Reduced for Safari performance */}
+      <div className="absolute inset-0 opacity-30" style={{ willChange: 'opacity', WebkitTransform: 'translateZ(0)' }}>
+        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" style={{ animation: 'none' }} />
+        <div className="absolute bottom-1/4 right-1/3 w-64 h-64 bg-primary/5 rounded-full blur-3xl" style={{ animation: 'none' }} />
       </div>
 
       <div className="container mx-auto max-w-7xl relative z-10">
@@ -152,8 +152,7 @@ const DashboardSection = () => {
             <div className="w-full">
               <div className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 bg-zinc-900/50 rounded-full border border-zinc-800/50 mb-3 sm:mb-4">
                 <div className="relative">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full animate-pulse" />
-                  <div className="absolute inset-0 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full animate-ping" />
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full" />
                 </div>
                 <span className="text-xs sm:text-sm text-zinc-400 font-medium">{t("dashboard.systemActive")}</span>
               </div>
@@ -226,7 +225,7 @@ const DashboardSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: isTransitioning ? 0.5 : 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                 className="grid grid-cols-2 gap-3 sm:gap-4"
               >
                 {stats.map((stat, index) => {
@@ -236,15 +235,14 @@ const DashboardSection = () => {
                       key={`${timeView}-${index}`}
                       initial={{ opacity: 0, y: 30, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{
-                        delay: index * 0.1,
-                        duration: 0.5,
-                        ease: [0.4, 0, 0.2, 1],
-                        type: "spring",
-                        stiffness: 100
-                      }}
-                      className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-3 sm:p-4 lg:p-6 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-300"
-                      whileHover={{ y: -4, scale: 1.02 }}
+                transition={{ 
+                          delay: index * 0.05,
+                          duration: 0.3,
+                          ease: [0.4, 0, 0.2, 1]
+                        }}
+                      className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 p-3 sm:p-4 lg:p-6 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-300"
+                      style={{ WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }}
+                      whileHover={{ y: -2, scale: 1.01 }}
                     >
                       {/* Gradient overlay */}
                       <motion.div
@@ -307,7 +305,7 @@ const DashboardSection = () => {
             </AnimatePresence>
 
             {/* Chart */}
-            <div className="rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-4 sm:p-6 lg:p-8 border border-zinc-800/50">
+            <div className="rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 p-4 sm:p-6 lg:p-8 border border-zinc-800/50" style={{ WebkitTransform: 'translateZ(0)' }}>
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mb-4 sm:mb-6 lg:mb-8">
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">{t("dashboard.monthlyPerformance")}</h3>
@@ -367,7 +365,7 @@ const DashboardSection = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                     className="absolute inset-0 flex items-end justify-between gap-2"
                   >
                     {chartData.map((value, index) => (
@@ -376,11 +374,9 @@ const DashboardSection = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: `${value}%`, opacity: 1 }}
                         transition={{
-                          delay: index * 0.05,
-                          duration: 0.6,
-                          ease: [0.4, 0, 0.2, 1],
-                          type: "spring",
-                          stiffness: 100
+                          delay: index * 0.03,
+                          duration: 0.3,
+                          ease: [0.4, 0, 0.2, 1]
                         }}
                         className="group relative flex-1 bg-gradient-to-t from-primary via-primary/80 to-primary/60 rounded-t-lg hover:from-primary hover:to-primary/80 transition-all duration-300 cursor-pointer"
                         whileHover={{ scaleY: 1.05, y: -2 }}
@@ -414,7 +410,7 @@ const DashboardSection = () => {
           {/* Side Panel - Hidden on mobile */}
           <div className="hidden lg:block lg:col-span-4 space-y-4 sm:space-y-6">
             {/* Top Clients */}
-            <div className="rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-4 sm:p-6 border border-zinc-800/50">
+            <div className="rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 p-4 sm:p-6 border border-zinc-800/50" style={{ WebkitTransform: 'translateZ(0)' }}>
               <h3 className="text-base sm:text-lg font-semibold text-foreground mb-4 sm:mb-6">{t("dashboard.recentClients")}</h3>
               <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                 {topClients.map((client, index) => (
@@ -461,8 +457,9 @@ const DashboardSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-4 sm:p-6 border border-zinc-800/50 space-y-4 sm:space-y-6"
+              transition={{ delay: 0.1, duration: 0.3 }}
+              className="rounded-xl sm:rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 p-4 sm:p-6 border border-zinc-800/50 space-y-4 sm:space-y-6"
+              style={{ WebkitTransform: 'translateZ(0)' }}
             >
               <motion.div
                 initial={{ opacity: 0, x: -10 }}

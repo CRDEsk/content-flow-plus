@@ -18,10 +18,17 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   const location = useLocation();
   const { t } = useLanguage();
 
-  // Handle scroll for header state (don't close menu on scroll)
+  // Handle scroll for header state (don't close menu on scroll) - Safari optimized
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -32,7 +39,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Prevent body scroll when menu is open (mobile only) - improved version
+  // Prevent body scroll when menu is open (mobile only) - Safari optimized
   useEffect(() => {
     const isMobile = window.innerWidth < 1024;
     
@@ -42,15 +49,20 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
       const body = document.body;
       const html = document.documentElement;
       
-      // Lock scroll
+      // Use CSS class for better Safari compatibility
+      body.classList.add('menu-open');
+      
+      // Lock scroll - Safari optimized
       body.style.overflow = 'hidden';
       body.style.position = 'fixed';
       body.style.top = `-${scrollY}px`;
       body.style.width = '100%';
-      body.style.height = '100%';
+      body.style.left = '0';
+      body.style.right = '0';
       
       // Also prevent scroll on html element
       html.style.overflow = 'hidden';
+      html.style.position = 'relative';
       
       // Handle window resize
       const handleResize = () => {
@@ -66,20 +78,27 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
         }
       };
       
-      window.addEventListener('resize', handleResize);
+      window.addEventListener('resize', handleResize, { passive: true });
       window.addEventListener('keydown', handleEscape);
       
       return () => {
-        // Restore scroll
+        // Remove class
+        body.classList.remove('menu-open');
+        
+        // Restore scroll - Safari optimized
         body.style.overflow = '';
         body.style.position = '';
         body.style.top = '';
         body.style.width = '';
-        body.style.height = '';
+        body.style.left = '';
+        body.style.right = '';
         html.style.overflow = '';
+        html.style.position = '';
         
-        // Restore scroll position
-        window.scrollTo(0, scrollY);
+        // Restore scroll position - use requestAnimationFrame for Safari
+        requestAnimationFrame(() => {
+          window.scrollTo(0, scrollY);
+        });
         
         // Remove event listeners
         window.removeEventListener('resize', handleResize);
@@ -101,12 +120,17 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-700 ${
+        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
           scrolled 
-            ? "bg-black/98 backdrop-blur-3xl border-b border-primary/10 shadow-2xl shadow-primary/5 py-3" 
+            ? "bg-black/98 backdrop-blur-md border-b border-primary/10 shadow-2xl shadow-primary/5 py-3" 
             : "bg-gradient-to-b from-black/50 via-black/30 to-transparent backdrop-blur-sm py-5"
         }`}
-        style={{ position: 'fixed' }}
+        style={{ 
+          position: 'fixed',
+          WebkitTransform: 'translateZ(0)',
+          transform: 'translateZ(0)',
+          willChange: 'transform'
+        }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
@@ -115,8 +139,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
             <Link to="/" className="group relative z-10 flex-shrink-0">
               <div className="flex items-center gap-2.5">
                 <div className={`relative transition-all duration-700 overflow-hidden ${scrolled ? 'w-9 h-9' : 'w-11 h-11'}`}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-xl blur-md group-hover:blur-lg transition-all duration-300 opacity-60 group-hover:opacity-90" style={{ willChange: 'opacity, filter' }}></div>
-                  <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-xl shadow-primary/20" style={{ isolation: 'isolate' }}>
+                  <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-xl shadow-primary/20" style={{ isolation: 'isolate', willChange: 'transform' }}>
                     <Shield className={`text-black transition-all duration-700 ${scrolled ? 'w-4 h-4' : 'w-5 h-5'}`} strokeWidth={2.5} />
                   </div>
                 </div>
@@ -239,8 +262,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:bg-transparent lg:backdrop-blur-none overflow-hidden"
+              transition={{ duration: 0.15 }}
+              className="fixed inset-0 bg-black/70 z-40 lg:bg-transparent overflow-hidden"
               onClick={() => setIsMenuOpen(false)}
               onTouchStart={(e) => {
                 // Prevent backdrop touch from scrolling
@@ -248,7 +271,11 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   e.preventDefault();
                 }
               }}
-              style={{ touchAction: 'none' }}
+              style={{ 
+                touchAction: 'none',
+                WebkitTransform: 'translateZ(0)',
+                transform: 'translateZ(0)'
+              }}
             />
             
             {/* Desktop Menu - Premium dropdown */}
@@ -347,9 +374,16 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               initial={{ x: "-100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: "-102%", opacity: 0 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/95 backdrop-blur-lg border-r border-zinc-900/60 shadow-xl overflow-hidden"
-              style={{ touchAction: 'pan-y' }}
+              transition={{ duration: 0.2, ease: [0.25, 0.8, 0.25, 1] }}
+              className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/98 border-r border-zinc-900/60 shadow-xl overflow-hidden"
+              style={{ 
+                touchAction: 'pan-y',
+                WebkitTransform: 'translateZ(0)',
+                transform: 'translateZ(0)',
+                WebkitBackfaceVisibility: 'hidden',
+                backfaceVisibility: 'hidden',
+                willChange: 'transform'
+              }}
               role="navigation"
               aria-label="Menu mobile"
               onClick={(e) => e.stopPropagation()}
@@ -358,7 +392,9 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 className="flex flex-col h-full overflow-y-auto overflow-x-hidden"
                 style={{ 
                   WebkitOverflowScrolling: 'touch',
-                  overscrollBehavior: 'contain'
+                  overscrollBehavior: 'contain',
+                  WebkitTransform: 'translateZ(0)',
+                  transform: 'translateZ(0)'
                 }}
                 onTouchStart={(e) => {
                   // Allow scrolling within menu
@@ -369,12 +405,11 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 <motion.div 
                   initial={{ opacity: 0, y: -16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1, duration: 0.24, ease: [0.25, 0.8, 0.25, 1] }}
+                  transition={{ delay: 0.05, duration: 0.2, ease: [0.25, 0.8, 0.25, 1] }}
                   className="flex items-center p-5 border-b border-zinc-900/60 bg-gradient-to-b from-zinc-950/85 to-zinc-950/55"
                 >
                   <div className="flex items-center gap-2.5">
                     <div className="relative w-9 h-9">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-xl blur"></div>
                       <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
                         <Shield className="w-4 h-4 text-black" strokeWidth={2.5} />
                       </div>
@@ -398,8 +433,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ 
-                            delay: 0.12 + (index * 0.04),
-                            duration: 0.26,
+                            delay: 0.05 + (index * 0.02),
+                            duration: 0.2,
                             ease: [0.25, 0.8, 0.25, 1]
                           }}
                           className="relative mb-1.5 last:mb-0"
@@ -450,7 +485,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 <motion.div 
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.32, duration: 0.28, ease: [0.25, 0.8, 0.25, 1] }}
+                  transition={{ delay: 0.15, duration: 0.2, ease: [0.25, 0.8, 0.25, 1] }}
                   className="p-5 border-t border-zinc-900/60 bg-gradient-to-b from-zinc-950/60 to-zinc-950/70"
                 >
                   <Button 
