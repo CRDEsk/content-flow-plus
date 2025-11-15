@@ -14,6 +14,7 @@ interface HeaderProps {
 
 const Header = ({ isLoggedIn = false }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useLanguage();
@@ -92,39 +93,111 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
     { label: t("header.mySpace"), href: "https://espace.contentremovaldesk.com", external: true },
     { label: t("header.ourSolution"), href: "/notre-solution" },
     { label: t("header.caseStudies"), href: "/cas-clients" },
+    { label: t("header.forCreators"), href: "/pour-createurs" },
+    { label: t("header.forAgencies"), href: "/pour-agences" },
     { label: t("header.pricing"), href: "/tarifs" },
     { label: t("header.escalades"), href: "/escalades-legal" },
     { label: t("header.about"), href: "/a-propos" },
     { label: t("header.contact"), href: "/contact" },
   ];
 
+  const isAgencyPage = location.pathname === "/pour-agences";
+
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-700 ${
+        className={`fixed top-0 left-0 right-0 w-full z-50 ${
           scrolled 
-            ? "bg-black/98 backdrop-blur-3xl border-b border-primary/10 shadow-2xl shadow-primary/5 py-3" 
+            ? `bg-black/98 backdrop-blur-3xl border-b shadow-2xl py-3 ${
+                isAgencyPage 
+                  ? 'border-blue-500/10 shadow-blue-500/5' 
+                  : 'border-transparent sm:border-primary/10 shadow-primary/5'
+              }`
             : "bg-gradient-to-b from-black/50 via-black/30 to-transparent backdrop-blur-sm py-5"
         }`}
-        style={{ position: 'fixed' }}
+        style={{ 
+          position: 'fixed',
+          transition: 'background-color 0.3s ease-out, padding 0.3s ease-out, border-color 0.3s ease-out',
+          willChange: scrolled ? 'auto' : 'background-color, padding',
+          WebkitTransform: 'translateZ(0)',
+          transform: 'translateZ(0)',
+          WebkitBackfaceVisibility: 'hidden',
+          backfaceVisibility: 'hidden',
+          borderTop: 'none',
+          boxShadow: 'none'
+        }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             
-            {/* Logo */}
+            {/* Logo - Safari Optimized */}
             <Link to="/" className="group relative z-10 flex-shrink-0">
               <div className="flex items-center gap-2.5">
-                <div className={`relative transition-all duration-700 overflow-hidden ${scrolled ? 'w-9 h-9' : 'w-11 h-11'}`}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-xl blur-md group-hover:blur-lg transition-all duration-300 opacity-60 group-hover:opacity-90" style={{ willChange: 'opacity, filter' }}></div>
-                  <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-xl shadow-primary/20" style={{ isolation: 'isolate' }}>
-                    <Shield className={`text-black transition-all duration-700 ${scrolled ? 'w-4 h-4' : 'w-5 h-5'}`} strokeWidth={2.5} />
+                <div 
+                  className={`relative overflow-hidden rounded-xl ${scrolled ? 'w-9 h-9' : 'w-11 h-11'}`}
+                  style={{
+                    transition: 'width 0.3s ease-out, height 0.3s ease-out',
+                    willChange: scrolled ? 'auto' : 'width, height',
+                    WebkitTransform: 'translateZ(0)',
+                    transform: 'translateZ(0)'
+                  }}
+                >
+                  <div 
+                    className={`absolute inset-0 blur-md opacity-60 group-hover:opacity-90 ${
+                      isAgencyPage 
+                        ? 'bg-gradient-to-br from-blue-500 via-blue-500/70 to-blue-500/50' 
+                        : 'bg-gradient-to-br from-primary via-primary/70 to-primary/50'
+                    }`}
+                    style={{ 
+                      transition: 'opacity 0.2s ease-out',
+                      willChange: 'opacity',
+                      WebkitTransform: 'translateZ(0)',
+                      transform: 'translateZ(0)'
+                    }}
+                  ></div>
+                  <div 
+                    className={`relative w-full h-full flex items-center justify-center group-hover:scale-105 ${
+                      isAgencyPage
+                        ? 'bg-gradient-to-br from-blue-500 to-blue-500/80 shadow-xl shadow-blue-500/20'
+                        : 'bg-gradient-to-br from-primary to-primary/80 shadow-xl shadow-primary/20'
+                    }`}
+                    style={{ 
+                      isolation: 'isolate',
+                      transition: 'transform 0.2s ease-out',
+                      willChange: 'transform',
+                      WebkitTransform: 'translateZ(0)',
+                      transform: 'translateZ(0)'
+                    }}
+                  >
+                    <Shield 
+                      className={`text-black ${scrolled ? 'w-4 h-4' : 'w-5 h-5'}`} 
+                      strokeWidth={2.5}
+                      style={{
+                        transition: 'width 0.3s ease-out, height 0.3s ease-out',
+                        willChange: scrolled ? 'auto' : 'width, height'
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <div className={`font-display font-bold tracking-tight text-foreground transition-all duration-700 ${scrolled ? 'text-[11px]' : 'text-xs'} leading-tight`}>
+                  <div 
+                    className={`font-display font-bold tracking-tight text-foreground ${scrolled ? 'text-[11px]' : 'text-xs'} leading-tight`}
+                    style={{
+                      transition: 'font-size 0.3s ease-out',
+                      willChange: scrolled ? 'auto' : 'font-size'
+                    }}
+                  >
                     ContentRemovalDesk
                   </div>
-                  <div className={`text-[7px] text-primary/90 uppercase tracking-[0.2em] leading-none font-semibold transition-all duration-700 ${scrolled ? 'opacity-70' : 'opacity-100'}`}>
+                  <div 
+                    className={`text-[7px] uppercase tracking-[0.2em] leading-none font-semibold ${scrolled ? 'opacity-70' : 'opacity-100'} ${
+                      isAgencyPage ? 'text-blue-400/90' : 'text-primary/90'
+                    }`}
+                    style={{
+                      transition: 'opacity 0.3s ease-out',
+                      willChange: scrolled ? 'auto' : 'opacity'
+                    }}
+                  >
                     Protection Numérique
                   </div>
                 </div>
@@ -133,25 +206,27 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
 
             {/* Desktop CTA & Menu */}
             <div className="hidden lg:flex items-center gap-3 ml-auto">
-              <Button 
-                size="sm"
-                className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-semibold rounded-full px-6 shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all duration-300 relative overflow-hidden group"
-                asChild
-              >
-                <a 
-                  href="https://espace.contentremovaldesk.com/auth?mode=signup" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  onClick={() => trackButtonClick("Start Button", "Header")}
+              {!isAgencyPage && (
+                <Button 
+                  size="sm"
+                  className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-semibold rounded-full px-6 shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all duration-300 relative overflow-hidden group"
+                  asChild
                 >
-                  <span className="relative z-10">{t("common.start")}</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </a>
-              </Button>
+                  <a 
+                    href="https://espace.contentremovaldesk.com/auth?mode=signup" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => trackButtonClick("Start Button", "Header")}
+                  >
+                    <span className="relative z-10">{t("common.start")}</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </a>
+                </Button>
+              )}
               
-              {/* Premium Burger Menu Button - Exact Logo Style */}
+              {/* Premium Burger Menu Button - Exact Logo Style - Desktop Only */}
               <button
-                className="group relative transition-all duration-300 overflow-hidden"
+                className="hidden lg:block group relative transition-all duration-300 overflow-hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Menu"
                 aria-expanded={isMenuOpen}
@@ -161,25 +236,27 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   {/* Main button container - matches logo structure */}
                   <div className={`relative w-full h-full bg-gradient-to-br rounded-xl flex items-center justify-center transition-all duration-300 shadow-xl ${
                     isMenuOpen
-                      ? 'from-primary to-primary/80 shadow-primary/20'
+                      ? isAgencyPage
+                        ? 'from-blue-500 to-blue-500/80 shadow-blue-500/20'
+                        : 'from-primary to-primary/80 shadow-primary/20'
                       : 'from-zinc-900/80 to-zinc-800/80 backdrop-blur-sm border border-zinc-800/50 group-hover:border-primary/30'
-                  }`} style={{ isolation: 'isolate' }}>
+                  } ${isAgencyPage && !isMenuOpen ? 'group-hover:border-blue-500/30' : ''}`} style={{ isolation: 'isolate' }}>
                     {/* Animated burger icon */}
                     <div className="relative w-5 h-5">
                       <span className={`absolute left-0 w-full h-0.5 rounded-full transition-all duration-500 ease-out ${
                         isMenuOpen 
                           ? 'top-2 rotate-45 bg-black' 
-                          : 'top-0.5 bg-foreground group-hover:bg-primary'
+                          : `top-0.5 bg-foreground ${isAgencyPage ? 'group-hover:bg-blue-500' : 'group-hover:bg-primary'}`
                       }`}></span>
                       <span className={`absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 rounded-full transition-all duration-300 ${
                         isMenuOpen 
                           ? 'opacity-0 scale-0 bg-black' 
-                          : 'opacity-100 scale-100 bg-foreground group-hover:bg-primary'
+                          : `opacity-100 scale-100 bg-foreground ${isAgencyPage ? 'group-hover:bg-blue-500' : 'group-hover:bg-primary'}`
                       }`}></span>
                       <span className={`absolute left-0 w-full h-0.5 rounded-full transition-all duration-500 ease-out ${
                         isMenuOpen 
                           ? 'top-2 -rotate-45 bg-black' 
-                          : 'bottom-0.5 bg-foreground group-hover:bg-primary'
+                          : `bottom-0.5 bg-foreground ${isAgencyPage ? 'group-hover:bg-blue-500' : 'group-hover:bg-primary'}`
                       }`}></span>
                     </div>
                   </div>
@@ -187,44 +264,64 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               </button>
             </div>
 
-            {/* Mobile Burger Menu Button */}
+            {/* Mobile Burger Menu Button - Safari Optimized */}
             <button
-              className={`lg:hidden relative p-2.5 rounded-xl text-foreground transition-all duration-500 group ml-auto overflow-hidden ${
-                isMenuOpen 
-                  ? 'bg-primary border-primary scale-110 shadow-lg shadow-primary/30' 
-                  : 'bg-zinc-900/50 border-zinc-800/50 hover:border-primary/30 hover:bg-zinc-900/80'
+              className={`lg:hidden relative p-2.5 rounded-xl text-foreground group ml-auto overflow-hidden ${
+                isMobileMenuOpen 
+                  ? isAgencyPage
+                    ? 'bg-blue-500 border-blue-500 shadow-lg shadow-blue-500/30'
+                    : 'bg-primary border-primary shadow-lg shadow-primary/30'
+                  : `bg-zinc-900/50 border-zinc-800/50 hover:bg-zinc-900/80 ${
+                      isAgencyPage ? 'hover:border-blue-500/30' : 'hover:border-primary/30'
+                    }`
               }`}
               onClick={(e) => {
                 e.stopPropagation();
-                setIsMenuOpen(!isMenuOpen);
+                setIsMobileMenuOpen(!isMobileMenuOpen);
               }}
               aria-label="Menu"
-              aria-expanded={isMenuOpen}
+              aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
-              style={{ borderWidth: '1px' }}
+              style={{ 
+                borderWidth: '1px',
+                transform: isMobileMenuOpen ? 'scale(1.1)' : 'scale(1)',
+                transition: 'transform 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out',
+                willChange: 'transform'
+              }}
             >
-              <div className="relative w-6 h-6">
-                <span className={`absolute left-0 w-full h-0.5 rounded-full transition-all duration-500 ease-out ${
-                  isMenuOpen 
+              <div className="relative w-6 h-6" style={{ willChange: 'transform' }}>
+                <span 
+                  className={`absolute left-0 h-0.5 rounded-full ${
+                  isMobileMenuOpen 
                     ? 'top-3 rotate-45 bg-black w-5 left-0.5' 
-                    : 'top-1 rotate-0 bg-current'
-                }`}></span>
-                <span className={`absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 rounded-full transition-all duration-300 ${
-                  isMenuOpen 
-                    ? 'opacity-0 scale-0 bg-black' 
-                    : 'opacity-100 scale-100 bg-current'
-                }`}></span>
-                <span className={`absolute left-0 w-full h-0.5 rounded-full transition-all duration-500 ease-out ${
-                  isMenuOpen 
+                      : 'top-1 rotate-0 bg-current w-full'
+                  }`}
+                  style={{
+                    transition: 'transform 0.2s ease-out, top 0.2s ease-out, width 0.2s ease-out, left 0.2s ease-out',
+                    willChange: 'transform, top, width, left'
+                  }}
+                ></span>
+                <span 
+                  className={`absolute left-0 top-1/2 -translate-y-1/2 h-0.5 rounded-full w-full bg-current ${
+                    isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
+                  }`}
+                  style={{
+                    transition: 'opacity 0.15s ease-out',
+                    willChange: 'opacity'
+                  }}
+                ></span>
+                <span 
+                  className={`absolute left-0 h-0.5 rounded-full ${
+                  isMobileMenuOpen 
                     ? 'top-3 -rotate-45 bg-black w-5 left-0.5' 
-                    : 'bottom-1 rotate-0 bg-current'
-                }`}></span>
+                      : 'bottom-1 rotate-0 bg-current w-full'
+                  }`}
+                  style={{
+                    transition: 'transform 0.2s ease-out, top 0.2s ease-out, width 0.2s ease-out, left 0.2s ease-out',
+                    willChange: 'transform, top, width, left'
+                  }}
+                ></span>
               </div>
-              
-              {/* Ripple effect */}
-              <div className={`absolute inset-0 bg-primary/20 rounded-xl transition-all duration-300 ${
-                isMenuOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
-              }`} />
             </button>
           </div>
         </div>
@@ -232,211 +329,112 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
 
       {/* Desktop Dropdown Menu */}
       <AnimatePresence>
-        {isMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:bg-transparent lg:backdrop-blur-none overflow-hidden"
-              onClick={() => setIsMenuOpen(false)}
-              onTouchStart={(e) => {
-                // Prevent backdrop touch from scrolling
-                if (window.innerWidth < 1024) {
-                  e.preventDefault();
-                }
-              }}
-              style={{ touchAction: 'none' }}
-            />
-            
-            {/* Desktop Menu - Premium dropdown */}
-            <motion.nav
-              id="desktop-menu"
-              initial={{ opacity: 0, scaleY: 0, scaleX: 0.9, y: -10 }}
-              animate={{ opacity: 1, scaleY: 1, scaleX: 1, y: 0 }}
-              exit={{ opacity: 0, scaleY: 0, scaleX: 0.9, y: -10 }}
-              transition={{ duration: 0.18, ease: [0.2, 0.8, 0.2, 1] }}
-              className="hidden lg:block fixed top-[4.5rem] right-6 z-50"
-              style={{ transformOrigin: "top right" }}
-              role="navigation"
-              aria-label="Menu principal"
-            >
-              <div className="relative bg-zinc-900/98 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 overflow-hidden border border-primary/20 min-w-[260px]">
-                {/* Subtle gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-50 pointer-events-none" />
-                
-                {/* Top accent line */}
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-                
-                <div className="relative py-2">
-                  {navItems.map((item, index) => {
-                    const isActive = !item.external && (item.href === location.pathname);
-                    
-                    return (
-                      <motion.div
-                        key={item.label}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.03, duration: 0.2 }}
-                        className="group/item"
-                      >
-                        {item.external ? (
-                          <a
-                            href={item.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="relative block px-4 py-3 text-sm font-medium text-white hover:text-primary transition-all duration-300 border-l-2 border-transparent hover:border-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-transparent group-hover/item:translate-x-1"
-                            onClick={() => setIsMenuOpen(false)}
-                            style={{ color: '#ffffff !important' }}
-                          >
-                            <span className="relative z-10 flex items-center gap-2">
-                              {item.label}
-                              <motion.span 
-                                className="opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"
-                                initial={{ x: -5 }}
-                                whileHover={{ x: 0 }}
-                              >
-                                →
-                              </motion.span>
-                            </span>
-                            {/* Hover shine effect */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/item:translate-x-full transition-transform duration-500" />
-                          </a>
-                        ) : (
-                          <Link
-                            to={item.href}
-                            className={`relative block px-4 py-3 text-sm font-medium transition-all duration-300 border-l-2 group-hover/item:translate-x-1 ${
-                              isActive 
-                                ? 'text-primary bg-gradient-to-r from-primary/15 to-transparent border-primary' 
-                                : 'text-white border-transparent hover:text-primary hover:border-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-transparent'
-                            }`}
-                            onClick={() => setIsMenuOpen(false)}
-                            style={{ color: isActive ? undefined : '#ffffff !important' }}
-                          >
-                            <span className="relative z-10 flex items-center gap-2">
-                              {item.label}
-                              {isActive && (
-                                <motion.span 
-                                  initial={{ scale: 0 }}
-                                  animate={{ scale: 1 }}
-                                  className="w-1.5 h-1.5 rounded-full bg-primary"
-                                />
-                              )}
-                            </span>
-                            {/* Hover shine effect */}
-                            {!isActive && (
-                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/item:translate-x-full transition-transform duration-500" />
-                            )}
-                          </Link>
-                        )}
-                      </motion.div>
-                    );
-                  })}
-                </div>
-                
-                {/* Bottom accent line */}
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-              </div>
-            </motion.nav>
-
-            {/* Mobile Menu - Premium slide animation */}
-            <motion.nav
-              id="mobile-menu"
-              initial={{ x: "-100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "-102%", opacity: 0 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/95 backdrop-blur-lg border-r border-zinc-900/60 shadow-xl overflow-hidden"
-              style={{ touchAction: 'pan-y' }}
-              role="navigation"
-              aria-label="Menu mobile"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div 
-                className="flex flex-col h-full overflow-y-auto overflow-x-hidden"
+          {isMenuOpen && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="hidden lg:block fixed inset-0 bg-transparent z-40 overflow-hidden"
+                onClick={() => setIsMenuOpen(false)}
                 style={{ 
-                  WebkitOverflowScrolling: 'touch',
-                  overscrollBehavior: 'contain'
+                  touchAction: 'none',
+                  WebkitTransform: 'translateZ(0)',
+                  transform: 'translateZ(0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden'
                 }}
-                onTouchStart={(e) => {
-                  // Allow scrolling within menu
-                  e.stopPropagation();
+              />
+              {/* Desktop Menu - Only shows on desktop */}
+              <motion.nav
+                id="desktop-menu"
+                initial={{ opacity: 0, scaleY: 0, scaleX: 0.9, y: -10 }}
+                animate={{ opacity: 1, scaleY: 1, scaleX: 1, y: 0 }}
+                exit={{ opacity: 0, scaleY: 0, scaleX: 0.9, y: -10 }}
+                transition={{ duration: 0.15, ease: [0.25, 0.8, 0.25, 1] }}
+                className="hidden lg:block fixed top-[4.5rem] right-6 z-50"
+                style={{ 
+                  transformOrigin: "top right",
+                  WebkitTransform: 'translateZ(0)',
+                  transform: 'translateZ(0)'
                 }}
+                role="navigation"
+                aria-label="Menu principal"
               >
-                {/* Menu Header */}
-                <motion.div 
-                  initial={{ opacity: 0, y: -16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1, duration: 0.24, ease: [0.25, 0.8, 0.25, 1] }}
-                  className="flex items-center p-5 border-b border-zinc-900/60 bg-gradient-to-b from-zinc-950/85 to-zinc-950/55"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="relative w-9 h-9">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-xl blur"></div>
-                      <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
-                        <Shield className="w-4 h-4 text-black" strokeWidth={2.5} />
-                      </div>
-                    </div>
-                    <div className="flex flex-col">
-                      <div className="font-display font-bold text-foreground text-xs">ContentRemovalDesk</div>
-                      <div className="text-[7px] text-primary/90 uppercase tracking-[0.2em] font-semibold">Protection Numérique</div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Navigation Items */}
-                <div className="flex-1 p-5 overflow-x-hidden">
-                  <div className="space-y-1.5">
+                <div className={`relative bg-zinc-900/98 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 overflow-hidden border min-w-[260px] ${
+                  isAgencyPage ? 'border-blue-500/20' : 'border-primary/20'
+                }`}>
+                  <div className={`absolute inset-0 bg-gradient-to-br opacity-50 pointer-events-none ${
+                    isAgencyPage ? 'from-blue-500/5 via-transparent to-blue-500/5' : 'from-primary/5 via-transparent to-primary/5'
+                  }`} />
+                  <div className="relative py-2">
                     {navItems.map((item, index) => {
                       const isActive = !item.external && (item.href === location.pathname);
-                      
                       return (
                         <motion.div
                           key={item.label}
-                          initial={{ opacity: 0, x: -20 }}
+                          initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ 
-                            delay: 0.12 + (index * 0.04),
-                            duration: 0.26,
-                            ease: [0.25, 0.8, 0.25, 1]
-                          }}
-                          className="relative mb-1.5 last:mb-0"
+                          transition={{ delay: index * 0.03, duration: 0.3 }}
+                          className="relative"
                         >
                           {item.external ? (
                             <a
                               href={item.href}
-                              className="group relative flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-xl transition-colors duration-200 text-zinc-300 hover:text-foreground hover:bg-zinc-900/60 active:scale-[0.98] overflow-hidden"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`group/item relative block px-4 py-3 text-sm font-medium text-white transition-all duration-300 border-l-2 border-transparent hover:translate-x-1 isolate ${
+                                isAgencyPage ? 'hover:text-blue-400 hover:border-blue-500' : 'hover:text-primary hover:border-primary'
+                              }`}
                               onClick={() => setIsMenuOpen(false)}
-                              style={{ isolation: 'isolate' }}
+                              style={{ color: '#ffffff !important', isolation: 'isolate' }}
                             >
-                              <span className="relative z-10 flex-1 min-w-0 truncate">{item.label}</span>
-                              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2 flex-shrink-0 relative z-10">
-                                →
+                              <div className={`absolute inset-0 bg-gradient-to-r to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 pointer-events-none ${
+                                isAgencyPage ? 'from-blue-500/10' : 'from-primary/10'
+                              }`} />
+                              <span className="relative z-10 flex items-center gap-2">
+                                {item.label}
+                                <span className="opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">→</span>
                               </span>
+                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/item:translate-x-full transition-transform duration-500 pointer-events-none" />
                             </a>
                           ) : (
-                          <Link
-                            to={item.href}
-                            className={`group relative flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-xl transition-colors duration-200 active:scale-[0.98] overflow-hidden ${
-                              isActive 
-                                ? 'bg-gradient-to-r from-primary/20 to-primary/10 border-2 border-primary/50 shadow-lg shadow-primary/20' 
-                                : 'text-zinc-300 hover:text-foreground hover:bg-zinc-900/60'
-                            }`}
-                            onClick={() => setIsMenuOpen(false)}
-                            style={{ 
-                              isolation: 'isolate',
-                              color: isActive ? 'hsl(var(--primary))' : undefined
-                            }}
-                          >
-                            <span className={`relative z-10 flex-1 min-w-0 truncate ${isActive ? 'font-semibold' : ''}`} style={{ color: isActive ? 'hsl(var(--primary))' : undefined }}>{item.label}</span>
-                            {isActive && (
-                              <motion.span 
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                className="w-2.5 h-2.5 rounded-full bg-primary ml-2 flex-shrink-0 relative z-10 shadow-lg shadow-primary/50"
-                              />
+                            <Link
+                              to={item.href}
+                              className={`group/item relative block px-4 py-3 text-sm font-medium transition-all duration-300 border-l-2 hover:translate-x-1 isolate ${
+                                isActive 
+                                  ? isAgencyPage
+                                    ? 'text-blue-400 border-blue-500'
+                                    : 'text-primary border-primary'
+                                  : `text-white border-transparent ${
+                                      isAgencyPage 
+                                        ? 'hover:text-blue-400 hover:border-blue-500' 
+                                        : 'hover:text-primary hover:border-primary'
+                                    }`
+                              }`}
+                              onClick={() => setIsMenuOpen(false)}
+                              style={{ color: isActive ? undefined : '#ffffff !important', isolation: 'isolate' }}
+                            >
+                              {isActive ? (
+                                <div className={`absolute inset-0 bg-gradient-to-r to-transparent pointer-events-none ${
+                                  isAgencyPage ? 'from-blue-500/15' : 'from-primary/15'
+                                }`} />
+                              ) : (
+                                <div className={`absolute inset-0 bg-gradient-to-r to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 pointer-events-none ${
+                                  isAgencyPage ? 'from-blue-500/10' : 'from-primary/10'
+                                }`} />
+                              )}
+                              <span className="relative z-10 flex items-center gap-2">
+                                {item.label}
+                                {isActive && (
+                                  <span className={`w-1.5 h-1.5 rounded-full ${
+                                    isAgencyPage ? 'bg-blue-500' : 'bg-primary'
+                                  }`} />
+                                )}
+                              </span>
+                              {!isActive && (
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/item:translate-x-full transition-transform duration-500 pointer-events-none" />
                             )}
                           </Link>
                           )}
@@ -444,27 +442,242 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                       );
                     })}
                   </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
                 </div>
+              </motion.nav>
+            </>
+          )}
+      </AnimatePresence>
 
-                {/* CTA Button at Bottom */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.32, duration: 0.28, ease: [0.25, 0.8, 0.25, 1] }}
-                  className="p-5 border-t border-zinc-900/60 bg-gradient-to-b from-zinc-950/60 to-zinc-950/70"
+      {/* Mobile Menu - Only shows on mobile */}
+      <AnimatePresence>
+          {isMobileMenuOpen && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40 overflow-hidden"
+                onClick={() => setIsMobileMenuOpen(false)}
+                style={{ 
+                  touchAction: 'none',
+                  WebkitTransform: 'translateZ(0)',
+                  transform: 'translateZ(0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden'
+                }}
+              />
+              <motion.nav
+                id="mobile-menu"
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/85 backdrop-blur-2xl border-r border-zinc-900/40 shadow-2xl"
+                style={{ 
+                  touchAction: 'pan-y',
+                  WebkitTransform: 'translateZ(0)',
+                  transform: 'translateZ(0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  height: '100vh',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none'
+                }}
+                role="navigation"
+                aria-label="Menu mobile"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Animated background gradient */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 pointer-events-none"
+                  animate={{
+                    opacity: [0.3, 0.5, 0.3],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  style={{
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden'
+                  }}
+                />
+                
+                <div 
+                  className="flex flex-col h-full relative z-10"
+                  style={{ 
+                    WebkitOverflowScrolling: 'touch',
+                    overscrollBehavior: 'contain',
+                    height: '100%',
+                    minHeight: 0
+                  }}
                 >
-                  <Button 
-                    size="lg"
-                    className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-bold rounded-full shadow-lg shadow-primary/30 hover:shadow-primary/45 hover:scale-[1.015] active:scale-95 transition-all duration-250"
-                    asChild
+                  {/* Header */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    className="flex items-center p-5 border-b border-zinc-900/40 bg-gradient-to-b from-zinc-950/70 to-zinc-950/50 flex-shrink-0"
+                    style={{ flexShrink: 0 }}
                   >
-                    <a href="https://espace.contentremovaldesk.com/auth?mode=signup" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
-                      {t("common.getStarted")}
+                    <div className="flex items-center gap-2.5">
+                      <motion.div 
+                        className="relative w-9 h-9"
+                        animate={{
+                          scale: [1, 1.05, 1],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-xl blur-md opacity-60"></div>
+                        <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+                          <Shield className="w-4 h-4 text-black" strokeWidth={2.5} />
+                        </div>
+                      </motion.div>
+                      <div className="flex flex-col">
+                        <div className="font-display font-bold text-foreground text-xs">ContentRemovalDesk</div>
+                        <div className="text-[7px] text-primary/90 uppercase tracking-[0.2em] font-semibold">Protection Numérique</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                  
+                  {/* Navigation Items - Scrollable */}
+                  <div 
+                    className="flex-1 overflow-y-auto overflow-x-hidden p-5 scrollbar-hide"
+                    style={{ 
+                      minHeight: 0,
+                      flex: '1 1 auto',
+                      WebkitOverflowScrolling: 'touch',
+                      scrollbarWidth: 'none',
+                      msOverflowStyle: 'none'
+                    }}
+                  >
+                    <div className="space-y-1.5">
+                      {navItems.map((item, index) => {
+                        const isActive = !item.external && (item.href === location.pathname);
+                        return (
+                          <motion.div
+                            key={item.label}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.15 + (index * 0.03), duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            className="relative mb-1.5 last:mb-0"
+                          >
+                            {item.external ? (
+                              <a
+                                href={item.href}
+                                className="group relative flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-xl transition-all duration-300 text-zinc-300 hover:text-foreground hover:bg-zinc-900/60 active:scale-[0.98] overflow-hidden"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                style={{ isolation: 'isolate' }}
+                              >
+                                <span className="relative z-10 flex-1 min-w-0 truncate">{item.label}</span>
+                                <motion.span 
+                                  className="opacity-0 group-hover:opacity-100 ml-2 flex-shrink-0 relative z-10"
+                                  whileHover={{ x: 2 }}
+                                  transition={{ duration: 0.2 }}
+                                >→</motion.span>
+                              </a>
+                            ) : (
+                              <Link
+                                to={item.href}
+                                className={`group relative flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-xl transition-all duration-300 active:scale-[0.98] overflow-hidden ${
+                                  isActive 
+                                    ? 'bg-gradient-to-r from-primary/20 to-primary/10 border-2 border-primary/50 shadow-lg shadow-primary/20' 
+                                    : 'text-zinc-300 hover:text-foreground hover:bg-zinc-900/60'
+                                }`}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                style={{ 
+                                  isolation: 'isolate',
+                                  color: isActive ? 'hsl(var(--primary))' : undefined
+                                }}
+                              >
+                                <span className={`relative z-10 flex-1 min-w-0 truncate ${isActive ? 'font-semibold' : ''}`} style={{ color: isActive ? 'hsl(var(--primary))' : undefined }}>{item.label}</span>
+                                {isActive && (
+                                  <motion.span 
+                                    className="w-2.5 h-2.5 rounded-full bg-primary ml-2 flex-shrink-0 relative z-10 shadow-lg shadow-primary/50"
+                                    animate={{
+                                      scale: [1, 1.2, 1],
+                                    }}
+                                    transition={{
+                                      duration: 2,
+                                      repeat: Infinity,
+                                      ease: "easeInOut"
+                                    }}
+                                  />
+                                )}
+                              </Link>
+                            )}
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  
+                  {/* Bottom Button - Fixed */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    className="p-4 border-t border-zinc-900/40 bg-zinc-950/90 flex-shrink-0"
+                    style={{ 
+                      flexShrink: 0,
+                      position: 'relative',
+                      zIndex: 20,
+                      minHeight: 'auto'
+                    }}
+                  >
+                    <a
+                      href="https://espace.contentremovaldesk.com/auth?mode=signup"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsMobileMenuOpen(false);
+                        
+                        // Smooth transition animation
+                        const button = e.currentTarget;
+                        button.style.transition = 'all 0.2s ease-out';
+                        button.style.transform = 'scale(0.98)';
+                        
+                        // Navigate after animation
+                        setTimeout(() => {
+                          window.location.href = 'https://espace.contentremovaldesk.com/auth?mode=signup';
+                        }, 100);
+                      }}
+                      className="block w-full text-center py-3.5 px-6 rounded-xl bg-gradient-to-r from-primary to-primary/90 font-bold text-sm shadow-lg shadow-primary/30 active:scale-[0.98] active:shadow-primary/40 transition-all duration-200 !text-black"
+                      style={{
+                        textDecoration: 'none',
+                        fontWeight: 700,
+                        WebkitTapHighlightColor: 'transparent',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.5rem'
+                      }}
+                      ref={(el) => {
+                        if (el) {
+                          el.style.setProperty('color', '#000000', 'important');
+                          const spans = el.querySelectorAll('span');
+                          spans.forEach(span => {
+                            span.style.setProperty('color', '#000000', 'important');
+                          });
+                        }
+                      }}
+                    >
+                      <span className="!text-black" style={{ fontWeight: 700 }}>
+                        {t("common.getStarted")}
+                      </span>
+                      <span className="!text-black" style={{ fontSize: '1.125rem' }}>→</span>
                     </a>
-                  </Button>
-                </motion.div>
-              </div>
-            </motion.nav>
+                  </motion.div>
+                </div>
+              </motion.nav>
           </>
         )}
       </AnimatePresence>

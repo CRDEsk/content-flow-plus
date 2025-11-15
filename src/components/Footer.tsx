@@ -24,11 +24,11 @@ const Footer = () => {
   ];
 
   const services = [
-    { label: t("footer.servicesLinks.contentRemoval"), href: "/notre-solution" },
+    { label: t("footer.servicesLinks.forCreators"), href: "/pour-createurs" },
+    { label: t("footer.servicesLinks.forAgencies"), href: "/pour-agences" },
     { label: t("footer.servicesLinks.legalEscalations"), href: "/escalades-legal" },
-    { label: t("footer.servicesLinks.imageProtection"), href: "/escalades-legal" },
-    { label: t("footer.servicesLinks.scanMonitoring"), href: "https://scan.contentremovaldesk.com/scan", external: true },
-    { label: t("footer.servicesLinks.emergencyLine"), href: "https://wa.me/32460236990", external: true }
+    { label: t("footer.servicesLinks.ourSolution"), href: "/notre-solution" },
+    { label: t("footer.servicesLinks.scanMonitoring"), href: "https://scan.contentremovaldesk.com/scan", external: true }
   ];
 
   return (
@@ -196,12 +196,13 @@ const Footer = () => {
                     {item.external ? (
                       <a 
                         href={item.href}
-                        target={item.href.includes('wa.me') ? '_blank' : undefined}
-                        rel={item.href.includes('wa.me') ? 'noopener noreferrer' : undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="group relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-zinc-400 hover:text-primary transition-all duration-300 hover:bg-zinc-900/50 hover:border-primary/20 border border-transparent"
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125" />
                         <span className="group-hover:translate-x-1 transition-transform duration-300">{item.label}</span>
+                        <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
                       </a>
                     ) : (

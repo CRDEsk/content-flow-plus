@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Zap, Scale } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 
 interface HeroSectionProps {
@@ -10,38 +10,66 @@ interface HeroSectionProps {
 const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
   const { t, language } = useLanguage();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const rafRef = useRef<number | null>(null);
+  const lastUpdateRef = useRef<number>(0);
 
   useEffect(() => {
+    // Optimized for Safari - reduced update frequency and smoother throttling
+    const throttleDelay = 32; // ~30fps for better Safari performance
+    let ticking = false;
+    
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const now = Date.now();
+          if (now - lastUpdateRef.current >= throttleDelay) {
+            lastUpdateRef.current = now;
+            setMousePosition({ x: e.clientX, y: e.clientY });
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-black overflow-hidden pt-32 sm:pt-28 md:pt-24">
-      {/* Premium mesh gradient background */}
-      <div className="absolute inset-0">
+      {/* Premium mesh gradient background - Optimized for Safari */}
+      <div className="absolute inset-0" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
         <div 
-          className="absolute -top-40 sm:-top-10 left-1/2 -translate-x-1/2 w-[900px] sm:w-[1200px] h-[720px] sm:h-[800px] rounded-full opacity-25 sm:opacity-30 blur-[120px]"
+          className="absolute -top-40 sm:-top-10 left-1/2 -translate-x-1/2 w-[900px] sm:w-[1200px] h-[720px] sm:h-[800px] rounded-full opacity-25 sm:opacity-30 blur-[60px] sm:blur-[80px]"
           style={{
             background: `radial-gradient(circle, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.28) 38%, transparent 68%)`,
-            transform: `translate(calc(-50% + ${mousePosition.x * 0.03}px), ${mousePosition.y * 0.02}px)`
+            transform: `translate3d(calc(-50% + ${mousePosition.x * 0.03}px), ${mousePosition.y * 0.02}px, 0)`,
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden'
           }}
         />
         <div 
-          className="absolute bottom-0 left-1/4 w-[420px] sm:w-[600px] h-[420px] sm:h-[600px] rounded-full opacity-15 sm:opacity-20 blur-[80px] sm:blur-[100px]"
+          className="absolute bottom-0 left-1/4 w-[420px] sm:w-[600px] h-[420px] sm:h-[600px] rounded-full opacity-15 sm:opacity-20 blur-[40px] sm:blur-[60px]"
           style={{
             background: `radial-gradient(circle, hsl(var(--primary) / 0.6) 0%, transparent 60%)`,
-            transform: `translate(${mousePosition.x * 0.02}px, -${mousePosition.y * 0.02}px)`
+            transform: `translate3d(${mousePosition.x * 0.02}px, -${mousePosition.y * 0.02}px, 0)`,
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden'
           }}
         />
         <div 
-          className="absolute top-1/3 right-1/4 w-[360px] sm:w-[500px] h-[360px] sm:h-[500px] rounded-full opacity-10 sm:opacity-15 blur-[70px] sm:blur-[90px]"
+          className="absolute top-1/3 right-1/4 w-[360px] sm:w-[500px] h-[360px] sm:h-[500px] rounded-full opacity-10 sm:opacity-15 blur-[35px] sm:blur-[50px]"
           style={{
             background: `radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, transparent 70%)`,
-            transform: `translate(-${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`
+            transform: `translate3d(-${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px, 0)`,
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden'
           }}
         />
       </div>

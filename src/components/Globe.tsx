@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import { motion } from "framer-motion";
 import createGlobe from "cobe";
 
@@ -23,49 +23,131 @@ const countries: Country[] = [
 const GlobeComponent = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
+  const phiRef = useRef(0.42);
+  const initializedRef = useRef(false);
   const [mounted, setMounted] = useState(false);
+  const [globeReady, setGlobeReady] = useState(false);
 
+  // Initialize on mount only
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // Initialize globe only once
   useEffect(() => {
-    if (!canvasRef.current || !mounted) return;
+    const canvas = canvasRef.current;
+    if (!canvas || !mounted || initializedRef.current) return;
 
-    let phi = 0.42; // Start centered on Europe
+    let phi = phiRef.current;
     const theta = 0;
+    let animationId: number | null = null;
 
-    const globe = createGlobe(canvasRef.current, {
-      devicePixelRatio: 2,
-      width: 800,
-      height: 800,
-      phi,
-      theta,
-      dark: 0.85,
-      diffuse: 2.0,
-      mapSamples: 50000,
-      mapBrightness: 10,
-      baseColor: [0.08, 0.12, 0.18], // Dark base matching website theme
-      markerColor: [0.98, 0.75, 0.15], // Golden yellow markers
-      glowColor: [0.98, 0.75, 0.15], // Golden yellow glow
-      markers: countries.map((country) => ({
-        location: [country.lat, country.lng],
-        size: 0.18,
-      })),
-      onRender: (state) => {
-        // Slow continuous rotation
-        phi += 0.002;
-        state.phi = phi;
-        state.theta = theta;
-      },
+    const initGlobe = () => {
+      if (!canvas || globeRef.current || initializedRef.current) return;
+
+      try {
+        // Use device pixel ratio, capped at 2 for performance
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const globe = createGlobe(canvas, {
+          devicePixelRatio: dpr,
+          width: 800,
+          height: 800,
+          phi,
+          theta,
+          dark: 0.85,
+          diffuse: 2.0,
+          mapSamples: 40000, // Balanced for all browsers
+          mapBrightness: 10,
+          baseColor: [0.08, 0.12, 0.18],
+          markerColor: [0.98, 0.75, 0.15],
+          glowColor: [0.98, 0.75, 0.15],
+          markers: countries.map((country) => ({
+            location: [country.lat, country.lng],
+            size: 0.18,
+          })),
+          onRender: (state) => {
+            if (!globeRef.current) return; // Safety check
+            phi += 0.002; // Universal rotation speed
+            phiRef.current = phi;
+            state.phi = phi;
+            state.theta = theta;
+          },
+        });
+
+        globeRef.current = globe;
+        initializedRef.current = true;
+        // Mark as ready after a short delay to ensure rendering has started
+        setTimeout(() => {
+          setGlobeReady(true);
+        }, 300);
+      } catch (error) {
+        if (import.meta.env.DEV) {
+          console.error('Error creating globe:', error);
+        }
+        initializedRef.current = false;
+        // Retry after a delay only if not already initialized
+        setTimeout(() => {
+          if (!globeRef.current && !initializedRef.current && canvas) {
+            initGlobe();
+          }
+        }, 1000);
+      }
+    };
+
+    // Use requestAnimationFrame to ensure canvas is fully ready
+    const rafId = requestAnimationFrame(() => {
+      initGlobe();
     });
 
-    globeRef.current = globe;
+    // Handle context loss - prevent default to keep context
+    const handleContextLost = (e: Event) => {
+      e.preventDefault();
+      if (import.meta.env.DEV) {
+        console.warn('WebGL context lost');
+      }
+    };
+
+    const handleContextRestored = () => {
+      if (import.meta.env.DEV) {
+        console.log('WebGL context restored');
+      }
+      // Reinitialize if context was lost
+      if (!globeRef.current && canvas && initializedRef.current) {
+        initializedRef.current = false;
+        setTimeout(() => {
+          initGlobe();
+        }, 100);
+      }
+    };
+
+    canvas.addEventListener('webglcontextlost', handleContextLost);
+    canvas.addEventListener('webglcontextrestored', handleContextRestored);
 
     return () => {
-      globe.destroy();
+      cancelAnimationFrame(rafId);
+      canvas.removeEventListener('webglcontextlost', handleContextLost);
+      canvas.removeEventListener('webglcontextrestored', handleContextRestored);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+      // Don't destroy here - only on component unmount
     };
   }, [mounted]);
+
+  // Cleanup only on unmount
+  useEffect(() => {
+    return () => {
+      if (globeRef.current) {
+        try {
+          globeRef.current.destroy();
+        } catch (error) {
+          // Ignore errors during cleanup
+        }
+        globeRef.current = null;
+        initializedRef.current = false;
+      }
+    };
+  }, []);
 
   const partnerLayout: Array<{
     country: Country;
@@ -80,30 +162,38 @@ const GlobeComponent = () => {
     { country: countries[4], position: { x: 95, y: 58 }, side: "right" },
   ];
 
+  if (!mounted) {
+    return (
+      <div className="flex w-full items-center justify-center">
+        <div className="relative w-full max-w-[520px] flex items-center justify-center h-[420px]">
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex w-full items-center justify-center">
-      <motion.div
-        className="relative w-full max-w-[520px] flex items-center justify-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <motion.canvas
-          ref={canvasRef}
-          className="relative z-10"
-          style={{
-            width: "420px",
-            height: "420px",
-            maxWidth: "100%",
-            aspectRatio: "1",
-            display: "block",
-            borderRadius: "50%",
-            filter: "brightness(1.05) contrast(1.18)",
-          }}
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        />
+      <div className="relative w-full max-w-[520px] flex items-center justify-center">
+        <div className="relative w-[420px] h-[420px]">
+          <canvas
+            ref={canvasRef}
+            className={`absolute inset-0 z-10 transition-opacity duration-700 ${globeReady ? 'opacity-100' : 'opacity-0'}`}
+            width={800}
+            height={800}
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              filter: "brightness(1.05) contrast(1.18)",
+            }}
+          />
+          {!globeReady && (
+            <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/50 rounded-full">
+              <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+            </div>
+          )}
+        </div>
 
         <div className="absolute inset-0 pointer-events-none z-20">
           {partnerLayout.map(({ country, position, side }, index) => {
@@ -142,9 +232,10 @@ const GlobeComponent = () => {
             );
           })}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
 
-export default GlobeComponent;
+// Memoize to prevent unnecessary re-renders
+export default memo(GlobeComponent);

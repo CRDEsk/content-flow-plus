@@ -75,10 +75,21 @@
     z-index: 100;
     border-radius: 0 0 8px 0;
     font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
   }
   
   .skip-to-content:focus {
     top: 0;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  /* Hide completely on mobile to avoid gold bar */
+  @media (max-width: 640px) {
+    .skip-to-content {
+      display: none !important;
+    }
   }
   
   html {
@@ -89,6 +100,23 @@
     background-color: #000000;
     min-height: 100vh;
     color: #ffffff;
+  }
+  
+  /* Remove any gold bar at top on mobile */
+  header::before,
+  header::after {
+    display: none !important;
+  }
+  
+  @media (max-width: 640px) {
+    header {
+      border-top: none !important;
+    }
+    
+    header > *::before,
+    header > *::after {
+      display: none !important;
+    }
   }
   
   /* Ensure all text elements have white text by default on black background */
@@ -264,6 +292,16 @@ nav[class*="lg:hidden"] a[class*="from-primary"] span {
   
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--accent) / 0.8);
+  }
+  
+  /* Hide scrollbar for mobile menu */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
   }
 }
 
@@ -595,3 +633,4 @@ nav[class*="lg:hidden"] a[class*="from-primary"] span {
     to { box-shadow: var(--shadow-gold), var(--shadow-elegant); }
   }
 }
+

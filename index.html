@@ -13,8 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#D4AF37" />
     
-    <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; frame-src 'self' https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;" />
+    <!-- Content Security Policy - Enabled for production -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://app.cal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://app.cal.com; frame-src 'self' https://www.googletagmanager.com https://app.cal.com; object-src 'none'; base-uri 'self'; form-action 'self';" />
     
     <!-- Primary Meta Tags -->
     <title>ContentRemovalDesk - Protection Digitale pour Créateurs | Suppression de Fuites</title>
@@ -63,6 +63,83 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ContentRemovalDesk",
+      "alternateName": "CRD",
+      "url": "https://contentremovaldesk.com",
+      "logo": "https://contentremovaldesk.com/logo.png",
+      "description": "Service professionnel de suppression de contenu et protection d'image pour créateurs. 99.2% de réussite, intervention 48h, surveillance 24/7.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "FR"
+      },
+      "sameAs": [
+        "https://www.trustpilot.com/review/contentremovaldesk.com"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "email": "support@contentremovaldesk.com"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "50+"
+      },
+      "offers": {
+        "@type": "Offer",
+        "category": "Digital Protection Service"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Content Removal & Digital Protection",
+      "provider": {
+        "@type": "Organization",
+        "name": "ContentRemovalDesk"
+      },
+      "areaServed": "Worldwide",
+      "description": "Service de suppression de contenu illégal, protection d'image et droit à l'image pour créateurs de contenu",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services de Protection Digitale",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Scan Complet",
+              "description": "Détection automatique de contenus illégaux"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Signalement DMCA",
+              "description": "Suppression de contenus via procédures DMCA"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Escalades Légales",
+              "description": "Actions juridiques renforcées pour cas complexes"
+            }
+          }
+        ]
+      }
+    }
+    </script>
   </head>
 
   <body>

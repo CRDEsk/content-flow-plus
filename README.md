@@ -52,14 +52,14 @@ npm run preview
 
 ## Features
 
-- 🎨 Modern, responsive design
-- 🌍 Multi-language support (FR/EN)
-- 📱 Mobile-optimized
-- 🔍 SEO optimized
-- 📊 Analytics integration (Google Tag Manager)
-- 🍪 GDPR-compliant cookie consent
-- ♿ Accessibility features
-- 🚀 Performance optimized
+-  Modern, responsive design
+-  Multi-language support (FR/EN)
+-  Mobile-optimized
+-  SEO optimized
+-  Analytics integration (Google Tag Manager)
+-  GDPR-compliant cookie consent
+-  Accessibility features
+-  Performance optimized
 
 ## Deployment
 

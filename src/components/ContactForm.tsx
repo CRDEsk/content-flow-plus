@@ -96,7 +96,9 @@ const ContactForm = ({ onSuccess }: ContactFormProps) => {
         }
       } catch (apiError) {
         // API endpoint doesn't exist or network error - use mailto fallback
-        console.log('API endpoint not available, using mailto fallback');
+        if (import.meta.env.DEV) {
+          console.log('API endpoint not available, using mailto fallback');
+        }
       }
 
       // If API failed, use mailto as fallback

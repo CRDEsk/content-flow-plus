@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,8 @@ const NotreSolution = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollMarquee, setScrollMarquee] = useState(0);
   const [isNavigating, setIsNavigating] = useState(false);
+  const rafRef = useRef<number | null>(null);
+  const lastUpdateRef = useRef<number>(0);
 
   useEffect(() => {
     // SEO optimization for Solution page
@@ -36,20 +38,42 @@ const NotreSolution = () => {
       metaDescription.setAttribute("content", "Découvrez notre solution complète de protection digitale : détection automatique, suppression DMCA, surveillance 24/7, et protection juridique pour créateurs de contenu.");
     }
 
+    // Optimized for Safari - reduced update frequency and smoother throttling
+    const throttleDelay = 32; // ~30fps for better Safari performance
+    let ticking = false;
+
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const now = Date.now();
+          if (now - lastUpdateRef.current >= throttleDelay) {
+            lastUpdateRef.current = now;
+            setMousePosition({ x: e.clientX, y: e.clientY });
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, []);
 
   useEffect(() => {
+    // Throttle marquee animation for smooth performance
+    const intervalDelay = 30; // ~33fps for smooth animation
     const interval = setInterval(() => {
       setScrollMarquee(prev => {
         if (prev <= -2000) return 0; // Reset to create infinite loop
         return prev - 1;
       });
-    }, 30);
+    }, intervalDelay);
     return () => clearInterval(interval);
   }, []);
 
@@ -162,22 +186,26 @@ const NotreSolution = () => {
         )}
       </AnimatePresence>
 
-      {/* Hero Section - Unique Design */}
+      {/* Hero Section - Unique Design - Optimized for Safari */}
       <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-24 sm:pt-32 pb-16 sm:pb-20">
-        {/* Animated gradient background - different pattern */}
-        <div className="absolute inset-0">
+        {/* Animated gradient background - Optimized for Safari */}
+        <div className="absolute inset-0" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
           <div 
-            className="absolute top-1/4 right-1/4 w-[800px] h-[800px] rounded-full opacity-25 blur-[100px]"
+            className="absolute top-1/4 right-1/4 w-[800px] h-[800px] rounded-full opacity-25 blur-[50px] sm:blur-[70px]"
             style={{
               background: `radial-gradient(circle, hsl(var(--primary) / 0.8) 0%, hsl(var(--primary) / 0.2) 50%, transparent 80%)`,
-              transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
+              transform: `translate3d(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px, 0)`,
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden'
             }}
           />
           <div 
-            className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px] rounded-full opacity-20 blur-[90px]"
+            className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px] rounded-full opacity-20 blur-[45px] sm:blur-[60px]"
             style={{
               background: `radial-gradient(circle, hsl(var(--primary) / 0.6) 0%, transparent 70%)`,
-              transform: `translate(-${mousePosition.x * 0.015}px, -${mousePosition.y * 0.015}px)`
+              transform: `translate3d(-${mousePosition.x * 0.015}px, -${mousePosition.y * 0.015}px, 0)`,
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden'
             }}
           />
           {/* Grid pattern overlay */}
@@ -186,6 +214,8 @@ const NotreSolution = () => {
             style={{
               backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
               backgroundSize: '50px 50px',
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden'
             }}
           />
         </div>
@@ -340,11 +370,16 @@ const NotreSolution = () => {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
       </section>
 
-      {/* Scrolling Marquee */}
+      {/* Scrolling Marquee - Optimized for Safari */}
       <div className="relative overflow-hidden py-8 border-y border-zinc-800/50 bg-zinc-950/50">
         <div 
           className="flex gap-12 whitespace-nowrap"
-          style={{ transform: `translateX(${scrollMarquee}px)` }}
+          style={{ 
+            transform: `translate3d(${scrollMarquee}px, 0, 0)`,
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden'
+          }}
         >
           {[...marqueeItems, ...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, index) => (
             <div key={index} className="flex items-center gap-3">
@@ -357,8 +392,14 @@ const NotreSolution = () => {
 
       {/* Dashboard Section Header */}
       <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-1/3 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 opacity-20" style={{ transform: 'translateZ(0)' }}>
+          <div 
+            className="absolute top-1/3 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/10 rounded-full blur-3xl"
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden'
+            }}
+          />
         </div>
 
         <div className="container mx-auto max-w-6xl relative z-10 text-center">

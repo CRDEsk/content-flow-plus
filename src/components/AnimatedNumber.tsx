@@ -76,3 +76,4 @@ const AnimatedNumber = ({ value, duration = 2, className = "" }: AnimatedNumberP
 export default AnimatedNumber;
 
 
+

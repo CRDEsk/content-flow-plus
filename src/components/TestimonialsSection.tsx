@@ -4,13 +4,16 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { Quote, Star, ExternalLink, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useEffect, useState } from "react";
 
 const TestimonialsSection = () => {
   const { t } = useLanguage();
+  const [api, setApi] = useState<CarouselApi>();
   const testimonials = [
     {
       quote: "Une équipe très professionnelle et réactive ! Grâce à eux, j'ai pu retirer plusieurs contenus indésirables, notamment sur Google, avec un suivi clair et efficace. Leur travail m'a permis de défendre mes droits à l'image et de reprendre le contrôle sur ma vie en ligne. Je recommande cette entreprise à 100 % 👏",
@@ -62,6 +65,43 @@ const TestimonialsSection = () => {
     }
   ];
 
+  // Auto-rotate testimonials every 4-5 seconds, pause when tab is hidden
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    let interval: ReturnType<typeof setInterval> | null = null;
+
+    const startRotation = () => {
+      if (interval) clearInterval(interval);
+      interval = setInterval(() => {
+        if (!document.hidden && api) {
+          api.scrollNext();
+        }
+      }, 4500); // 4.5 seconds
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (interval) {
+          clearInterval(interval);
+          interval = null;
+        }
+      } else {
+        startRotation();
+      }
+    };
+
+    startRotation();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      if (interval) clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [api]);
+
   return (
     <section id="testimonials" className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
       {/* Animated background */}
@@ -103,6 +143,7 @@ const TestimonialsSection = () => {
 
         {/* Carousel */}
         <Carousel
+          setApi={setApi}
           opts={{
             align: "start",
             loop: true,

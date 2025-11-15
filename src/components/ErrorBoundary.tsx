@@ -25,13 +25,21 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("ErrorBoundary caught an error:", error, errorInfo);
+    if (import.meta.env.DEV) {
+      console.error("ErrorBoundary caught an error:", error, errorInfo);
+    }
     
-    // Log error to monitoring service (e.g., Sentry)
-    // You can add Sentry or other error tracking here
+    // Log error to monitoring service
     if (import.meta.env.PROD) {
-      // In production, send to error tracking service
-      // Example: Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo.componentStack } } });
+      import('@/lib/errorTracking').then(({ trackError }) => {
+        trackError(error, {
+          componentStack: errorInfo.componentStack,
+          errorBoundary: true,
+          userAgent: navigator.userAgent,
+          url: window.location.href,
+          timestamp: new Date().toISOString(),
+        });
+      });
     }
 
     this.setState({

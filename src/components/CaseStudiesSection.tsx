@@ -2,24 +2,27 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import caseStudy1 from "@/assets/case-study-1.png";
-import caseStudy2 from "@/assets/case-study-2.png";
 import caseStudy3 from "@/assets/case-study-3.png";
+import caseStudy4 from "@/assets/case-study-4.png";
 
 const CaseStudiesSection = () => {
   const cases = [
     {
+      id: 1,
       title: "Tout a disparu. Même les pires. En moins d'un mois.",
       image: caseStudy1,
       gradient: "from-pink-500/30 via-purple-500/20 to-pink-500/30",
       author: "Content Removal Desk"
     },
     {
-      title: "Dossier confidentiel — Leakimedia supprimé. Dossier clos.",
-      image: caseStudy2,
-      gradient: "from-purple-500/30 via-blue-500/20 to-purple-500/30",
+      id: 4,
+      title: "On a fait tomber Born to be f*ck",
+      image: caseStudy4,
+      gradient: "from-red-500/30 via-orange-500/20 to-red-500/30",
       author: "Content Removal Desk"
     },
     {
+      id: 3,
       title: "Dossier Ava21 / Petitabricot",
       image: caseStudy3,
       gradient: "from-orange-500/30 via-red-500/20 to-orange-500/30",
@@ -58,10 +61,10 @@ const CaseStudiesSection = () => {
 
         {/* Cases Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-          {cases.map((caseItem, index) => (
+          {cases.map((caseItem) => (
             <Link 
-              key={index}
-              to="/cas-clients"
+              key={caseItem.id}
+              to={`/cas-clients/${caseItem.id}`}
               className="group relative overflow-hidden rounded-xl sm:rounded-2xl lg:rounded-3xl bg-gradient-to-br from-zinc-900/70 to-zinc-950/70 backdrop-blur-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 block"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${caseItem.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />

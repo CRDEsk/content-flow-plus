@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Scale, FileText, Shield, Target, CheckCircle2, AlertCircle, Lock, Gavel, Globe, Eye, Zap, TrendingUp, Award, Users, Phone, ChevronRight, ArrowRight, Mail, MessageCircle, HelpCircle } from "lucide-react";
+import { Scale, FileText, Shield, CheckCircle2, AlertCircle, Lock, Gavel, Globe, Eye, Zap, TrendingUp, Award, Users, Phone, ArrowRight, Mail, MessageCircle, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import GlobeComponent from "@/components/Globe";
+const GlobeComponent = lazy(() => import("@/components/Globe"));
 import AnimatedNumber from "@/components/AnimatedNumber";
 import {
   Accordion,
@@ -184,17 +184,18 @@ const EscaladesLegal = () => {
               </motion.div>
             </motion.div>
             
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={mounted ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
-              className="relative hidden lg:block"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-3xl blur-3xl" />
-              <div className="relative rounded-3xl h-[500px] flex items-center justify-center">
-                <GlobeComponent />
-              </div>
-            </motion.div>
+                    <div className="relative hidden lg:block">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-3xl blur-3xl" />
+                      <div className="relative rounded-3xl h-[500px] flex items-center justify-center">
+                        <Suspense fallback={
+                          <div className="flex items-center justify-center h-full">
+                            <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                          </div>
+                        }>
+                          <GlobeComponent key="globe-escalade-static" />
+                        </Suspense>
+                      </div>
+                    </div>
           </div>
         </div>
       </section>

@@ -16,7 +16,9 @@ export const initAnalytics = () => {
   
   // Check cookie consent before initializing
   if (!hasCookieConsent()) {
-    console.log('Analytics: Cookie consent not given, skipping initialization');
+    if (import.meta.env.DEV) {
+      console.log('Analytics: Cookie consent not given, skipping initialization');
+    }
     return;
   }
   

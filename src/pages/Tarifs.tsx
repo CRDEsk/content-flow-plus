@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, Fragment } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Check, X, ArrowRight, Info } from "lucide-react";
@@ -23,8 +23,9 @@ const Tarifs = () => {
     monthly: [
       {
         name: "Free Trial (7 jours)",
-        price: "0",
-        period: "/une fois",
+        price: "Gratuit",
+        period: "",
+        isFree: true,
         description: "Découvre la protection CRD sans engagement.",
         tagline: "Scan illimité + 5 suppressions réelles offertes.",
         features: [
@@ -72,17 +73,19 @@ const Tarifs = () => {
           "Support prioritaire + gestionnaire dédié",
           "Enregistrement DMCA officiel",
           "Veille proactive 7j/7",
-          "Agent spécialisé dédié à votre protection"
+          "Agent spécialisé dédié à votre protection",
+          "Accès complet et prioritaire à nos escalades juridiques et techniques"
         ],
         cta: "Activer",
         variant: "outline" as const
-      }
+      },
     ],
     quarterly: [
       {
         name: "Free Trial (7 jours)",
-        price: "0",
-        period: "/une fois",
+        price: "Gratuit",
+        period: "",
+        isFree: true,
         description: "Découvre la protection CRD sans engagement.",
         tagline: "Scan illimité + 5 suppressions réelles offertes.",
         features: [
@@ -132,7 +135,8 @@ const Tarifs = () => {
           "Support prioritaire + gestionnaire dédié",
           "Enregistrement DMCA officiel",
           "Veille proactive 7j/7",
-          "Agent spécialisé dédié à votre protection"
+          "Agent spécialisé dédié à votre protection",
+          "Accès complet et prioritaire à nos escalades juridiques et techniques"
         ],
         cta: "Activer",
         variant: "outline" as const
@@ -193,7 +197,8 @@ const Tarifs = () => {
       items: [
         { name: "Enregistrement copyright (DMCA)", free: false, core: "190€", elite: "150€", special: "Inclus" },
         { name: "Nom de domaine personnalisé", free: false, core: false, elite: true },
-        { name: "Scan Telegram caché", free: false, core: false, elite: true }
+        { name: "Scan Telegram caché", free: false, core: false, elite: true },
+        { name: "Accès aux escalades juridiques et techniques", free: false, core: false, elite: "Accès complet et prioritaire" }
       ]
     }
   ];
@@ -214,10 +219,50 @@ const Tarifs = () => {
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 mb-4 sm:mb-6"
+              transition={{ delay: 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-zinc-900/80 via-zinc-900/60 to-zinc-900/80 border border-primary/20 backdrop-blur-xl mb-4 sm:mb-6 overflow-hidden group"
             >
-              <span className="text-xs sm:text-sm text-zinc-400 font-medium">Tarifs</span>
+              {/* Animated shimmer effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent"
+                animate={{
+                  x: ['-100%', '100%'],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatDelay: 2,
+                  ease: "easeInOut"
+                }}
+                style={{
+                  transform: 'translateZ(0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden'
+                } as React.CSSProperties}
+              />
+              {/* Glow effect */}
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                animate={{
+                  boxShadow: [
+                    '0 0 15px rgba(255, 223, 125, 0.1)',
+                    '0 0 25px rgba(255, 223, 125, 0.2)',
+                    '0 0 15px rgba(255, 223, 125, 0.1)'
+                  ]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                style={{
+                  transform: 'translateZ(0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  pointerEvents: 'none'
+                } as React.CSSProperties}
+              />
+              <span className="relative z-10 text-xs sm:text-sm text-primary font-semibold drop-shadow-[0_0_4px_rgba(255,223,125,0.3)]">Tarifs</span>
             </motion.div>
             
             <motion.h1 
@@ -239,20 +284,36 @@ const Tarifs = () => {
               et mises à jour régulières tout est géré pour toi.
             </motion.p>
 
-            {/* Billing Toggle */}
+            {/* Billing Toggle - Smooth sliding indicator */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 0.4 }}
-              className="inline-flex items-center gap-2 p-1 sm:p-1.5 rounded-full bg-zinc-900/50 border-2 border-zinc-800/50"
+              className="relative inline-flex items-center gap-2 p-1 sm:p-1.5 rounded-full bg-zinc-900/50 border-2 border-zinc-800/50 backdrop-blur-sm"
             >
+              {/* Sliding background indicator - symmetrical */}
+              <motion.div
+                layout
+                className="absolute inset-y-1 rounded-full bg-gradient-to-r from-zinc-800 to-zinc-700 shadow-lg"
+                style={{
+                  width: 'calc(50% - 0.5rem)',
+                  left: billing === 'monthly' ? '0.25rem' : undefined,
+                  right: billing === 'quarterly' ? '0.25rem' : undefined,
+                }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 400, 
+                  damping: 35,
+                  mass: 0.8
+                }}
+              />
               <motion.button
                 onClick={() => setBilling('monthly')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-500 ${
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`relative z-10 px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-colors duration-200 ${
                   billing === 'monthly'
-                    ? 'bg-zinc-800 text-foreground shadow-lg'
+                    ? 'text-foreground'
                     : 'text-zinc-400 hover:text-foreground'
                 }`}
               >
@@ -260,11 +321,11 @@ const Tarifs = () => {
               </motion.button>
               <motion.button
                 onClick={() => setBilling('quarterly')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-500 ${
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`relative z-10 px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-colors duration-200 ${
                   billing === 'quarterly'
-                    ? 'bg-zinc-800 text-foreground shadow-lg'
+                    ? 'text-foreground'
                     : 'text-zinc-400 hover:text-foreground'
                 }`}
               >
@@ -273,85 +334,166 @@ const Tarifs = () => {
             </motion.div>
           </motion.div>
 
-          {/* Pricing Cards */}
-          <div className="grid md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+          {/* Pricing Cards - Smooth transitions */}
+          <div className="mb-12 sm:mb-16">
+            <div className="grid md:grid-cols-3 gap-6 sm:gap-8 w-full">
             {plans[billing].map((plan, index) => (
               <motion.div
-                key={`${billing}-${index}`}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + (index * 0.1), duration: 0.5 }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                className={`relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br ${
-                  plan.highlighted
-                    ? 'from-zinc-900/90 to-zinc-950/90 border-2 border-primary/50'
-                    : 'from-zinc-900/50 to-zinc-950/50 border border-zinc-800/50'
-                } backdrop-blur-xl transition-all duration-500 hover:border-primary/50`}
+                  key={`${billing}-${plan.name}`}
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: 1
+                  }}
+                  transition={{
+                    layout: {
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30
+                    },
+                    opacity: {
+                      duration: 0.5,
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    },
+                    delay: index * 0.1
+                  }}
+                className="group relative h-full bg-gradient-to-br from-zinc-900/70 to-zinc-950/70 backdrop-blur-xl rounded-2xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 overflow-hidden"
               >
+                {/* Hover gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
                 {plan.badge && (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.7 + (index * 0.1) }}
-                    className="absolute top-3 sm:top-4 right-3 sm:right-4 px-2.5 sm:px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-[10px] sm:text-xs font-semibold"
-                  >
+                  <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold backdrop-blur-sm">
                     {plan.badge}
-                  </motion.div>
+                  </div>
                 )}
 
-                <div className="p-5 sm:p-6 lg:p-8">
+                <div className="relative p-8 flex flex-col h-full">
                   {/* Header */}
-                  <div className="mb-5 sm:mb-6">
-                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-3 sm:mb-4 leading-tight">{plan.name}</h3>
-                    <div className="flex items-baseline gap-2 mb-3 sm:mb-4 flex-wrap">
+                  <div className="mb-6">
+                    <h3 className="text-xl lg:text-2xl font-bold text-foreground mb-4 leading-tight group-hover:text-primary transition-colors">
+                      {plan.name}
+                    </h3>
+                    <motion.div 
+                      layout
+                      className="flex items-baseline gap-2 mb-4 flex-wrap"
+                    >
                       {plan.originalPrice && (
-                        <span className="text-xl sm:text-2xl text-zinc-600 line-through">€{plan.originalPrice}</span>
+                        <motion.span 
+                          layout
+                          key={`original-${billing}-${plan.name}`}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ 
+                            duration: 0.3,
+                            delay: 0.2 + (index * 0.1)
+                          }}
+                          className="text-xl text-zinc-600 line-through"
+                        >
+                          €{plan.originalPrice}
+                        </motion.span>
                       )}
-                      <span className="text-4xl sm:text-5xl font-bold text-primary">€{plan.price}</span>
-                      <span className="text-sm sm:text-base text-zinc-400">{plan.period}</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">{plan.description}</p>
+                      {plan.isFree ? (
+                        <motion.span 
+                          layout
+                          key={`price-${billing}-${plan.name}`}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ 
+                            duration: 0.4,
+                            delay: 0.25 + (index * 0.1)
+                          }}
+                          className="text-4xl lg:text-5xl font-bold text-primary"
+                        >
+                          {plan.price}
+                        </motion.span>
+                      ) : (
+                        <>
+                          <motion.span 
+                            layout
+                            key={`price-${billing}-${plan.name}`}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ 
+                              duration: 0.4,
+                              delay: 0.25 + (index * 0.1)
+                            }}
+                            className="text-4xl lg:text-5xl font-bold text-primary"
+                          >
+                            €{plan.price}
+                          </motion.span>
+                          <motion.span 
+                            layout
+                            key={`period-${billing}-${plan.name}`}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ 
+                              duration: 0.3,
+                              delay: 0.3 + (index * 0.1)
+                            }}
+                            className="text-sm text-zinc-400"
+                          >
+                            {plan.period}
+                          </motion.span>
+                        </>
+                      )}
+                    </motion.div>
+                    <p className="text-sm text-zinc-300 leading-relaxed mb-6">
+                      {plan.description}
+                    </p>
                   </div>
 
                   {/* CTA */}
-                  <Button
-                    className={`w-full mb-5 sm:mb-6 rounded-full font-semibold transition-all duration-300 ${
-                      plan.variant === 'primary'
-                        ? 'bg-primary hover:bg-primary/90 text-black !important'
-                        : 'bg-transparent border-2 border-zinc-500 hover:border-primary/60 text-white !important hover:text-white hover:bg-zinc-900/30'
-                    }`}
-                    size="lg"
-                    asChild
-                  >
-                    <a href="https://espace.contentremovaldesk.com/auth?mode=signup" className="!text-white">
-                      {plan.cta}
-                    </a>
-                  </Button>
+                  <div className="mt-auto">
+                    <Button
+                      className={`w-full rounded-full font-semibold transition-all duration-300 group ${
+                        plan.highlighted
+                          ? 'bg-primary hover:bg-primary/90 text-black'
+                          : plan.variant === 'primary'
+                          ? 'bg-primary hover:bg-primary/90 text-black'
+                          : plan.isFree
+                          ? 'bg-transparent border border-zinc-700 hover:border-primary/50 text-white hover:text-primary hover:bg-zinc-900/30'
+                          : plan.name === 'Elite Plan'
+                          ? 'bg-gradient-to-r from-primary/20 to-purple-500/20 border border-primary/30 hover:border-primary/50 text-primary hover:text-primary hover:from-primary/30 hover:to-purple-500/30'
+                          : 'bg-transparent border border-zinc-700 hover:border-primary/50 text-white hover:text-primary'
+                      }`}
+                      size="lg"
+                      asChild
+                    >
+                      <a href="https://espace.contentremovaldesk.com/auth?mode=signup" className="flex items-center justify-center gap-2">
+                        {plan.cta}
+                        <ArrowRight className="h-4 w-4 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                      </a>
+                    </Button>
+                  </div>
 
                   {/* Features */}
-                  <div className="space-y-3 sm:space-y-4">
-                    <div className="flex items-center gap-2 text-xs sm:text-sm text-zinc-400 mb-2 sm:mb-3">
-                      <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary flex-shrink-0" />
+                  <div className="mt-6 pt-6 border-t border-zinc-800/50 flex-grow">
+                    <div className="flex items-center gap-2 text-sm text-zinc-400 mb-4">
+                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
                       <span className="font-medium">{plan.tagline}</span>
                     </div>
-                    <ul className="space-y-2 sm:space-y-3">
+                    <ul className="space-y-3">
                       {plan.features.map((feature, idx) => (
-                        <motion.li 
+                        <li 
                           key={idx}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.6 + (index * 0.1) + (idx * 0.05), duration: 0.3 }}
-                          className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm"
+                          className="flex items-start gap-3 text-sm group"
                         >
-                          <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary shrink-0 mt-0.5" />
-                          <span className="text-zinc-300 leading-relaxed">{feature}</span>
-                        </motion.li>
+                          <Check className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:text-primary/90 transition-colors" />
+                          <span className="text-zinc-300 leading-relaxed group-hover:text-zinc-200 transition-colors">
+                            {feature}
+                          </span>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 </div>
+
+                {/* Corner accent */}
+                <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-500" />
               </motion.div>
             ))}
+            </div>
           </div>
 
           {/* Payment Methods */}
@@ -406,8 +548,8 @@ const Tarifs = () => {
               </thead>
               <tbody>
                 {comparisonFeatures.map((category, catIdx) => (
-                  <>
-                    <tr key={`cat-${catIdx}`} className="border-t border-zinc-800">
+                  <Fragment key={`category-${catIdx}`}>
+                    <tr className="border-t border-zinc-800">
                       <td colSpan={4} className="py-2.5 sm:py-3 lg:py-4 px-2 sm:px-3 lg:px-4 text-xs sm:text-sm lg:text-base font-bold text-foreground">
                         {category.category}
                       </td>
@@ -450,7 +592,7 @@ const Tarifs = () => {
                         </td>
                       </tr>
                     ))}
-                  </>
+                  </Fragment>
                 ))}
               </tbody>
             </table>
