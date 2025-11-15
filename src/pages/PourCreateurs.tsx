@@ -271,7 +271,7 @@ const PourCreateurs = () => {
                   asChild
                 >
                   <a href="https://espace.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
-                    <span className="flex items-center gap-3 justify-center">
+                    <span className="flex items-center gap-2 sm:gap-3 justify-center">
                       <motion.span
                         animate={{
                           rotate: [0, 5, -5, 0]
@@ -289,10 +289,10 @@ const PourCreateurs = () => {
                           WebkitBackfaceVisibility: 'hidden',
                         } as React.CSSProperties}
                       >
-                        <Zap className="h-5 w-5 sm:h-6 sm:w-6" />
+                        <Zap className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 flex-shrink-0" />
                       </motion.span>
-                      Accéder à mon espace CRD
-                      <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform" />
+                      <span className="text-sm sm:text-base lg:text-lg">Mon espace CRD</span>
+                      <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 group-hover:translate-x-1 transition-transform flex-shrink-0" />
                     </span>
                   </a>
                 </Button>
@@ -1540,10 +1540,10 @@ const PourCreateurs = () => {
                   asChild
                 >
                   <a href="https://espace.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
-                    <span className="flex items-center gap-3 justify-center">
-                      <Zap className="h-5 w-5 sm:h-6 sm:w-6" />
-                      Accéder à mon espace CRD
-                      <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform" />
+                    <span className="flex items-center gap-2 sm:gap-3 justify-center">
+                      <Zap className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 flex-shrink-0" />
+                      <span className="text-sm sm:text-base lg:text-lg">Mon espace CRD</span>
+                      <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 group-hover:translate-x-1 transition-transform flex-shrink-0" />
                     </span>
                   </a>
                 </Button>

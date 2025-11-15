@@ -852,296 +852,56 @@ const PourAgences = () => {
 
       {/* SECTION 1 - Hero */}
       <section className="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-24 sm:pt-32 pb-16 sm:pb-20">
-        {/* Optimized animated background gradients - Safari optimized with reduced blur */}
+        {/* Ultra-optimized background for Safari - minimal animations */}
         <div className="absolute inset-0 overflow-hidden" style={{ 
           transform: 'translateZ(0)', 
           WebkitTransform: 'translateZ(0)',
           WebkitBackfaceVisibility: 'hidden',
           backfaceVisibility: 'hidden'
         } as React.CSSProperties}>
-          {/* Main gradient orb 1 - optimized blur */}
+          {/* Only 2 simple gradient orbs with minimal animation - no blur for Safari */}
           <motion.div 
-            className="absolute top-1/4 right-1/4 w-[1200px] h-[1200px]"
+            className="absolute top-1/4 right-1/4 w-[800px] h-[800px]"
             animate={{
-              opacity: [0.6, 0.9, 0.7, 0.6],
-              scale: [1, 1.2, 1.1, 1],
-              x: [0, 50, -40, 30, 0],
-              y: [0, -45, 35, -25, 0],
-              rotate: [0, 10, -10, 5, 0],
+              opacity: [0.4, 0.6, 0.4],
             }}
             transition={{
-              duration: 12,
+              duration: 8,
               repeat: Infinity,
-              ease: "easeInOut",
-              type: "tween"
+              ease: "easeInOut"
             }}
             style={{
-              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.25) 0%, rgba(96, 165, 250, 0.18) 25%, rgba(59, 130, 246, 0.12) 40%, rgba(147, 197, 253, 0.06) 55%, transparent 70%)',
-              filter: 'blur(40px)',
-              WebkitFilter: 'blur(40px)',
+              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, rgba(96, 165, 250, 0.08) 40%, transparent 70%)',
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
             } as React.CSSProperties}
           />
-          {/* Main gradient orb 2 - optimized blur */}
           <motion.div 
-            className="absolute bottom-1/4 left-1/4 w-[1100px] h-[1100px]"
+            className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px]"
             animate={{
-              opacity: [0.55, 0.85, 0.65, 0.55],
-              scale: [1, 1.15, 1.1, 1],
-              x: [0, -45, 35, -25, 0],
-              y: [0, 40, -30, 20, 0],
-              rotate: [0, -10, 10, -5, 0],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.8
-            }}
-            style={{
-              background: 'radial-gradient(circle at center, rgba(96, 165, 250, 0.22) 0%, rgba(147, 197, 253, 0.15) 25%, rgba(96, 165, 250, 0.08) 40%, rgba(59, 130, 246, 0.04) 55%, transparent 70%)',
-              filter: 'blur(45px)',
-              WebkitFilter: 'blur(45px)',
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-            } as React.CSSProperties}
-          />
-          {/* Center accent orb - optimized blur */}
-          <motion.div 
-            className="absolute top-1/2 left-1/2 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2"
-            animate={{
-              opacity: [0.4, 0.65, 0.5, 0.4],
-              scale: [1, 1.15, 1.08, 1],
-              rotate: [0, 180, 360],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            style={{
-              background: 'radial-gradient(circle at center, rgba(147, 197, 253, 0.2) 0%, rgba(96, 165, 250, 0.12) 25%, rgba(147, 197, 253, 0.07) 40%, rgba(59, 130, 246, 0.03) 55%, transparent 70%)',
-              filter: 'blur(50px)',
-              WebkitFilter: 'blur(50px)',
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-            } as React.CSSProperties}
-          />
-          {/* Additional accent orb - top right - optimized blur */}
-          <motion.div 
-            className="absolute top-1/3 right-1/3 w-[700px] h-[700px]"
-            animate={{
-              opacity: [0.3, 0.55, 0.4, 0.3],
-              scale: [1, 1.12, 1.06, 1],
-              x: [0, 30, -25, 0],
-              y: [0, -30, 25, 0],
-            }}
-            transition={{
-              duration: 9,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.4
-            }}
-            style={{
-              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.18) 0%, rgba(96, 165, 250, 0.1) 30%, rgba(59, 130, 246, 0.05) 50%, transparent 70%)',
-              filter: 'blur(45px)',
-              WebkitFilter: 'blur(45px)',
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-            } as React.CSSProperties}
-          />
-          {/* Additional accent orb - bottom left - optimized blur */}
-          <motion.div 
-            className="absolute bottom-1/3 left-1/3 w-[650px] h-[650px]"
-            animate={{
-              opacity: [0.25, 0.5, 0.35, 0.25],
-              scale: [1, 1.1, 1.05, 1],
-              x: [0, -25, 20, 0],
-              y: [0, 25, -20, 0],
+              opacity: [0.35, 0.55, 0.35],
             }}
             transition={{
               duration: 10,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: 1.2
+              delay: 1
             }}
             style={{
-              background: 'radial-gradient(circle at center, rgba(147, 197, 253, 0.15) 0%, rgba(59, 130, 246, 0.08) 30%, rgba(96, 165, 250, 0.04) 50%, transparent 70%)',
-              filter: 'blur(40px)',
-              WebkitFilter: 'blur(40px)',
+              background: 'radial-gradient(circle at center, rgba(96, 165, 250, 0.12) 0%, rgba(147, 197, 253, 0.06) 40%, transparent 70%)',
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
             } as React.CSSProperties}
           />
-          {/* Optimized floating particles - reduced box-shadow for performance */}
-          {[...Array(3)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full"
+          {/* Static grid overlay - no animation */}
+          <div 
+            className="absolute inset-0 opacity-[0.02]"
               style={{
-                width: `${2.5 + (i % 4) * 1}px`,
-                height: `${2.5 + (i % 4) * 1}px`,
-                left: `${10 + i * 6}%`,
-                top: `${25 + (i % 5) * 15}%`,
-                transform: 'translateZ(0)',
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
-                background: i % 3 === 0 
-                  ? 'radial-gradient(circle, rgba(96, 165, 250, 0.8) 0%, rgba(59, 130, 246, 0.4) 100%)'
-                  : i % 3 === 1
-                  ? 'radial-gradient(circle, rgba(147, 197, 253, 0.9) 0%, rgba(96, 165, 250, 0.5) 100%)'
-                  : 'radial-gradient(circle, rgba(59, 130, 246, 0.85) 0%, rgba(147, 197, 253, 0.45) 100%)',
-                boxShadow: '0 0 10px rgba(96, 165, 250, 0.6)'
-              } as React.CSSProperties}
-              animate={{
-                y: [0, -40, 0],
-                x: [0, Math.sin(i * 0.8) * 30, Math.cos(i * 0.6) * 20, 0],
-                opacity: [0.5, 1, 0.7, 0.5],
-                scale: [1, 1.4, 1.2, 1],
-              }}
-              transition={{
-                duration: 2.5 + i * 0.3,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.2,
-              }}
-            />
-          ))}
-          {/* Optimized sparkles - reduced drop-shadow for performance */}
-          {[...Array(4)].map((_, i) => {
-            const startX = 5 + (i * 5.5) % 90;
-            const startY = 100 + (i * 4) % 25;
-            return (
-              <motion.div
-                key={`sparkle-${i}`}
-                className="absolute"
-                style={{
-                  left: `${startX}%`,
-                  top: `${startY}%`,
-                  transform: 'translateZ(0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                  pointerEvents: 'none'
-                } as React.CSSProperties}
-                animate={{
-                  y: [0, -1400],
-                  x: [0, Math.sin(i * 0.6) * 50, Math.cos(i * 0.4) * 40, Math.sin(i * 0.3) * 30],
-                  opacity: [0, 0.9, 1, 0.8, 0],
-                  scale: [0.4, 1.1, 1.3, 1, 0.7],
-                  rotate: [0, 180, 360, 540, 720]
-                }}
-                transition={{
-                  duration: 6 + (i % 3) * 1.5,
-                  repeat: Infinity,
-                  ease: "easeOut",
-                  delay: i * 0.3,
-                  type: "tween"
-                }}
-              >
-                <Sparkles 
-                  className={i % 3 === 0 ? "text-blue-400" : i % 3 === 1 ? "text-blue-300" : "text-blue-500"} 
-                  size={10 + (i % 4) * 5}
-                  style={{
-                    filter: 'drop-shadow(0 0 4px rgba(96, 165, 250, 0.8))',
-                    WebkitFilter: 'drop-shadow(0 0 4px rgba(96, 165, 250, 0.8))',
-                    opacity: 0.9
-                  }}
-                />
-              </motion.div>
-            );
-          })}
-          {/* Optimized star sparkles - reduced drop-shadow for performance */}
-          {[...Array(3)].map((_, i) => {
-            const startX = 10 + (i * 8) % 80;
-            const startY = 75 + (i * 7) % 20;
-            return (
-              <motion.div
-                key={`star-${i}`}
-                className="absolute"
-                style={{
-                  left: `${startX}%`,
-                  top: `${startY}%`,
-                  transform: 'translateZ(0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                  pointerEvents: 'none'
-                } as React.CSSProperties}
-                animate={{
-                  y: [0, -1600],
-                  x: [0, Math.sin(i * 0.8) * 60, Math.cos(i * 0.5) * 45, Math.sin(i * 0.2) * 30],
-                  opacity: [0, 0.7, 0.9, 0.6, 0],
-                  scale: [0.2, 0.9, 1.1, 1, 0.6],
-                  rotate: [0, -180, -360, -540, -720]
-                }}
-                transition={{
-                  duration: 6 + (i % 3) * 1.5,
-                  repeat: Infinity,
-                  ease: "easeOut",
-                  delay: i * 0.3 + 0.8,
-                }}
-              >
-                <Star 
-                  className={i % 2 === 0 ? "text-blue-300 fill-blue-300/40" : "text-blue-400 fill-blue-400/30"} 
-                  size={8 + (i % 3) * 4}
-                  style={{
-                    filter: 'drop-shadow(0 0 3px rgba(147, 197, 253, 0.6))',
-                    WebkitFilter: 'drop-shadow(0 0 3px rgba(147, 197, 253, 0.6))'
-                  }}
-                />
-              </motion.div>
-            );
-          })}
-          {/* Enhanced grid overlay for depth - animated */}
-          <motion.div 
-            className="absolute inset-0"
-            animate={{
-              opacity: [0.05, 0.08, 0.05],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            style={{
-              backgroundImage: 'linear-gradient(rgba(96, 165, 250, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(96, 165, 250, 0.15) 1px, transparent 1px)',
+              backgroundImage: 'linear-gradient(rgba(96, 165, 250, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(96, 165, 250, 1) 1px, transparent 1px)',
               backgroundSize: '60px 60px',
               transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-            } as React.CSSProperties}
-          />
-          {/* Radial light rays for extra depth - optimized */}
-          <motion.div 
-            className="absolute inset-0"
-            animate={{
-              opacity: [0.02, 0.04, 0.02],
-              rotate: [0, 360]
-            }}
-            transition={{
-              opacity: {
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-                type: "tween"
-              },
-              rotate: {
-                duration: 50,
-                repeat: Infinity,
-                ease: "linear",
-                type: "tween"
-              }
-            }}
-            style={{
-              background: 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(59, 130, 246, 0.05) 60deg, transparent 120deg, rgba(96, 165, 250, 0.05) 180deg, transparent 240deg, rgba(147, 197, 253, 0.05) 300deg, transparent 360deg)',
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
             } as React.CSSProperties}
           />
         </div>
@@ -1153,7 +913,7 @@ const PourAgences = () => {
             transition={{ duration: 0.6 }}
             className="text-center space-y-8"
           >
-            {/* Badge - Enhanced with animations */}
+            {/* Badge - Simplified for Safari performance */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: -10 }}
               animate={{ 
@@ -1162,80 +922,13 @@ const PourAgences = () => {
                 y: 0
               }}
               transition={{ delay: 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-blue-500/15 via-blue-500/20 to-blue-500/15 backdrop-blur-xl border border-blue-500/40 shadow-2xl shadow-blue-500/30 overflow-hidden"
+              className="relative inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-blue-500/15 via-blue-500/20 to-blue-500/15 backdrop-blur-xl border border-blue-500/40"
               whileHover={{ scale: 1.05 }}
             >
-              {/* Animated background glow */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-400/30 to-blue-400/0"
-                animate={{
-                  x: ['-100%', '100%'],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatDelay: 1,
-                  ease: "easeInOut"
-                }}
-                style={{
-                  transform: 'translateZ(0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden'
-                } as React.CSSProperties}
-              />
-              {/* Pulsing glow effect - optimized with opacity instead of box-shadow */}
-              <motion.div
-                className="absolute inset-0 rounded-full"
-                animate={{
-                  opacity: [0.3, 0.5, 0.3]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                style={{
-                  background: 'radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%)',
-                  transform: 'translateZ(0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                  pointerEvents: 'none'
-                } as React.CSSProperties}
-              />
-              <motion.div
-                className="relative z-10"
-                animate={{ 
-                  rotate: [0, 15, -15, 10, 0],
-                  scale: [1, 1.15, 1.05, 1.1, 1],
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  repeatDelay: 0.5
-                }}
-                style={{
-                  transform: 'translateZ(0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                  willChange: 'transform'
-                } as React.CSSProperties}
-              >
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
-              </motion.div>
-              <motion.span 
-                className="relative z-10 text-xs sm:text-sm font-semibold text-blue-300 drop-shadow-[0_0_4px_rgba(59,130,246,0.6)]"
-                animate={{
-                  opacity: [0.9, 1, 0.9]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
+              <span className="text-xs sm:text-sm font-semibold text-blue-300">
                 Solution agence n°1 en France
-              </motion.span>
+              </span>
             </motion.div>
 
             {/* Headline */}
@@ -1245,27 +938,9 @@ const PourAgences = () => {
               transition={{ delay: 0.2, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="font-display font-bold leading-[1.1] tracking-tight"
             >
-              <motion.span 
-                className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-foreground mb-4 relative"
-                animate={{
-                  textShadow: [
-                    '0 0 20px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.1)',
-                    '0 0 30px rgba(59, 130, 246, 0.3), 0 0 60px rgba(59, 130, 246, 0.15)',
-                    '0 0 20px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.1)'
-                  ]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                style={{
-                  filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))',
-                  WebkitFilter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))'
-                }}
-              >
+              <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-foreground mb-4">
                 La protection de 10, 20, 50 créateurs.
-              </motion.span>
+              </span>
             </motion.h1>
 
             {/* Subheadline */}
@@ -1274,11 +949,6 @@ const PourAgences = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-xl sm:text-2xl lg:text-3xl text-zinc-200 max-w-4xl mx-auto leading-relaxed font-medium"
-              style={{
-                textShadow: '0 2px 10px rgba(0, 0, 0, 0.5)',
-                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))',
-                WebkitFilter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))'
-              }}
             >
               Sans charge mentale. Sans chaos. Tout dans un seul tableau de bord.
             </motion.p>
@@ -1289,9 +959,6 @@ const PourAgences = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed"
-              style={{
-                textShadow: '0 1px 3px rgba(0, 0, 0, 0.4)'
-              }}
             >
               Pour les studios, managers, agents et agences créatives.
             </motion.p>
@@ -1311,27 +978,7 @@ const PourAgences = () => {
                 transition={{ delay: 0.6, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="relative"
               >
-                {/* Glowing aura behind button - optimized blur */}
-                <motion.div
-                  className="absolute inset-0 rounded-full"
-                  animate={{
-                    opacity: [0.4, 0.7, 0.4],
-                    scale: [1, 1.1, 1]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  style={{
-                    background: 'radial-gradient(circle, rgba(59, 130, 246, 0.5) 0%, transparent 70%)',
-                    filter: 'blur(20px)',
-                    WebkitFilter: 'blur(20px)',
-                    transform: 'translateZ(0)',
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
-                  } as React.CSSProperties}
-                />
+                {/* Removed glow for Safari performance */}
                 <Button
                   size="lg"
                   id="cal-demo-button"
@@ -1340,6 +987,7 @@ const PourAgences = () => {
                   data-cal-config='{"layout":"week_view","theme":"dark","embedSize":"medium"}'
                   onClick={async (e) => {
                     e.preventDefault();
+                    e.stopPropagation();
                     try {
                       const cal = await getCalApi({ namespace: "agence" });
                       if (cal) {
@@ -1357,11 +1005,21 @@ const PourAgences = () => {
                             }
                           }
                         });
-                        // Open the calendar modal
+                        // Open the calendar modal immediately
                         cal("inline", {
                           calLink: "chan-aoufi-ttauyj/agence",
                           elementOrSelector: e.currentTarget
                         });
+                        // Also try opening with popup method as fallback
+                        setTimeout(() => {
+                          try {
+                            cal("popup", {
+                              calLink: "chan-aoufi-ttauyj/agence"
+                            });
+                          } catch (err) {
+                            // Ignore if popup fails
+                          }
+                        }, 100);
                       }
                     } catch (error) {
                       if (import.meta.env.DEV) {
@@ -1371,98 +1029,11 @@ const PourAgences = () => {
                   }}
                   className="group relative bg-gradient-to-r from-blue-500 via-blue-500 to-blue-600 hover:from-blue-600 hover:via-blue-500 hover:to-blue-500 text-white font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl shadow-2xl shadow-blue-500/50 hover:shadow-blue-500/70 transition-all duration-300 w-full sm:w-auto cursor-pointer overflow-hidden border border-blue-400/30"
                 >
-                  {/* Enhanced shimmer effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                    animate={{
-                      x: ['-200%', '200%'],
-                    }}
-                    transition={{
-                      duration: 1.8,
-                      repeat: Infinity,
-                      repeatDelay: 1,
-                      ease: "easeInOut"
-                    }}
-                    style={{
-                      transform: 'translateZ(0)',
-                      backfaceVisibility: 'hidden',
-                      WebkitBackfaceVisibility: 'hidden'
-                    } as React.CSSProperties}
-                  />
-                  {/* Pulsing inner glow - optimized with opacity */}
-                  <motion.div
-                    className="absolute inset-0 rounded-full"
-                    animate={{
-                      opacity: [0.1, 0.2, 0.1]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    style={{
-                      background: 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%)',
-                      transform: 'translateZ(0)',
-                      backfaceVisibility: 'hidden',
-                      WebkitBackfaceVisibility: 'hidden',
-                      pointerEvents: 'none'
-                    } as React.CSSProperties}
-                  />
+                  {/* Removed shimmer and glow effects for Safari performance */}
                   <span className="relative z-10 flex items-center gap-3 justify-center">
-                    <motion.div
-                      animate={{ 
-                        rotate: [0, 360],
-                        scale: [1, 1.1, 1]
-                      }}
-                    transition={{
-                      rotate: {
-                        duration: 12,
-                        repeat: Infinity,
-                        ease: "linear"
-                      },
-                      scale: {
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }
-                    }}
-                      style={{
-                        transform: 'translateZ(0)',
-                        backfaceVisibility: 'hidden',
-                        WebkitBackfaceVisibility: 'hidden',
-                        willChange: 'transform'
-                      } as React.CSSProperties}
-                    >
-                      <Calendar className="h-5 w-5 sm:h-6 sm:w-6 drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
-                    </motion.div>
-                    <motion.span
-                      animate={{
-                        textShadow: [
-                          '0 0 10px rgba(255, 255, 255, 0.3)',
-                          '0 0 15px rgba(255, 255, 255, 0.5)',
-                          '0 0 10px rgba(255, 255, 255, 0.3)'
-                        ]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    >
-                      Demander une démonstration
-                    </motion.span>
-                    <motion.div
-                      animate={{
-                        x: [0, 4, 0]
-                      }}
-                      transition={{
-                        duration: 1.2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    >
-                      <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
-                    </motion.div>
+                    <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />
+                    Demander une démonstration
+                    <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Button>
               </motion.div>
@@ -1799,6 +1370,7 @@ const PourAgences = () => {
                 data-cal-config='{"layout":"week_view","theme":"dark","embedSize":"medium"}'
                 onClick={async (e) => {
                   e.preventDefault();
+                  e.stopPropagation();
                   try {
                     const cal = await getCalApi({ namespace: "agence" });
                     if (cal) {
@@ -1816,14 +1388,26 @@ const PourAgences = () => {
                           }
                         }
                       });
-                      // Open the calendar modal
+                      // Open the calendar modal immediately
                       cal("inline", {
                         calLink: "chan-aoufi-ttauyj/agence",
                         elementOrSelector: e.currentTarget
                       });
+                      // Also try opening with popup method as fallback
+                      setTimeout(() => {
+                        try {
+                          cal("popup", {
+                            calLink: "chan-aoufi-ttauyj/agence"
+                          });
+                        } catch (err) {
+                          // Ignore if popup fails
+                        }
+                      }, 100);
                     }
                   } catch (error) {
+                    if (import.meta.env.DEV) {
                     console.error("Error opening Cal.com:", error);
+                    }
                   }
                 }}
                 className="group relative bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 cursor-pointer overflow-hidden"
