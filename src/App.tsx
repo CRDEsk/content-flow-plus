@@ -10,31 +10,54 @@ import NetworkStatus from "@/components/NetworkStatus";
 import { initAnalytics, trackPageView } from "@/lib/analytics";
 import { hasCookieConsent } from "@/lib/cookies";
 
-// Lazy loading with retry logic for production chunk loading failures
-const lazyWithRetry = (componentImport: () => Promise<any>) => {
+// Lazy loading with aggressive retry logic - never give up
+const lazyWithRetry = (componentImport: () => Promise<any>, retries = 5) => {
   return lazy(async () => {
-    const pageHasAlreadyBeenForceRefreshed = JSON.parse(
-      window.sessionStorage.getItem('page-has-been-force-refreshed') || 'false'
-    );
-
-    try {
-      const component = await componentImport();
-      window.sessionStorage.setItem('page-has-been-force-refreshed', 'false');
-      return component;
-    } catch (error) {
-      // If this is the first failure, try reloading the page once
-      if (!pageHasAlreadyBeenForceRefreshed) {
-        window.sessionStorage.setItem('page-has-been-force-refreshed', 'true');
-        // Small delay before reload to allow error to be logged
-        setTimeout(() => {
-          window.location.reload();
-        }, 100);
-        // Return empty component while reloading
-        return { default: () => null };
+    let lastError: Error | null = null;
+    
+    for (let attempt = 0; attempt < retries; attempt++) {
+      try {
+        const component = await componentImport();
+        // Success - reset retry counter
+        if (attempt > 0) {
+          window.sessionStorage.removeItem('chunk-load-retry-count');
+        }
+        return component;
+      } catch (error) {
+        lastError = error as Error;
+        
+        // If not the last attempt, wait and retry
+        if (attempt < retries - 1) {
+          const delay = Math.min(1000 * Math.pow(2, attempt), 5000); // Exponential backoff, max 5s
+          await new Promise(resolve => setTimeout(resolve, delay));
+          continue;
+        }
       }
-      // If we've already tried reloading, throw the error
-      throw error;
     }
+    
+    // If all retries failed, reload the page as last resort
+    const retryCount = parseInt(window.sessionStorage.getItem('chunk-load-retry-count') || '0');
+    if (retryCount < 3) {
+      window.sessionStorage.setItem('chunk-load-retry-count', String(retryCount + 1));
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+      // Return empty component while reloading
+      return { default: () => null };
+    }
+    
+    // Final fallback - still don't throw, just return a minimal loading component
+    console.error('Failed to load chunk after multiple retries:', lastError);
+    return { 
+      default: () => (
+        <div className="min-h-screen flex items-center justify-center bg-black">
+          <div className="text-center">
+            <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-zinc-400">Chargement en cours...</p>
+          </div>
+        </div>
+      )
+    };
   });
 };
 
@@ -116,6 +139,11 @@ const AppContent = () => {
   }, []);
 
   useEffect(() => {
+    // Reset retry counters on successful navigation
+    sessionStorage.removeItem('chunk-load-retry-count');
+    sessionStorage.removeItem('error-retry-count');
+    window.sessionStorage.removeItem('page-has-been-force-refreshed');
+    
     // Instant scroll for better performance
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: "auto" });
