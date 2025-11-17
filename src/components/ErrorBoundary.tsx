@@ -46,27 +46,29 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, State> {
       });
     }
 
-    // Auto-retry once, then show error
-    const retryCount = parseInt(sessionStorage.getItem('error-retry-count') || '0');
-    
-    if (retryCount < 1) {
-      // Increment retry count
-      sessionStorage.setItem('error-retry-count', String(retryCount + 1));
+    // Only auto-retry in production, not in development
+    if (import.meta.env.PROD) {
+      const retryCount = parseInt(sessionStorage.getItem('error-retry-count') || '0');
       
-      // Reset error state and reload after a short delay
-      setTimeout(() => {
-        this.setState({
-          hasError: false,
-          error: null,
-          errorInfo: null,
-        });
-        window.location.reload();
-      }, 1500);
-      
-      return; // Don't set error state, just retry
+      if (retryCount < 1) {
+        // Increment retry count
+        sessionStorage.setItem('error-retry-count', String(retryCount + 1));
+        
+        // Reset error state and reload after a short delay
+        setTimeout(() => {
+          this.setState({
+            hasError: false,
+            error: null,
+            errorInfo: null,
+          });
+          window.location.reload();
+        }, 1500);
+        
+        return; // Don't set error state, just retry
+      }
     }
     
-    // Show error after one retry attempt
+    // Show error (always in dev, or after retry in prod)
     this.setState({
       error,
       errorInfo,

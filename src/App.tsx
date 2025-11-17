@@ -22,40 +22,43 @@ const lazyWithRetry = (componentImport: () => Promise<any>) => {
       const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Chunk load error:', errorMessage);
       
-      // Check if this is a MIME type error (server returning HTML instead of JS)
-      const isMimeError = errorMessage.includes('MIME type') || errorMessage.includes('text/html');
-      
-      // Check if we've already tried reloading
-      const retryCount = parseInt(window.sessionStorage.getItem('chunk-load-retry-count') || '0');
-      
-      if (retryCount < 1 && isMimeError) {
-        // For MIME errors, reload immediately (likely a server config issue)
-        window.sessionStorage.setItem('chunk-load-retry-count', String(retryCount + 1));
-        // Use requestIdleCallback or setTimeout to avoid interrupting React
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => {
-            window.location.reload();
-          }, { timeout: 500 });
-        } else {
-          setTimeout(() => {
-            window.location.reload();
-          }, 500);
-        }
+      // Only retry in production, not in development
+      if (import.meta.env.PROD) {
+        // Check if this is a MIME type error (server returning HTML instead of JS)
+        const isMimeError = errorMessage.includes('MIME type') || errorMessage.includes('text/html');
         
-        // Return loading component while reloading
-        return { 
-          default: () => (
-            <div className="min-h-screen flex items-center justify-center bg-black">
-              <div className="text-center">
-                <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-zinc-400">Rechargement...</p>
+        // Check if we've already tried reloading
+        const retryCount = parseInt(window.sessionStorage.getItem('chunk-load-retry-count') || '0');
+        
+        if (retryCount < 1 && isMimeError) {
+          // For MIME errors, reload immediately (likely a server config issue)
+          window.sessionStorage.setItem('chunk-load-retry-count', String(retryCount + 1));
+          // Use requestIdleCallback or setTimeout to avoid interrupting React
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+              window.location.reload();
+            }, { timeout: 500 });
+          } else {
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+          }
+          
+          // Return loading component while reloading
+          return { 
+            default: () => (
+              <div className="min-h-screen flex items-center justify-center bg-black">
+                <div className="text-center">
+                  <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
+                  <p className="text-zinc-400">Rechargement...</p>
+                </div>
               </div>
-            </div>
-          )
-        };
+            )
+          };
+        }
       }
       
-      // If reload didn't work or not a MIME error, throw so ErrorBoundary can handle it
+      // In development or after retry failed, throw so ErrorBoundary can handle it
       throw error;
     }
   });
@@ -131,6 +134,13 @@ const AppContent = () => {
   const location = useLocation();
 
   useEffect(() => {
+    // Clear retry counters in development to prevent issues
+    if (import.meta.env.DEV) {
+      sessionStorage.removeItem('chunk-load-retry-count');
+      sessionStorage.removeItem('error-retry-count');
+      window.sessionStorage.removeItem('page-has-been-force-refreshed');
+    }
+    
     // Initialize analytics on mount only if consent is given
     // This will be called again when user accepts cookies
     if (hasCookieConsent()) {
