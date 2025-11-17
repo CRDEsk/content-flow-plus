@@ -55,7 +55,7 @@ const Index = () => {
           <CaseStudiesSection />
         </main>
         <Footer />
-        <CookieConsent />
+        <CookieConsentWrapper />
       </div>
     </>
   );
