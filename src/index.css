@@ -61,6 +61,7 @@
     -moz-osx-font-smoothing: grayscale;
     background-color: #000000;
     color: #ffffff;
+    overflow-x: hidden;
   }
   
   /* Skip to content link for accessibility */
