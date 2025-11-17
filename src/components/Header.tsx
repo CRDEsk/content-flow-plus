@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import { trackButtonClick } from "@/lib/analytics";
+import { getBrandTheme } from "@/utils/brandTheme";
 
 interface HeaderProps {
   isLoggedIn?: boolean;
@@ -27,6 +28,12 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useLanguage();
+
+  // Get brand theme based on current route
+  const brandTheme = getBrandTheme(location.pathname, { usePurpleTheme });
+  const brandGradientStyle = {
+    backgroundImage: `linear-gradient(135deg, ${brandTheme.from}, ${brandTheme.via}, ${brandTheme.to})`
+  };
 
   // Handle scroll for header state (don't close menu on scroll)
   useEffect(() => {
@@ -602,8 +609,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                   overflow: 'hidden',
-                  overscrollBehavior: 'none',
-                  WebkitOverflowScrolling: 'none'
+                  overscrollBehavior: 'none'
                 }}
               />
               <motion.nav

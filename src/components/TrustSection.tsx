@@ -49,15 +49,10 @@ const TrustSection = () => {
 
   const numberVariants = {
     hidden: { y: 20, scale: 0.9 },
-    visible: (i: number) => ({
+    visible: {
       y: 0,
       scale: 1,
-      transition: {
-        delay: 0.2 + i * 0.1,
-        duration: 0.6,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    }),
+    },
   };
 
   return (
@@ -115,7 +110,11 @@ const TrustSection = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.4 }}
-                custom={index}
+                transition={{
+                  delay: 0.2 + index * 0.1,
+                  duration: 0.6,
+                  ease: "easeOut",
+                }}
                 className={`group relative overflow-hidden rounded-2xl backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 ${
                   metric.highlight
                     ? "bg-gradient-to-br from-zinc-900/70 via-zinc-950/60 to-zinc-950/80 hover:scale-110"
