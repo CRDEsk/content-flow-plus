@@ -10,13 +10,17 @@ import FAQSection from "@/components/FAQSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  console.log("[Index] Component rendering");
+  useEffect(() => {
+    console.log("[Index] Component mounted and rendering");
+    console.log("[Index] Document body children:", document.body.children.length);
+    console.log("[Index] Background color:", getComputedStyle(document.documentElement).getPropertyValue('--background'));
+  }, []);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -38,21 +42,16 @@ const Index = () => {
     <>
       <SEO />
       <div className="min-h-screen bg-background antialiased">
-        {console.log("[Index] Main div rendering")}
         <a href="#main-content" className="skip-to-content">
           Aller au contenu principal
         </a>
-        {console.log("[Index] Before Header")}
         <Header
           isLoggedIn={isLoggedIn} 
           onLogin={handleLogin}
           onLogout={handleLogout}
         />
-        {console.log("[Index] After Header, before main")}
         <main id="main-content">
-          {console.log("[Index] Inside main")}
           <HeroSection isLoggedIn={isLoggedIn} />
-          {console.log("[Index] After HeroSection")}
           <DashboardSection />
           <TrustSection />
           <HelpSection />
@@ -61,11 +60,8 @@ const Index = () => {
           <FAQSection />
           <CaseStudiesSection />
         </main>
-        {console.log("[Index] After main, before Footer")}
         <Footer />
-        {console.log("[Index] Before CookieConsent")}
         <CookieConsent />
-        {console.log("[Index] After CookieConsent")}
       </div>
     </>
   );
