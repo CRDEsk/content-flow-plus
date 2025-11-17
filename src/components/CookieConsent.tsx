@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
-import { Cookie, X, Shield, CheckCircle2 } from "lucide-react";
+import { Cookie, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useLanguage } from "@/hooks/useLanguage";
 import { setCookie, getCookie } from "@/lib/cookies";
 import { initAnalytics } from "@/lib/analytics";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,7 +16,6 @@ interface CookiePreferences {
 }
 
 const CookieConsent = () => {
-  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [showCustomize, setShowCustomize] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>({
@@ -31,7 +29,7 @@ const CookieConsent = () => {
     const storedPreferences = localStorage.getItem("cookie-preferences");
     
     if (!consent) {
-      // Show modal after 1 second on first visit
+      // Show banner after 1 second on first visit
       const timer = setTimeout(() => setIsVisible(true), 1000);
       return () => clearTimeout(timer);
     } else if (storedPreferences) {
@@ -75,243 +73,162 @@ const CookieConsent = () => {
     saveConsent("customized", preferences);
   };
 
-  const handleCustomize = () => {
-    setShowCustomize(true);
-  };
-
   // Auto-hide after 30 seconds if user doesn't interact (GDPR compliance - default to reject)
   useEffect(() => {
-    if (isVisible) {
+    if (isVisible && !showCustomize) {
       const timeout = setTimeout(() => {
-        console.log("[CookieConsent] Auto-hiding after 30 seconds, defaulting to reject");
         handleRejectAll();
       }, 30000);
       return () => clearTimeout(timeout);
     }
-  }, [isVisible]);
-
-  // Debug logging
-  useEffect(() => {
-    console.log("[CookieConsent] isVisible:", isVisible, "showCustomize:", showCustomize);
   }, [isVisible, showCustomize]);
+
+  if (!isVisible) return null;
 
   return createPortal(
     <AnimatePresence mode="wait">
-      {isVisible && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            onClick={() => {}} // Prevent closing on backdrop click for GDPR compliance
-          />
-          
-          {/* Modal Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-2xl bg-zinc-900 border-2 border-primary/30 rounded-2xl shadow-2xl shadow-primary/10 overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header gradient */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/50 to-primary" />
-          
-          {/* Content */}
-          <div className="p-6 sm:p-8">
-            {!showCustomize ? (
-              // Main consent view
-              <>
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Cookie className="w-6 h-6 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-                      {t("cookies.title") || "Nous respectons votre vie privée"}
-                    </h3>
-                    <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-                      {t("cookies.description") || "Nous utilisons des cookies pour améliorer votre expérience, analyser le trafic et personnaliser le contenu. En cliquant sur 'Accepter tout', vous consentez à notre utilisation des cookies."}
-                    </p>
-                  </div>
-                </div>
-
-                {/* GDPR Info */}
-                <div className="mb-6 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50">
-                  <div className="flex items-start gap-3">
-                    <Shield className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-zinc-400">
-                      <p className="mb-2">
-                        Conformément au RGPD, vous avez le contrôle total sur vos données. Vous pouvez :
-                      </p>
-                      <ul className="space-y-1 text-xs">
-                        <li className="flex items-center gap-2">
-                          <CheckCircle2 className="w-3 h-3 text-primary" />
-                          Accepter ou refuser les cookies non essentiels
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <CheckCircle2 className="w-3 h-3 text-primary" />
-                          Personnaliser vos préférences à tout moment
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <CheckCircle2 className="w-3 h-3 text-primary" />
-                          Consulter notre <Link to="/politique-cookies" className="text-primary hover:underline">politique de cookies</Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action buttons */}
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Button
-                    onClick={handleAcceptAll}
-                    className="flex-1 bg-primary hover:bg-primary/90 text-black font-semibold h-12 rounded-xl"
-                  >
-                    Accepter tout
-                  </Button>
-                  <Button
-                    onClick={handleRejectAll}
-                    variant="outline"
-                    className="flex-1 h-12 rounded-xl border-zinc-700 hover:bg-zinc-800"
-                  >
-                    Refuser tout
-                  </Button>
-                  <Button
-                    onClick={handleCustomize}
-                    variant="ghost"
-                    className="flex-1 h-12 rounded-xl hover:bg-zinc-800"
-                  >
-                    Personnaliser
-                  </Button>
-                </div>
-
-                <p className="text-xs text-zinc-500 text-center mt-4">
-                  En continuant, vous acceptez notre{" "}
-                  <Link to="/politique-confidentialite" className="text-primary hover:underline">
-                    politique de confidentialité
+      {!showCustomize ? (
+        // Minimal bottom banner
+        <motion.div
+          key="banner"
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md z-[9999]"
+        >
+          <div className="bg-black/95 backdrop-blur-lg border border-primary/20 rounded-xl p-4 shadow-2xl shadow-primary/10">
+            <div className="flex items-start gap-3 mb-3">
+              <Cookie className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-foreground leading-relaxed">
+                  Nous utilisons des cookies pour améliorer votre expérience. En continuant, vous acceptez notre{" "}
+                  <Link to="/politique-cookies" className="text-primary hover:underline">
+                    politique cookies
                   </Link>
+                  .
                 </p>
-              </>
-            ) : (
-              // Customize view
-              <>
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xl font-bold text-foreground">
-                    Personnaliser les cookies
-                  </h3>
-                  <button
-                    onClick={() => setShowCustomize(false)}
-                    className="p-2 rounded-lg hover:bg-zinc-800 transition-colors"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-
-                <div className="space-y-4 mb-6">
-                  {/* Necessary cookies */}
-                  <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
-                          <Shield className="w-5 h-5 text-green-500" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-foreground">Cookies nécessaires</h4>
-                          <p className="text-xs text-zinc-500">Toujours actifs</p>
-                        </div>
-                      </div>
-                      <div className="w-12 h-6 bg-green-500/20 rounded-full flex items-center px-1">
-                        <div className="w-4 h-4 bg-green-500 rounded-full ml-auto" />
-                      </div>
-                    </div>
-                    <p className="text-sm text-zinc-400 ml-13">
-                      Essentiels au fonctionnement du site (connexion, panier, sécurité).
-                    </p>
-                  </div>
-
-                  {/* Analytics cookies */}
-                  <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                          <Cookie className="w-5 h-5 text-blue-500" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-foreground">Cookies analytiques</h4>
-                          <p className="text-xs text-zinc-500">Optionnels</p>
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => setPreferences(prev => ({ ...prev, analytics: !prev.analytics }))}
-                        className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors ${
-                          preferences.analytics ? "bg-primary" : "bg-zinc-700"
-                        }`}
-                      >
-                        <div className={`w-4 h-4 bg-white rounded-full transition-transform ${
-                          preferences.analytics ? "translate-x-6" : "translate-x-0"
-                        }`} />
-                      </button>
-                    </div>
-                    <p className="text-sm text-zinc-400 ml-13">
-                      Nous aident à comprendre comment les visiteurs utilisent notre site.
-                    </p>
-                  </div>
-
-                  {/* Marketing cookies */}
-                  <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                          <Cookie className="w-5 h-5 text-purple-500" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-foreground">Cookies marketing</h4>
-                          <p className="text-xs text-zinc-500">Optionnels</p>
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => setPreferences(prev => ({ ...prev, marketing: !prev.marketing }))}
-                        className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors ${
-                          preferences.marketing ? "bg-primary" : "bg-zinc-700"
-                        }`}
-                      >
-                        <div className={`w-4 h-4 bg-white rounded-full transition-transform ${
-                          preferences.marketing ? "translate-x-6" : "translate-x-0"
-                        }`} />
-                      </button>
-                    </div>
-                    <p className="text-sm text-zinc-400 ml-13">
-                      Utilisés pour afficher des publicités pertinentes.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Save preferences button */}
-                <div className="flex gap-3">
-                  <Button
-                    onClick={handleSavePreferences}
-                    className="flex-1 bg-primary hover:bg-primary/90 text-black font-semibold h-12 rounded-xl"
-                  >
-                    Enregistrer les préférences
-                  </Button>
-                  <Button
-                    onClick={() => setShowCustomize(false)}
-                    variant="outline"
-                    className="h-12 px-6 rounded-xl border-zinc-700 hover:bg-zinc-800"
-                  >
-                    Retour
-                  </Button>
-                </div>
-              </>
-            )}
+              </div>
+            </div>
+            
+            <div className="flex flex-wrap gap-2">
+              <Button
+                onClick={handleAcceptAll}
+                size="sm"
+                className="bg-primary text-black hover:bg-primary/90 font-medium flex-1 min-w-[100px] h-11"
+              >
+                Accepter tout
+              </Button>
+              <Button
+                onClick={handleRejectAll}
+                size="sm"
+                variant="outline"
+                className="border-border hover:bg-muted flex-1 min-w-[100px] h-11"
+              >
+                Refuser tout
+              </Button>
+              <Button
+                onClick={() => setShowCustomize(true)}
+                size="sm"
+                variant="ghost"
+                className="text-muted-foreground hover:text-foreground w-full sm:w-auto h-11"
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                Personnaliser
+              </Button>
+            </div>
           </div>
         </motion.div>
-        </div>
+      ) : (
+        // Customize preferences modal
+        <motion.div
+          key="customize"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+        >
+          <motion.div
+            initial={{ scale: 0.95, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.95, y: 20 }}
+            className="bg-zinc-900 border-2 border-primary/30 rounded-2xl p-6 w-full max-w-md shadow-2xl shadow-primary/10"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <Settings className="w-6 h-6 text-primary" />
+              <h2 className="text-xl font-bold text-foreground">Préférences des cookies</h2>
+            </div>
+
+            <div className="space-y-4 mb-6">
+              {/* Necessary cookies */}
+              <div className="flex items-start justify-between gap-4 p-3 rounded-lg bg-muted/50">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-foreground mb-1">Cookies nécessaires</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Requis pour le fonctionnement du site
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">Toujours actifs</span>
+                </div>
+              </div>
+
+              {/* Analytics cookies */}
+              <div className="flex items-start justify-between gap-4 p-3 rounded-lg bg-background border border-border">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-foreground mb-1">Cookies analytiques</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Pour comprendre comment vous utilisez notre site
+                  </p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                  <input
+                    type="checkbox"
+                    checked={preferences.analytics}
+                    onChange={(e) => setPreferences({ ...preferences, analytics: e.target.checked })}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                </label>
+              </div>
+
+              {/* Marketing cookies */}
+              <div className="flex items-start justify-between gap-4 p-3 rounded-lg bg-background border border-border">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-foreground mb-1">Cookies marketing</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Pour personnaliser les publicités
+                  </p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                  <input
+                    type="checkbox"
+                    checked={preferences.marketing}
+                    onChange={(e) => setPreferences({ ...preferences, marketing: e.target.checked })}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                </label>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                onClick={() => setShowCustomize(false)}
+                variant="outline"
+                className="flex-1 h-11"
+              >
+                Retour
+              </Button>
+              <Button
+                onClick={handleSavePreferences}
+                className="flex-1 bg-primary text-black hover:bg-primary/90 h-11"
+              >
+                Enregistrer
+              </Button>
+            </div>
+          </motion.div>
+        </motion.div>
       )}
     </AnimatePresence>,
     document.body

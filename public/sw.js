@@ -7,6 +7,7 @@ const RUNTIME_CACHE = 'crd-runtime-v1';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
+  '/site.webmanifest',
   '/favicon.ico',
   '/logo.png',
   '/android-chrome-192x192.png',
@@ -49,6 +50,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Skip auth-bridge redirects
+  if (event.request.url.includes('auth-bridge')) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((cachedResponse) => {
@@ -60,7 +66,7 @@ self.addEventListener('fetch', (event) => {
         // Otherwise fetch from network
         return fetch(event.request)
           .then((response) => {
-            // Don't cache non-successful responses
+            // Don't cache non-successful responses or redirects
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
@@ -75,11 +81,16 @@ self.addEventListener('fetch', (event) => {
 
             return response;
           })
-          .catch(() => {
+          .catch((error) => {
             // If network fails and it's a navigation request, return offline page
             if (event.request.mode === 'navigate') {
               return caches.match('/index.html');
             }
+            // Otherwise, fail silently for other resources
+            return new Response('Network error', {
+              status: 408,
+              headers: { 'Content-Type': 'text/plain' }
+            });
           });
       })
   );
