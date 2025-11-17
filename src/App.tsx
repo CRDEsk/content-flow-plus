@@ -695,8 +695,8 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <LanguageProvider>
-      <ErrorBoundary>
+    <ErrorBoundary>
+      <LanguageProvider>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <NetworkStatus />
@@ -707,8 +707,8 @@ const App = () => {
             </BrowserRouter>
           </TooltipProvider>
         </QueryClientProvider>
-      </ErrorBoundary>
-    </LanguageProvider>
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 };
 

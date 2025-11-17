@@ -1,7 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Home, RefreshCw } from "lucide-react";
-import { useLanguage } from "@/hooks/useLanguage";
 
 interface Props {
   children: ReactNode;
@@ -164,27 +163,22 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, State> {
   }
 }
 
-// Wrapper component to use hooks - with fallback if LanguageProvider not available
+// Fallback translations (French) - used when LanguageProvider is not available
+const fallbackTranslations: Record<string, string> = {
+  'error.title': "Oups ! Une erreur s'est produite",
+  'error.message': "Nous sommes désolés, mais quelque chose d'inattendu s'est produit. Notre équipe a été notifiée et travaille sur une solution.",
+  'error.tryAgain': "Réessayer",
+  'error.goHome': "Retour à l'accueil",
+  'error.needHelp': "Besoin d'aide ?",
+  'error.contactSupport': "Contacter le support",
+};
+
+// Fallback translation function
+const fallbackT = (key: string): string => fallbackTranslations[key] || key;
+
+// Wrapper component - ErrorBoundary is now outside LanguageProvider, so use fallback
 const ErrorBoundary = ({ children }: Props) => {
-  let t: (key: string) => string;
-  try {
-    const { t: translate } = useLanguage();
-    t = translate;
-  } catch (error) {
-    // Fallback if LanguageProvider is not available (e.g., ErrorBoundary is outside provider)
-    t = (key: string) => {
-      const fallbacks: Record<string, string> = {
-        'error.title': "Oups ! Une erreur s'est produite",
-        'error.message': "Nous sommes désolés, mais quelque chose d'inattendu s'est produit. Notre équipe a été notifiée et travaille sur une solution.",
-        'error.tryAgain': "Réessayer",
-        'error.goHome': "Retour à l'accueil",
-        'error.needHelp': "Besoin d'aide ?",
-        'error.contactSupport': "Contacter le support",
-      };
-      return fallbacks[key] || key;
-    };
-  }
-  return <ErrorBoundaryClass t={t}>{children}</ErrorBoundaryClass>;
+  return <ErrorBoundaryClass t={fallbackT}>{children}</ErrorBoundaryClass>;
 };
 
 export default ErrorBoundary;
