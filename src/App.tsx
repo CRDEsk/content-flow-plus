@@ -10,7 +10,7 @@ import NetworkStatus from "@/components/NetworkStatus";
 import { initAnalytics, trackPageView } from "@/lib/analytics";
 import { hasCookieConsent } from "@/lib/cookies";
 
-// Lazy loading with retry logic - retry once then reload if needed
+// Lazy loading with retry logic - handle chunk loading failures gracefully
 const lazyWithRetry = (componentImport: () => Promise<any>) => {
   return lazy(async () => {
     try {
@@ -19,17 +19,28 @@ const lazyWithRetry = (componentImport: () => Promise<any>) => {
       window.sessionStorage.removeItem('chunk-load-retry-count');
       return component;
     } catch (error) {
-      console.error('Chunk load error:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Chunk load error:', errorMessage);
+      
+      // Check if this is a MIME type error (server returning HTML instead of JS)
+      const isMimeError = errorMessage.includes('MIME type') || errorMessage.includes('text/html');
       
       // Check if we've already tried reloading
       const retryCount = parseInt(window.sessionStorage.getItem('chunk-load-retry-count') || '0');
       
-      if (retryCount < 2) {
-        // Try reloading once more
+      if (retryCount < 1 && isMimeError) {
+        // For MIME errors, reload immediately (likely a server config issue)
         window.sessionStorage.setItem('chunk-load-retry-count', String(retryCount + 1));
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        // Use requestIdleCallback or setTimeout to avoid interrupting React
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => {
+            window.location.reload();
+          }, { timeout: 500 });
+        } else {
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        }
         
         // Return loading component while reloading
         return { 
@@ -44,7 +55,7 @@ const lazyWithRetry = (componentImport: () => Promise<any>) => {
         };
       }
       
-      // If reload didn't work, throw the error so ErrorBoundary can handle it
+      // If reload didn't work or not a MIME error, throw so ErrorBoundary can handle it
       throw error;
     }
   });
