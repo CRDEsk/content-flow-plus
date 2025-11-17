@@ -3,6 +3,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { 
   Shield, 
   Globe, 
@@ -697,6 +699,8 @@ const InternationalProtection = () => {
   const [isCurrencyMenuOpen, setIsCurrencyMenuOpen] = useState(false);
   const languageMenuRef = useRef<HTMLDivElement>(null);
   const currencyMenuRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     // Detect user location and set both language and currency
@@ -863,7 +867,7 @@ const InternationalProtection = () => {
       />
 
       {/* SECTION 1 - Hero */}
-      <section className="relative min-h-[95vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-24 sm:pt-32 pb-20 sm:pb-24">
+      <section className="relative min-h-[85vh] sm:min-h-[95vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-20 sm:pt-24 lg:pt-32 pb-16 sm:pb-20 lg:pb-24">
         {/* Liquid glass background - black to purple to blue */}
         <div className="absolute inset-0 overflow-hidden" style={{ 
           transform: 'translateZ(0)', 
@@ -871,108 +875,120 @@ const InternationalProtection = () => {
           WebkitBackfaceVisibility: 'hidden',
           backfaceVisibility: 'hidden'
         } as React.CSSProperties}>
-          {/* Purple liquid orbs */}
-          <motion.div 
-            className="absolute top-1/4 right-1/4 w-[800px] h-[800px] rounded-full blur-[100px]"
-            animate={{
-              opacity: [0.2, 0.4, 0.2],
-              scale: [1, 1.2, 1],
-              x: [0, 30, 0],
-              y: [0, -20, 0],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            style={{
-              background: 'radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(147, 51, 234, 0.15) 50%, transparent 80%)',
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-            } as React.CSSProperties}
-          />
-          <motion.div 
-            className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px] rounded-full blur-[90px]"
-            animate={{
-              opacity: [0.15, 0.35, 0.15],
-              scale: [1, 1.25, 1],
-              x: [0, -25, 0],
-              y: [0, 25, 0],
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1
-            }}
-            style={{
-              background: 'radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(139, 92, 246, 0.12) 50%, transparent 80%)',
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-            } as React.CSSProperties}
-          />
+          {/* Purple liquid orbs - Hide on mobile for performance */}
+          {!isMobile && !prefersReducedMotion && (
+            <motion.div
+              className="absolute top-1/4 right-1/4 w-[800px] h-[800px] rounded-full blur-[100px]"
+              animate={{
+                opacity: [0.2, 0.4, 0.2],
+                scale: [1, 1.2, 1],
+                x: [0, 30, 0],
+                y: [0, -20, 0],
+              }}
+              transition={{
+                duration: 15,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              style={{
+                background: 'radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(147, 51, 234, 0.15) 50%, transparent 80%)',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                willChange: 'transform, opacity',
+              } as React.CSSProperties}
+            />
+          )}
+          {!isMobile && !prefersReducedMotion && (
+            <motion.div 
+              className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px] rounded-full blur-[90px]"
+              animate={{
+                opacity: [0.15, 0.35, 0.15],
+                scale: [1, 1.25, 1],
+                x: [0, -25, 0],
+                y: [0, 25, 0],
+              }}
+              transition={{
+                duration: 18,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1
+              }}
+              style={{
+                background: 'radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(139, 92, 246, 0.12) 50%, transparent 80%)',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                willChange: 'transform, opacity',
+              } as React.CSSProperties}
+            />
+          )}
           {/* Blue liquid orbs */}
-          <motion.div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full blur-[120px]"
-            animate={{
-              opacity: [0.1, 0.25, 0.1],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2
-            }}
-            style={{
-              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.1) 50%, transparent 70%)',
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-            } as React.CSSProperties}
-          />
-          <motion.div 
-            className="absolute top-1/3 left-1/3 w-[600px] h-[600px] rounded-full blur-[80px]"
-            animate={{
-              opacity: [0.12, 0.22, 0.12],
-              scale: [1, 1.1, 1],
-              x: [0, 20, 0],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.5
-            }}
-            style={{
+          {!isMobile && !prefersReducedMotion && (
+            <motion.div 
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full blur-[120px]"
+              animate={{
+                opacity: [0.1, 0.25, 0.1],
+                scale: [1, 1.15, 1],
+              }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2
+              }}
+              style={{
+                background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.1) 50%, transparent 70%)',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                willChange: 'transform, opacity',
+              } as React.CSSProperties}
+            />
+          )}
+          {!isMobile && !prefersReducedMotion && (
+            <motion.div 
+              className="absolute top-1/3 left-1/3 w-[600px] h-[600px] rounded-full blur-[80px]"
+              animate={{
+                opacity: [0.12, 0.22, 0.12],
+                scale: [1, 1.1, 1],
+                x: [0, 20, 0],
+              }}
+              transition={{
+                duration: 12,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.5
+              }}
+              style={{
               background: 'radial-gradient(circle, rgba(96, 165, 250, 0.18) 0%, rgba(59, 130, 246, 0.08) 50%, transparent 75%)',
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
+              willChange: 'transform, opacity',
             } as React.CSSProperties}
           />
+          )}
         </div>
 
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="grid lg:grid-cols-12 gap-8 items-center">
             {/* Left side - Main content */}
-          <motion.div
-              initial={{ opacity: 0, x: -30 }}
+           <motion.div
+              initial={!isMobile && !prefersReducedMotion ? { opacity: 0, x: -30 } : { opacity: 1 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: isMobile ? 0.3 : 0.8 }}
               className="lg:col-span-7 text-center lg:text-left space-y-8"
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: -10 }}
+              initial={!isMobile && !prefersReducedMotion ? { opacity: 0, scale: 0.9, y: -10 } : { opacity: 1 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
+              transition={{ delay: isMobile ? 0 : 0.1, duration: isMobile ? 0.2 : 0.6 }}
                 className="inline-flex items-center gap-3 px-5 sm:px-7 py-3 sm:py-3.5 rounded-full bg-black/40 backdrop-blur-2xl border border-purple-500/30 shadow-lg shadow-purple-500/20"
                 style={{
                   background: 'rgba(0, 0, 0, 0.4)',
-                  backdropFilter: 'blur(24px) saturate(180%)',
-                  WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+                  backdropFilter: isMobile ? 'none' : 'blur(24px) saturate(180%)',
+                  WebkitBackdropFilter: isMobile ? 'none' : 'blur(24px) saturate(180%)',
                 }}
               >
                 <motion.div
@@ -987,9 +1003,9 @@ const InternationalProtection = () => {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={!isMobile && !prefersReducedMotion ? { opacity: 0, y: 30 } : { opacity: 1 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
+              transition={{ delay: isMobile ? 0 : 0.2, duration: isMobile ? 0.3 : 0.8 }}
               className="font-display font-bold leading-[1.1] tracking-tight"
             >
                 <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-foreground mb-4 bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
@@ -1001,28 +1017,28 @@ const InternationalProtection = () => {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={!isMobile && !prefersReducedMotion ? { opacity: 0, y: 20 } : { opacity: 1 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
+              transition={{ delay: isMobile ? 0 : 0.4, duration: isMobile ? 0.2 : 0.8 }}
                 className="text-xl sm:text-2xl lg:text-3xl text-zinc-300 max-w-3xl mx-auto lg:mx-0 leading-relaxed font-medium"
               >
                 {t.hero.description}
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={!isMobile && !prefersReducedMotion ? { opacity: 0, y: 20 } : { opacity: 1 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
+              transition={{ delay: isMobile ? 0 : 0.6, duration: isMobile ? 0.2 : 0.6 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-4"
               >
               <Button
                 size="lg"
                 variant="outline"
-                  className="group border-2 border-purple-500/60 hover:border-purple-400 text-foreground font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl transition-all duration-300 w-full sm:w-auto shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20"
+                  className="group border-2 border-purple-500/60 hover:border-purple-400 text-foreground font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl transition-all duration-300 w-full sm:w-auto shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20 min-h-[44px]"
                 style={{
                   background: 'rgba(0, 0, 0, 0.4)',
-                  backdropFilter: 'blur(20px) saturate(180%)',
-                  WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                  backdropFilter: isMobile ? 'none' : 'blur(20px) saturate(180%)',
+                  WebkitBackdropFilter: isMobile ? 'none' : 'blur(20px) saturate(180%)',
                 }}
                 asChild
               >
@@ -1164,10 +1180,10 @@ const InternationalProtection = () => {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="container mx-auto max-w-7xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={!isMobile && !prefersReducedMotion ? { opacity: 0, y: 20 } : { opacity: 1 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: isMobile ? 0.3 : 0.6 }}
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-6">
@@ -1185,16 +1201,16 @@ const InternationalProtection = () => {
               return (
               <motion.div
                 key={index}
-                initial={{ y: 30, scale: 0.95 }}
-                whileInView={{ y: 0, scale: 1 }}
+                initial={!isMobile && !prefersReducedMotion ? { y: 30, scale: 0.95 } : { opacity: 1 }}
+                whileInView={{ y: 0, scale: 1, opacity: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                className="group relative rounded-3xl p-8 sm:p-12 transition-all duration-500 overflow-hidden"
+                transition={{ duration: isMobile ? 0.3 : 0.6, delay: isMobile ? 0 : index * 0.1 }}
+                whileHover={!isMobile ? { scale: 1.02, y: -5 } : {}}
+                className="group relative rounded-3xl p-6 sm:p-8 lg:p-12 transition-all duration-500 overflow-hidden"
                 style={{
                   background: 'rgba(0, 0, 0, 0.4)',
-                  backdropFilter: 'blur(30px) saturate(180%)',
-                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  backdropFilter: isMobile ? 'none' : 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: isMobile ? 'none' : 'blur(30px) saturate(180%)',
                   border: '1px solid rgba(168, 85, 247, 0.2)',
                   boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(168, 85, 247, 0.05)',
                   transform: 'translate3d(0, 0, 0)',
@@ -1326,10 +1342,10 @@ const InternationalProtection = () => {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="container mx-auto max-w-7xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={!isMobile && !prefersReducedMotion ? { opacity: 0, y: 20 } : { opacity: 1 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: isMobile ? 0.3 : 0.6 }}
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-6">
@@ -1341,16 +1357,16 @@ const InternationalProtection = () => {
             {t.howItWorks.steps.map((step, index) => (
               <motion.div
                 key={index}
-                initial={{ y: 30, scale: 0.95 }}
-                whileInView={{ y: 0, scale: 1 }}
+                initial={!isMobile && !prefersReducedMotion ? { y: 30, scale: 0.95 } : { opacity: 1 }}
+                whileInView={{ y: 0, scale: 1, opacity: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.03, y: -5 }}
-                className="group relative rounded-3xl p-8 transition-all duration-500 overflow-hidden"
+                transition={{ duration: isMobile ? 0.3 : 0.6, delay: isMobile ? 0 : index * 0.1 }}
+                whileHover={!isMobile ? { scale: 1.03, y: -5 } : {}}
+                className="group relative rounded-3xl p-6 sm:p-8 transition-all duration-500 overflow-hidden"
                 style={{
                   background: 'rgba(0, 0, 0, 0.4)',
-                  backdropFilter: 'blur(30px) saturate(180%)',
-                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  backdropFilter: isMobile ? 'none' : 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: isMobile ? 'none' : 'blur(30px) saturate(180%)',
                   border: '1px solid rgba(168, 85, 247, 0.2)',
                   boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(168, 85, 247, 0.05)',
                   transform: 'translate3d(0, 0, 0)',
@@ -1390,10 +1406,10 @@ const InternationalProtection = () => {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="container mx-auto max-w-7xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={!isMobile && !prefersReducedMotion ? { opacity: 0, y: 20 } : { opacity: 1 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: isMobile ? 0.3 : 0.6 }}
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-6">

@@ -8,6 +8,14 @@ const GlobeInternational = () => {
   const initializedRef = useRef(false);
   const [mounted, setMounted] = useState(false);
   const [globeReady, setGlobeReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -25,16 +33,20 @@ const GlobeInternational = () => {
       if (!canvas || globeRef.current || initializedRef.current) return;
 
       try {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const isMobileDevice = window.innerWidth < 768;
+        const dpr = isMobileDevice ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+        const size = isMobileDevice ? 400 : 800;
+        const samples = isMobileDevice ? 20000 : 40000;
+        
         const globe = createGlobe(canvas, {
           devicePixelRatio: dpr,
-          width: 800,
-          height: 800,
+          width: size,
+          height: size,
           phi,
           theta,
           dark: 0.9,
           diffuse: 2.0,
-          mapSamples: 40000,
+          mapSamples: samples,
           mapBrightness: 10,
           baseColor: [0.05, 0.05, 0.1],
           markerColor: [0.66, 0.33, 0.97], // Purple
@@ -42,7 +54,7 @@ const GlobeInternational = () => {
           markers: [], // No markers/countries
           onRender: (state) => {
             if (!globeRef.current) return;
-            phi += 0.002;
+            phi += 0.001; // Slower but smoother
             phiRef.current = phi;
             state.phi = phi;
             state.theta = theta;
@@ -122,19 +134,21 @@ const GlobeInternational = () => {
   }
 
   return (
-    <div className="flex w-full items-center justify-center">
+    <div className="flex w-full items-center justify-center px-4">
       <div className="relative w-full max-w-[520px] flex items-center justify-center">
-        <div className="relative w-[420px] h-[420px]">
+        <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] lg:w-[420px] lg:h-[420px]">
           <canvas
             ref={canvasRef}
             className={`absolute inset-0 z-10 transition-opacity duration-700 ${globeReady ? 'opacity-100' : 'opacity-0'}`}
-            width={800}
-            height={800}
+            width={isMobile ? 400 : 800}
+            height={isMobile ? 400 : 800}
             style={{
               width: "100%",
               height: "100%",
               borderRadius: "50%",
               filter: "brightness(1.05) contrast(1.18)",
+              willChange: "transform",
+              transform: "translateZ(0)",
             }}
           />
           {!globeReady && (
