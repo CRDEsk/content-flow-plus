@@ -8,8 +8,35 @@ export default defineConfig({
     host: "localhost",
     port: 8080,
     strictPort: true,
+    // Handle SPA routing - serve index.html for all routes
+    middlewareMode: false,
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    // Plugin to handle SPA routing in dev mode
+    {
+      name: 'spa-fallback',
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          // Skip API requests, static assets, and HMR
+          if (
+            req.url?.startsWith('/api') ||
+            req.url?.startsWith('/@') ||
+            req.url === '/'
+          ) {
+            return next();
+          }
+          // Check if it's a static file (has extension)
+          if (req.url && /\.\w+$/.test(req.url.split('?')[0])) {
+            return next();
+          }
+          // For all other routes, serve index.html
+          req.url = '/index.html';
+          next();
+        });
+      }
+    }
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

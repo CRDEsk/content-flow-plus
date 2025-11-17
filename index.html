@@ -14,7 +14,7 @@
     <meta name="theme-color" content="#D4AF37" />
     
     <!-- Content Security Policy - Enabled for production -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://app.cal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://app.cal.com; frame-src 'self' https://www.googletagmanager.com https://app.cal.com; object-src 'none'; base-uri 'self'; form-action 'self';" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://app.cal.com https://cal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://ipapi.co https://app.cal.com https://cal.com; frame-src 'self' https://www.googletagmanager.com https://app.cal.com https://cal.com; child-src 'self' https://app.cal.com https://cal.com; object-src 'none'; base-uri 'self'; form-action 'self';" />
     
     <!-- Primary Meta Tags -->
     <title>ContentRemovalDesk - Protection Digitale pour Créateurs | Suppression de Fuites</title>
@@ -58,6 +58,14 @@
     <meta name="msapplication-TileImage" content="/android-chrome-192x192.png" />
     <meta name="msapplication-TileColor" content="#D4AF37" />
     <meta name="theme-color" content="#D4AF37" />
+
+    <!-- Cal element-click embed code begins -->
+    <script type="text/javascript">
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+      Cal("init", "diagnostic-createur", {origin:"https://app.cal.com"});
+      Cal("init", "agence", {origin:"https://app.cal.com"});
+    </script>
+    <!-- Cal element-click embed code ends -->
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

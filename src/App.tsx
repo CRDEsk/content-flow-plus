@@ -4,7 +4,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { LanguageProvider } from "@/hooks/useLanguage";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import NetworkStatus from "@/components/NetworkStatus";
@@ -19,6 +18,7 @@ const NotreSolution = lazy(() => import("./pages/NotreSolution"));
 const Tarifs = lazy(() => import("./pages/Tarifs"));
 const PourCreateurs = lazy(() => import("./pages/PourCreateurs"));
 const PourAgences = lazy(() => import("./pages/PourAgences"));
+const InternationalProtection = lazy(() => import("./pages/InternationalProtection"));
 const EscaladesLegal = lazy(() => import("./pages/EscaladesLegal"));
 const APropos = lazy(() => import("./pages/APropos"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -53,15 +53,25 @@ const PageLoader = () => (
 );
 
 const PageTransition = ({ children }: { children: React.ReactNode }) => {
+  // Ensure black background is always set
+  useEffect(() => {
+    document.body.style.backgroundColor = '#000000';
+    document.documentElement.style.backgroundColor = '#000000';
+  }, []);
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+    <div
+      style={{ 
+        minHeight: '100vh', 
+        backgroundColor: '#000000',
+        width: '100%',
+        position: 'relative',
+        zIndex: 1,
+        opacity: 1
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -182,38 +192,438 @@ const AppContent = () => {
     }
   }, [location.pathname]);
 
+  // Ensure black background on route change
+  useEffect(() => {
+    document.body.style.backgroundColor = '#000000';
+    document.documentElement.style.backgroundColor = '#000000';
+  }, [location.pathname]);
+
+  // Fix Cal.com modal positioning - NEW APPROACH: Create our own fixed container
+  useEffect(() => {
+    // Scroll to top on Cal.com button click
+    const handleCalButtonClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const calButton = target.closest('[data-cal-link], [data-cal-namespace]');
+      
+      if (calButton) {
+        // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    document.addEventListener('click', handleCalButtonClick, true);
+
+    // NEW APPROACH: Find Cal.com modal and wrap/move it to a fixed container at top
+    const fixCalModal = () => {
+      // Find Cal.com modal elements
+      const iframes = document.querySelectorAll('iframe[src*="cal.com"], iframe[src*="app.cal.com"]');
+      
+      if (iframes.length === 0) {
+        // No modal yet, remove our wrapper if it exists
+        const existingWrapper = document.getElementById('cal-fixed-wrapper');
+        if (existingWrapper) {
+          existingWrapper.remove();
+        }
+        return;
+      }
+      
+      // Find the backdrop/modal container by walking up from iframe
+      let calContainer: HTMLElement | null = null;
+      
+      for (const iframe of Array.from(iframes)) {
+        let element = iframe.parentElement;
+        let depth = 0;
+        let bestMatch: HTMLElement | null = null;
+        
+        // Walk up to find the main container (usually 2-4 levels up)
+        while (element && depth < 8 && element !== document.body) {
+          const className = (element.className?.toString() || '').toLowerCase();
+          const id = (element.id || '').toLowerCase();
+          
+          // Check if this looks like the main backdrop/modal container
+          if (
+            className.includes('backdrop') ||
+            className.includes('modal') ||
+            className.includes('overlay') ||
+            id.includes('backdrop') ||
+            id.includes('modal')
+          ) {
+            // This is likely the container
+            bestMatch = element;
+            break;
+          }
+          
+          // If no specific match, use the first div that's a direct child of body or has significant styling
+          if (!bestMatch && element.tagName === 'DIV' && element.parentElement === document.body) {
+            bestMatch = element;
+          }
+          
+          element = element.parentElement;
+          depth++;
+        }
+        
+        if (bestMatch) {
+          calContainer = bestMatch;
+          break;
+        }
+      }
+      
+      // Fallback: if no container found, use the first iframe's parent that's a direct child of body
+      if (!calContainer && iframes.length > 0) {
+        const firstIframe = iframes[0] as HTMLElement;
+        let element = firstIframe.parentElement;
+        let depth = 0;
+        while (element && depth < 8 && element !== document.body) {
+          if (element.parentElement === document.body) {
+            calContainer = element;
+            break;
+          }
+          element = element.parentElement;
+          depth++;
+        }
+      }
+      
+      // If we found a container, ensure it's fixed at top
+      if (calContainer && calContainer !== document.body && calContainer.id !== 'cal-fixed-wrapper') {
+        // Create or get our fixed wrapper
+        let wrapper = document.getElementById('cal-fixed-wrapper');
+        
+        if (!wrapper) {
+          // Create our own fixed wrapper at the top
+          wrapper = document.createElement('div');
+          wrapper.id = 'cal-fixed-wrapper';
+          wrapper.style.cssText = `
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 999999 !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            padding-top: 2vh !important;
+            background: rgba(0, 0, 0, 0.8) !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+            overflow-y: auto !important;
+            pointer-events: auto !important;
+          `;
+          document.body.appendChild(wrapper);
+        }
+        
+        // Move the Cal.com container into our wrapper if it's not already there
+        if (calContainer.parentElement !== wrapper) {
+          // Move the entire container
+          wrapper.appendChild(calContainer);
+          
+          // Ensure the container itself doesn't have positioning that breaks things
+          calContainer.style.setProperty('position', 'relative', 'important');
+          calContainer.style.setProperty('margin', '0 auto', 'important');
+          calContainer.style.setProperty('margin-top', '2vh', 'important');
+          calContainer.style.setProperty('max-width', '90vw', 'important');
+          calContainer.style.setProperty('max-height', '88vh', 'important');
+          calContainer.style.setProperty('top', 'auto', 'important');
+          calContainer.style.setProperty('left', 'auto', 'important');
+          calContainer.style.setProperty('right', 'auto', 'important');
+          calContainer.style.setProperty('bottom', 'auto', 'important');
+        }
+        
+        // Prevent body scroll (but allow scrolling within modal)
+        document.body.style.setProperty('overflow', 'hidden', 'important');
+      }
+    };
+
+    // Function to clean up wrapper when modal is closed
+    const cleanupWrapper = () => {
+      const wrapper = document.getElementById('cal-fixed-wrapper');
+      if (wrapper) {
+        // Check for iframes
+        const hasIframe = wrapper.querySelector('iframe[src*="cal.com"], iframe[src*="app.cal.com"]');
+        
+        // Check for cal-modal-box element and if it's actually visible/active
+        const calModalBox = wrapper.querySelector('cal-modal-box');
+        let isModalActive = false;
+        
+        if (calModalBox) {
+          const style = window.getComputedStyle(calModalBox);
+          const visibility = style.visibility;
+          const display = style.display;
+          const state = calModalBox.getAttribute('state');
+          const inlineStyle = calModalBox.getAttribute('style') || '';
+          
+          // Modal is active if it's visible and not hidden
+          // Also check inline style for visibility: hidden
+          const isHidden = visibility === 'hidden' || 
+                          display === 'none' || 
+                          inlineStyle.includes('visibility: hidden') ||
+                          inlineStyle.includes('visibility:hidden');
+          
+          isModalActive = !isHidden && state !== 'closed';
+          
+          // If modal box is hidden, immediately remove wrapper
+          if (isHidden) {
+            wrapper.remove();
+            return; // Exit early
+          }
+        }
+        
+        // Also check if wrapper is effectively empty (only hidden elements)
+        const allChildren = Array.from(wrapper.children);
+        const hasVisibleContent = allChildren.some((child) => {
+          const style = window.getComputedStyle(child);
+          const inlineStyle = (child as HTMLElement).getAttribute('style') || '';
+          return (style.visibility !== 'hidden' && style.display !== 'none') ||
+                 !inlineStyle.includes('visibility: hidden');
+        });
+        
+        // Remove wrapper if no iframe, modal is not active, and no visible content
+        if (!hasIframe && !isModalActive && !hasVisibleContent) {
+          wrapper.remove();
+        }
+      }
+      
+      // Always restore body scroll and remove any backdrop-filter effects
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.documentElement.style.overflow = '';
+      
+      // Also check for any other Cal.com backdrop elements that might be lingering
+      const calBackdrops = document.querySelectorAll('[class*="cal-backdrop"], [class*="cal-modal"], [class*="cal-overlay"], .my-backdrop');
+      calBackdrops.forEach((el) => {
+        const iframes = el.querySelectorAll('iframe[src*="cal.com"], iframe[src*="app.cal.com"]');
+        if (iframes.length === 0) {
+          // No iframes in this element, remove it
+          el.remove();
+        }
+      });
+      
+      // Also check for any divs with backdrop-filter that are direct children of body and might be Cal.com backdrops
+      const bodyChildren = Array.from(document.body.children) as HTMLElement[];
+      bodyChildren.forEach((div) => {
+        if (div.tagName === 'DIV' && div.id !== 'cal-fixed-wrapper') {
+          const style = window.getComputedStyle(div);
+          const className = (div.className?.toString() || '').toLowerCase();
+          const hasCalContent = div.querySelector('iframe[src*="cal.com"], iframe[src*="app.cal.com"]');
+          
+          // If it has backdrop-filter, no Cal.com content, and Cal.com-related classes, remove it
+          if (
+            style.backdropFilter && 
+            style.backdropFilter !== 'none' && 
+            !hasCalContent &&
+            (className.includes('cal') || className.includes('backdrop') || className.includes('modal') || className.includes('overlay'))
+          ) {
+            div.remove();
+          }
+        }
+      });
+    };
+    
+    // Watch for Cal.com iframe creation and removal, and cal-modal-box state changes
+    const observer = new MutationObserver((mutations) => {
+      const iframes = document.querySelectorAll('iframe[src*="cal.com"], iframe[src*="app.cal.com"]');
+      const calModalBoxes = document.querySelectorAll('cal-modal-box');
+      
+      // Check if any iframes were removed
+      let iframeRemoved = false;
+      let modalBoxRemoved = false;
+      let modalBoxHidden = false;
+      
+      mutations.forEach((mutation) => {
+        // Check removed nodes
+        mutation.removedNodes.forEach((node) => {
+          if (node.nodeType === 1) {
+            const el = node as HTMLElement;
+            if (el.tagName === 'IFRAME' && (el.getAttribute('src')?.includes('cal.com') || el.getAttribute('src')?.includes('app.cal.com'))) {
+              iframeRemoved = true;
+            }
+            if (el.tagName === 'CAL-MODAL-BOX') {
+              modalBoxRemoved = true;
+            }
+            // Also check if a container with iframe was removed
+            if (el.querySelector('iframe[src*="cal.com"], iframe[src*="app.cal.com"]')) {
+              iframeRemoved = true;
+            }
+          }
+        });
+        
+        // Check attribute changes (like state or style changes)
+        if (mutation.type === 'attributes') {
+          const target = mutation.target as HTMLElement;
+          if (target.tagName === 'CAL-MODAL-BOX') {
+            const style = window.getComputedStyle(target);
+            const visibility = style.visibility;
+            const state = target.getAttribute('state');
+            
+            // Check if modal was hidden or closed
+            if (visibility === 'hidden' || state === 'closed' || mutation.attributeName === 'style') {
+              modalBoxHidden = true;
+            }
+          }
+        }
+      });
+      
+      // Check if any active modal boxes exist
+      let hasActiveModal = false;
+      calModalBoxes.forEach((box) => {
+        const style = window.getComputedStyle(box);
+        const visibility = style.visibility;
+        const display = style.display;
+        const state = box.getAttribute('state');
+        const inlineStyle = box.getAttribute('style') || '';
+        
+        // Check if hidden via inline style or computed style
+        const isHidden = visibility === 'hidden' || 
+                        display === 'none' || 
+                        inlineStyle.includes('visibility: hidden') ||
+                        inlineStyle.includes('visibility:hidden');
+        
+        if (!isHidden && state !== 'closed') {
+          hasActiveModal = true;
+        } else {
+          // If this modal box is hidden, trigger cleanup
+          setTimeout(cleanupWrapper, 0);
+          setTimeout(cleanupWrapper, 50);
+        }
+      });
+      
+      if (iframes.length > 0 || hasActiveModal) {
+        // Modal appeared - fix it
+        requestAnimationFrame(fixCalModal);
+        setTimeout(fixCalModal, 50);
+        setTimeout(fixCalModal, 100);
+      } else if (iframeRemoved || modalBoxRemoved || (modalBoxHidden && iframes.length === 0)) {
+        // Modal closed - remove wrapper and restore scroll
+        // Use multiple timeouts to ensure cleanup happens
+        setTimeout(cleanupWrapper, 0);
+        setTimeout(cleanupWrapper, 50);
+        setTimeout(cleanupWrapper, 100);
+        setTimeout(cleanupWrapper, 200);
+        setTimeout(cleanupWrapper, 300);
+      }
+    });
+    
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style', 'state', 'visibility']
+    });
+    
+    // Also listen for clicks on backdrop/close buttons
+    const handleBackdropClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Check if clicking on backdrop/close button
+      if (
+        target.id === 'cal-fixed-wrapper' ||
+        target.classList.contains('my-backdrop') ||
+        target.closest('.my-backdrop') ||
+        (target.tagName === 'BUTTON' && (target.getAttribute('aria-label')?.toLowerCase().includes('close') || target.textContent?.includes('×')))
+      ) {
+        // Check if modal is actually closed (no iframes)
+        setTimeout(() => {
+          const iframes = document.querySelectorAll('iframe[src*="cal.com"], iframe[src*="app.cal.com"]');
+          if (iframes.length === 0) {
+            cleanupWrapper();
+          }
+        }, 100);
+      }
+    };
+    
+    document.addEventListener('click', handleBackdropClick, true);
+    
+    // Check periodically and also check if wrapper should be removed
+    const interval = setInterval(() => {
+      const iframes = document.querySelectorAll('iframe[src*="cal.com"], iframe[src*="app.cal.com"]');
+      const calModalBoxes = document.querySelectorAll('cal-modal-box');
+      const wrapper = document.getElementById('cal-fixed-wrapper');
+      
+      // Check if any modal boxes are actually active
+      let hasActiveModal = false;
+      calModalBoxes.forEach((box) => {
+        const style = window.getComputedStyle(box);
+        const visibility = style.visibility;
+        const display = style.display;
+        const state = box.getAttribute('state');
+        const inlineStyle = box.getAttribute('style') || '';
+        
+        // Check if hidden via inline style or computed style
+        const isHidden = visibility === 'hidden' || 
+                        display === 'none' || 
+                        inlineStyle.includes('visibility: hidden') ||
+                        inlineStyle.includes('visibility:hidden');
+        
+        if (!isHidden && state !== 'closed') {
+          hasActiveModal = true;
+        } else {
+          // If this modal box is hidden, trigger cleanup immediately
+          cleanupWrapper();
+        }
+      });
+      
+      if (iframes.length === 0 && !hasActiveModal) {
+        // No iframes and no active modals - aggressively clean up
+        cleanupWrapper();
+      } else if (wrapper) {
+        // Iframes exist - check if they're inside our wrapper
+        const iframesInWrapper = wrapper.querySelectorAll('iframe[src*="cal.com"], iframe[src*="app.cal.com"]');
+        if (iframesInWrapper.length === 0 && iframes.length > 0) {
+          // Iframes exist but not in wrapper - modal might have moved, re-fix it
+          fixCalModal();
+        } else if (iframesInWrapper.length === 0) {
+          // No iframes in wrapper and no iframes anywhere - cleanup
+          cleanupWrapper();
+        } else {
+          // Iframes exist - ensure modal is fixed
+          fixCalModal();
+        }
+      } else {
+        // Iframes exist but no wrapper - create it
+        fixCalModal();
+      }
+    }, 50); // Check more frequently
+    
+    return () => {
+      document.removeEventListener('click', handleCalButtonClick, true);
+      document.removeEventListener('click', handleBackdropClick, true);
+      observer.disconnect();
+      clearInterval(interval);
+      // Clean up wrapper if it exists
+      cleanupWrapper();
+    };
+  }, []);
+
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <motion.div 
-        key={location.pathname}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <Suspense fallback={<PageLoader />}>
-          <Routes location={location}>
-            <Route path="/" element={<PageTransition><Index /></PageTransition>} />
-            <Route path="/mon-espace" element={<PageTransition><MonEspace /></PageTransition>} />
-            <Route path="/notre-solution" element={<PageTransition><NotreSolution /></PageTransition>} />
-            <Route path="/cas-clients" element={<PageTransition><CasClients /></PageTransition>} />
-            <Route path="/cas-clients/:id" element={<PageTransition><CaseStudyDetail /></PageTransition>} />
-            <Route path="/tarifs" element={<PageTransition><Tarifs /></PageTransition>} />
-            <Route path="/pour-createurs" element={<PageTransition><PourCreateurs /></PageTransition>} />
-            <Route path="/pour-agences" element={<PageTransition><PourAgences /></PageTransition>} />
-            <Route path="/escalades-legal" element={<PageTransition><EscaladesLegal /></PageTransition>} />
-            <Route path="/a-propos" element={<PageTransition><APropos /></PageTransition>} />
-            <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-            <Route path="/mentions-legales" element={<PageTransition><MentionsLegales /></PageTransition>} />
-            <Route path="/politique-confidentialite" element={<PageTransition><PolitiqueConfidentialite /></PageTransition>} />
-            <Route path="/cgv" element={<PageTransition><CGV /></PageTransition>} />
-            <Route path="/politique-remboursement" element={<PageTransition><PolitiqueRemboursement /></PageTransition>} />
-            <Route path="/politique-cookies" element={<PageTransition><PolitiqueCookies /></PageTransition>} />
-            <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-          </Routes>
-        </Suspense>
-      </motion.div>
-    </AnimatePresence>
+    <div style={{ minHeight: '100vh', backgroundColor: '#000000', position: 'relative' }}>
+      <Suspense fallback={<PageLoader />}>
+        <Routes location={location}>
+          <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+          <Route path="/mon-espace" element={<PageTransition><MonEspace /></PageTransition>} />
+          <Route path="/notre-solution" element={<PageTransition><NotreSolution /></PageTransition>} />
+          <Route path="/cas-clients" element={<PageTransition><CasClients /></PageTransition>} />
+          <Route path="/cas-clients/:id" element={<PageTransition><CaseStudyDetail /></PageTransition>} />
+          <Route path="/tarifs" element={<PageTransition><Tarifs /></PageTransition>} />
+          <Route path="/pour-createurs" element={<PageTransition><PourCreateurs /></PageTransition>} />
+          <Route path="/pour-agences" element={<PageTransition><PourAgences /></PageTransition>} />
+          <Route path="/international-protection" element={<PageTransition><InternationalProtection /></PageTransition>} />
+          <Route path="/escalades-legal" element={<PageTransition><EscaladesLegal /></PageTransition>} />
+          <Route path="/a-propos" element={<PageTransition><APropos /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+          <Route path="/mentions-legales" element={<PageTransition><MentionsLegales /></PageTransition>} />
+          <Route path="/politique-confidentialite" element={<PageTransition><PolitiqueConfidentialite /></PageTransition>} />
+          <Route path="/cgv" element={<PageTransition><CGV /></PageTransition>} />
+          <Route path="/politique-remboursement" element={<PageTransition><PolitiqueRemboursement /></PageTransition>} />
+          <Route path="/politique-cookies" element={<PageTransition><PolitiqueCookies /></PageTransition>} />
+          <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+        </Routes>
+      </Suspense>
+    </div>
   );
 };
 

@@ -1,37 +1,12 @@
-import { useLocation, Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Home, ArrowLeft, Search, Shield, AlertTriangle } from "lucide-react";
+import { useLocation, Link } from "react-router-dom";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { trackEvent } from "@/lib/analytics";
+import { Shield } from "lucide-react";
+import { Home } from "lucide-react";
 
 const NotFound = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const popularPages = [
-    { label: "Accueil", href: "/" },
-    { label: "Notre Solution", href: "/notre-solution" },
-    { label: "Tarifs", href: "/tarifs" },
-    { label: "Contact", href: "/contact" },
-    { label: "Cas Clients", href: "/cas-clients" },
-    { label: "À Propos", href: "/a-propos" },
-  ];
-
-  const suggestedPages = popularPages.filter((page) =>
-    page.label.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (suggestedPages.length > 0) {
-      navigate(suggestedPages[0].href);
-    }
-  };
 
   useEffect(() => {
     if (import.meta.env.DEV) {
@@ -42,188 +17,283 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen bg-black text-white antialiased relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-primary/10 blur-[120px] opacity-30"></div>
-        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[100px] opacity-20"></div>
+      {/* Animated background - matching site design */}
+      <div className="absolute inset-0 overflow-hidden" style={{ 
+        transform: 'translateZ(0)', 
+        WebkitTransform: 'translateZ(0)',
+        WebkitBackfaceVisibility: 'hidden',
+        backfaceVisibility: 'hidden'
+      } as React.CSSProperties}>
+        {/* Animated gradient orbs */}
+        <motion.div 
+          className="absolute top-1/4 right-1/4 w-[800px] h-[800px]"
+          animate={{
+            opacity: [0.3, 0.5, 0.3],
+            scale: [1, 1.1, 1],
+            x: [0, 30, -20, 0],
+            y: [0, -20, 30, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{
+            background: 'radial-gradient(circle at center, rgba(255, 223, 125, 0.15) 0%, rgba(255, 223, 125, 0.08) 40%, transparent 70%)',
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+          } as React.CSSProperties}
+        />
+        <motion.div 
+          className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px]"
+          animate={{
+            opacity: [0.25, 0.45, 0.25],
+            scale: [1, 1.08, 1],
+            x: [0, -30, 20, 0],
+            y: [0, 20, -30, 0],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          style={{
+            background: 'radial-gradient(circle at center, rgba(255, 223, 125, 0.12) 0%, rgba(255, 223, 125, 0.06) 40%, transparent 70%)',
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+          } as React.CSSProperties}
+        />
+        {/* Subtle grid overlay */}
+        <motion.div 
+          className="absolute inset-0 opacity-[0.02]"
+          animate={{
+            opacity: [0.02, 0.04, 0.02]
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255, 223, 125, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 223, 125, 1) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+          } as React.CSSProperties}
+        />
       </div>
 
-      <Header />
-      <main className="relative z-10 flex items-center justify-center min-h-[calc(100vh-200px)] px-4 sm:px-6 lg:px-8 pt-32 pb-20">
+      {/* Header with only logo */}
+      <header className="fixed top-0 left-0 right-0 w-full z-50 py-5">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <Link to="/" className="group relative z-10 flex-shrink-0 inline-block">
+            <div className="flex items-center gap-2.5">
+              <div 
+                className="relative overflow-hidden rounded-xl w-11 h-11"
+                style={{
+                  transition: 'width 0.3s ease-out, height 0.3s ease-out',
+                  willChange: 'width, height',
+                  WebkitTransform: 'translateZ(0)',
+                  transform: 'translateZ(0)'
+                }}
+              >
+                <div 
+                  className="absolute inset-0 blur-md opacity-60 group-hover:opacity-90 bg-gradient-to-br from-primary via-primary/70 to-primary/50"
+                  style={{ 
+                    transition: 'opacity 0.2s ease-out',
+                    willChange: 'opacity',
+                    WebkitTransform: 'translateZ(0)',
+                    transform: 'translateZ(0)'
+                  }}
+                ></div>
+                <div 
+                  className="relative w-full h-full flex items-center justify-center group-hover:scale-105 bg-gradient-to-br from-primary to-primary/80 shadow-xl shadow-primary/20"
+                  style={{ 
+                    isolation: 'isolate',
+                    transition: 'transform 0.2s ease-out',
+                    willChange: 'transform',
+                    WebkitTransform: 'translateZ(0)',
+                    transform: 'translateZ(0)'
+                  }}
+                >
+                  <Shield 
+                    className="w-5 h-5 text-black" 
+                    strokeWidth={2.5}
+                    style={{
+                      transition: 'width 0.3s ease-out, height 0.3s ease-out',
+                      willChange: 'width, height'
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <div 
+                  className="font-display font-bold tracking-tight text-foreground text-xs leading-tight"
+                  style={{
+                    transition: 'font-size 0.3s ease-out',
+                    willChange: 'font-size'
+                  }}
+                >
+                  ContentRemovalDesk
+                </div>
+                <div 
+                  className="text-[7px] uppercase tracking-[0.2em] leading-none font-semibold opacity-100 text-primary/90"
+                  style={{
+                    transition: 'opacity 0.3s ease-out',
+                    willChange: 'opacity'
+                  }}
+                >
+                  Protection Numérique
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </header>
+      
+      <main className="relative z-10 flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-5xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center space-y-8"
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="text-center space-y-12"
           >
             {/* Branded Logo Section */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ delay: 0.2, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="flex justify-center mb-8"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-2xl blur-xl opacity-40"></div>
-                <div className="relative w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center shadow-xl shadow-primary/30">
-                  <Shield className="w-10 h-10 sm:w-12 sm:h-12 text-black" strokeWidth={2.5} />
+                <motion.div
+                  animate={{
+                    scale: [1, 1.05, 1],
+                    rotate: [0, 5, -5, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-2xl blur-2xl opacity-50"
+                />
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/40">
+                  <Shield className="w-12 h-12 sm:w-14 sm:h-14 text-black" strokeWidth={2.5} />
                 </div>
+                <motion.div
+                  animate={{
+                    opacity: [0.5, 1, 0.5],
+                    scale: [1, 1.2, 1],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute -inset-4 bg-primary/20 rounded-full blur-xl"
+                />
               </div>
             </motion.div>
 
-            {/* 404 Number with Branding */}
+            {/* 404 Number with Premium Styling */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
               className="relative inline-block"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-3xl blur-3xl opacity-40 animate-pulse"></div>
-              <h1 className="relative text-7xl sm:text-8xl lg:text-9xl font-display font-bold bg-gradient-to-br from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent">
+              <motion.div
+                animate={{
+                  opacity: [0.3, 0.6, 0.3],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-3xl blur-3xl"
+              />
+              <h1 className="relative text-8xl sm:text-9xl lg:text-[12rem] font-display font-bold bg-gradient-to-br from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent leading-none">
                 404
               </h1>
             </motion.div>
 
-            {/* Error Icon */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="flex justify-center"
-            >
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-zinc-900/80 backdrop-blur-xl border-2 border-primary/30 flex items-center justify-center shadow-lg">
-                <AlertTriangle className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
-              </div>
-            </motion.div>
-
-            {/* Error Message */}
+            {/* Error Message with Liquid Glass Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="space-y-4"
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="relative"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground">
-                Contenu introuvable
-              </h2>
-              <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto">
-                La page que vous recherchez a peut-être été supprimée ou déplacée. 
-                <br className="hidden sm:block" />
-                Notre équipe surveille 24/7 pour protéger votre contenu, mais cette page n'existe pas.
-              </p>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900/50 backdrop-blur-md border border-zinc-800/50 mt-4">
-                <span className="text-xs text-zinc-500">URL :</span>
-                <code className="text-sm text-zinc-400 font-mono">{location.pathname}</code>
-            </div>
-            </motion.div>
-
-            {/* Action Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
-            >
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-bold rounded-full px-8 py-6 shadow-xl shadow-primary/30 hover:shadow-primary/50 hover:scale-105 active:scale-95 transition-all duration-300"
-                asChild
+              <motion.div
+                className="relative mx-auto max-w-2xl rounded-3xl p-8 sm:p-12"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  border: '1px solid rgba(255, 223, 125, 0.2)',
+                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)',
+                }}
+                whileHover={{
+                  borderColor: 'rgba(255, 223, 125, 0.4)',
+                  boxShadow: '0 12px 40px 0 rgba(255, 223, 125, 0.2), inset 0 0 80px rgba(255, 223, 125, 0.1)',
+                }}
+                transition={{ duration: 0.3 }}
               >
-                <Link to="/" className="flex items-center gap-2">
-                  <Home className="w-5 h-5" />
-                  Retour à l'accueil
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground mb-4">
+                  Page introuvable
+                </h2>
+                <p className="text-lg sm:text-xl text-zinc-400">
+                  Cette page n'existe pas ou a été déplacée.
+                </p>
+              </motion.div>
+            </motion.div>
+
+            {/* Retour à l'accueil Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="flex justify-center items-center pt-8"
+            >
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Link
+                  to="/"
+                  className="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-full text-foreground transition-all duration-300 overflow-hidden"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.4)',
+                    backdropFilter: 'blur(30px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                    border: '1px solid rgba(255, 223, 125, 0.2)',
+                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.4)';
+                    e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(255, 223, 125, 0.2), inset 0 0 80px rgba(255, 223, 125, 0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.2)';
+                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)';
+                  }}
+                >
+                  <Home className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <span>Retour à l'accueil</span>
                 </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-zinc-800 hover:border-primary/50 bg-zinc-900/60 backdrop-blur-xl text-foreground font-semibold rounded-full px-8 py-6 hover:bg-zinc-900/80 hover:scale-105 active:scale-95 transition-all duration-300"
-                onClick={() => window.history.back()}
-              >
-                <ArrowLeft className="w-5 h-5 mr-2" />
-                Page précédente
-              </Button>
-            </motion.div>
-
-            {/* Search Bar */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="pt-8 max-w-md mx-auto"
-            >
-              <form onSubmit={handleSearch} className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
-                <Input
-                  type="text"
-                  placeholder="Rechercher une page..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-4 py-3 bg-zinc-900/50 border-zinc-800/50 text-foreground placeholder:text-zinc-500 focus:border-primary rounded-full"
-                />
-                {suggestedPages.length > 0 && searchQuery && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="absolute top-full left-0 right-0 mt-2 bg-zinc-900/95 backdrop-blur-xl border border-zinc-800/50 rounded-xl overflow-hidden shadow-xl"
-                  >
-                    {suggestedPages.map((page) => (
-                      <Link
-                        key={page.href}
-                        to={page.href}
-                        className="block px-4 py-3 text-sm text-foreground hover:bg-zinc-800/50 hover:text-primary transition-colors"
-                      >
-                        {page.label}
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </form>
-            </motion.div>
-
-            {/* Quick Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="pt-12"
-            >
-              <p className="text-sm text-zinc-500 mb-6 font-medium">Pages populaires :</p>
-              <div className="flex flex-wrap justify-center gap-3">
-                {popularPages.map((page, index) => (
-                  <motion.div
-                    key={page.href}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8 + index * 0.1 }}
-                  >
-                    <Link
-                      to={page.href}
-                      className="inline-block px-5 py-2.5 rounded-full bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/50 text-sm font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-zinc-900/80 transition-all duration-300 hover:scale-105 active:scale-95"
-                  >
-                    {page.label}
-                  </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Brand Message */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-              className="pt-12 border-t border-zinc-800/50 mt-12"
-            >
-              <p className="text-sm text-zinc-500 max-w-md mx-auto">
-                Besoin d'aide ? <Link to="/contact" className="text-primary hover:text-primary/80 underline">Contactez notre équipe</Link> pour une protection 24/7 de votre contenu.
-              </p>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

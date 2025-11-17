@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Shield, Zap, Scale } from "lucide-react";
+import { ArrowRight, Shield, Zap, Scale, Calendar } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 
@@ -40,6 +40,7 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
       }
     };
   }, []);
+
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-black overflow-hidden pt-32 sm:pt-28 md:pt-24">
@@ -147,16 +148,18 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
             </Button>
             <Button 
               size="lg"
-              variant="outline"
-              className="group border-2 border-zinc-800 hover:border-primary/50 bg-black/50 backdrop-blur-xl text-foreground font-semibold rounded-full px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg hover:bg-zinc-900/50 transition-all duration-300 w-full sm:w-auto"
-              asChild
+              type="button"
+              data-cal-namespace="diagnostic-createur"
+              data-cal-link="chan-aoufi-ttauyj/diagnostic-createur"
+              data-cal-config='{"layout":"month_view"}'
+              className="group relative overflow-hidden bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/50 hover:border-primary/50 text-white font-semibold rounded-full px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg shadow-2xl shadow-zinc-900/20 hover:shadow-primary/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
             >
-              <a href="https://wa.me/32460236990" target="_blank" rel="noopener noreferrer">
-                <span className="flex items-center gap-2 justify-center">
-                  <Scale className="h-4 w-4 sm:h-5 sm:w-5" />
-                  {language === 'en' ? 'Legal Expertise' : 'Expertise légale'}
-                </span>
-              </a>
+              <span className="relative z-10 flex items-center gap-2 justify-center">
+                <Scale className="h-4 w-4 sm:h-5 sm:w-5" />
+                Parler à un agent
+                <Calendar className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             </Button>
           </div>
 

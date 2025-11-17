@@ -1,7 +1,7 @@
 import { useEffect, useState, lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Scale, FileText, Shield, CheckCircle2, AlertCircle, Lock, Gavel, Globe, Eye, Zap, TrendingUp, Award, Users, Phone, ArrowRight, Mail, MessageCircle, HelpCircle } from "lucide-react";
+import { Scale, FileText, Shield, CheckCircle2, AlertCircle, Lock, Gavel, Globe, Eye, Zap, TrendingUp, Award, Users, Phone, ArrowRight, Mail, MessageCircle, HelpCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
@@ -26,6 +26,7 @@ const EscaladesLegal = () => {
     if (metaDescription) {
       metaDescription.setAttribute("content", "Service d'escalades légales et actions juridiques pour créateurs. Procédures DMCA, actions ICANN, dépôt de marques, injonctions judiciaires. 99.2% de réussite.");
     }
+
   }, []);
 
   const interventionDomains = [
@@ -174,12 +175,13 @@ const EscaladesLegal = () => {
                 <Button
                   size="lg"
                   className="group"
-                  asChild
+                  type="button"
+                  data-cal-namespace="diagnostic-createur"
+                  data-cal-link="chan-aoufi-ttauyj/diagnostic-createur"
+                  data-cal-config='{"layout":"month_view"}'
                 >
-                  <a href="https://espace.contentremovaldesk.com/escalade">
                 Demander une escalade
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
               </Button>
               </motion.div>
             </motion.div>
@@ -519,14 +521,6 @@ const EscaladesLegal = () => {
             ))}
           </div>
 
-          <div className="text-center">
-            <Button size="lg" className="group" asChild>
-              <a href="https://wa.me/32460236990" target="_blank" rel="noreferrer">
-              Déposez votre marque avec confiance
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </Button>
-          </div>
         </div>
       </section>
 
@@ -570,15 +564,6 @@ const EscaladesLegal = () => {
               >
                 <Mail className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium text-zinc-300 group-hover:text-foreground">Envoyer un email</span>
-              </a>
-              <a 
-                href="https://wa.me/32460236990"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-black rounded-full transition-all duration-300 font-medium"
-              >
-                <MessageCircle className="h-4 w-4" />
-                <span className="text-sm">Chat WhatsApp express</span>
               </a>
           </div>
           </motion.div>
@@ -630,12 +615,6 @@ const EscaladesLegal = () => {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="text-center mt-12"
           >
-            <Button variant="outline" size="lg" className="group" asChild>
-              <a href="https://wa.me/32460236990" target="_blank" rel="noreferrer">
-              <Phone className="mr-2 w-4 h-4" />
-                Parler à un expert juridique
-              </a>
-            </Button>
           </motion.div>
         </div>
       </section>

@@ -270,7 +270,7 @@ const PourCreateurs = () => {
                   className="group relative bg-gradient-to-r from-primary via-primary to-primary/90 hover:from-primary/90 hover:via-primary hover:to-primary text-black font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl transition-all duration-300 w-full sm:w-auto cursor-pointer border border-primary/30"
                   asChild
                 >
-                  <a href="https://espace.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://espace.contentremovaldesk.com">
                     <span className="flex items-center gap-2 sm:gap-3 justify-center">
                       <motion.span
                         animate={{
@@ -366,12 +366,33 @@ const PourCreateurs = () => {
             <div className="lg:hidden space-y-16 sm:space-y-24">
               {/* MYM & OnlyFans - Mobile */}
               <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ y: 30, scale: 0.95 }}
+                whileInView={{ y: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ scale: 1.01, y: -5 }}
-                className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+                className="group relative rounded-3xl p-8 sm:p-12 lg:p-16 transition-all duration-500 overflow-hidden"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  border: '1px solid rgba(255, 223, 125, 0.2)',
+                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)',
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  isolation: 'isolate',
+                  opacity: 1,
+                } as React.CSSProperties}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(255, 223, 125, 0.2), inset 0 0 80px rgba(255, 223, 125, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.2)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)';
+                }}
               >
                 {/* Glow effect on hover */}
                 <motion.div
@@ -447,12 +468,33 @@ const PourCreateurs = () => {
 
               {/* Webcam & Studios - Mobile */}
               <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ y: 30, scale: 0.95 }}
+                whileInView={{ y: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ scale: 1.01, y: -5 }}
-                className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+                className="group relative rounded-3xl p-8 sm:p-12 lg:p-16 transition-all duration-500 overflow-hidden"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  border: '1px solid rgba(255, 223, 125, 0.2)',
+                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)',
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  isolation: 'isolate',
+                  opacity: 1,
+                } as React.CSSProperties}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(255, 223, 125, 0.2), inset 0 0 80px rgba(255, 223, 125, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.2)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)';
+                }}
               >
                 {/* Glow effect on hover */}
                 <motion.div
@@ -527,12 +569,33 @@ const PourCreateurs = () => {
 
               {/* Photo Models - Mobile */}
               <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ y: 30, scale: 0.95 }}
+                whileInView={{ y: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ scale: 1.01, y: -5 }}
-                className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+                className="group relative rounded-3xl p-8 sm:p-12 lg:p-16 transition-all duration-500 overflow-hidden"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  border: '1px solid rgba(255, 223, 125, 0.2)',
+                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)',
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  isolation: 'isolate',
+                  opacity: 1,
+                } as React.CSSProperties}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(255, 223, 125, 0.2), inset 0 0 80px rgba(255, 223, 125, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.2)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)';
+                }}
               >
                 {/* Glow effect on hover */}
                 <motion.div
@@ -607,12 +670,33 @@ const PourCreateurs = () => {
 
               {/* Influencers - Mobile */}
               <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ y: 30, scale: 0.95 }}
+                whileInView={{ y: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ scale: 1.01, y: -5 }}
-                className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+                className="group relative rounded-3xl p-8 sm:p-12 lg:p-16 transition-all duration-500 overflow-hidden"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  border: '1px solid rgba(255, 223, 125, 0.2)',
+                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)',
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  isolation: 'isolate',
+                  opacity: 1,
+                } as React.CSSProperties}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(255, 223, 125, 0.2), inset 0 0 80px rgba(255, 223, 125, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.2)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)';
+                }}
               >
                 {/* Glow effect on hover */}
                 <motion.div
@@ -687,12 +771,33 @@ const PourCreateurs = () => {
 
               {/* Hybrid Creators - Mobile */}
               <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ y: 30, scale: 0.95 }}
+                whileInView={{ y: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ scale: 1.01, y: -5 }}
-                className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+                className="group relative rounded-3xl p-8 sm:p-12 lg:p-16 transition-all duration-500 overflow-hidden"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  border: '1px solid rgba(255, 223, 125, 0.2)',
+                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)',
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  isolation: 'isolate',
+                  opacity: 1,
+                } as React.CSSProperties}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(255, 223, 125, 0.2), inset 0 0 80px rgba(255, 223, 125, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.2)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)';
+                }}
               >
                 {/* Glow effect on hover */}
                 <motion.div
@@ -772,12 +877,20 @@ const PourCreateurs = () => {
               {activeTab === 0 && (
               <motion.div
                 key="mym"
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -30, scale: 0.95 }}
+                initial={{ y: 30, scale: 0.95 }}
+                animate={{ y: 0, scale: 1 }}
+                exit={{ y: -30, scale: 0.95 }}
                 transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ scale: 1.01, y: -5 }}
                 className="hidden lg:block group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+                style={{
+                  opacity: 1,
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  isolation: 'isolate',
+                } as React.CSSProperties}
               >
               {/* Glow effect on hover */}
               <motion.div
@@ -856,12 +969,20 @@ const PourCreateurs = () => {
             {activeTab === 1 && (
             <motion.div
               key="webcam"
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -30, scale: 0.95 }}
+              initial={{ y: 30, scale: 0.95 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: -30, scale: 0.95 }}
               transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               whileHover={{ scale: 1.01, y: -5 }}
               className="hidden lg:block group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+              style={{
+                opacity: 1,
+                transform: 'translate3d(0, 0, 0)',
+                WebkitTransform: 'translate3d(0, 0, 0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                isolation: 'isolate',
+              } as React.CSSProperties}
             >
               {/* Glow effect on hover */}
               <motion.div
@@ -939,12 +1060,20 @@ const PourCreateurs = () => {
             {activeTab === 2 && (
             <motion.div
               key="photo"
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -30, scale: 0.95 }}
+              initial={{ y: 30, scale: 0.95 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: -30, scale: 0.95 }}
               transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               whileHover={{ scale: 1.01, y: -5 }}
               className="hidden lg:block group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+              style={{
+                opacity: 1,
+                transform: 'translate3d(0, 0, 0)',
+                WebkitTransform: 'translate3d(0, 0, 0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                isolation: 'isolate',
+              } as React.CSSProperties}
             >
               {/* Glow effect on hover */}
               <motion.div
@@ -1022,12 +1151,20 @@ const PourCreateurs = () => {
             {activeTab === 3 && (
             <motion.div
               key="influencers"
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -30, scale: 0.95 }}
+              initial={{ y: 30, scale: 0.95 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: -30, scale: 0.95 }}
               transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               whileHover={{ scale: 1.01, y: -5 }}
               className="hidden lg:block group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+              style={{
+                opacity: 1,
+                transform: 'translate3d(0, 0, 0)',
+                WebkitTransform: 'translate3d(0, 0, 0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                isolation: 'isolate',
+              } as React.CSSProperties}
             >
               {/* Glow effect on hover */}
               <motion.div
@@ -1105,12 +1242,20 @@ const PourCreateurs = () => {
             {activeTab === 4 && (
             <motion.div
               key="hybrid"
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -30, scale: 0.95 }}
+              initial={{ y: 30, scale: 0.95 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: -30, scale: 0.95 }}
               transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               whileHover={{ scale: 1.01, y: -5 }}
               className="hidden lg:block group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+              style={{
+                opacity: 1,
+                transform: 'translate3d(0, 0, 0)',
+                WebkitTransform: 'translate3d(0, 0, 0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                isolation: 'isolate',
+              } as React.CSSProperties}
             >
               {/* Glow effect on hover */}
               <motion.div
@@ -1213,8 +1358,8 @@ const PourCreateurs = () => {
 
         <div className="container mx-auto max-w-7xl relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
             className="text-center mb-12 sm:mb-16"
@@ -1243,12 +1388,33 @@ const PourCreateurs = () => {
             ].map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ y: 20, scale: 0.96 }}
+                whileInView={{ y: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ scale: 1.03, y: -5 }}
-                className="group relative flex items-start gap-4 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-zinc-900/70 to-zinc-950/70 backdrop-blur-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] overflow-hidden"
+                className="group relative flex items-start gap-4 p-6 sm:p-8 rounded-2xl transition-all duration-500 overflow-hidden"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  border: '1px solid rgba(255, 223, 125, 0.2)',
+                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)',
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  isolation: 'isolate',
+                  opacity: 1,
+                } as React.CSSProperties}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(255, 223, 125, 0.2), inset 0 0 80px rgba(255, 223, 125, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.2)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)';
+                }}
               >
                 {/* Glow effect on hover */}
                 <motion.div
@@ -1313,8 +1479,8 @@ const PourCreateurs = () => {
 
         <div className="container mx-auto max-w-7xl relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
             className="text-center mb-12 sm:mb-16"
@@ -1373,12 +1539,33 @@ const PourCreateurs = () => {
             ].map((service, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ y: 30, scale: 0.95 }}
+                whileInView={{ y: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ scale: 1.02, y: -5 }}
-                className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-2xl border border-zinc-800/50 hover:border-primary/50 p-6 sm:p-8 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+                className="group relative rounded-2xl p-6 sm:p-8 transition-all duration-500 overflow-hidden"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  border: '1px solid rgba(255, 223, 125, 0.2)',
+                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)',
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  isolation: 'isolate',
+                  opacity: 1,
+                } as React.CSSProperties}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(255, 223, 125, 0.2), inset 0 0 80px rgba(255, 223, 125, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.2)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)';
+                }}
               >
                 {/* Glow effect on hover */}
                 <motion.div
@@ -1410,11 +1597,24 @@ const PourCreateurs = () => {
 
           {/* Final Message Card */}
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            initial={{ y: 30, scale: 0.95 }}
+            whileInView={{ y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-transparent backdrop-blur-xl rounded-3xl border border-primary/30 p-8 sm:p-12 shadow-[0_25px_50px_rgba(255,223,125,0.2)] overflow-hidden"
+            className="relative rounded-3xl p-8 sm:p-12 overflow-hidden"
+            style={{
+              background: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(40px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+              border: '1px solid rgba(255, 223, 125, 0.3)',
+              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.6), inset 0 0 100px rgba(255, 223, 125, 0.15)',
+              transform: 'translate3d(0, 0, 0)',
+              WebkitTransform: 'translate3d(0, 0, 0)',
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              isolation: 'isolate',
+              opacity: 1,
+            } as React.CSSProperties}
           >
             {/* Animated background glow */}
             <motion.div
@@ -1503,12 +1703,33 @@ const PourCreateurs = () => {
 
         <div className="container mx-auto max-w-5xl relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            initial={{ y: 30, scale: 0.95 }}
+            whileInView={{ y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             whileHover={{ scale: 1.01, y: -5 }}
-            className="group relative text-center bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-primary/50 p-8 sm:p-12 lg:p-16 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] transition-all duration-500 overflow-hidden"
+            className="group relative text-center rounded-3xl p-8 sm:p-12 lg:p-16 transition-all duration-500 overflow-hidden"
+            style={{
+              background: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(30px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+              border: '1px solid rgba(255, 223, 125, 0.2)',
+              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)',
+              transform: 'translate3d(0, 0, 0)',
+              WebkitTransform: 'translate3d(0, 0, 0)',
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              isolation: 'isolate',
+              opacity: 1,
+            } as React.CSSProperties}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.4)';
+              e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(255, 223, 125, 0.2), inset 0 0 80px rgba(255, 223, 125, 0.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(255, 223, 125, 0.2)';
+              e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(255, 223, 125, 0.05)';
+            }}
           >
             {/* Glow effect on hover */}
             <motion.div
@@ -1539,7 +1760,7 @@ const PourCreateurs = () => {
                   className="group relative bg-gradient-to-r from-primary via-primary to-primary/90 hover:from-primary/90 hover:via-primary hover:to-primary text-black font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl transition-all duration-300 border border-primary/30"
                   asChild
                 >
-                  <a href="https://espace.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://espace.contentremovaldesk.com">
                     <span className="flex items-center gap-2 sm:gap-3 justify-center">
                       <Zap className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 flex-shrink-0" />
                       <span className="text-sm sm:text-base lg:text-lg">Mon espace CRD</span>

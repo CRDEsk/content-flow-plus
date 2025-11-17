@@ -1,9 +1,9 @@
 import { useEffect } from "react";
+import { getCalApi } from "@calcom/embed-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { getCalApi } from "@calcom/embed-react";
 import { 
   Users, 
   BarChart3, 
@@ -187,662 +187,33 @@ const PourAgences = () => {
         themeColor.setAttribute('content', '#D4AF37');
       }
     };
+  }, []);
 
-    // Add custom CSS for small to medium-sized modal
-    if (!document.getElementById("cal-com-custom-styles")) {
-      const style = document.createElement("style");
-      style.id = "cal-com-custom-styles";
-      style.textContent = `
-        /* Target all Cal.com modal containers - MEDIUM SIZE - EXTREMELY AGGRESSIVE */
-        /* Target ALL Cal.com modal elements - FORCE 50% WIDTH */
-        .cal-modal,
-        .cal-modal[data-cal-namespace="agence"],
-        [data-cal-namespace="agence"] .cal-modal,
-        .cal-modal-wrapper,
-        .cal-modal-content,
-        .cal-modal[data-cal-namespace="agence"] .cal-modal-content,
-        div[class*="cal-modal"],
-        div[class*="CalModal"],
-        [id*="cal-modal"],
-        [id*="CalModal"],
-        [class*="cal-"],
-        [id*="cal-"],
-        div[class*="Cal"],
-        [class*="calendar"],
-        [id*="calendar"],
-        [data-cal-namespace="agence"] iframe,
-        iframe[data-cal-namespace="agence"],
-        .cal-modal iframe,
-        .cal-modal[data-cal-namespace="agence"] iframe,
-        iframe[src*="cal.com"],
-        iframe[src*="app.cal.com"],
-        iframe[src*="calendar"],
-        .cal-modal-dialog,
-        .cal-modal[data-cal-namespace="agence"] .cal-modal-dialog,
-        div[class*="cal-dialog"],
-        div[class*="CalDialog"],
-        [class*="dialog"],
-        #cal-root,
-        [id*="cal-root"],
-        [id*="CalRoot"],
-        [id*="calendar-root"],
-        *[class*="cal"],
-        *[id*="cal"],
-        *[class*="Cal"],
-        *[id*="Cal"],
-        body > div:last-child,
-        body > div[style*="position"],
-        div[style*="fixed"],
-        div[style*="absolute"][style*="z-index"],
-        div[role="dialog"],
-        div[aria-modal="true"],
-        div[style*="width: 100%"],
-        div[style*="width:100%"],
-        div[style*="width: 90%"],
-        div[style*="width:90%"],
-        div[style*="width: 95%"],
-        div[style*="width:95%"] {
-          max-width: 450px !important;
-          width: 50% !important;
-          max-height: 65vh !important;
-          left: 50% !important;
-          top: 50% !important;
-          transform: translate(-50%, -50%) !important;
-          box-sizing: border-box !important;
-          min-width: auto !important;
-          position: fixed !important;
-        }
-        
-        /* EXTRA AGGRESSIVE - Override any width styles */
-        [style*="width"],
-        [style*="Width"],
-        [style*="WIDTH"],
-        [style*="width: 100vw"],
-        [style*="width:100vw"],
-        [style*="width: 100%"],
-        [style*="width:100%"],
-        [data-testid="booker-container"],
-        [data-testid="booker-container"] * {
-          width: 50% !important;
-          max-width: 450px !important;
-        }
-        
-        /* Target the specific Cal.com booker container - HIGHEST PRIORITY */
-        div[data-testid="booker-container"],
-        [data-testid="booker-container"],
-        div[data-testid="booker-container"][style*="width"],
-        [data-testid="booker-container"][style*="width"],
-        div[data-testid="booker-container"][style*="100vw"],
-        [data-testid="booker-container"][style*="100vw"],
-        div[data-testid="booker-container"][style*="width: 100vw"],
-        [data-testid="booker-container"][style*="width: 100vw"] {
-          width: 50% !important;
-          max-width: 450px !important;
-          min-width: auto !important;
-          left: 50% !important;
-          transform: translateX(-50%) !important;
-          position: relative !important;
-        }
-        
-        /* Target parent containers that wrap booker-container - FORCE PARENT WIDTH */
-        div:has([data-testid="booker-container"]),
-        [class*="cal"]:has([data-testid="booker-container"]),
-        [id*="cal"]:has([data-testid="booker-container"]),
-        body > div:has([data-testid="booker-container"]),
-        [role="dialog"]:has([data-testid="booker-container"]),
-        [aria-modal="true"]:has([data-testid="booker-container"]) {
-          width: 50% !important;
-          max-width: 450px !important;
-          left: 50% !important;
-          transform: translateX(-50%) !important;
-        }
-        
-        /* Target any modal/overlay that contains booker-container */
-        [class*="modal"]:has([data-testid="booker-container"]),
-        [id*="modal"]:has([data-testid="booker-container"]),
-        [class*="overlay"]:has([data-testid="booker-container"]),
-        [id*="overlay"]:has([data-testid="booker-container"]) {
-          width: 50% !important;
-          max-width: 450px !important;
-        }
-        
-        /* Override any large sizes - FORCE 50% */
-        div[style*="width"][style*="%"],
-        div[style*="max-width"],
-        div[style*="min-width"],
-        div[style*="width: 90%"],
-        div[style*="width: 100%"],
-        div[style*="width: 95%"],
-        div[style*="width:90%"],
-        div[style*="width:100%"],
-        div[style*="width:95%"],
-        [style*="max-width: 800px"],
-        [style*="max-width: 900px"],
-        [style*="max-width: 1000px"],
-        [style*="width: 90%"],
-        [style*="width: 95%"],
-        [style*="width: 100%"],
-        [style*="width:90%"],
-        [style*="width:95%"],
-        [style*="width:100%"],
-        *[style*="width"] {
-          max-width: 450px !important;
-          min-width: auto !important;
-          width: 50% !important;
-        }
-        
-        /* Ensure the backdrop doesn't interfere */
-        .cal-modal-backdrop {
-          display: block !important;
-        }
-        
-        /* Target shadow DOM or nested elements */
-        .cal-modal *,
-        [data-cal-namespace] * {
-          max-width: 100% !important;
-        }
-      `;
-      document.head.appendChild(style);
-    }
-    
-    // ULTRA AGGRESSIVE: Intercept style.setProperty to force modal size
-    const originalSetProperty = CSSStyleDeclaration.prototype.setProperty;
-    CSSStyleDeclaration.prototype.setProperty = function(property: string, value: string, priority?: string) {
-      if (property === 'max-width' || property === 'width' || property === 'min-width') {
-        const element = this as any;
-        const isCalModal = element.ownerElement && (
-          element.ownerElement.classList?.toString().includes('cal') ||
-          element.ownerElement.id?.includes('cal') ||
-          element.ownerElement.getAttribute('data-cal-namespace') ||
-          element.ownerElement.querySelector?.('[data-cal-namespace]') ||
-          element.ownerElement.closest?.('[data-cal-namespace]') ||
-          element.ownerElement.closest?.('.cal-modal') ||
-          element.ownerElement.closest?.('[class*="cal-modal"]')
-        );
-        
-        if (isCalModal) {
-          if (property === 'max-width' && (value.includes('px') && parseInt(value) > 450)) {
-            value = '450px';
-          } else if (property === 'width') {
-            // Force 50% for any width value, including 100vw
-            if (value === '100vw' || value === '100%' || value === '90%' || value === '95%') {
-              value = '50%';
-            } else if (value.includes('%') && parseInt(value) > 50) {
-              value = '50%';
-            } else if (value.includes('px') && parseInt(value) > 450) {
-              value = '50%';
-            } else if (value.includes('vw') && parseInt(value) >= 100) {
-              value = '50%';
-            }
-          } else if (property === 'min-width' && value !== 'auto') {
-            value = 'auto';
-          }
-        }
-        
-        // PRIORITY: booker-container gets forced first
-        const styleElement = this as any;
-        const ownerElement = styleElement.ownerElement;
-        const isBookerContainer = ownerElement && (
-          ownerElement.getAttribute('data-testid') === 'booker-container' ||
-          ownerElement.closest?.('[data-testid="booker-container"]')
-        );
-        
-        if (isBookerContainer && property === 'width') {
-          // Force 50% for ANY width value on booker-container - NO EXCEPTIONS
-          // Specifically catch 50vw, 100vw, and any other value
-          if (value && value !== '50%') {
-            // Catch ALL vw values, not just 50vw/100vw
-            if (value.includes('vw') || (value.includes('%') && parseInt(value) > 50) || (value.includes('px') && parseInt(value) > 450)) {
-              value = '50%';
-              // Also immediately apply it directly and remove old value
-              setTimeout(() => {
-                if (ownerElement && ownerElement.style) {
-                  ownerElement.style.removeProperty('width');
-                  ownerElement.style.setProperty('width', '50%', 'important');
-                  ownerElement.style.width = '50%';
-                  
-                  // Also replace in the style attribute directly - replace ALL vw values
-                  const currentStyle = ownerElement.getAttribute('style') || '';
-                  const newStyle = currentStyle
-                    .replace(/width\s*:\s*[^;]+;?/gi, '')
-                    .replace(/50vw/gi, '50%')
-                    .replace(/100vw/gi, '50%')
-                    .replace(/[0-9]+vw/gi, '50%')  // Replace ANY vw value
-                    + 'width: 50% !important; ';
-                  ownerElement.setAttribute('style', newStyle.trim());
-                  
-                  // Also force parent if it exists
-                  const parent = ownerElement.parentElement;
-                  if (parent && parent.style) {
-                    parent.style.setProperty('width', '50%', 'important');
-                    parent.style.setProperty('max-width', '450px', 'important');
-                  }
-                }
-              }, 0);
-            }
-          }
-        }
-      }
-      return originalSetProperty.call(this, property, value, priority);
-    };
-    
-    // Dedicated function to force booker-container width - ULTRA AGGRESSIVE
-    const forceBookerContainerWidth = () => {
-      try {
-        // Try multiple query methods to find the element
-        const bookerContainer = document.querySelector('[data-testid="booker-container"]') as HTMLElement;
-        if (bookerContainer) {
-          // Method 1: Remove width property completely, then set to 50%
-          if (bookerContainer.style) {
-            bookerContainer.style.removeProperty('width');
-            bookerContainer.style.removeProperty('min-width');
-          }
-          
-          // Method 2: Force with !important
-          bookerContainer.style.setProperty('width', '50%', 'important');
-          bookerContainer.style.setProperty('max-width', '450px', 'important');
-          bookerContainer.style.setProperty('min-width', 'auto', 'important');
-          
-          // Method 3: Direct assignment
-          bookerContainer.style.width = '50%';
-          bookerContainer.style.maxWidth = '450px';
-          bookerContainer.style.minWidth = 'auto';
-          
-          // Method 4: Override via Object.defineProperty if possible
-          try {
-            Object.defineProperty(bookerContainer.style, 'width', {
-              get: () => '50%',
-              set: () => {},
-              configurable: true
-            });
-          } catch (e) {
-            // If defineProperty fails, continue with other methods
-          }
-          
-          // Method 5: Remove from inline style attribute and re-add - REPLACE 50vw with 50%
-          const currentStyle = bookerContainer.getAttribute('style') || '';
-          let newStyle = currentStyle
-            .replace(/width\s*:\s*[^;]+;?/gi, '')
-            .replace(/min-width\s*:\s*[^;]+;?/gi, '')
-            .replace(/max-width\s*:\s*[^;]+;?/gi, '')
-            .replace(/50vw/gi, '50%')
-            .replace(/100vw/gi, '50%')
-            .replace(/width:\s*50vw/gi, 'width: 50%')
-            .replace(/width:\s*100vw/gi, 'width: 50%');
-          
-          // Add our forced width at the end
-          if (!newStyle.includes('width:')) {
-            newStyle += 'width: 50% !important; ';
-          }
-          if (!newStyle.includes('max-width:')) {
-            newStyle += 'max-width: 450px !important; ';
-          }
-          if (!newStyle.includes('min-width:')) {
-            newStyle += 'min-width: auto !important; ';
-          }
-          bookerContainer.setAttribute('style', newStyle.trim());
-          
-          // Also target parent containers - go up 5 levels
-          let parent = bookerContainer.parentElement;
-          let depth = 0;
-          while (parent && depth < 5) {
-            if (parent.style) {
-              const computedWidth = window.getComputedStyle(parent).width;
-              if (computedWidth.includes('px') && parseInt(computedWidth) > 450 || 
-                  computedWidth.includes('%') && parseInt(computedWidth) > 50 ||
-                  computedWidth.includes('vw') && parseInt(computedWidth) >= 100 ||
-                  parent.style.width === '100vw' || parent.style.width === '100%') {
-                parent.style.removeProperty('width');
-                parent.style.setProperty('width', '50%', 'important');
-                parent.style.setProperty('max-width', '450px', 'important');
-                parent.style.width = '50%';
-                parent.style.maxWidth = '450px';
-              }
-            }
-            parent = parent.parentElement;
-            depth++;
-          }
-          
-          // Force again multiple times with delays - ALWAYS REPLACE 50vw in style attribute
-          [0, 10, 50, 100, 200, 500].forEach(delay => {
-            setTimeout(() => {
-              if (bookerContainer && bookerContainer.style) {
-                bookerContainer.style.removeProperty('width');
-                bookerContainer.style.setProperty('width', '50%', 'important');
-                bookerContainer.style.width = '50%';
-                bookerContainer.style.setProperty('max-width', '450px', 'important');
-                bookerContainer.style.maxWidth = '450px';
-                
-                // ALWAYS replace 50vw/100vw in the style attribute - don't check if it exists
-                const currentStyle = bookerContainer.getAttribute('style') || '';
-                const newStyle = currentStyle
-                  .replace(/width\s*:\s*50vw/gi, 'width: 50%')
-                  .replace(/width\s*:\s*100vw/gi, 'width: 50%')
-                  .replace(/width\s*:\s*[0-9]+vw/gi, 'width: 50%')  // Catch any vw value
-                  .replace(/50vw/gi, '50%')
-                  .replace(/100vw/gi, '50%');
-                if (newStyle !== currentStyle) {
-                  bookerContainer.setAttribute('style', newStyle);
-                }
-              }
-            }, delay);
-          });
-          
-          // Method 6: Create a dedicated MutationObserver for style attribute changes
-          // This will catch Cal.com when it tries to set 50vw
-          if (!(bookerContainer as any)._styleObserver) {
-            const styleObserver = new MutationObserver((mutations) => {
-              mutations.forEach((mutation) => {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                  const target = mutation.target as HTMLElement;
-                  const currentStyle = target.getAttribute('style') || '';
-                  // Immediately replace any vw values
-                  if (currentStyle.includes('vw')) {
-                    const newStyle = currentStyle
-                      .replace(/width\s*:\s*50vw/gi, 'width: 50%')
-                      .replace(/width\s*:\s*100vw/gi, 'width: 50%')
-                      .replace(/width\s*:\s*[0-9]+vw/gi, 'width: 50%')
-                      .replace(/50vw/gi, '50%')
-                      .replace(/100vw/gi, '50%');
-                    // Use requestAnimationFrame to avoid infinite loops
-                    requestAnimationFrame(() => {
-                      if (target.getAttribute('style')?.includes('vw')) {
-                        target.setAttribute('style', newStyle);
-                        target.style.setProperty('width', '50%', 'important');
-                        target.style.width = '50%';
-                      }
-                    });
-                  }
-                }
-              });
-            });
-            
-            // Observe the booker-container for style attribute changes
-            styleObserver.observe(bookerContainer, {
-              attributes: true,
-              attributeFilter: ['style'],
-              attributeOldValue: true
-            });
-            
-            // Store observer for cleanup
-            (bookerContainer as any)._styleObserver = styleObserver;
-          }
-        }
-      } catch (e) {
-        // Silently fail if element doesn't exist yet
-      }
-    };
-    
-    // Aggressive MutationObserver + requestAnimationFrame to force modal size
-    const applyModalStyles = () => {
-      // Target all possible Cal.com modal elements
-      const allSelectors = [
-        '.cal-modal',
-        '[class*="cal-modal"]',
-        '[id*="cal-modal"]',
-        '[id*="CalModal"]',
-        'iframe[src*="cal.com"]',
-        'iframe[src*="app.cal.com"]',
-        '[data-cal-namespace="agence"]',
-        '.cal-modal-wrapper',
-        '.cal-modal-content',
-        '.cal-modal-dialog',
-        '#cal-root',
-        '[role="dialog"]',
-        '[aria-modal="true"]'
-      ];
-      
-      allSelectors.forEach(selector => {
-        try {
-          const elements = document.querySelectorAll(selector);
-          elements.forEach((element: any) => {
-            if (element && element.style) {
-              // Force all size properties with !important
-              element.style.setProperty('max-width', '450px', 'important');
-              element.style.setProperty('width', '50%', 'important');
-              element.style.setProperty('max-height', '65vh', 'important');
-              element.style.setProperty('min-width', 'auto', 'important');
-              element.style.setProperty('min-height', 'auto', 'important');
-              element.style.setProperty('left', '50%', 'important');
-              element.style.setProperty('top', '50%', 'important');
-              element.style.setProperty('transform', 'translate(-50%, -50%)', 'important');
-              element.style.setProperty('position', 'fixed', 'important');
-              
-              // Direct style assignment as backup
-              try {
-                (element as HTMLElement).style.maxWidth = '450px';
-                (element as HTMLElement).style.width = '50%';
-                (element as HTMLElement).style.maxHeight = '65vh';
-                (element as HTMLElement).style.minWidth = 'auto';
-                (element as HTMLElement).style.left = '50%';
-                (element as HTMLElement).style.top = '50%';
-                (element as HTMLElement).style.transform = 'translate(-50%, -50%)';
-                (element as HTMLElement).style.position = 'fixed';
-              } catch (e) {}
-              
-              if (element.tagName === 'IFRAME') {
-                element.style.setProperty('max-width', '450px', 'important');
-                element.style.setProperty('width', '100%', 'important');
-                element.style.setProperty('max-height', '65vh', 'important');
-                element.style.setProperty('min-width', 'auto', 'important');
-              }
-            }
-          });
-        } catch (e) {}
-      });
-      
-      // SPECIFIC TARGET: Cal.com booker container with 100vw
-      forceBookerContainerWidth();
-      
-      // Target all fixed/absolute positioned divs that might be modals - FORCE 50% WIDTH
-      try {
-        const allDivs = document.querySelectorAll('div');
-        allDivs.forEach((div: any) => {
-          const computedStyle = window.getComputedStyle(div);
-          const inlineWidth = div.style?.width || '';
-          const computedWidth = computedStyle.width;
-          
-          // Check if it's likely a Cal.com modal or has large width
-          const hasCalClass = div.classList?.toString().includes('cal') || 
-                             div.id?.includes('cal') ||
-                             div.querySelector('[data-cal-namespace]') ||
-                             div.closest('[data-cal-namespace]');
-          
-          const isLargeWidth = computedWidth.includes('px') && parseInt(computedWidth) > 450 ||
-                              computedWidth.includes('%') && parseInt(computedWidth) > 50 ||
-                              inlineWidth.includes('100%') ||
-                              inlineWidth.includes('90%') ||
-                              inlineWidth.includes('95%');
-          
-          if ((computedStyle.position === 'fixed' || computedStyle.position === 'absolute') && 
-              (div.style?.zIndex || parseInt(computedStyle.zIndex) > 1000)) {
-            if (hasCalClass || isLargeWidth || computedStyle.width.includes('%') || computedStyle.maxWidth.includes('px')) {
-              // Force 50% width multiple times
-              div.style.setProperty('max-width', '450px', 'important');
-              div.style.setProperty('width', '50%', 'important');
-              div.style.setProperty('max-height', '65vh', 'important');
-              div.style.setProperty('min-width', 'auto', 'important');
-              div.style.setProperty('left', '50%', 'important');
-              div.style.setProperty('top', '50%', 'important');
-              div.style.setProperty('transform', 'translate(-50%, -50%)', 'important');
-              div.style.setProperty('position', 'fixed', 'important');
-              
-              // Also set directly multiple times to override
-              try {
-                div.style.width = '50%';
-                div.style.maxWidth = '450px';
-                // Force again after a micro delay
-                setTimeout(() => {
-                  div.style.width = '50%';
-                  div.style.maxWidth = '450px';
-                }, 0);
-              } catch (e) {}
-            }
-          }
-        });
-      } catch (e) {}
-    };
-    
-    // Use requestAnimationFrame for continuous enforcement
-    let rafId: number | null = null;
-    const forceStyles = () => {
-      applyModalStyles();
-      forceBookerContainerWidth();
-      rafId = requestAnimationFrame(forceStyles);
-    };
-    rafId = requestAnimationFrame(forceStyles);
-    
-    const observer = new MutationObserver((mutations) => {
-      applyModalStyles();
-      forceBookerContainerWidth();
-      
-      // Specifically watch for booker-container creation
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            const element = node as HTMLElement;
-            // Check if the added node is the booker-container
-            if (element.getAttribute('data-testid') === 'booker-container') {
-              forceBookerContainerWidth();
-              // Also check children
-            } else if (element.querySelector('[data-testid="booker-container"]')) {
-              forceBookerContainerWidth();
-            }
-            // Check if any descendant is the booker-container
-            const bookerContainer = element.querySelector?.('[data-testid="booker-container"]');
-            if (bookerContainer) {
-              forceBookerContainerWidth();
-            }
-          }
-        });
-      });
-    });
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['class', 'id', 'style', 'data-testid']
-    });
-    
-    // Also use setInterval as backup - very frequent to catch Cal.com
-    forceInterval = setInterval(() => {
-      applyModalStyles();
-      forceBookerContainerWidth();
-      
-      // Also directly check and replace 50vw in style attributes
-      const bookerContainer = document.querySelector('[data-testid="booker-container"]') as HTMLElement;
-      if (bookerContainer) {
-        const currentStyle = bookerContainer.getAttribute('style') || '';
-        if (currentStyle.includes('vw')) {
-          const newStyle = currentStyle
-            .replace(/width\s*:\s*50vw/gi, 'width: 50%')
-            .replace(/width\s*:\s*100vw/gi, 'width: 50%')
-            .replace(/width\s*:\s*[0-9]+vw/gi, 'width: 50%')
-            .replace(/50vw/gi, '50%')
-            .replace(/100vw/gi, '50%');
-          if (newStyle !== currentStyle) {
-            bookerContainer.setAttribute('style', newStyle);
-            bookerContainer.style.setProperty('width', '50%', 'important');
-            bookerContainer.style.width = '50%';
-          }
-        }
-      }
-    }, 16); // ~60fps
-    setTimeout(() => {
-      if (forceInterval) {
-        clearInterval(forceInterval);
-        forceInterval = null;
-      }
-    }, 20000);
-    
-    // Apply on any click
-    const handleClick = () => {
-      requestAnimationFrame(() => {
-        applyModalStyles();
-        forceBookerContainerWidth();
-      });
-      setTimeout(() => {
-        applyModalStyles();
-        forceBookerContainerWidth();
-      }, 0);
-      setTimeout(() => {
-        applyModalStyles();
-        forceBookerContainerWidth();
-      }, 50);
-      setTimeout(() => {
-        applyModalStyles();
-        forceBookerContainerWidth();
-      }, 200);
-    };
-    document.addEventListener('click', handleClick, true);
-    
-    // Initialize Cal.com using React package
-    (async function () {
+  useEffect(() => {
+    let isMounted = true;
+
+    const initCal = async () => {
       try {
         const cal = await getCalApi({ namespace: "agence" });
+        if (!isMounted) return;
+
         cal("ui", {
-          theme: "dark",
           cssVarsPerTheme: {
             light: { "cal-brand": "#0D0D0D" },
-            dark: { "cal-brand": "#3B82F6" }
+            dark: { "cal-brand": "#FFDF7D" }
           },
-          hideEventTypeDetails: true,
-          layout: "week_view",
-          styles: {
-            branding: {
-              brandColor: "#3B82F6"
-            }
-          }
+          hideEventTypeDetails: false,
+          layout: "month_view"
         });
-        
-        // Force modal size via Cal.com config if available
-        if (typeof (window as any).Cal !== 'undefined' && (window as any).Cal.ns && (window as any).Cal.ns.agence) {
-          try {
-            (window as any).Cal.ns.agence("ui", {
-              theme: "dark",
-              layout: "week_view"
-            });
-          } catch (e) {}
-        }
-        
-        // Force booker container width after Cal.com initializes
-        setTimeout(() => {
-          forceBookerContainerWidth();
-        }, 100);
-        setTimeout(() => {
-          forceBookerContainerWidth();
-        }, 500);
-        setTimeout(() => {
-          forceBookerContainerWidth();
-        }, 1000);
       } catch (error) {
-        if (import.meta.env.DEV) {
-          console.error("Cal.com initialization error:", error);
-        }
+        console.error("Failed to initialize Cal.com for agence namespace", error);
       }
-    })();
-    
+    };
+
+    initCal();
+
     return () => {
-      // Cleanup observer, interval, and RAF on unmount
-      observer.disconnect();
-      
-      // Cleanup style observers on booker-container
-      const bookerContainer = document.querySelector('[data-testid="booker-container"]') as HTMLElement;
-      if (bookerContainer && (bookerContainer as any)._styleObserver) {
-        (bookerContainer as any)._styleObserver.disconnect();
-      }
-      
-      if (forceInterval) {
-        clearInterval(forceInterval);
-        forceInterval = null;
-      }
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-      document.removeEventListener('click', handleClick, true);
-      // Restore original setProperty
-      CSSStyleDeclaration.prototype.setProperty = originalSetProperty;
+      isMounted = false;
     };
   }, []);
 
@@ -859,37 +230,62 @@ const PourAgences = () => {
           WebkitBackfaceVisibility: 'hidden',
           backfaceVisibility: 'hidden'
         } as React.CSSProperties}>
-          {/* Only 2 simple gradient orbs with minimal animation - no blur for Safari */}
+          {/* Liquid glass animated orbs */}
           <motion.div 
-            className="absolute top-1/4 right-1/4 w-[800px] h-[800px]"
+            className="absolute top-1/4 right-1/4 w-[800px] h-[800px] rounded-full blur-[100px]"
             animate={{
-              opacity: [0.4, 0.6, 0.4],
+              opacity: [0.2, 0.4, 0.2],
+              scale: [1, 1.2, 1],
+              x: [0, 30, 0],
+              y: [0, -20, 0],
             }}
             transition={{
-              duration: 8,
+              duration: 15,
               repeat: Infinity,
               ease: "easeInOut"
             }}
             style={{
-              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, rgba(96, 165, 250, 0.08) 40%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(37, 99, 235, 0.15) 50%, transparent 80%)',
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
             } as React.CSSProperties}
           />
           <motion.div 
-            className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px]"
+            className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px] rounded-full blur-[90px]"
             animate={{
-              opacity: [0.35, 0.55, 0.35],
+              opacity: [0.15, 0.35, 0.15],
+              scale: [1, 1.25, 1],
+              x: [0, -25, 0],
+              y: [0, 25, 0],
             }}
             transition={{
-              duration: 10,
+              duration: 18,
               repeat: Infinity,
               ease: "easeInOut",
               delay: 1
             }}
             style={{
-              background: 'radial-gradient(circle at center, rgba(96, 165, 250, 0.12) 0%, rgba(147, 197, 253, 0.06) 40%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(96, 165, 250, 0.25) 0%, rgba(59, 130, 246, 0.12) 50%, transparent 80%)',
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+            } as React.CSSProperties}
+          />
+          <motion.div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full blur-[120px]"
+            animate={{
+              opacity: [0.1, 0.25, 0.1],
+              scale: [1, 1.15, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            style={{
+              background: 'radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, rgba(59, 130, 246, 0.1) 50%, transparent 70%)',
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -911,9 +307,17 @@ const PourAgences = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center space-y-8"
+            className="text-center space-y-8 rounded-3xl p-8 sm:p-12 lg:p-16"
+            style={{
+              background: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(40px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+              border: '1px solid rgba(59, 130, 246, 0.2)',
+              boxShadow: '0 20px 60px 0 rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 0 100px rgba(59, 130, 246, 0.05)',
+              transform: 'translateY(-20px)',
+            }}
           >
-            {/* Badge - Simplified for Safari performance */}
+            {/* Badge - Liquid Glass */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: -10 }}
               animate={{ 
@@ -922,8 +326,23 @@ const PourAgences = () => {
                 y: 0
               }}
               transition={{ delay: 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-blue-500/15 via-blue-500/20 to-blue-500/15 backdrop-blur-xl border border-blue-500/40"
+              className="relative inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full"
+              style={{
+                background: 'rgba(0, 0, 0, 0.3)',
+                backdropFilter: 'blur(20px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                border: '1px solid rgba(59, 130, 246, 0.4)',
+                boxShadow: '0 4px 20px 0 rgba(59, 130, 246, 0.2), inset 0 0 40px rgba(59, 130, 246, 0.1)',
+              }}
               whileHover={{ scale: 1.05 }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.6)';
+                e.currentTarget.style.boxShadow = '0 6px 30px 0 rgba(59, 130, 246, 0.3), inset 0 0 60px rgba(59, 130, 246, 0.15)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                e.currentTarget.style.boxShadow = '0 4px 20px 0 rgba(59, 130, 246, 0.2), inset 0 0 40px rgba(59, 130, 246, 0.1)';
+              }}
             >
               <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
               <span className="text-xs sm:text-sm font-semibold text-blue-300">
@@ -979,55 +398,25 @@ const PourAgences = () => {
                 className="relative"
               >
                 {/* Removed glow for Safari performance */}
-                <Button
-                  size="lg"
-                  id="cal-demo-button"
-                  data-cal-link="chan-aoufi-ttauyj/agence"
+                <button
+                  type="button"
                   data-cal-namespace="agence"
-                  data-cal-config='{"layout":"week_view","theme":"dark","embedSize":"medium"}'
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    try {
-                      const cal = await getCalApi({ namespace: "agence" });
-                      if (cal) {
-                        cal("ui", {
-                          theme: "dark",
-                          cssVarsPerTheme: {
-                            light: { "cal-brand": "#0D0D0D" },
-                            dark: { "cal-brand": "#3B82F6" }
-                          },
-                          hideEventTypeDetails: true,
-                          layout: "week_view",
-                          styles: {
-                            branding: {
-                              brandColor: "#3B82F6"
-                            }
-                          }
-                        });
-                        // Open the calendar modal immediately
-                        cal("inline", {
-                          calLink: "chan-aoufi-ttauyj/agence",
-                          elementOrSelector: e.currentTarget
-                        });
-                        // Also try opening with popup method as fallback
-                        setTimeout(() => {
-                          try {
-                            cal("popup", {
-                              calLink: "chan-aoufi-ttauyj/agence"
-                            });
-                          } catch (err) {
-                            // Ignore if popup fails
-                          }
-                        }, 100);
-                      }
-                    } catch (error) {
-                      if (import.meta.env.DEV) {
-                        console.error("Error opening Cal.com:", error);
-                      }
-                    }
+                  data-cal-link="chan-aoufi-ttauyj/agence"
+                  data-cal-config='{"layout":"month_view"}'
+                  className="group relative text-white font-semibold rounded-full px-5 sm:px-6 lg:px-7 py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base lg:text-base transition-all duration-300 w-full sm:w-auto cursor-pointer overflow-hidden"
+                  style={{
+                    background: 'linear-gradient(to right, rgba(59, 130, 246, 1), rgba(37, 99, 235, 1))',
+                    border: '1px solid rgba(59, 130, 246, 0.4)',
+                    boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.4), inset 0 0 60px rgba(59, 130, 246, 0.2)',
                   }}
-                  className="group relative bg-gradient-to-r from-blue-500 via-blue-500 to-blue-600 hover:from-blue-600 hover:via-blue-500 hover:to-blue-500 text-white font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl shadow-2xl shadow-blue-500/50 hover:shadow-blue-500/70 transition-all duration-300 w-full sm:w-auto cursor-pointer overflow-hidden border border-blue-400/30"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(59, 130, 246, 0.6), inset 0 0 80px rgba(59, 130, 246, 0.3)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(59, 130, 246, 0.4), inset 0 0 60px rgba(59, 130, 246, 0.2)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
                 >
                   {/* Removed shimmer and glow effects for Safari performance */}
                   <span className="relative z-10 flex items-center gap-3 justify-center">
@@ -1035,7 +424,7 @@ const PourAgences = () => {
                     Demander une démonstration
                     <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform" />
                   </span>
-                </Button>
+                </button>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.02 }}
@@ -1044,7 +433,22 @@ const PourAgences = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="group border-2 border-zinc-800 hover:border-blue-500/50 bg-black/50 backdrop-blur-xl text-foreground font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl hover:bg-zinc-900/50 transition-all duration-300 w-full sm:w-auto"
+                  className="group border-2 text-foreground font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl transition-all duration-300 w-full sm:w-auto"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.4)',
+                    backdropFilter: 'blur(20px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                    border: '2px solid rgba(59, 130, 246, 0.3)',
+                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.5)';
+                    e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(59, 130, 246, 0.2), inset 0 0 80px rgba(59, 130, 246, 0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)';
+                  }}
                   asChild
                 >
                   <a href="mailto:support@contentremovaldesk.com">
@@ -1117,7 +521,22 @@ const PourAgences = () => {
                     ease: [0.25, 0.46, 0.45, 0.94] 
                   }}
                   whileHover={{ scale: 1.02 }}
-                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 hover:border-blue-500/50 transition-all duration-300"
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.4)',
+                    backdropFilter: 'blur(30px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                    border: '1px solid rgba(59, 130, 246, 0.2)',
+                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                    e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(59, 130, 246, 0.2), inset 0 0 80px rgba(59, 130, 246, 0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)';
+                  }}
                 >
                   <div className="relative z-10">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -1198,7 +617,22 @@ const PourAgences = () => {
                     ease: [0.25, 0.46, 0.45, 0.94] 
                   }}
                   whileHover={{ scale: 1.02 }}
-                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-6 sm:p-8 border border-zinc-800/50 hover:border-blue-500/50 transition-all duration-300"
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.4)',
+                    backdropFilter: 'blur(30px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                    border: '1px solid rgba(59, 130, 246, 0.2)',
+                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                    e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(59, 130, 246, 0.2), inset 0 0 80px rgba(59, 130, 246, 0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)';
+                  }}
                 >
                   <div className="relative z-10">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -1255,8 +689,8 @@ const PourAgences = () => {
               return (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ scale: 0.96 }}
+                  whileInView={{ scale: 1 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ 
                     delay: index * 0.1, 
@@ -1264,7 +698,28 @@ const PourAgences = () => {
                     ease: [0.25, 0.46, 0.45, 0.94] 
                   }}
                   whileHover={{ scale: 1.02 }}
-                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-500/10 via-zinc-900/50 to-zinc-950/50 backdrop-blur-xl p-8 sm:p-10 border border-blue-500/30 hover:border-blue-500/50 transition-all duration-300"
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-10 transition-all duration-300"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.5)',
+                    backdropFilter: 'blur(30px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                    border: '1px solid rgba(59, 130, 246, 0.3)',
+                    boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)',
+                    transform: 'translate3d(0, 0, 0)',
+                    WebkitTransform: 'translate3d(0, 0, 0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    isolation: 'isolate',
+                    opacity: 1,
+                  } as React.CSSProperties}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.5)';
+                    e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(59, 130, 246, 0.25), inset 0 0 100px rgba(59, 130, 246, 0.2)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)';
+                  }}
                 >
                   <div className="relative z-10">
                     <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center mb-6 sm:mb-8 group-hover:scale-110 transition-transform duration-300">
@@ -1328,11 +783,32 @@ const PourAgences = () => {
                   ease: [0.25, 0.46, 0.45, 0.94] 
                 }}
                 whileHover={{ scale: 1.02 }}
-                className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl backdrop-blur-xl p-8 sm:p-10 border transition-all duration-300 ${
-                  tier.highlight
-                    ? 'bg-gradient-to-br from-blue-500/10 via-zinc-900/50 to-zinc-950/50 border-blue-500/50'
-                    : 'bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 border-zinc-800/50 hover:border-blue-500/50'
-                }`}
+                className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-10 transition-all duration-300"
+                style={tier.highlight ? {
+                  background: 'rgba(0, 0, 0, 0.5)',
+                  backdropFilter: 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  border: '1px solid rgba(59, 130, 246, 0.4)',
+                  boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)',
+                } : {
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(30px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                  border: '1px solid rgba(59, 130, 246, 0.2)',
+                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = tier.highlight ? 'rgba(59, 130, 246, 0.5)' : 'rgba(59, 130, 246, 0.4)';
+                  e.currentTarget.style.boxShadow = tier.highlight 
+                    ? '0 12px 40px 0 rgba(59, 130, 246, 0.25), inset 0 0 100px rgba(59, 130, 246, 0.2)'
+                    : '0 12px 40px 0 rgba(59, 130, 246, 0.2), inset 0 0 80px rgba(59, 130, 246, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = tier.highlight ? 'rgba(59, 130, 246, 0.4)' : 'rgba(59, 130, 246, 0.2)';
+                  e.currentTarget.style.boxShadow = tier.highlight
+                    ? '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)'
+                    : '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)';
+                }}
               >
                 <div className="relative z-10">
                   {tier.highlight && (
@@ -1363,54 +839,25 @@ const PourAgences = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              <Button
-                size="lg"
-                data-cal-link="chan-aoufi-ttauyj/agence"
+              <button
+                type="button"
                 data-cal-namespace="agence"
-                data-cal-config='{"layout":"week_view","theme":"dark","embedSize":"medium"}'
-                onClick={async (e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  try {
-                    const cal = await getCalApi({ namespace: "agence" });
-                    if (cal) {
-                      cal("ui", {
-                        theme: "dark",
-                        cssVarsPerTheme: {
-                          light: { "cal-brand": "#0D0D0D" },
-                          dark: { "cal-brand": "#3B82F6" }
-                        },
-                        hideEventTypeDetails: true,
-                        layout: "week_view",
-                        styles: {
-                          branding: {
-                            brandColor: "#3B82F6"
-                          }
-                        }
-                      });
-                      // Open the calendar modal immediately
-                      cal("inline", {
-                        calLink: "chan-aoufi-ttauyj/agence",
-                        elementOrSelector: e.currentTarget
-                      });
-                      // Also try opening with popup method as fallback
-                      setTimeout(() => {
-                        try {
-                          cal("popup", {
-                            calLink: "chan-aoufi-ttauyj/agence"
-                          });
-                        } catch (err) {
-                          // Ignore if popup fails
-                        }
-                      }, 100);
-                    }
-                  } catch (error) {
-                    if (import.meta.env.DEV) {
-                    console.error("Error opening Cal.com:", error);
-                    }
-                  }
+                data-cal-link="chan-aoufi-ttauyj/agence"
+                data-cal-config='{"layout":"month_view"}'
+                className="group relative text-white font-semibold rounded-full px-5 sm:px-6 lg:px-7 py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base lg:text-base transition-all duration-300 cursor-pointer overflow-hidden"
+                style={{
+                  background: 'linear-gradient(to right, rgba(59, 130, 246, 1), rgba(37, 99, 235, 1))',
+                  border: '1px solid rgba(59, 130, 246, 0.4)',
+                  boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.4), inset 0 0 60px rgba(59, 130, 246, 0.2)',
                 }}
-                className="group relative bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 cursor-pointer overflow-hidden"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(59, 130, 246, 0.6), inset 0 0 80px rgba(59, 130, 246, 0.3)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(59, 130, 246, 0.4), inset 0 0 60px rgba(59, 130, 246, 0.2)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0"
@@ -1429,7 +876,7 @@ const PourAgences = () => {
                   Obtenir un devis agence
                   <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform" />
                 </span>
-              </Button>
+                  </button>
             </motion.div>
           </motion.div>
         </div>

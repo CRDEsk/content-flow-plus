@@ -341,7 +341,7 @@ const Tarifs = () => {
               <motion.div
                   key={`${billing}-${plan.name}`}
                   layout
-                  initial={{ opacity: 0 }}
+                  initial={{ opacity: 1 }}
                   animate={{ 
                     opacity: 1
                   }}
@@ -358,6 +358,14 @@ const Tarifs = () => {
                     delay: index * 0.1
                   }}
                 className="group relative h-full bg-gradient-to-br from-zinc-900/70 to-zinc-950/70 backdrop-blur-xl rounded-2xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 overflow-hidden"
+                style={{
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  isolation: 'isolate',
+                  opacity: 1
+                } as React.CSSProperties}
               >
                 {/* Hover gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -382,13 +390,20 @@ const Tarifs = () => {
                         <motion.span 
                           layout
                           key={`original-${billing}-${plan.name}`}
-                          initial={{ opacity: 0 }}
+                          initial={{ opacity: 1 }}
                           animate={{ opacity: 1 }}
                           transition={{ 
                             duration: 0.3,
                             delay: 0.2 + (index * 0.1)
                           }}
                           className="text-xl text-zinc-600 line-through"
+                          style={{
+                            transform: 'translate3d(0, 0, 0)',
+                            WebkitTransform: 'translate3d(0, 0, 0)',
+                            backfaceVisibility: 'hidden',
+                            WebkitBackfaceVisibility: 'hidden',
+                            opacity: 1
+                          } as React.CSSProperties}
                         >
                           €{plan.originalPrice}
                         </motion.span>
@@ -397,13 +412,20 @@ const Tarifs = () => {
                         <motion.span 
                           layout
                           key={`price-${billing}-${plan.name}`}
-                          initial={{ opacity: 0 }}
+                          initial={{ opacity: 1 }}
                           animate={{ opacity: 1 }}
                           transition={{ 
                             duration: 0.4,
                             delay: 0.25 + (index * 0.1)
                           }}
                           className="text-4xl lg:text-5xl font-bold text-primary"
+                          style={{
+                            transform: 'translate3d(0, 0, 0)',
+                            WebkitTransform: 'translate3d(0, 0, 0)',
+                            backfaceVisibility: 'hidden',
+                            WebkitBackfaceVisibility: 'hidden',
+                            opacity: 1
+                          } as React.CSSProperties}
                         >
                           {plan.price}
                         </motion.span>
@@ -412,26 +434,40 @@ const Tarifs = () => {
                           <motion.span 
                             layout
                             key={`price-${billing}-${plan.name}`}
-                            initial={{ opacity: 0 }}
+                            initial={{ opacity: 1 }}
                             animate={{ opacity: 1 }}
                             transition={{ 
                               duration: 0.4,
                               delay: 0.25 + (index * 0.1)
                             }}
                             className="text-4xl lg:text-5xl font-bold text-primary"
+                            style={{
+                              transform: 'translate3d(0, 0, 0)',
+                              WebkitTransform: 'translate3d(0, 0, 0)',
+                              backfaceVisibility: 'hidden',
+                              WebkitBackfaceVisibility: 'hidden',
+                              opacity: 1
+                            } as React.CSSProperties}
                           >
                             €{plan.price}
                           </motion.span>
                           <motion.span 
                             layout
                             key={`period-${billing}-${plan.name}`}
-                            initial={{ opacity: 0 }}
+                            initial={{ opacity: 1 }}
                             animate={{ opacity: 1 }}
                             transition={{ 
                               duration: 0.3,
                               delay: 0.3 + (index * 0.1)
                             }}
                             className="text-sm text-zinc-400"
+                            style={{
+                              transform: 'translate3d(0, 0, 0)',
+                              WebkitTransform: 'translate3d(0, 0, 0)',
+                              backfaceVisibility: 'hidden',
+                              WebkitBackfaceVisibility: 'hidden',
+                              opacity: 1
+                            } as React.CSSProperties}
                           >
                             {plan.period}
                           </motion.span>
@@ -498,8 +534,8 @@ const Tarifs = () => {
 
           {/* Payment Methods */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="text-center mb-12 sm:mb-16"
@@ -519,8 +555,8 @@ const Tarifs = () => {
       <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-zinc-950/50">
         <div className="container mx-auto max-w-7xl">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="mb-8 sm:mb-12"

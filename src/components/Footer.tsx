@@ -1,11 +1,17 @@
 import { Phone, Mail, Instagram, Shield, Clock, MapPin, ExternalLink } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { motion } from "framer-motion";
+import { getBrandTheme } from "@/utils/brandTheme";
 
 const Footer = () => {
+  const location = useLocation();
   const { t, language } = useLanguage();
   const currentYear = new Date().getFullYear();
+  const brandTheme = getBrandTheme(location.pathname);
+  const brandGradientStyle = {
+    backgroundImage: `linear-gradient(90deg, ${brandTheme.from}, ${brandTheme.via}, ${brandTheme.to})`
+  };
 
   const quickLinks = [
     { label: t("footer.quickLinks.home"), href: "/" },
@@ -26,6 +32,7 @@ const Footer = () => {
   const services = [
     { label: t("footer.servicesLinks.forCreators"), href: "/pour-createurs" },
     { label: t("footer.servicesLinks.forAgencies"), href: "/pour-agences" },
+    { label: "International Protection", href: "/international-protection" },
     { label: t("footer.servicesLinks.legalEscalations"), href: "/escalades-legal" },
     { label: t("footer.servicesLinks.ourSolution"), href: "/notre-solution" },
     { label: t("footer.servicesLinks.scanMonitoring"), href: "https://scan.contentremovaldesk.com/scan", external: true }
@@ -90,11 +97,18 @@ const Footer = () => {
                     transition={{ duration: 0.6 }}
                     className="text-3xl font-display font-bold mb-3 tracking-tight relative group"
                   >
-                    <span className="relative inline-block bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
+                    <span
+                      className="relative inline-block text-transparent bg-clip-text"
+                      style={brandGradientStyle}
+                    >
                       ContentRemovalDesk
                     </span>
                     {/* Glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-foreground via-primary/50 to-foreground bg-clip-text text-transparent blur-sm opacity-50 group-hover:opacity-70 transition-opacity duration-300" aria-hidden="true">
+                    <div
+                      className="absolute inset-0 bg-clip-text text-transparent blur-sm opacity-50 group-hover:opacity-70 transition-opacity duration-300"
+                      style={brandGradientStyle}
+                      aria-hidden="true"
+                    >
                       ContentRemovalDesk
                     </div>
                   </motion.h3>
@@ -196,8 +210,6 @@ const Footer = () => {
                     {item.external ? (
                       <a 
                         href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="group relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-zinc-400 hover:text-primary transition-all duration-300 hover:bg-zinc-900/50 hover:border-primary/20 border border-transparent"
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125" />

@@ -1,4 +1,4 @@
-import { DollarSign, Shield, Crown, Lock, ArrowRight, Sparkles, Zap } from "lucide-react";
+import { DollarSign, Shield, Crown, Lock, ArrowRight, Sparkles, Zap, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/hooks/useLanguage";
 
@@ -141,18 +141,6 @@ const HelpSection = () => {
               </div>
             </div>
 
-            <Button 
-              size="lg"
-              className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg shadow-2xl hover:scale-105 transition-all duration-300"
-              asChild
-            >
-              <a href="https://wa.me/32460236990" target="_blank" rel="noopener noreferrer">
-                <span className="flex items-center gap-2 justify-center">
-                  <Zap className="h-4 w-4 sm:h-5 sm:w-5" />
-                  {t("help.emergencyCta")}
-                </span>
-              </a>
-            </Button>
           </div>
           <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/10 rounded-full blur-3xl" />
         </div>

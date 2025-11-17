@@ -106,10 +106,10 @@ class ErrorBoundary extends Component<Props, State> {
                 className="border-2 border-zinc-800 hover:border-primary/50 bg-zinc-900/50 backdrop-blur-xl text-foreground font-semibold rounded-full px-8 hover:bg-zinc-900/80 transition-all duration-300"
                 asChild
               >
-                <Link to="/">
+                <a href="/" className="flex items-center">
                   <Home className="w-5 h-5 mr-2" />
                   Go Home
-                </Link>
+                </a>
               </Button>
             </div>
 

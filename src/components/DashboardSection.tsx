@@ -175,7 +175,9 @@ const DashboardSection = () => {
     { name: "Jade Belle", avatar: "bg-gradient-to-br from-red-500 to-pink-500", protected: `134 ${t("dashboard.links")}` },
   ];
 
-  const monthChartData = [85, 92, 78, 96, 88, 94, 87, 98, 91, 95, 89, 97];
+  // Daily data for last 2 weeks (14 days) - realistic variation
+  const monthChartData = [87, 91, 89, 94, 86, 92, 88, 95, 90, 93, 87, 96, 89, 94];
+  // Monthly data for all time (last 12 months)
   const alltimeChartData = [62, 71, 68, 78, 82, 85, 88, 91, 93, 94, 96, 97];
   
   const chartData = timeView === "month" ? monthChartData : alltimeChartData;
@@ -322,14 +324,17 @@ const DashboardSection = () => {
           <div className="lg:col-span-8 space-y-4 sm:space-y-6">
             <motion.div
               key={timeView}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: isTransitioning ? 0.5 : 1, y: 0 }}
+              initial={{ y: 10 }}
+              animate={{ y: 0, opacity: isTransitioning ? 0.5 : 1 }}
               transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+              style={{
+                opacity: isTransitioning ? 0.5 : 1,
+                transform: 'translate3d(0, 0, 0)',
+                WebkitTransform: 'translate3d(0, 0, 0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+              } as React.CSSProperties}
               className="grid grid-cols-2 gap-3 sm:gap-4"
-              style={{ 
-                transform: 'translateZ(0)',
-                backfaceVisibility: 'hidden'
-              }}
             >
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
@@ -442,13 +447,13 @@ const DashboardSection = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex items-end justify-between h-32 sm:h-40 lg:h-48 gap-1 sm:gap-2 relative overflow-x-auto">
+              <div className="flex items-end justify-between h-32 sm:h-40 lg:h-48 gap-0.5 sm:gap-1 lg:gap-1.5 relative">
                 <motion.div
                   key={timeView}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: isTransitioning ? 0.5 : 1, y: 0 }}
                   transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="absolute inset-0 flex items-end justify-between gap-2"
+                  className="absolute inset-0 flex items-end justify-between gap-0.5 sm:gap-1 lg:gap-1.5"
                   style={{ 
                     transform: 'translateZ(0)',
                     backfaceVisibility: 'hidden'
@@ -480,14 +485,29 @@ const DashboardSection = () => {
                   ))}
                 </motion.div>
               </div>
-              <div className="flex justify-between mt-3 sm:mt-4 text-[9px] sm:text-xs text-zinc-500 overflow-x-auto">
-                {language === 'en' 
-                  ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((month, i) => (
-                      <span key={i} className="flex-shrink-0">{month}</span>
+              <div className={`mt-3 sm:mt-4 text-[9px] sm:text-xs text-zinc-500 ${timeView === "month" ? "flex justify-between" : "flex justify-between"}`}>
+                {timeView === "month" 
+                  ? // Show all days for last 2 weeks (14 days)
+                    Array.from({ length: 14 }, (_, i) => {
+                      // Get the day number (last 14 days from today)
+                      const today = new Date();
+                      const dayDate = new Date(today);
+                      dayDate.setDate(today.getDate() - (13 - i));
+                      return dayDate.getDate();
+                    }).map((day, i) => (
+                      <span key={i} className="flex-shrink-0 text-center" style={{ width: `${100 / 14}%` }}>
+                        {day}
+                      </span>
                     ))
-                  : ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc"].map((month, i) => (
-                      <span key={i} className="flex-shrink-0">{month}</span>
-                    ))
+                  : // Show months for all time
+                    (language === 'en' 
+                      ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((month, i) => (
+                          <span key={i} className="flex-shrink-0">{month}</span>
+                        ))
+                      : ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc"].map((month, i) => (
+                          <span key={i} className="flex-shrink-0">{month}</span>
+                        ))
+                    )
                 }
               </div>
             </div>

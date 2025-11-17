@@ -48,9 +48,8 @@ const TrustSection = () => {
   ];
 
   const numberVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.9 },
+    hidden: { y: 20, scale: 0.9 },
     visible: (i: number) => ({
-      opacity: 1,
       y: 0,
       scale: 1,
       transition: {
@@ -79,10 +78,17 @@ const TrustSection = () => {
 
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
+          style={{
+            opacity: 1,
+            transform: 'translate3d(0, 0, 0)',
+            WebkitTransform: 'translate3d(0, 0, 0)',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+          } as React.CSSProperties}
           className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 mb-4 sm:mb-6 lg:mb-8">
@@ -115,6 +121,14 @@ const TrustSection = () => {
                     ? "bg-gradient-to-br from-zinc-900/70 via-zinc-950/60 to-zinc-950/80 hover:scale-110"
                     : "bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 hover:scale-105"
                 }`}
+                style={{
+                  opacity: 1,
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  isolation: 'isolate',
+                } as React.CSSProperties}
               >
                 {/* Animated gradient overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${metric.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
@@ -124,9 +138,16 @@ const TrustSection = () => {
                     <Icon className={`h-6 w-6 sm:h-7 sm:w-7 ${metric.highlight ? "text-primary" : "text-primary/80"}`} />
                   </div>
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ scale: 0.8 }}
+                    animate={{ scale: 1 }}
                     transition={{ delay: 0.3 + index * 0.1, duration: 0.5, type: "spring", stiffness: 200 }}
+                    style={{
+                      opacity: 1,
+                      transform: 'translate3d(0, 0, 0)',
+                      WebkitTransform: 'translate3d(0, 0, 0)',
+                      backfaceVisibility: 'hidden',
+                      WebkitBackfaceVisibility: 'hidden',
+                    } as React.CSSProperties}
                     className={`text-3xl sm:text-4xl lg:text-5xl font-bold font-display ${
                       metric.highlight ? "text-primary" : "text-primary/90"
                     } mb-2 sm:mb-3 tracking-tight`}

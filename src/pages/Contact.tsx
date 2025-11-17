@@ -82,8 +82,6 @@ const Contact = () => {
               </div>
               <a 
                 href="https://instagram.com/crdprotect" 
-                target="_blank" 
-                rel="noopener noreferrer"
                 className="text-primary hover:text-primary/80 transition-colors text-sm font-medium"
               >
                 @crdprotect

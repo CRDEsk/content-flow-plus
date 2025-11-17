@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { HelpCircle, Mail, MessageCircle } from "lucide-react";
+import { HelpCircle, Mail, Calendar } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 
 const FAQSection = () => {
@@ -80,15 +80,16 @@ const FAQSection = () => {
               <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
               <span className="font-medium text-zinc-300 group-hover:text-foreground">{t("faq.emailButton")}</span>
             </a>
-            <a 
-              href="https://wa.me/32460236990"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5 bg-primary hover:bg-primary/90 text-black rounded-full transition-all duration-300 font-medium text-xs sm:text-sm lg:text-base w-full sm:w-auto justify-center"
+            <button
+              type="button"
+              data-cal-namespace="diagnostic-createur"
+              data-cal-link="chan-aoufi-ttauyj/diagnostic-createur"
+              data-cal-config='{"layout":"month_view"}'
+              className="group inline-flex items-center gap-2 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5 bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/50 hover:border-primary/50 rounded-full transition-all duration-300 text-xs sm:text-sm lg:text-base w-full sm:w-auto justify-center"
             >
-              <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span>{t("faq.chatButton")}</span>
-            </a>
+              <Calendar className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
+              <span className="font-medium text-zinc-300 group-hover:text-foreground">Démarrer une conversation</span>
+            </button>
           </div>
         </div>
 

@@ -457,8 +457,8 @@ const APropos = () => {
           
           <div className="container mx-auto max-w-7xl relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6 }}
               className="text-center mb-12 sm:mb-16"
@@ -476,8 +476,8 @@ const APropos = () => {
             {pillars.map((pillar, index) => (
               <motion.div
                 key={pillar.title}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={{ y: 30, scale: 0.95 }}
+                  whileInView={{ y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
                   transition={{ delay: index * 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                   whileHover={{ scale: 1.02, y: -5 }}
@@ -548,8 +548,8 @@ const APropos = () => {
 
           <div className="container mx-auto max-w-7xl relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6 }}
               className="text-center mb-12 sm:mb-16"
@@ -570,12 +570,20 @@ const APropos = () => {
               {timeline.map((step, index) => (
                 <motion.div
                   key={step.year}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={{ y: 30, scale: 0.95 }}
+                  whileInView={{ y: 0, scale: 1 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ delay: index * 0.15, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                   whileHover={{ scale: 1.02, y: -5 }}
                   className="group relative"
+                  style={{
+                    opacity: 1,
+                    transform: 'translate3d(0, 0, 0)',
+                    WebkitTransform: 'translate3d(0, 0, 0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    isolation: 'isolate',
+                  } as React.CSSProperties}
                 >
                   <Card className="h-full bg-gradient-to-br from-zinc-900/70 to-zinc-950/70 backdrop-blur-xl border border-zinc-800/50 p-8 sm:p-10 hover:border-primary/50 transition-all duration-500 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_50px_rgba(255,223,125,0.15)] overflow-hidden relative">
                     {/* Glow effect */}
@@ -664,8 +672,8 @@ const APropos = () => {
 
           <div className="container mx-auto max-w-7xl relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6 }}
               className="text-center mb-12 sm:mb-16"
@@ -683,8 +691,8 @@ const APropos = () => {
             {teamHighlights.map((highlight, index) => (
               <motion.div
                 key={highlight.title}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={{ y: 30, scale: 0.95 }}
+                  whileInView={{ y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
                   transition={{ delay: index * 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                   whileHover={{ scale: 1.02, y: -5 }}
@@ -740,8 +748,8 @@ const APropos = () => {
           </div>
           <div className="container mx-auto max-w-7xl relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6 }}
               className="text-center mb-12 sm:mb-16"
@@ -764,8 +772,8 @@ const APropos = () => {
                 return (
                   <motion.div
                     key={value.title}
-                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    initial={{ y: 20, scale: 0.95 }}
+                    whileInView={{ y: 0, scale: 1 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ delay: index * 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                     whileHover={{ scale: 1.05, y: -5 }}
@@ -847,8 +855,8 @@ const APropos = () => {
 
           <div className="container mx-auto max-w-5xl text-center relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 30 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.6 }}
               className="space-y-8"
@@ -865,8 +873,8 @@ const APropos = () => {
               </motion.div>
               
               <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 20 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.6 }}
                 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight"
@@ -880,8 +888,8 @@ const APropos = () => {
               </motion.h2>
               
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 20 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg sm:text-xl text-zinc-300 max-w-2xl mx-auto leading-relaxed"
@@ -890,8 +898,8 @@ const APropos = () => {
               </motion.p>
               
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 20 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pt-4"

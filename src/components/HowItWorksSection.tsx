@@ -9,6 +9,7 @@ const HowItWorksSection = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [isAutoSwitching, setIsAutoSwitching] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isSafari, setIsSafari] = useState(false);
   
   const getTabData = (tabKey: string) => {
     const tab = (translations[language] as any).howItWorks[tabKey];
@@ -78,6 +79,37 @@ const HowItWorksSection = () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [tabs.length]);
+
+  useEffect(() => {
+    if (typeof navigator !== "undefined") {
+      const safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      setIsSafari(safari);
+    }
+  }, []);
+
+  const circleStyle: React.CSSProperties = isSafari
+    ? {
+        background: 'radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.05), transparent 70%)',
+        filter: 'blur(65px)',
+        opacity: 0.75,
+        mixBlendMode: 'normal',
+        transition: 'opacity 0.5s ease',
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)',
+        willChange: 'opacity',
+        isolation: 'isolate'
+      }
+    : {
+        background: 'radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.35), rgba(255, 215, 0, 0.08), transparent 75%)',
+        filter: 'blur(80px)',
+        opacity: 0.85,
+        mixBlendMode: 'screen',
+        transition: 'opacity 0.5s ease',
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)',
+        willChange: 'opacity',
+        isolation: 'isolate'
+      };
   return <section id="how-it-works" className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
       {/* Animated grid background */}
       <div className="absolute inset-0 opacity-[0.02]" style={{
@@ -185,17 +217,31 @@ const HowItWorksSection = () => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: isTransitioning ? 0.5 : 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                initial={{ y: 10 }}
+                animate={{ y: 0, opacity: isTransitioning ? 0.5 : 1 }}
+                exit={{ y: -10 }}
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                style={{
+                  opacity: isTransitioning ? 0.5 : 1,
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                } as React.CSSProperties}
                 className="relative"
               >
                 {/* Badge */}
                 <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ scale: 0.95 }}
+                  animate={{ scale: 1 }}
                   transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  style={{
+                    opacity: 1,
+                    transform: 'translate3d(0, 0, 0)',
+                    WebkitTransform: 'translate3d(0, 0, 0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                  } as React.CSSProperties}
                   className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 mb-4 sm:mb-6"
                 >
                   <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
@@ -204,9 +250,16 @@ const HowItWorksSection = () => {
                 
                 {/* Title */}
                 <motion.h3 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ y: 10 }}
+                  animate={{ y: 0 }}
                   transition={{ delay: 0.15, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  style={{
+                    opacity: 1,
+                    transform: 'translate3d(0, 0, 0)',
+                    WebkitTransform: 'translate3d(0, 0, 0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                  } as React.CSSProperties}
                   className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4 sm:mb-6 leading-tight"
                 >
                   <span className="text-foreground">{tabs[activeTab].title}</span><br />
@@ -215,9 +268,16 @@ const HowItWorksSection = () => {
                 
                 {/* Description */}
                 <motion.p 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ y: 10 }}
+                  animate={{ y: 0 }}
                   transition={{ delay: 0.2, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  style={{
+                    opacity: 1,
+                    transform: 'translate3d(0, 0, 0)',
+                    WebkitTransform: 'translate3d(0, 0, 0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                  } as React.CSSProperties}
                   className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-6 sm:mb-8 lg:mb-10 max-w-4xl"
                 >
                   {tabs[activeTab].description}
@@ -228,9 +288,16 @@ const HowItWorksSection = () => {
                   {tabs[activeTab].features.map((feature, index) => (
                     <motion.div 
                       key={index}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      initial={{ x: -10 }}
+                      animate={{ x: 0 }}
                       transition={{ delay: 0.25 + (index * 0.05), duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      style={{
+                        opacity: 1,
+                        transform: 'translate3d(0, 0, 0)',
+                        WebkitTransform: 'translate3d(0, 0, 0)',
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                      } as React.CSSProperties}
                       className="flex items-start gap-2 sm:gap-3 lg:gap-4 group/item"
                     >
                       <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary/10 flex items-center justify-center group-hover/item:scale-110 transition-transform duration-500" style={{ transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}>
@@ -252,7 +319,10 @@ const HowItWorksSection = () => {
             </div>
 
             {/* Corner decoration */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/10 transition-colors duration-500 overflow-hidden" />
+            <div 
+              className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none" 
+              style={circleStyle}
+            />
           </div>
         </div>
       </div>

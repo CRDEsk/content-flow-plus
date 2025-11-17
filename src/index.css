@@ -303,6 +303,102 @@ nav[class*="lg:hidden"] a[class*="from-primary"] span {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;  /* Chrome, Safari and Opera */
   }
+
+  /* Safari-specific rendering fixes to prevent flickering */
+  @supports (-webkit-appearance: none) {
+    /* Optimize cards and interactive elements */
+    [class*="card"]:not([class*="background"]),
+    [class*="Card"]:not([class*="background"]),
+    button,
+    a,
+    [role="button"],
+    .glass-card,
+    .elegant-card {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Fix backdrop-filter flickering on Safari */
+    [style*="backdrop-filter"],
+    [style*="backdropFilter"],
+    .glass-card,
+    [class*="backdrop-blur"] {
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      isolation: isolate;
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
+    }
+
+    /* Fix scroll-triggered animations - Framer Motion components */
+    [data-framer-component],
+    [class*="motion"],
+    div[class*="motion"] {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
+    }
+
+    /* Specific fix for motion.div with backdrop-filter */
+    div[style*="backdrop-filter"],
+    div[style*="backdropFilter"] {
+      -webkit-transform: translate3d(0, 0, 0) !important;
+      transform: translate3d(0, 0, 0) !important;
+      -webkit-backface-visibility: hidden !important;
+      backface-visibility: hidden !important;
+      isolation: isolate !important;
+      -webkit-perspective: 1000px !important;
+      perspective: 1000px !important;
+      opacity: 1 !important; /* Force opacity to prevent Framer Motion flicker */
+    }
+
+    /* Force opacity on all motion.div elements to prevent initial flicker */
+    div[class*="motion"][style*="backdrop-filter"],
+    div[class*="motion"][style*="backdropFilter"] {
+      opacity: 1 !important;
+    }
+
+    /* Optimize images and media */
+    img,
+    video,
+    svg {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    /* Prevent flicker on scroll */
+    section,
+    main,
+    article {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
+    /* Optimize scroll performance */
+    html {
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    /* Reduce repaints on scroll */
+    body {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+  }
 }
 
 @layer utilities {
@@ -579,6 +675,12 @@ nav[class*="lg:hidden"] a[class*="from-primary"] span {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     color: hsl(var(--foreground));
+    /* Safari flicker fix */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    isolation: isolate;
   }
   
   .gradient-primary {
@@ -631,6 +733,165 @@ nav[class*="lg:hidden"] a[class*="from-primary"] span {
   @keyframes glow {
     from { box-shadow: var(--shadow-elegant); }
     to { box-shadow: var(--shadow-gold), var(--shadow-elegant); }
+  }
+}
+
+/* Cal.com Modal Overlay Fix - Ensure it appears as a fixed popup at top of viewport */
+/* Target only Cal.com backdrop/modal elements - be specific to avoid breaking other elements */
+div[class*="cal-backdrop"],
+div[id*="cal-backdrop"],
+div[class*="cal-modal"],
+div[class*="cal-popup"],
+div[class*="cal-overlay"],
+.my-backdrop,
+body > div:has([class*="booker-container"]),
+body > div:has([data-testid="booker-container"]),
+body > div:has(iframe[src*="cal.com"]):not([data-cal-link]):not([data-cal-namespace]),
+body > div:has(iframe[src*="app.cal.com"]):not([data-cal-link]):not([data-cal-namespace]) {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  z-index: 999999 !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  padding-top: 2vh !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  overflow-y: auto !important;
+  margin: 0 !important;
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+  transform: none !important;
+  translate: none !important;
+}
+
+/* Cal.com modal container - target all variations including parent-child relationships */
+div[class*="cal-modal"] > div,
+div[class*="cal-popup"] > div,
+div[class*="cal-modal"] > *,
+div[class*="cal-popup"] > *,
+div[id*="cal-modal"] > div,
+div[id*="cal-popup"] > div,
+.modal-box,
+[class*="booker-container"],
+[data-testid="booker-container"],
+div[class*="booker"],
+div[class*="booker"] > div,
+div:has([class*="booker-container"]),
+div:has([data-testid="booker-container"]),
+div[class*="cal-content"],
+div[class*="cal-wrapper"] {
+  position: relative !important;
+  margin: 0 auto !important;
+  margin-top: 2vh !important;
+  max-width: 90vw !important;
+  max-height: 88vh !important;
+  overflow-y: auto !important;
+  z-index: 1000000 !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+}
+
+/* Target iframe wrapper divs */
+div:has(iframe[src*="cal.com"]),
+div:has(iframe[src*="app.cal.com"]) {
+  position: relative !important;
+  margin: 0 auto !important;
+  margin-top: 2vh !important;
+  max-width: 90vw !important;
+  max-height: 88vh !important;
+  z-index: 1000000 !important;
+}
+
+/* Ensure Cal.com iframe and content are properly positioned */
+iframe[src*="cal.com"],
+iframe[src*="app.cal.com"],
+[data-cal-embed],
+[class*="cal-embed"] {
+  position: relative !important;
+  display: block !important;
+  max-width: 100% !important;
+}
+
+/* Fix for Cal.com skeleton/loader */
+#skeleton-container,
+#skeleton,
+[class*="skeleton"],
+[class*="cal-skeleton"],
+[class*="cal-loader"] {
+  position: fixed !important;
+  top: 2vh !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 1000001 !important;
+}
+
+/* Ensure Cal.com modal is always visible and prevent body scroll */
+body:has([class*="cal-backdrop"]),
+body:has([id*="cal-backdrop"]),
+body:has([class*="cal-modal"]),
+body:has(div[class*="booker-container"]) {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Force scroll to top when modal opens */
+html:has([class*="cal-backdrop"]),
+html:has([id*="cal-backdrop"]),
+html:has([class*="cal-modal"]),
+html:has(div[class*="booker-container"]) {
+  scroll-behavior: smooth;
+  overflow: hidden !important;
+}
+
+/* Override any absolute positioning that Cal.com might apply - only for actual modal/backdrop elements */
+div[class*="cal-backdrop"],
+div[class*="cal-modal"],
+div[class*="cal-popup"],
+div[class*="cal-overlay"] {
+  position: fixed !important;
+}
+
+/* Ensure any div containing Cal.com modal content is fixed - but only if it's a backdrop/modal */
+body > div:has([class*="booker-container"]):has(iframe[src*="cal.com"]),
+body > div:has([class*="booker-container"]):has(iframe[src*="app.cal.com"]) {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999999 !important;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .safari-footer [class*="backdrop-blur"],
+  .safari-footer [style*="backdrop-filter"],
+  .safari-footer [style*="WebkitBackdropFilter"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .safari-footer [class*="backdrop-blur"] {
+    background-image: none !important;
+    background-color: rgba(5, 5, 5, 0.92) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65) !important;
   }
 }
 

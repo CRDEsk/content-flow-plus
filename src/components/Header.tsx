@@ -10,9 +10,18 @@ interface HeaderProps {
   isLoggedIn?: boolean;
   onLogin?: () => void;
   onLogout?: () => void;
+  hideLogo?: boolean;
+  hideMenu?: boolean;
+  showLanguageCurrency?: boolean;
+  language?: string;
+  currency?: string;
+  hideStartButton?: boolean;
+  languageCurrencySwitcher?: React.ReactNode;
+  subtitleText?: string;
+  usePurpleTheme?: boolean;
 }
 
-const Header = ({ isLoggedIn = false }: HeaderProps) => {
+const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLanguageCurrency = false, language = 'English', currency = 'EUR', hideStartButton = false, languageCurrencySwitcher, subtitleText, usePurpleTheme = false }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -33,7 +42,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Prevent body scroll when menu is open (mobile only) - improved version
+  // Prevent body scroll when desktop menu is open (mobile only) - improved version
   useEffect(() => {
     const isMobile = window.innerWidth < 1024;
     
@@ -89,19 +98,103 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
     }
   }, [isMenuOpen]);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      // Store current scroll position
+      const scrollY = window.scrollY;
+      const body = document.body;
+      const html = document.documentElement;
+      
+      // Lock scroll
+      body.style.overflow = 'hidden';
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollY}px`;
+      body.style.width = '100%';
+      body.style.height = '100%';
+      
+      // Also prevent scroll on html element
+      html.style.overflow = 'hidden';
+      
+      // Prevent touch scrolling on iOS
+      body.style.touchAction = 'none';
+      html.style.touchAction = 'none';
+      body.style.overscrollBehavior = 'none';
+      html.style.overscrollBehavior = 'none';
+      
+      // Prevent scroll with touch events
+      const preventScroll = (e: TouchEvent) => {
+        if (e.touches.length > 1) return; // Allow pinch zoom
+        e.preventDefault();
+      };
+      
+      const preventWheel = (e: WheelEvent) => {
+        e.preventDefault();
+      };
+      
+      // Handle escape key
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape' && isMobileMenuOpen) {
+          setIsMobileMenuOpen(false);
+        }
+      };
+      
+      // Add event listeners with passive: false to allow preventDefault
+      document.addEventListener('touchmove', preventScroll, { passive: false });
+      document.addEventListener('wheel', preventWheel, { passive: false });
+      window.addEventListener('keydown', handleEscape);
+      
+      return () => {
+        // Restore scroll
+        body.style.overflow = '';
+        body.style.position = '';
+        body.style.top = '';
+        body.style.width = '';
+        body.style.height = '';
+        html.style.overflow = '';
+        body.style.touchAction = '';
+        html.style.touchAction = '';
+        body.style.overscrollBehavior = '';
+        html.style.overscrollBehavior = '';
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+        
+        // Remove event listeners
+        document.removeEventListener('touchmove', preventScroll);
+        document.removeEventListener('wheel', preventWheel);
+        window.removeEventListener('keydown', handleEscape);
+      };
+    }
+  }, [isMobileMenuOpen]);
+
+  // Menu items organized in groups with dividers
   const navItems = [
-    { label: t("header.mySpace"), href: "https://espace.contentremovaldesk.com", external: true },
+    // Group 1: Main navigation
     { label: t("header.ourSolution"), href: "/notre-solution" },
-    { label: t("header.caseStudies"), href: "/cas-clients" },
     { label: t("header.forCreators"), href: "/pour-createurs" },
-    { label: t("header.forAgencies"), href: "/pour-agences" },
+    { label: t("header.caseStudies"), href: "/cas-clients" },
     { label: t("header.pricing"), href: "/tarifs" },
+    // Divider 1
+    { type: 'divider' },
+    // Group 2: Advanced/Secondary
     { label: t("header.escalades"), href: "/escalades-legal" },
+    { label: "International", href: "/international-protection" },
+    { label: t("header.forAgencies"), href: "/pour-agences" },
+    // Divider 2
+    { type: 'divider' },
+    // Group 3: About & Contact
     { label: t("header.about"), href: "/a-propos" },
     { label: t("header.contact"), href: "/contact" },
+    { label: t("header.mySpace"), href: "https://espace.contentremovaldesk.com", external: true },
   ];
 
   const isAgencyPage = location.pathname === "/pour-agences";
+  const subtitleColorClass = usePurpleTheme
+    ? "text-purple-300"
+    : isAgencyPage
+    ? "text-blue-200"
+    : "text-primary";
 
   return (
     <>
@@ -131,6 +224,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
           <div className="flex items-center justify-between gap-4">
             
             {/* Logo - Safari Optimized */}
+            {!hideLogo && (
             <Link to="/" className="group relative z-10 flex-shrink-0">
               <div className="flex items-center gap-2.5">
                 <div 
@@ -146,6 +240,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                     className={`absolute inset-0 blur-md opacity-60 group-hover:opacity-90 ${
                       isAgencyPage 
                         ? 'bg-gradient-to-br from-blue-500 via-blue-500/70 to-blue-500/50' 
+                        : usePurpleTheme
+                        ? 'bg-gradient-to-br from-purple-500 via-purple-500/70 to-purple-500/50'
                         : 'bg-gradient-to-br from-primary via-primary/70 to-primary/50'
                     }`}
                     style={{ 
@@ -159,6 +255,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                     className={`relative w-full h-full flex items-center justify-center group-hover:scale-105 ${
                       isAgencyPage
                         ? 'bg-gradient-to-br from-blue-500 to-blue-500/80 shadow-xl shadow-blue-500/20'
+                        : usePurpleTheme
+                        ? 'bg-gradient-to-br from-purple-500 to-purple-500/80 shadow-xl shadow-purple-500/20'
                         : 'bg-gradient-to-br from-primary to-primary/80 shadow-xl shadow-primary/20'
                     }`}
                     style={{ 
@@ -190,23 +288,24 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                     ContentRemovalDesk
                   </div>
                   <div 
-                    className={`text-[7px] uppercase tracking-[0.2em] leading-none font-semibold ${scrolled ? 'opacity-70' : 'opacity-100'} ${
-                      isAgencyPage ? 'text-blue-400/90' : 'text-primary/90'
-                    }`}
+                    className={`text-[7px] uppercase tracking-[0.2em] leading-none font-semibold ${
+                      scrolled ? 'opacity-70' : 'opacity-100'
+                    } ${subtitleColorClass}`}
                     style={{
                       transition: 'opacity 0.3s ease-out',
                       willChange: scrolled ? 'auto' : 'opacity'
                     }}
                   >
-                    Protection Numérique
+                    {subtitleText || (showLanguageCurrency ? `${language} • ${currency}` : 'Protection Numérique')}
                   </div>
                 </div>
               </div>
             </Link>
+            )}
 
             {/* Desktop CTA & Menu */}
             <div className="hidden lg:flex items-center gap-3 ml-auto">
-              {!isAgencyPage && (
+              {!isAgencyPage && !hideStartButton && (
                 <Button 
                   size="sm"
                   className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-black font-semibold rounded-full px-6 shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all duration-300 relative overflow-hidden group"
@@ -214,8 +313,6 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 >
                   <a 
                     href="https://espace.contentremovaldesk.com/auth?mode=signup" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
                     onClick={() => trackButtonClick("Start Button", "Header")}
                   >
                     <span className="relative z-10">{t("common.start")}</span>
@@ -223,8 +320,14 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   </a>
                 </Button>
               )}
+              {languageCurrencySwitcher && (
+                <div className="hidden lg:flex items-center gap-2 relative z-50">
+                  {languageCurrencySwitcher}
+                </div>
+              )}
               
               {/* Premium Burger Menu Button - Exact Logo Style - Desktop Only */}
+              {!hideMenu && (
               <button
                 className="hidden lg:block group relative transition-all duration-300 overflow-hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -262,11 +365,19 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   </div>
                 </div>
               </button>
+              )}
             </div>
 
-            {/* Mobile Burger Menu Button - Safari Optimized */}
-            <button
-              className={`lg:hidden relative p-2.5 rounded-xl text-foreground group ml-auto overflow-hidden ${
+            {/* Mobile Language/Currency Switcher & Burger Menu */}
+            <div className="lg:hidden flex items-center gap-2 ml-auto">
+              {languageCurrencySwitcher && (
+                <div className="flex items-center gap-2">
+                  {languageCurrencySwitcher}
+                </div>
+              )}
+              {!hideMenu && (
+              <button
+                className={`relative p-2.5 rounded-xl text-foreground group overflow-hidden ${
                 isMobileMenuOpen 
                   ? isAgencyPage
                     ? 'bg-blue-500 border-blue-500 shadow-lg shadow-blue-500/30'
@@ -323,13 +434,15 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 ></span>
               </div>
             </button>
+              )}
+            </div>
           </div>
         </div>
       </header>
 
       {/* Desktop Dropdown Menu */}
       <AnimatePresence>
-          {isMenuOpen && (
+          {!hideMenu && isMenuOpen && (
             <>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -362,18 +475,35 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 role="navigation"
                 aria-label="Menu principal"
               >
-                <div className={`relative bg-zinc-900/98 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 overflow-hidden border min-w-[260px] ${
+                <div className={`relative bg-zinc-900/98 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 overflow-hidden border min-w-[300px] ${
                   isAgencyPage ? 'border-blue-500/20' : 'border-primary/20'
                 }`}>
                   <div className={`absolute inset-0 bg-gradient-to-br opacity-50 pointer-events-none ${
                     isAgencyPage ? 'from-blue-500/5 via-transparent to-blue-500/5' : 'from-primary/5 via-transparent to-primary/5'
                   }`} />
-                  <div className="relative py-2">
+                  <div className="relative py-3">
                     {navItems.map((item, index) => {
+                      // Handle dividers
+                      if (item.type === 'divider') {
+                        return (
+                          <motion.div
+                            key={`divider-${index}`}
+                            initial={{ opacity: 0, scaleX: 0 }}
+                            animate={{ opacity: 1, scaleX: 1 }}
+                            transition={{ delay: index * 0.03, duration: 0.2 }}
+                            className="relative my-2.5 mx-5"
+                          >
+                            <div className={`h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent ${
+                              isAgencyPage ? 'via-blue-500/20' : 'via-primary/20'
+                            }`} />
+                          </motion.div>
+                        );
+                      }
+
                       const isActive = !item.external && (item.href === location.pathname);
                       return (
                         <motion.div
-                          key={item.label}
+                          key={item.label || `item-${index}`}
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.03, duration: 0.3 }}
@@ -382,9 +512,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                           {item.external ? (
                             <a
                               href={item.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className={`group/item relative block px-4 py-3 text-sm font-medium text-white transition-all duration-300 border-l-2 border-transparent hover:translate-x-1 isolate ${
+                              className={`group/item relative block px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 border-l-2 border-transparent hover:translate-x-1 isolate ${
                                 isAgencyPage ? 'hover:text-blue-400 hover:border-blue-500' : 'hover:text-primary hover:border-primary'
                               }`}
                               onClick={() => setIsMenuOpen(false)}
@@ -395,14 +523,14 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                               }`} />
                               <span className="relative z-10 flex items-center gap-2">
                                 {item.label}
-                                <span className="opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">→</span>
+                                <span className="opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 text-xs">→</span>
                               </span>
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/item:translate-x-full transition-transform duration-500 pointer-events-none" />
                             </a>
                           ) : (
                             <Link
                               to={item.href}
-                              className={`group/item relative block px-4 py-3 text-sm font-medium transition-all duration-300 border-l-2 hover:translate-x-1 isolate ${
+                              className={`group/item relative block px-5 py-2.5 text-sm font-medium transition-all duration-300 border-l-2 hover:translate-x-1 isolate ${
                                 isActive 
                                   ? isAgencyPage
                                     ? 'text-blue-400 border-blue-500'
@@ -451,21 +579,31 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
 
       {/* Mobile Menu - Only shows on mobile */}
       <AnimatePresence>
-          {isMobileMenuOpen && (
+          {!hideMenu && isMobileMenuOpen && (
             <>
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40 overflow-hidden"
+                className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
                 onClick={() => setIsMobileMenuOpen(false)}
+                onTouchMove={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                onTouchStart={(e) => {
+                  e.stopPropagation();
+                }}
                 style={{ 
                   touchAction: 'none',
                   WebkitTransform: 'translateZ(0)',
                   transform: 'translateZ(0)',
                   backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden'
+                  WebkitBackfaceVisibility: 'hidden',
+                  overflow: 'hidden',
+                  overscrollBehavior: 'none',
+                  WebkitOverflowScrolling: 'none'
                 }}
               />
               <motion.nav
@@ -537,14 +675,33 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                           ease: "easeInOut"
                         }}
                       >
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/70 to-primary/50 rounded-xl blur-md opacity-60"></div>
-                        <div className="relative w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+                        <div
+                          className="absolute inset-0 rounded-xl blur-md opacity-60"
+                          style={{ backgroundImage: brandGradientStyle.backgroundImage }}
+                        ></div>
+                        <div
+                          className="relative w-full h-full rounded-xl flex items-center justify-center shadow-lg"
+                          style={{
+                            backgroundImage: brandGradientStyle.backgroundImage,
+                            boxShadow: `0 10px 25px ${brandTheme.accent}33`
+                          }}
+                        >
                           <Shield className="w-4 h-4 text-black" strokeWidth={2.5} />
                         </div>
                       </motion.div>
                       <div className="flex flex-col">
-                        <div className="font-display font-bold text-foreground text-xs">ContentRemovalDesk</div>
-                        <div className="text-[7px] text-primary/90 uppercase tracking-[0.2em] font-semibold">Protection Numérique</div>
+                        <div
+                          className="font-display font-bold text-xs text-transparent bg-clip-text"
+                          style={brandGradientStyle}
+                        >
+                          ContentRemovalDesk
+                        </div>
+                        <div
+                          className="text-[7px] uppercase tracking-[0.2em] font-semibold"
+                          style={{ color: brandTheme.accent }}
+                        >
+                          Protection Numérique
+                        </div>
                       </div>
                     </div>
                   </motion.div>
@@ -562,10 +719,25 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   >
                     <div className="space-y-1.5">
                       {navItems.map((item, index) => {
+                        // Handle dividers in mobile menu
+                        if (item.type === 'divider') {
+                          return (
+                            <motion.div
+                              key={`divider-${index}`}
+                              initial={{ opacity: 0, scaleX: 0 }}
+                              animate={{ opacity: 1, scaleX: 1 }}
+                              transition={{ delay: 0.15 + (index * 0.03), duration: 0.2 }}
+                              className="relative my-3 mx-2"
+                            >
+                              <div className="h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent" />
+                            </motion.div>
+                          );
+                        }
+
                         const isActive = !item.external && (item.href === location.pathname);
                         return (
                           <motion.div
-                            key={item.label}
+                            key={item.label || `item-${index}`}
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.15 + (index * 0.03), duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
