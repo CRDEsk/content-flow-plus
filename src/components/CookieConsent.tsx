@@ -79,30 +79,47 @@ const CookieConsent = () => {
     setShowCustomize(true);
   };
 
+  // Auto-hide after 30 seconds if user doesn't interact (GDPR compliance - default to reject)
+  useEffect(() => {
+    if (isVisible) {
+      const timeout = setTimeout(() => {
+        console.log("[CookieConsent] Auto-hiding after 30 seconds, defaulting to reject");
+        handleRejectAll();
+      }, 30000);
+      return () => clearTimeout(timeout);
+    }
+  }, [isVisible]);
+
+  // Debug logging
+  useEffect(() => {
+    console.log("[CookieConsent] isVisible:", isVisible, "showCustomize:", showCustomize);
+  }, [isVisible, showCustomize]);
+
   return createPortal(
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isVisible && (
-        <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md"
-        onClick={() => {}} // Prevent closing on backdrop click for GDPR compliance
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          transition={{
-            type: "spring",
-            damping: 25,
-            stiffness: 300,
-          }}
-          className="relative w-full max-w-2xl bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Header gradient */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/50 to-primary" />
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={() => {}} // Prevent closing on backdrop click for GDPR compliance
+          />
+          
+          {/* Modal Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="relative z-10 w-full max-w-2xl bg-zinc-900 border-2 border-primary/30 rounded-2xl shadow-2xl shadow-primary/10 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header gradient */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/50 to-primary" />
           
           {/* Content */}
           <div className="p-6 sm:p-8">
@@ -294,7 +311,7 @@ const CookieConsent = () => {
             )}
           </div>
         </motion.div>
-      </motion.div>
+        </div>
       )}
     </AnimatePresence>,
     document.body
