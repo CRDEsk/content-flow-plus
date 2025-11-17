@@ -46,10 +46,10 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, State> {
       });
     }
 
-    // Auto-retry instead of showing error immediately
+    // Auto-retry once, then show error
     const retryCount = parseInt(sessionStorage.getItem('error-retry-count') || '0');
     
-    if (retryCount < 3) {
+    if (retryCount < 1) {
       // Increment retry count
       sessionStorage.setItem('error-retry-count', String(retryCount + 1));
       
@@ -61,12 +61,12 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, State> {
           errorInfo: null,
         });
         window.location.reload();
-      }, 1000);
+      }, 1500);
       
       return; // Don't set error state, just retry
     }
     
-    // Only show error if we've retried 3 times already
+    // Show error after one retry attempt
     this.setState({
       error,
       errorInfo,

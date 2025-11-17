@@ -10,54 +10,43 @@ import NetworkStatus from "@/components/NetworkStatus";
 import { initAnalytics, trackPageView } from "@/lib/analytics";
 import { hasCookieConsent } from "@/lib/cookies";
 
-// Lazy loading with aggressive retry logic - never give up
-const lazyWithRetry = (componentImport: () => Promise<any>, retries = 5) => {
+// Lazy loading with retry logic - retry once then reload if needed
+const lazyWithRetry = (componentImport: () => Promise<any>) => {
   return lazy(async () => {
-    let lastError: Error | null = null;
-    
-    for (let attempt = 0; attempt < retries; attempt++) {
-      try {
-        const component = await componentImport();
-        // Success - reset retry counter
-        if (attempt > 0) {
-          window.sessionStorage.removeItem('chunk-load-retry-count');
-        }
-        return component;
-      } catch (error) {
-        lastError = error as Error;
+    try {
+      const component = await componentImport();
+      // Success - reset retry counter
+      window.sessionStorage.removeItem('chunk-load-retry-count');
+      return component;
+    } catch (error) {
+      console.error('Chunk load error:', error);
+      
+      // Check if we've already tried reloading
+      const retryCount = parseInt(window.sessionStorage.getItem('chunk-load-retry-count') || '0');
+      
+      if (retryCount < 2) {
+        // Try reloading once more
+        window.sessionStorage.setItem('chunk-load-retry-count', String(retryCount + 1));
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         
-        // If not the last attempt, wait and retry
-        if (attempt < retries - 1) {
-          const delay = Math.min(1000 * Math.pow(2, attempt), 5000); // Exponential backoff, max 5s
-          await new Promise(resolve => setTimeout(resolve, delay));
-          continue;
-        }
+        // Return loading component while reloading
+        return { 
+          default: () => (
+            <div className="min-h-screen flex items-center justify-center bg-black">
+              <div className="text-center">
+                <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
+                <p className="text-zinc-400">Rechargement...</p>
+              </div>
+            </div>
+          )
+        };
       }
+      
+      // If reload didn't work, throw the error so ErrorBoundary can handle it
+      throw error;
     }
-    
-    // If all retries failed, reload the page as last resort
-    const retryCount = parseInt(window.sessionStorage.getItem('chunk-load-retry-count') || '0');
-    if (retryCount < 3) {
-      window.sessionStorage.setItem('chunk-load-retry-count', String(retryCount + 1));
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-      // Return empty component while reloading
-      return { default: () => null };
-    }
-    
-    // Final fallback - still don't throw, just return a minimal loading component
-    console.error('Failed to load chunk after multiple retries:', lastError);
-    return { 
-      default: () => (
-        <div className="min-h-screen flex items-center justify-center bg-black">
-          <div className="text-center">
-            <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-zinc-400">Chargement en cours...</p>
-          </div>
-        </div>
-      )
-    };
   });
 };
 
