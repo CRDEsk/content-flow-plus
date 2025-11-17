@@ -95,31 +95,33 @@ const CookieConsent = () => {
     console.log("[CookieConsent] isVisible:", isVisible, "showCustomize:", showCustomize);
   }, [isVisible, showCustomize]);
 
+  // Don't render portal at all if not visible
+  if (!isVisible) return null;
+
   return createPortal(
     <AnimatePresence mode="wait">
-      {isVisible && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            onClick={() => {}} // Prevent closing on backdrop click for GDPR compliance
-          />
-          
-          {/* Modal Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-2xl bg-zinc-900 border-2 border-primary/30 rounded-2xl shadow-2xl shadow-primary/10 overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header gradient */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/50 to-primary" />
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+        {/* Backdrop */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+          onClick={() => {}} // Prevent closing on backdrop click for GDPR compliance
+        />
+        
+        {/* Modal Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -20, scale: 0.95 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="relative z-10 w-full max-w-2xl bg-zinc-900 border-2 border-primary/30 rounded-2xl shadow-2xl shadow-primary/10 overflow-hidden"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header gradient */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/50 to-primary" />
           
           {/* Content */}
           <div className="p-6 sm:p-8">
