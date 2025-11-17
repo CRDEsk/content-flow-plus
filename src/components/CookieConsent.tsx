@@ -313,8 +313,7 @@ const CookieConsent = () => {
             )}
           </div>
         </motion.div>
-        </div>
-      )}
+      </div>
     </AnimatePresence>,
     document.body
   );
