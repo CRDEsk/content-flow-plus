@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, Shield } from "lucide-react";
+import { Menu, X, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -593,16 +593,10 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
-                onClick={() => setIsMobileMenuOpen(false)}
-                onTouchMove={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                }}
-                onTouchStart={(e) => {
-                  e.stopPropagation();
-                }}
-                style={{ 
+                className="lg:hidden fixed inset-0 bg-black/70 z-40"
+                style={{
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
                   touchAction: 'none',
                   WebkitTransform: 'translateZ(0)',
                   transform: 'translateZ(0)',
@@ -611,20 +605,35 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                   overflow: 'hidden',
                   overscrollBehavior: 'none'
                 }}
+                onClick={() => setIsMobileMenuOpen(false)}
+                onTouchMove={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                onTouchStart={(e) => {
+                  e.stopPropagation();
+                }}
               />
               <motion.nav
                 id="mobile-menu"
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
-                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/85 backdrop-blur-2xl border-r border-zinc-900/40 shadow-2xl"
+                transition={{ 
+                  type: "spring",
+                  damping: 30,
+                  stiffness: 300,
+                  mass: 0.8,
+                }}
+                className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/85 border-r border-zinc-900/40 shadow-2xl"
                 style={{ 
                   touchAction: 'pan-y',
                   WebkitTransform: 'translateZ(0)',
                   transform: 'translateZ(0)',
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
+                  backdropFilter: 'blur(24px)',
+                  WebkitBackdropFilter: 'blur(24px)',
                   height: '100vh',
                   display: 'flex',
                   flexDirection: 'column',
