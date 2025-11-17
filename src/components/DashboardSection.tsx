@@ -325,10 +325,9 @@ const DashboardSection = () => {
             <motion.div
               key={timeView}
               initial={{ y: 10 }}
-              animate={{ y: 0, opacity: isTransitioning ? 0.5 : 1 }}
+              animate={{ y: 0 }}
               transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
               style={{
-                opacity: isTransitioning ? 0.5 : 1,
                 transform: 'translate3d(0, 0, 0)',
                 WebkitTransform: 'translate3d(0, 0, 0)',
                 backfaceVisibility: 'hidden',
