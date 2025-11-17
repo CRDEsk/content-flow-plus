@@ -79,11 +79,10 @@ const CookieConsent = () => {
     setShowCustomize(true);
   };
 
-  if (!isVisible) return null;
-
   return createPortal(
     <AnimatePresence>
-      <motion.div
+      {isVisible && (
+        <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -296,6 +295,7 @@ const CookieConsent = () => {
           </div>
         </motion.div>
       </motion.div>
+      )}
     </AnimatePresence>,
     document.body
   );
