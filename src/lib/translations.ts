@@ -286,6 +286,15 @@ export const translations: Record<Language, Translations> = {
       inProgress: "En cours de traitement",
       avgRemovalTime: "Délai moyen de suppression",
     },
+    // Error Page
+    error: {
+      title: "Oups ! Une erreur s'est produite",
+      message: "Nous sommes désolés, mais quelque chose d'inattendu s'est produit. Notre équipe a été notifiée et travaille sur une solution.",
+      tryAgain: "Réessayer",
+      goHome: "Retour à l'accueil",
+      needHelp: "Besoin d'aide ?",
+      contactSupport: "Contacter le support",
+    },
     // Escalades Legal Page
     escalades: {
       badge: "Service spécialisé pour créateurs",
@@ -606,6 +615,15 @@ export const translations: Record<Language, Translations> = {
       activeReports: "Active Reports",
       inProgress: "In Progress",
       avgRemovalTime: "Average Removal Time",
+    },
+    // Error Page
+    error: {
+      title: "Oops! Something went wrong",
+      message: "We're sorry, but something unexpected happened. Our team has been notified and is working on a fix.",
+      tryAgain: "Try Again",
+      goHome: "Go Home",
+      needHelp: "Need help?",
+      contactSupport: "Contact Support",
     },
     // Escalades Legal Page
     escalades: {

@@ -1,7 +1,7 @@
 import React, { Component, ErrorInfo, ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Home, RefreshCw } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface Props {
   children: ReactNode;
@@ -13,7 +13,11 @@ interface State {
   errorInfo: ErrorInfo | null;
 }
 
-class ErrorBoundary extends Component<Props, State> {
+interface ErrorBoundaryProps extends Props {
+  t: (key: string) => string;
+}
+
+class ErrorBoundaryClass extends Component<ErrorBoundaryProps, State> {
   public state: State = {
     hasError: false,
     error: null,
@@ -54,10 +58,13 @@ class ErrorBoundary extends Component<Props, State> {
       error: null,
       errorInfo: null,
     });
+    // Force page reload to retry lazy loading
+    window.location.reload();
   };
 
   public render() {
     if (this.state.hasError) {
+      const { t } = this.props;
       return (
         <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
           <div className="max-w-2xl w-full text-center space-y-8">
@@ -72,10 +79,10 @@ class ErrorBoundary extends Component<Props, State> {
             {/* Error Message */}
             <div className="space-y-4">
               <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground">
-                Oops! Something went wrong
+                {t('error.title')}
               </h1>
               <p className="text-lg text-zinc-400 max-w-md mx-auto">
-                We're sorry, but something unexpected happened. Our team has been notified and is working on a fix.
+                {t('error.message')}
               </p>
             </div>
 
@@ -98,7 +105,7 @@ class ErrorBoundary extends Component<Props, State> {
                 onClick={this.handleReset}
               >
                 <RefreshCw className="w-5 h-5 mr-2" />
-                Try Again
+                {t('error.tryAgain')}
               </Button>
               <Button
                 size="lg"
@@ -108,7 +115,7 @@ class ErrorBoundary extends Component<Props, State> {
               >
                 <a href="/" className="flex items-center">
                   <Home className="w-5 h-5 mr-2" />
-                  Go Home
+                  {t('error.goHome')}
                 </a>
               </Button>
             </div>
@@ -116,12 +123,12 @@ class ErrorBoundary extends Component<Props, State> {
             {/* Support Link */}
             <div className="pt-8">
               <p className="text-sm text-zinc-500">
-                Need help?{" "}
+                {t('error.needHelp')}{" "}
                 <a
                   href="/contact"
                   className="text-primary hover:text-primary/80 underline transition-colors"
                 >
-                  Contact Support
+                  {t('error.contactSupport')}
                 </a>
               </p>
             </div>
@@ -133,6 +140,12 @@ class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
+
+// Wrapper component to use hooks
+const ErrorBoundary = ({ children }: Props) => {
+  const { t } = useLanguage();
+  return <ErrorBoundaryClass t={t}>{children}</ErrorBoundaryClass>;
+};
 
 export default ErrorBoundary;
 

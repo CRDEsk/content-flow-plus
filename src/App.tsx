@@ -10,25 +10,53 @@ import NetworkStatus from "@/components/NetworkStatus";
 import { initAnalytics, trackPageView } from "@/lib/analytics";
 import { hasCookieConsent } from "@/lib/cookies";
 
-// Lazy load all pages for code-splitting
-const Index = lazy(() => import("./pages/Index"));
-const NotFound = lazy(() => import("./pages/NotFound"));
-const MonEspace = lazy(() => import("./pages/MonEspace"));
-const NotreSolution = lazy(() => import("./pages/NotreSolution"));
-const Tarifs = lazy(() => import("./pages/Tarifs"));
-const PourCreateurs = lazy(() => import("./pages/PourCreateurs"));
-const PourAgences = lazy(() => import("./pages/PourAgences"));
-const InternationalProtection = lazy(() => import("./pages/InternationalProtection"));
-const EscaladesLegal = lazy(() => import("./pages/EscaladesLegal"));
-const APropos = lazy(() => import("./pages/APropos"));
-const Contact = lazy(() => import("./pages/Contact"));
-const CasClients = lazy(() => import("./pages/CasClients"));
-const CaseStudyDetail = lazy(() => import("./pages/CaseStudyDetail"));
-const MentionsLegales = lazy(() => import("./pages/MentionsLegales"));
-const PolitiqueConfidentialite = lazy(() => import("./pages/PolitiqueConfidentialite"));
-const CGV = lazy(() => import("./pages/CGV"));
-const PolitiqueRemboursement = lazy(() => import("./pages/PolitiqueRemboursement"));
-const PolitiqueCookies = lazy(() => import("./pages/PolitiqueCookies"));
+// Lazy loading with retry logic for production chunk loading failures
+const lazyWithRetry = (componentImport: () => Promise<any>) => {
+  return lazy(async () => {
+    const pageHasAlreadyBeenForceRefreshed = JSON.parse(
+      window.sessionStorage.getItem('page-has-been-force-refreshed') || 'false'
+    );
+
+    try {
+      const component = await componentImport();
+      window.sessionStorage.setItem('page-has-been-force-refreshed', 'false');
+      return component;
+    } catch (error) {
+      // If this is the first failure, try reloading the page once
+      if (!pageHasAlreadyBeenForceRefreshed) {
+        window.sessionStorage.setItem('page-has-been-force-refreshed', 'true');
+        // Small delay before reload to allow error to be logged
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
+        // Return empty component while reloading
+        return { default: () => null };
+      }
+      // If we've already tried reloading, throw the error
+      throw error;
+    }
+  });
+};
+
+// Lazy load all pages for code-splitting with retry logic
+const Index = lazyWithRetry(() => import("./pages/Index"));
+const NotFound = lazyWithRetry(() => import("./pages/NotFound"));
+const MonEspace = lazyWithRetry(() => import("./pages/MonEspace"));
+const NotreSolution = lazyWithRetry(() => import("./pages/NotreSolution"));
+const Tarifs = lazyWithRetry(() => import("./pages/Tarifs"));
+const PourCreateurs = lazyWithRetry(() => import("./pages/PourCreateurs"));
+const PourAgences = lazyWithRetry(() => import("./pages/PourAgences"));
+const InternationalProtection = lazyWithRetry(() => import("./pages/InternationalProtection"));
+const EscaladesLegal = lazyWithRetry(() => import("./pages/EscaladesLegal"));
+const APropos = lazyWithRetry(() => import("./pages/APropos"));
+const Contact = lazyWithRetry(() => import("./pages/Contact"));
+const CasClients = lazyWithRetry(() => import("./pages/CasClients"));
+const CaseStudyDetail = lazyWithRetry(() => import("./pages/CaseStudyDetail"));
+const MentionsLegales = lazyWithRetry(() => import("./pages/MentionsLegales"));
+const PolitiqueConfidentialite = lazyWithRetry(() => import("./pages/PolitiqueConfidentialite"));
+const CGV = lazyWithRetry(() => import("./pages/CGV"));
+const PolitiqueRemboursement = lazyWithRetry(() => import("./pages/PolitiqueRemboursement"));
+const PolitiqueCookies = lazyWithRetry(() => import("./pages/PolitiqueCookies"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
