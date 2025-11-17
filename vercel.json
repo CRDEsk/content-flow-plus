@@ -1,15 +1,32 @@
 {
   "rewrites": [
     {
-      "source": "/:path*",
-      "has": [
+      "source": "/((?!.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|otf|eot|avif|mp4|webm|json)).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
         {
-          "type": "header",
-          "key": "accept",
-          "value": "text/html"
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
-      ],
-      "destination": "/"
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
     }
   ]
 }
