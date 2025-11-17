@@ -3,7 +3,6 @@ import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Cookie, X, Shield, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useLanguage } from "@/hooks/useLanguage";
 import { setCookie, getCookie } from "@/lib/cookies";
 import { initAnalytics } from "@/lib/analytics";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,7 +16,6 @@ interface CookiePreferences {
 }
 
 const CookieConsent = () => {
-  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [showCustomize, setShowCustomize] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>({
@@ -132,10 +130,10 @@ const CookieConsent = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-                      {t("cookies.title") || "Nous respectons votre vie privée"}
+                      Nous respectons votre vie privée
                     </h3>
                     <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-                      {t("cookies.description") || "Nous utilisons des cookies pour améliorer votre expérience, analyser le trafic et personnaliser le contenu. En cliquant sur 'Accepter tout', vous consentez à notre utilisation des cookies."}
+                      Nous utilisons des cookies pour améliorer votre expérience, analyser le trafic et personnaliser le contenu. En cliquant sur 'Accepter tout', vous consentez à notre utilisation des cookies.
                     </p>
                   </div>
                 </div>
