@@ -449,9 +449,10 @@ const DashboardSection = () => {
               <div className="flex items-end justify-between h-32 sm:h-40 lg:h-48 gap-0.5 sm:gap-1 lg:gap-1.5 relative">
                 <motion.div
                   key={timeView}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: isTransitioning ? 0.5 : 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="absolute inset-0 flex items-end justify-between gap-0.5 sm:gap-1 lg:gap-1.5"
                   style={{ 
                     transform: 'translateZ(0)',
