@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Zap, Scale, Calendar } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
-import ScannerLoadingBar from "@/components/ScannerLoadingBar";
 
 interface HeroSectionProps {
   isLoggedIn?: boolean;
@@ -11,7 +10,6 @@ interface HeroSectionProps {
 const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
   const { t, language } = useLanguage();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isScannerLoading, setIsScannerLoading] = useState(false);
   const rafRef = useRef<number | null>(null);
   const lastUpdateRef = useRef<number>(0);
 
@@ -45,13 +43,7 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
 
 
   return (
-    <>
-      <ScannerLoadingBar 
-        isLoading={isScannerLoading}
-        onComplete={() => setIsScannerLoading(false)}
-      />
-      
-      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-black overflow-hidden pt-32 sm:pt-28 md:pt-24">
+    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-black overflow-hidden pt-32 sm:pt-28 md:pt-24">
       {/* Premium mesh gradient background - Optimized for Safari */}
       <div className="absolute inset-0" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
         <div 
@@ -143,20 +135,16 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-4">
             <Button 
               size="lg"
-              onClick={() => {
-                setIsScannerLoading(true);
-                if ((window as any).CRDScanner) {
-                  (window as any).CRDScanner.open();
-                }
-              }}
-              disabled={isScannerLoading}
-              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg shadow-2xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg shadow-2xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
+              asChild
             >
-              <span className="relative z-10 flex items-center gap-2 justify-center">
-                {t("hero.cta")}
-                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <a href="https://scan.contentremovaldesk.com/scan">
+                <span className="relative z-10 flex items-center gap-2 justify-center">
+                  {t("hero.cta")}
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              </a>
             </Button>
             <Button 
               size="lg"
@@ -214,7 +202,6 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
       {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
     </section>
-    </>
   );
 };
 
