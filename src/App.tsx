@@ -7,6 +7,7 @@ import { useEffect, lazy, Suspense } from "react";
 import { LanguageProvider } from "@/hooks/useLanguage";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import NetworkStatus from "@/components/NetworkStatus";
+import { Analytics } from "@vercel/analytics/react";
 import { initAnalytics, trackPageView } from "@/lib/analytics";
 import { hasCookieConsent } from "@/lib/cookies";
 
@@ -702,6 +703,7 @@ const App = () => {
             <NetworkStatus />
             <Toaster />
             <Sonner />
+            <Analytics />
             <BrowserRouter>
               <AppContent />
             </BrowserRouter>
