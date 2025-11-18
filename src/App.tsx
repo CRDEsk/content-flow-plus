@@ -10,6 +10,7 @@ import NetworkStatus from "@/components/NetworkStatus";
 import { Analytics } from "@vercel/analytics/react";
 import { initAnalytics, trackPageView } from "@/lib/analytics";
 import { hasCookieConsent } from "@/lib/cookies";
+import CookieConsent from "@/components/CookieConsent";
 
 // Lazy loading with retry logic - handle chunk loading failures gracefully
 const lazyWithRetry = (componentImport: () => Promise<any>) => {
@@ -133,6 +134,19 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
 // Scroll to top and handle page transitions
 const AppContent = () => {
   const location = useLocation();
+
+  // Define pages where cookie banner should NOT appear
+  const excludedPages = [
+    '/escalades-legal',
+    '/politique-confidentialite',
+    '/cgv',
+    '/politique-remboursement',
+    '/politique-cookies',
+    '/mentions-legales',
+    '/international-protection',
+    '/pour-agences'
+  ];
+  const shouldShowCookieBanner = !excludedPages.includes(location.pathname);
 
   useEffect(() => {
     // Clear retry counters in development to prevent issues
@@ -690,6 +704,7 @@ const AppContent = () => {
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </Suspense>
+      {shouldShowCookieBanner && <CookieConsent />}
     </div>
   );
 };

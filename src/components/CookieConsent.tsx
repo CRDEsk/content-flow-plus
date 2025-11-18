@@ -83,6 +83,17 @@ const CookieConsent = () => {
     }
   }, [isVisible, showCustomize]);
 
+  // Add keyboard escape handler
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && showCustomize) {
+        setShowCustomize(false);
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [showCustomize]);
+
   if (!isVisible) return null;
 
   return createPortal(
@@ -91,10 +102,15 @@ const CookieConsent = () => {
         // Minimal bottom banner
         <motion.div
           key="banner"
-          initial={{ y: 100, opacity: 0, scale: 0.95 }}
-          animate={{ y: 0, opacity: 1, scale: 1 }}
-          exit={{ y: 100, opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          initial={{ y: 100, opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+          animate={{ y: 0, opacity: 1, scale: 1, filter: "blur(0px)" }}
+          exit={{ y: 100, opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+          transition={{ 
+            type: "spring",
+            stiffness: 300,
+            damping: 30,
+            mass: 0.8
+          }}
           className="fixed bottom-6 left-6 right-6 md:left-auto md:right-6 md:max-w-lg z-[9999]"
         >
           <div className="relative bg-gradient-to-br from-zinc-900 via-zinc-900 to-black backdrop-blur-xl border-2 border-primary/30 rounded-2xl p-5 shadow-2xl shadow-primary/20">
@@ -104,7 +120,7 @@ const CookieConsent = () => {
             <div className="relative z-10">
               <div className="flex items-start gap-4 mb-4">
                 <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg border border-primary/20">
-                  <Cookie className="w-5 h-5 text-primary" />
+                  <Cookie className="w-5 h-5 text-primary animate-pulse" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-base font-semibold text-foreground mb-1">Cookies & Confidentialité</h3>
@@ -154,14 +170,19 @@ const CookieConsent = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowCustomize(false);
+            }
+          }}
+          className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
         >
           <motion.div
             initial={{ scale: 0.9, y: 30, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.9, y: 30, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="relative bg-gradient-to-br from-zinc-900 via-zinc-900 to-black border-2 border-primary/30 rounded-2xl p-6 w-full max-w-md shadow-2xl shadow-primary/20"
+            className="relative bg-gradient-to-br from-zinc-900 via-zinc-900 to-black border-2 border-primary/30 rounded-2xl p-6 w-full max-w-md shadow-2xl shadow-primary/20 z-[10001]"
           >
             {/* Glow effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent rounded-2xl pointer-events-none" />
