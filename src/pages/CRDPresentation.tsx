@@ -9,6 +9,7 @@ const CORRECT_PASSWORD = "240307";
 
 const CRDPresentation = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [hasCheckedAuth, setHasCheckedAuth] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -18,19 +19,34 @@ const CRDPresentation = () => {
     if (auth === "true") {
       setIsAuthenticated(true);
     }
+    setHasCheckedAuth(true);
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === CORRECT_PASSWORD) {
+      if (import.meta.env.DEV) {
+        console.log("[CRD] Auth OK, loading presentation");
+      }
       setIsAuthenticated(true);
       sessionStorage.setItem("crd-presentation-auth", "true");
       setError("");
     } else {
+      if (import.meta.env.DEV) {
+        console.warn("[CRD] Wrong password");
+      }
       setError("Mot de passe incorrect");
       setPassword("");
     }
   };
+
+  if (!hasCheckedAuth) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black text-white">
+        <p>Chargement de la présentation…</p>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
@@ -88,7 +104,14 @@ const CRDPresentation = () => {
     );
   }
 
-  return <CRDPresentationOriginal />;
+  return (
+    <>
+      <div className="fixed top-4 left-4 z-[9999] text-xs text-green-400">
+        Présentation chargée (auth OK)
+      </div>
+      <CRDPresentationOriginal />
+    </>
+  );
 };
 
 export default CRDPresentation;

@@ -46,7 +46,7 @@ import {
   Briefcase,
 } from "lucide-react";
 
-const CRDPresentation = () => {
+const CRDPresentationOriginal: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 20;
 
@@ -85,6 +85,10 @@ const CRDPresentation = () => {
       className="fixed inset-0 bg-black overflow-hidden relative"
       style={{ opacity: 1 }}
     >
+      {/* Debug badge */}
+      <div className="absolute top-4 right-4 text-xs text-[#E5C268] z-[9999]">
+        CRD Slides actifs
+      </div>
       {/* Navigation dots */}
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex gap-2">
         {Array.from({ length: totalSlides }).map((_, index) => (
@@ -1666,4 +1670,4 @@ const CRDPresentation = () => {
   );
 };
 
-export default CRDPresentation;
+export default CRDPresentationOriginal;
