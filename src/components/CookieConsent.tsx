@@ -47,8 +47,11 @@ const CookieConsent = () => {
       initAnalytics();
     }
     
-    setIsVisible(false);
-    setShowCustomize(false);
+    // Delay hiding to show the closing animation
+    setTimeout(() => {
+      setIsVisible(false);
+      setShowCustomize(false);
+    }, 100);
   };
 
   const handleAcceptAll = () => {
@@ -98,18 +101,32 @@ const CookieConsent = () => {
 
   return createPortal(
     <AnimatePresence mode="wait">
-      {!showCustomize ? (
+      {isVisible && !showCustomize ? (
         // Minimal bottom banner
         <motion.div
           key="banner"
-          initial={{ y: 100, opacity: 0, scale: 0.95, filter: "blur(4px)" }}
-          animate={{ y: 0, opacity: 1, scale: 1, filter: "blur(0px)" }}
-          exit={{ y: 100, opacity: 0, scale: 0.95, filter: "blur(4px)" }}
-          transition={{ 
-            type: "spring",
-            stiffness: 300,
-            damping: 30,
-            mass: 0.8
+          initial={{ y: 150, opacity: 0, scale: 0.9, filter: "blur(8px)" }}
+          animate={{ 
+            y: 0, 
+            opacity: 1, 
+            scale: 1, 
+            filter: "blur(0px)",
+            transition: {
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              mass: 0.8
+            }
+          }}
+          exit={{ 
+            y: 150, 
+            opacity: 0, 
+            scale: 0.85, 
+            filter: "blur(8px)",
+            transition: {
+              duration: 0.4,
+              ease: [0.4, 0, 0.2, 1]
+            }
           }}
           className="fixed bottom-6 left-6 right-6 md:left-auto md:right-6 md:max-w-lg z-[9999]"
         >
@@ -163,13 +180,23 @@ const CookieConsent = () => {
             </div>
           </div>
         </motion.div>
-      ) : (
+      ) : isVisible && showCustomize ? (
         // Customize preferences modal
         <motion.div
           key="customize"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          animate={{ 
+            opacity: 1,
+            transition: {
+              duration: 0.3
+            }
+          }}
+          exit={{ 
+            opacity: 0,
+            transition: {
+              duration: 0.2
+            }
+          }}
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setShowCustomize(false);
@@ -178,10 +205,29 @@ const CookieConsent = () => {
           className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
         >
           <motion.div
-            initial={{ scale: 0.9, y: 30, opacity: 0 }}
-            animate={{ scale: 1, y: 0, opacity: 1 }}
-            exit={{ scale: 0.9, y: 30, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ scale: 0.85, y: 40, opacity: 0, filter: "blur(8px)" }}
+            animate={{ 
+              scale: 1, 
+              y: 0, 
+              opacity: 1, 
+              filter: "blur(0px)",
+              transition: {
+                type: "spring",
+                stiffness: 260,
+                damping: 22,
+                mass: 0.9
+              }
+            }}
+            exit={{ 
+              scale: 0.9, 
+              y: 30, 
+              opacity: 0,
+              filter: "blur(6px)",
+              transition: {
+                duration: 0.3,
+                ease: [0.4, 0, 0.2, 1]
+              }
+            }}
             className="relative bg-gradient-to-br from-zinc-900 via-zinc-900 to-black border-2 border-primary/30 rounded-2xl p-6 w-full max-w-md shadow-2xl shadow-primary/20 z-[10001]"
           >
             {/* Glow effect */}
@@ -217,14 +263,14 @@ const CookieConsent = () => {
                       Pour comprendre comment vous utilisez notre site
                     </p>
                   </div>
-                  <label className="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                  <label className="relative inline-flex items-center cursor-pointer flex-shrink-0 group">
                     <input
                       type="checkbox"
                       checked={preferences.analytics}
                       onChange={(e) => setPreferences({ ...preferences, analytics: e.target.checked })}
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary peer-focus:ring-offset-2 peer-focus:ring-offset-zinc-900 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary shadow-inner"></div>
+                    <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary peer-focus:ring-offset-2 peer-focus:ring-offset-zinc-900 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:duration-300 peer-checked:bg-primary shadow-inner group-hover:shadow-lg"></div>
                   </label>
                 </div>
 
@@ -236,14 +282,14 @@ const CookieConsent = () => {
                       Pour personnaliser les publicités
                     </p>
                   </div>
-                  <label className="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                  <label className="relative inline-flex items-center cursor-pointer flex-shrink-0 group">
                     <input
                       type="checkbox"
                       checked={preferences.marketing}
                       onChange={(e) => setPreferences({ ...preferences, marketing: e.target.checked })}
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary peer-focus:ring-offset-2 peer-focus:ring-offset-zinc-900 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary shadow-inner"></div>
+                    <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary peer-focus:ring-offset-2 peer-focus:ring-offset-zinc-900 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:duration-300 peer-checked:bg-primary shadow-inner group-hover:shadow-lg"></div>
                   </label>
                 </div>
               </div>
@@ -266,7 +312,7 @@ const CookieConsent = () => {
             </div>
           </motion.div>
         </motion.div>
-      )}
+      ) : null}
     </AnimatePresence>,
     document.body
   );
