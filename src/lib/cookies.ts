@@ -33,11 +33,22 @@ export const deleteCookie = (name: string) => {
 };
 
 /**
- * Check if user has accepted cookies
+ * Check if user has accepted cookies (including customized with analytics)
  */
 export const hasCookieConsent = (): boolean => {
   const consent = getCookie('cookie-consent');
-  return consent === 'accepted';
+  if (consent === 'accepted') return true;
+  
+  // Check if customized consent includes analytics
+  if (consent === 'customized') {
+    const prefs = localStorage.getItem('cookie-preferences');
+    if (prefs) {
+      const parsed = JSON.parse(prefs);
+      return parsed.analytics === true;
+    }
+  }
+  
+  return false;
 };
 
 /**

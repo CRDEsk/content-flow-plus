@@ -33,8 +33,14 @@ const CookieConsent = () => {
       const timer = setTimeout(() => setIsVisible(true), 1000);
       return () => clearTimeout(timer);
     } else if (storedPreferences) {
-      // Load saved preferences
-      setPreferences(JSON.parse(storedPreferences));
+      // Load saved preferences and initialize analytics if accepted
+      const prefs = JSON.parse(storedPreferences);
+      setPreferences(prefs);
+      
+      // Initialize analytics if user previously accepted
+      if (prefs.analytics && (consent === "accepted" || consent === "customized")) {
+        initAnalytics();
+      }
     }
   }, []);
 
@@ -51,7 +57,7 @@ const CookieConsent = () => {
     setTimeout(() => {
       setIsVisible(false);
       setShowCustomize(false);
-    }, 100);
+    }, 400);
   };
 
   const handleAcceptAll = () => {
@@ -76,7 +82,7 @@ const CookieConsent = () => {
     saveConsent("customized", preferences);
   };
 
-  // Auto-hide after 30 seconds if user doesn't interact (GDPR compliance - default to reject)
+  // Auto-reject after 30 seconds if user doesn't interact (GDPR compliance)
   useEffect(() => {
     if (isVisible && !showCustomize) {
       const timeout = setTimeout(() => {
@@ -86,7 +92,7 @@ const CookieConsent = () => {
     }
   }, [isVisible, showCustomize]);
 
-  // Add keyboard escape handler
+  // Keyboard escape handler for customize modal
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && showCustomize) {
@@ -105,213 +111,225 @@ const CookieConsent = () => {
         // Minimal bottom banner
         <motion.div
           key="banner"
-          initial={{ y: 150, opacity: 0, scale: 0.9, filter: "blur(8px)" }}
+          initial={{ y: 100, opacity: 0, scale: 0.95 }}
           animate={{ 
             y: 0, 
             opacity: 1, 
-            scale: 1, 
-            filter: "blur(0px)",
+            scale: 1,
             transition: {
               type: "spring",
-              stiffness: 260,
-              damping: 20,
-              mass: 0.8
+              stiffness: 300,
+              damping: 25
             }
           }}
           exit={{ 
-            y: 150, 
+            y: 100, 
             opacity: 0, 
-            scale: 0.85, 
-            filter: "blur(8px)",
+            scale: 0.95,
             transition: {
-              duration: 0.4,
-              ease: [0.4, 0, 0.2, 1]
+              duration: 0.3,
+              ease: "easeInOut"
             }
           }}
-          className="fixed bottom-6 left-6 right-6 md:left-auto md:right-6 md:max-w-lg z-[9999]"
+          className="fixed bottom-0 left-0 right-0 z-[100] bg-background/95 backdrop-blur-lg border-t border-border shadow-2xl"
         >
-          <div className="relative bg-gradient-to-br from-zinc-900 via-zinc-900 to-black backdrop-blur-xl border-2 border-primary/30 rounded-2xl p-5 shadow-2xl shadow-primary/20">
-            {/* Subtle glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent rounded-2xl pointer-events-none" />
-            
-            <div className="relative z-10">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg border border-primary/20">
-                  <Cookie className="w-5 h-5 text-primary animate-pulse" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-base font-semibold text-foreground mb-1">Cookies & Confidentialité</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">
-                    Nous utilisons des cookies pour améliorer votre expérience. En continuant, vous acceptez notre{" "}
-                    <Link to="/politique-cookies" className="text-primary hover:text-primary/80 underline underline-offset-2 transition-colors">
-                      politique cookies
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3 flex-1">
+                <Cookie className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-foreground">
+                    Nous utilisons des cookies
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Nous utilisons des cookies pour améliorer votre expérience.{" "}
+                    <Link to="/politique-cookies" className="underline hover:text-foreground transition-colors">
+                      En savoir plus
                     </Link>
-                    .
                   </p>
                 </div>
               </div>
               
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                 <Button
-                  onClick={handleAcceptAll}
-                  size="sm"
-                  className="bg-primary text-black hover:bg-primary/90 hover:scale-105 font-semibold flex-1 min-w-[120px] h-11 shadow-lg shadow-primary/20 transition-all duration-300"
-                >
-                  Accepter tout
-                </Button>
-                <Button
-                  onClick={handleRejectAll}
-                  size="sm"
-                  variant="outline"
-                  className="border-zinc-700 hover:bg-zinc-800 hover:border-zinc-600 flex-1 min-w-[120px] h-11 transition-all duration-300"
-                >
-                  Refuser tout
-                </Button>
-                <Button
-                  onClick={() => setShowCustomize(true)}
-                  size="sm"
                   variant="ghost"
-                  className="text-zinc-400 hover:text-foreground hover:bg-zinc-800/50 w-full sm:w-auto h-11 transition-all duration-300"
+                  size="sm"
+                  onClick={() => setShowCustomize(true)}
+                  className="text-xs hover:bg-accent"
                 >
-                  <Settings className="w-4 h-4 mr-2" />
+                  <Settings className="w-3.5 h-3.5 mr-1.5" />
                   Personnaliser
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleRejectAll}
+                  className="text-xs"
+                >
+                  Tout refuser
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={handleAcceptAll}
+                  className="text-xs"
+                >
+                  Tout accepter
                 </Button>
               </div>
             </div>
           </div>
         </motion.div>
-      ) : isVisible && showCustomize ? (
+      ) : showCustomize ? (
         // Customize preferences modal
-        <motion.div
-          key="customize"
-          initial={{ opacity: 0 }}
-          animate={{ 
-            opacity: 1,
-            transition: {
-              duration: 0.3
-            }
-          }}
-          exit={{ 
-            opacity: 0,
-            transition: {
-              duration: 0.2
-            }
-          }}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setShowCustomize(false);
-            }
-          }}
-          className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
-        >
+        <>
+          {/* Backdrop */}
           <motion.div
-            initial={{ scale: 0.85, y: 40, opacity: 0, filter: "blur(8px)" }}
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowCustomize(false)}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[101]"
+          />
+          
+          {/* Modal */}
+          <motion.div
+            key="modal"
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ 
               scale: 1, 
-              y: 0, 
               opacity: 1, 
-              filter: "blur(0px)",
+              y: 0,
               transition: {
                 type: "spring",
-                stiffness: 260,
-                damping: 22,
-                mass: 0.9
+                stiffness: 300,
+                damping: 25
               }
             }}
             exit={{ 
               scale: 0.9, 
-              y: 30, 
-              opacity: 0,
-              filter: "blur(6px)",
+              opacity: 0, 
+              y: 20,
               transition: {
-                duration: 0.3,
-                ease: [0.4, 0, 0.2, 1]
+                duration: 0.2
               }
             }}
-            className="relative bg-gradient-to-br from-zinc-900 via-zinc-900 to-black border-2 border-primary/30 rounded-2xl p-6 w-full max-w-md shadow-2xl shadow-primary/20 z-[10001]"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[102] w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-background rounded-xl shadow-2xl border border-border"
           >
-            {/* Glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent rounded-2xl pointer-events-none" />
-            
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-primary/10 rounded-lg border border-primary/20">
-                  <Settings className="w-6 h-6 text-primary" />
+            <div className="p-6 space-y-6">
+              {/* Header */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Cookie className="w-5 h-5 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-foreground">
+                    Préférences de cookies
+                  </h2>
                 </div>
-                <h2 className="text-xl font-bold text-foreground">Préférences des cookies</h2>
+                <p className="text-sm text-muted-foreground">
+                  Gérez vos préférences de cookies. Vous pouvez activer ou désactiver différents types de cookies ci-dessous.
+                </p>
               </div>
 
-              <div className="space-y-3 mb-6">
-                {/* Necessary cookies */}
-                <div className="flex items-start justify-between gap-4 p-4 rounded-xl bg-zinc-800/50 border border-zinc-700/50">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                      Cookies nécessaires
-                      <span className="px-2 py-0.5 text-xs bg-primary/20 text-primary rounded-full border border-primary/30">Requis</span>
-                    </h3>
-                    <p className="text-sm text-zinc-400">
-                      Requis pour le fonctionnement du site
-                    </p>
+              {/* Cookie Preferences */}
+              <div className="space-y-4">
+                {/* Necessary Cookies */}
+                <div className="p-4 bg-accent/50 rounded-lg border border-border">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="space-y-1 flex-1">
+                      <h3 className="font-semibold text-foreground">Cookies nécessaires</h3>
+                      <p className="text-xs text-muted-foreground">
+                        Ces cookies sont essentiels au fonctionnement du site et ne peuvent pas être désactivés.
+                      </p>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-xs font-medium text-muted-foreground">Toujours actif</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Analytics cookies */}
-                <div className="flex items-start justify-between gap-4 p-4 rounded-xl bg-zinc-800/30 border border-zinc-700/50 hover:border-zinc-600/50 transition-colors">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-foreground mb-1">Cookies analytiques</h3>
-                    <p className="text-sm text-zinc-400">
-                      Pour comprendre comment vous utilisez notre site
-                    </p>
+                {/* Analytics Cookies */}
+                <div className="p-4 bg-background rounded-lg border border-border hover:border-primary/50 transition-colors">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="space-y-1 flex-1">
+                      <h3 className="font-semibold text-foreground">Cookies analytiques</h3>
+                      <p className="text-xs text-muted-foreground">
+                        Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setPreferences(prev => ({ ...prev, analytics: !prev.analytics }))}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+                        preferences.analytics ? "bg-primary" : "bg-muted"
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                          preferences.analytics ? "translate-x-6" : "translate-x-1"
+                        }`}
+                      />
+                    </button>
                   </div>
-                  <label className="relative inline-flex items-center cursor-pointer flex-shrink-0 group">
-                    <input
-                      type="checkbox"
-                      checked={preferences.analytics}
-                      onChange={(e) => setPreferences({ ...preferences, analytics: e.target.checked })}
-                      className="sr-only peer"
-                    />
-                    <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary peer-focus:ring-offset-2 peer-focus:ring-offset-zinc-900 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:duration-300 peer-checked:bg-primary shadow-inner group-hover:shadow-lg"></div>
-                  </label>
                 </div>
 
-                {/* Marketing cookies */}
-                <div className="flex items-start justify-between gap-4 p-4 rounded-xl bg-zinc-800/30 border border-zinc-700/50 hover:border-zinc-600/50 transition-colors">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-foreground mb-1">Cookies marketing</h3>
-                    <p className="text-sm text-zinc-400">
-                      Pour personnaliser les publicités
-                    </p>
+                {/* Marketing Cookies */}
+                <div className="p-4 bg-background rounded-lg border border-border hover:border-primary/50 transition-colors">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="space-y-1 flex-1">
+                      <h3 className="font-semibold text-foreground">Cookies marketing</h3>
+                      <p className="text-xs text-muted-foreground">
+                        Ces cookies sont utilisés pour vous proposer des publicités pertinentes.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setPreferences(prev => ({ ...prev, marketing: !prev.marketing }))}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+                        preferences.marketing ? "bg-primary" : "bg-muted"
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                          preferences.marketing ? "translate-x-6" : "translate-x-1"
+                        }`}
+                      />
+                    </button>
                   </div>
-                  <label className="relative inline-flex items-center cursor-pointer flex-shrink-0 group">
-                    <input
-                      type="checkbox"
-                      checked={preferences.marketing}
-                      onChange={(e) => setPreferences({ ...preferences, marketing: e.target.checked })}
-                      className="sr-only peer"
-                    />
-                    <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary peer-focus:ring-offset-2 peer-focus:ring-offset-zinc-900 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:duration-300 peer-checked:bg-primary shadow-inner group-hover:shadow-lg"></div>
-                  </label>
                 </div>
               </div>
 
-              <div className="flex gap-3">
+              {/* Footer Actions */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
                 <Button
-                  onClick={() => setShowCustomize(false)}
                   variant="outline"
-                  className="flex-1 h-11 border-zinc-700 hover:bg-zinc-800 hover:border-zinc-600 transition-all duration-300"
+                  onClick={() => setShowCustomize(false)}
+                  className="flex-1"
                 >
-                  Retour
+                  Annuler
                 </Button>
                 <Button
                   onClick={handleSavePreferences}
-                  className="flex-1 bg-primary text-black hover:bg-primary/90 hover:scale-105 font-semibold h-11 shadow-lg shadow-primary/20 transition-all duration-300"
+                  className="flex-1"
                 >
-                  Enregistrer
+                  Enregistrer les préférences
                 </Button>
               </div>
+
+              {/* Privacy Policy Link */}
+              <p className="text-xs text-center text-muted-foreground">
+                Pour en savoir plus, consultez notre{" "}
+                <Link to="/politique-cookies" className="underline hover:text-foreground transition-colors">
+                  politique de cookies
+                </Link>
+                {" "}et notre{" "}
+                <Link to="/politique-confidentialite" className="underline hover:text-foreground transition-colors">
+                  politique de confidentialité
+                </Link>
+                .
+              </p>
             </div>
           </motion.div>
-        </motion.div>
+        </>
       ) : null}
     </AnimatePresence>,
     document.body
