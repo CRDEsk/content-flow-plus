@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { PasswordProtection } from "@/components/PasswordProtection";
 import caseStudy2 from "@/assets/case-study-2.png";
 import caseStudy4 from "@/assets/case-study-4.png";
 import caseStudy5 from "@/assets/case-study-5.png";
@@ -1781,4 +1782,10 @@ const CRDPresentation = () => {
   );
 };
 
-export default CRDPresentation;
+const ProtectedPresentation = () => (
+  <PasswordProtection correctPassword="240307" storageKey="agency_presentation_auth">
+    <CRDPresentation />
+  </PasswordProtection>
+);
+
+export default ProtectedPresentation;
