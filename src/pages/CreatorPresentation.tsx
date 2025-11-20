@@ -746,11 +746,11 @@ const CreatorPresentation = () => {
 
           {/* Slide 10: Escalade Légale (Simplifiée) */}
           {slideMatches(10) && (
-            <div className="w-full max-w-5xl mx-auto">
+            <div className="w-full max-w-5xl mx-auto overflow-y-auto max-h-full">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 text-center"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 text-center"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
                 Escalade Légale
@@ -759,11 +759,11 @@ const CreatorPresentation = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="text-xl text-zinc-400 mb-12 text-center"
+                className="text-base sm:text-lg text-zinc-400 mb-4 sm:mb-6 text-center"
               >
                 Tu n'as rien à faire. On s'occupe de tout.
               </motion.p>
-              <div className="space-y-5">
+              <div className="space-y-2 sm:space-y-3">
                 {[
                   {
                     num: "1",
@@ -802,21 +802,21 @@ const CreatorPresentation = () => {
                       key={index}
                       initial={{ x: -50, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: index * 0.15 }}
-                      className="p-6 rounded-2xl bg-gradient-to-r from-[#E5C268]/10 to-transparent border-l-4 border-[#E5C268] backdrop-blur"
+                      transition={{ delay: index * 0.1 }}
+                      className="p-3 sm:p-4 rounded-xl bg-gradient-to-r from-[#E5C268]/10 to-transparent border-l-4 border-[#E5C268] backdrop-blur"
                     >
-                      <div className="flex items-start gap-5">
+                      <div className="flex items-start gap-3 sm:gap-4">
                         <div className="flex-shrink-0">
-                          <div className="w-14 h-14 rounded-xl bg-[#E5C268] flex items-center justify-center text-black text-2xl font-bold">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-[#E5C268] flex items-center justify-center text-black text-lg sm:text-xl font-bold">
                             {item.num}
                           </div>
                         </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <Icon className="w-6 h-6 text-[#E5C268]" />
-                            <h3 className="text-2xl font-bold text-white">{item.title}</h3>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 sm:gap-3 mb-1">
+                            <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#E5C268] flex-shrink-0" />
+                            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white">{item.title}</h3>
                           </div>
-                          <p className="text-zinc-400 text-lg">{item.desc}</p>
+                          <p className="text-zinc-400 text-sm sm:text-base leading-snug">{item.desc}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -826,10 +826,10 @@ const CreatorPresentation = () => {
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.9 }}
-                className="mt-8 p-6 rounded-xl bg-[#E5C268]/10 border border-[#E5C268]/30 backdrop-blur text-center"
+                transition={{ delay: 0.6 }}
+                className="mt-4 sm:mt-5 p-4 sm:p-5 rounded-xl bg-[#E5C268]/10 border border-[#E5C268]/30 backdrop-blur text-center"
               >
-                <p className="text-white text-lg">
+                <p className="text-white text-sm sm:text-base leading-relaxed">
                   <span className="text-[#E5C268] font-bold">87% des cas</span> → le lien disparaît.
                   <br />
                   Dans les cas extrêmes → le site devient inutilisable ou semble "cassé".
@@ -838,10 +838,10 @@ const CreatorPresentation = () => {
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1.1 }}
-                className="mt-6 p-6 rounded-xl bg-zinc-900/50 border border-zinc-800/60 backdrop-blur text-center"
+                transition={{ delay: 0.7 }}
+                className="mt-3 sm:mt-4 p-4 sm:p-5 rounded-xl bg-zinc-900/50 border border-zinc-800/60 backdrop-blur text-center"
               >
-                <p className="text-zinc-300 text-base">
+                <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed">
                   C'est ce qui nous différencie des agences "DMCA only". Nous allons jusqu'au bout.
                 </p>
               </motion.div>
@@ -1228,23 +1228,6 @@ const CreatorPresentation = () => {
                   );
                 })}
               </div>
-              <motion.div
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="mt-10"
-              >
-                <a
-                  href="https://cal.com/crdprotect/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#E5C268] hover:bg-[#E5C268]/90 text-black font-bold text-lg transition-all duration-300 hover:scale-105"
-                >
-                  <Phone className="w-5 h-5" />
-                  Démarrer l'audit gratuit
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </motion.div>
             </div>
           )}
 
@@ -1280,23 +1263,6 @@ const CreatorPresentation = () => {
                 <br />
                 On s'occupe du reste.
               </motion.p>
-              <motion.div
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="mt-12"
-              >
-                <a
-                  href="https://cal.com/crdprotect/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-[#E5C268] hover:bg-[#E5C268]/90 text-black font-bold text-xl transition-all duration-300 hover:scale-110 shadow-xl shadow-[#E5C268]/30"
-                >
-                  <Shield className="w-6 h-6" />
-                  Démarrer la protection
-                  <ArrowRight className="w-6 h-6" />
-                </a>
-              </motion.div>
             </div>
           )}
         </motion.div>

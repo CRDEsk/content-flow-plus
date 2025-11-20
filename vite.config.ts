@@ -22,7 +22,7 @@ export default defineConfig({
           if (
             req.url?.startsWith('/api') ||
             req.url?.startsWith('/@') ||
-            req.url === '/'
+            req.url?.startsWith('/node_modules')
           ) {
             return next();
           }
@@ -30,7 +30,7 @@ export default defineConfig({
           if (req.url && /\.\w+$/.test(req.url.split('?')[0])) {
             return next();
           }
-          // For all other routes, serve index.html
+          // For all other routes (including root), serve index.html for SPA routing
           req.url = '/index.html';
           next();
         });
