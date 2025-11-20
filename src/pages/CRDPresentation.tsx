@@ -54,12 +54,15 @@ import {
   Quote,
   Settings,
   MonitorCheck,
+  Maximize,
+  Minimize,
 } from "lucide-react";
 
 const TOTAL_SLIDES = 22;
 
 const CRDPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const totalSlides = TOTAL_SLIDES;
   const slideMatches = (id: number) => currentSlide === id;
 
@@ -69,6 +72,27 @@ const CRDPresentation = () => {
 
   const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev > 0 ? prev - 1 : 0));
+  }, []);
+
+  // Fullscreen functionality
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch((err) => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }, []);
+
+  // Track fullscreen state changes
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, []);
 
   // Keyboard navigation
@@ -82,12 +106,14 @@ const CRDPresentation = () => {
         setCurrentSlide(0);
       } else if (e.key === "End") {
         setCurrentSlide(totalSlides - 1);
+      } else if (e.key === "f" || e.key === "F") {
+        toggleFullscreen();
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [nextSlide, prevSlide, totalSlides]);
+  }, [nextSlide, prevSlide, totalSlides, toggleFullscreen]);
 
   const slideChange = (newIndex: number) => {
     setCurrentSlide(newIndex);
@@ -118,6 +144,20 @@ const CRDPresentation = () => {
 
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-black via-zinc-950 to-black overflow-hidden">
+      {/* Fullscreen toggle button */}
+      <button
+        onClick={toggleFullscreen}
+        className="fixed top-6 right-6 z-50 p-4 rounded-full bg-zinc-900/70 backdrop-blur-xl border-2 border-zinc-800/60 hover:border-[#E5C268]/70 text-[#E5C268] hover:bg-zinc-900/90 hover:scale-110 active:scale-95 transition-all duration-300 shadow-xl shadow-black/50 group"
+        aria-label={isFullscreen ? "Exit fullscreen (F)" : "Enter fullscreen (F)"}
+        title={isFullscreen ? "Exit fullscreen (F)" : "Enter fullscreen (F)"}
+      >
+        {isFullscreen ? (
+          <Minimize className="w-5 h-5" />
+        ) : (
+          <Maximize className="w-5 h-5" />
+        )}
+      </button>
+
       {/* Navigation dots - Enhanced */}
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex gap-2 max-w-[90vw] overflow-x-auto px-4 py-2 scrollbar-hide">
         {Array.from({ length: totalSlides }).map((_, index) => (
