@@ -85,6 +85,7 @@ const PolitiqueConfidentialite = lazyWithRetry(() => import("./pages/PolitiqueCo
 const CGV = lazyWithRetry(() => import("./pages/CGV"));
 const PolitiqueRemboursement = lazyWithRetry(() => import("./pages/PolitiqueRemboursement"));
 const PolitiqueCookies = lazyWithRetry(() => import("./pages/PolitiqueCookies"));
+const CRDPresentation = lazyWithRetry(() => import("./pages/CRDPresentation"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -144,7 +145,8 @@ const AppContent = () => {
     '/politique-cookies',
     '/mentions-legales',
     '/international-protection',
-    '/pour-agences'
+    '/pour-agences',
+    '/presentation'
   ];
   const shouldShowCookieBanner = !excludedPages.includes(location.pathname);
 
@@ -701,6 +703,7 @@ const AppContent = () => {
           <Route path="/cgv" element={<PageTransition><CGV /></PageTransition>} />
           <Route path="/politique-remboursement" element={<PageTransition><PolitiqueRemboursement /></PageTransition>} />
           <Route path="/politique-cookies" element={<PageTransition><PolitiqueCookies /></PageTransition>} />
+          <Route path="/presentation" element={<PageTransition><CRDPresentation /></PageTransition>} />
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </Suspense>
