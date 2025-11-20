@@ -39,15 +39,28 @@ const TOTAL_SLIDES = 14;
 const CreatorPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [direction, setDirection] = useState(0);
   const totalSlides = TOTAL_SLIDES;
   const slideMatches = (id: number) => currentSlide === id;
 
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev < totalSlides - 1 ? prev + 1 : prev));
+    setCurrentSlide((prev) => {
+      if (prev < totalSlides - 1) {
+        setDirection(1);
+        return prev + 1;
+      }
+      return prev;
+    });
   }, [totalSlides]);
 
   const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : 0));
+    setCurrentSlide((prev) => {
+      if (prev > 0) {
+        setDirection(-1);
+        return prev - 1;
+      }
+      return 0;
+    });
   }, []);
 
   const toggleFullscreen = useCallback(() => {
@@ -87,6 +100,7 @@ const CreatorPresentation = () => {
   }, [nextSlide, prevSlide, totalSlides, toggleFullscreen]);
 
   const slideChange = (newIndex: number) => {
+    setDirection(newIndex > currentSlide ? 1 : -1);
     setCurrentSlide(newIndex);
   };
 
@@ -110,10 +124,14 @@ const CreatorPresentation = () => {
     }),
   };
 
-  const [direction] = useState(0);
-
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-black via-zinc-950 to-black overflow-hidden">
+      {/* Slide number indicator */}
+      <div className="fixed top-6 left-6 z-50 px-4 py-2 rounded-full bg-zinc-900/70 backdrop-blur-xl border-2 border-zinc-800/60">
+        <span className="text-[#E5C268] font-semibold text-sm">
+          {currentSlide + 1} / {totalSlides}
+        </span>
+      </div>
       {/* Fullscreen toggle */}
       <button
         onClick={toggleFullscreen}
