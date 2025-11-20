@@ -32,9 +32,17 @@ import {
   FileCheck,
   Bell,
   HelpCircle,
+  Webhook,
+  Users,
+  Globe,
+  Download,
+  RotateCw,
+  Database,
+  Scale,
+  Building2,
 } from "lucide-react";
 
-const TOTAL_SLIDES = 14;
+const TOTAL_SLIDES = 18;
 
 const CreatorPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -445,8 +453,58 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 4: Pourquoi C'est Difficile Sans Nous */}
+          {/* Slide 4: D'où viennent les fuites */}
           {slideMatches(4) && (
+            <div className="w-full max-w-5xl mx-auto">
+              <motion.h2
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 text-center"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                D'où viennent les fuites ?
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl text-zinc-400 mb-12 text-center"
+              >
+                Tu ne peux pas contrôler ça seule. C'est un écosystème entier.
+              </motion.p>
+              <div className="grid sm:grid-cols-2 gap-5">
+                {[
+                  { icon: Webhook, text: "Sites automatiques qui volent ton contenu dès qu'il est posté" },
+                  { icon: Globe, text: "Copies russes/moldaves qui republient sans limite" },
+                  { icon: Users, text: "Fans mal intentionnés qui partagent en privé" },
+                  { icon: X, text: "Comptes fake qui se font passer pour toi" },
+                  { icon: MessageSquare, text: "Forums cachés + Telegram" },
+                  { icon: Database, text: "Mirror sites (copies d'un site en 30 versions différentes)" },
+                ].map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="p-5 rounded-xl bg-zinc-900/50 border border-zinc-800/60 backdrop-blur hover:border-red-500/40 transition-all duration-300"
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center mt-1">
+                          <Icon className="w-5 h-5 text-red-400" />
+                        </div>
+                        <p className="text-white">{item.text}</p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Slide 5: Pourquoi C'est Difficile Sans Nous */}
+          {slideMatches(5) && (
             <div className="w-full max-w-5xl mx-auto">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
@@ -495,8 +553,55 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 5: Notre Solution */}
-          {slideMatches(5) && (
+          {/* Slide 6: Pourquoi agir maintenant */}
+          {slideMatches(6) && (
+            <div className="w-full max-w-5xl mx-auto">
+              <motion.h2
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 text-center"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                Pourquoi agir maintenant ?
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl text-zinc-400 mb-12 text-center"
+              >
+                Agir tôt = sauver ton image et ton business
+              </motion.p>
+              <div className="space-y-4">
+                {[
+                  { icon: Timer, text: "Plus tu attends, plus ça circule", color: "red" },
+                  { icon: Search, text: "Plus le contenu reste en ligne, plus Google l'indexe", color: "red" },
+                  { icon: RotateCw, text: "Les reposts deviennent automatiques (1 fuite → 20 copies)", color: "red" },
+                  { icon: Heart, text: "L'impact mental et réputationnel augmente", color: "red" },
+                  { icon: TrendingDown, text: "Les revenus baissent si les leaks se diffusent trop", color: "red" },
+                ].map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ x: -30, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="p-5 rounded-xl bg-zinc-900/50 border border-red-500/20 backdrop-blur flex items-center gap-4 hover:border-red-500/50 transition-all duration-300"
+                    >
+                      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-red-400" />
+                      </div>
+                      <p className="text-white text-lg">{item.text}</p>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Slide 7: Notre Solution */}
+          {slideMatches(7) && (
             <div className="w-full max-w-5xl mx-auto">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
@@ -544,8 +649,56 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 6: Comment Ça Marche */}
-          {slideMatches(6) && (
+          {/* Slide 8: Ce que tu n'as PAS besoin de faire */}
+          {slideMatches(8) && (
+            <div className="w-full max-w-5xl mx-auto">
+              <motion.h2
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 text-center"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                Ce que tu n'as PAS besoin de faire
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl text-zinc-400 mb-12 text-center"
+              >
+                Tu postes, on protège.
+              </motion.p>
+              <div className="space-y-4">
+                {[
+                  { icon: Search, text: "Pas besoin de chercher tes fuites → on trouve tout" },
+                  { icon: MessageSquare, text: "Pas besoin de contacter les sites" },
+                  { icon: Scale, text: "Pas besoin de comprendre le juridique" },
+                  { icon: Bell, text: "Pas besoin de surveiller ton pseudo" },
+                  { icon: X, text: "Pas besoin d'envoyer 100 messages" },
+                  { icon: Heart, text: "Pas besoin de gérer le stress" },
+                ].map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ x: -30, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="p-5 rounded-xl bg-gradient-to-r from-[#E5C268]/10 to-transparent border-l-4 border-[#E5C268] backdrop-blur flex items-center gap-4"
+                    >
+                      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#E5C268]/20 flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-[#E5C268]" />
+                      </div>
+                      <p className="text-white text-lg">{item.text}</p>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Slide 9: Comment Ça Marche */}
+          {slideMatches(9) && (
             <div className="w-full max-w-5xl mx-auto">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
@@ -591,8 +744,112 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 7: Exemple de Rapports */}
-          {slideMatches(7) && (
+          {/* Slide 10: Escalade Légale (Simplifiée) */}
+          {slideMatches(10) && (
+            <div className="w-full max-w-5xl mx-auto">
+              <motion.h2
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 text-center"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                Escalade Légale
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl text-zinc-400 mb-12 text-center"
+              >
+                Tu n'as rien à faire. On s'occupe de tout.
+              </motion.p>
+              <div className="space-y-5">
+                {[
+                  {
+                    num: "1",
+                    icon: FileCheck,
+                    title: "DMCA officiel",
+                    desc: "On envoie une demande légale de retrait.",
+                  },
+                  {
+                    num: "2",
+                    icon: Database,
+                    title: "Pression sur l'hébergeur",
+                    desc: "Si le site ignore → on contacte l'entreprise qui héberge le site.",
+                  },
+                  {
+                    num: "3",
+                    icon: Globe,
+                    title: "Pression sur le registrar",
+                    desc: "Si l'hébergeur ignore → on contacte l'entreprise qui gère le nom de domaine.",
+                  },
+                  {
+                    num: "4",
+                    icon: Target,
+                    title: "Signalement ICANN",
+                    desc: "Si le registrar ignore → on ouvre un dossier ICANN (autorité mondiale des domaines).",
+                  },
+                  {
+                    num: "5",
+                    icon: Building2,
+                    title: "Poursuites judiciaires",
+                    desc: "Si ICANN n'agit pas → nous engageons des poursuites légales via nos partenaires juridiques.",
+                  },
+                ].map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ x: -50, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.15 }}
+                      className="p-6 rounded-2xl bg-gradient-to-r from-[#E5C268]/10 to-transparent border-l-4 border-[#E5C268] backdrop-blur"
+                    >
+                      <div className="flex items-start gap-5">
+                        <div className="flex-shrink-0">
+                          <div className="w-14 h-14 rounded-xl bg-[#E5C268] flex items-center justify-center text-black text-2xl font-bold">
+                            {item.num}
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <Icon className="w-6 h-6 text-[#E5C268]" />
+                            <h3 className="text-2xl font-bold text-white">{item.title}</h3>
+                          </div>
+                          <p className="text-zinc-400 text-lg">{item.desc}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.9 }}
+                className="mt-8 p-6 rounded-xl bg-[#E5C268]/10 border border-[#E5C268]/30 backdrop-blur text-center"
+              >
+                <p className="text-white text-lg">
+                  <span className="text-[#E5C268] font-bold">87% des cas</span> → le lien disparaît.
+                  <br />
+                  Dans les cas extrêmes → le site devient inutilisable ou semble "cassé".
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 1.1 }}
+                className="mt-6 p-6 rounded-xl bg-zinc-900/50 border border-zinc-800/60 backdrop-blur text-center"
+              >
+                <p className="text-zinc-300 text-base">
+                  C'est ce qui nous différencie des agences "DMCA only". Nous allons jusqu'au bout.
+                </p>
+              </motion.div>
+            </div>
+          )}
+
+          {/* Slide 11: Exemple de Rapports */}
+          {slideMatches(11) && (
             <div className="w-full max-w-5xl mx-auto text-center">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
@@ -669,8 +926,8 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 8: Pourquoi Notre Méthode Fonctionne */}
-          {slideMatches(8) && (
+          {/* Slide 12: Pourquoi Notre Méthode Fonctionne */}
+          {slideMatches(12) && (
             <div className="w-full max-w-5xl mx-auto">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
@@ -714,8 +971,8 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 9: Témoignages */}
-          {slideMatches(9) && (
+          {/* Slide 13: Témoignages */}
+          {slideMatches(13) && (
             <div className="w-full max-w-5xl mx-auto">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
@@ -768,8 +1025,8 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 10: Résultats Globaux */}
-          {slideMatches(10) && (
+          {/* Slide 14: Résultats Globaux */}
+          {slideMatches(14) && (
             <div className="w-full max-w-6xl mx-auto text-center">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
@@ -807,8 +1064,8 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 11: Plans & Tarifs */}
-          {slideMatches(11) && (
+          {/* Slide 15: Plans & Tarifs */}
+          {slideMatches(15) && (
             <div className="w-full max-w-6xl mx-auto">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
@@ -877,8 +1134,8 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 12: FAQ */}
-          {slideMatches(12) && (
+          {/* Slide 16: FAQ */}
+          {slideMatches(16) && (
             <div className="w-full max-w-4xl mx-auto">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
@@ -931,8 +1188,8 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 13: Prochaines Étapes */}
-          {slideMatches(13) && (
+          {/* Slide 17: Prochaines Étapes */}
+          {slideMatches(17) && (
             <div className="w-full max-w-4xl mx-auto text-center">
               <motion.h2
                 initial={{ y: -20, opacity: 0 }}
@@ -991,8 +1248,8 @@ const CreatorPresentation = () => {
             </div>
           )}
 
-          {/* Slide 14: Final */}
-          {slideMatches(13) && (
+          {/* Slide 18: Final */}
+          {slideMatches(17) && (
             <div className="w-full max-w-5xl mx-auto text-center space-y-10">
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
