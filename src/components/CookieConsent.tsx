@@ -250,31 +250,31 @@ const CookieConsent = () => {
                 ease: "easeInOut"
               }
             }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[102] w-[calc(100%-2rem)] max-w-lg max-h-[90vh] overflow-y-auto"
+            className="fixed inset-x-4 top-1/2 -translate-y-1/2 z-[102] max-w-lg mx-auto max-h-[85vh] overflow-y-auto"
           >
             <div className="bg-zinc-900 border border-primary/20 rounded-lg shadow-2xl overflow-hidden">
               {/* Header */}
               <div className="bg-gradient-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b border-primary/20">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <Settings className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
-                  <h2 className="text-lg sm:text-xl font-semibold text-white">Préférences des cookies</h2>
+                  <h2 className="text-base sm:text-xl font-semibold text-white leading-tight">Préférences des cookies</h2>
                 </div>
-                <p className="text-xs sm:text-sm text-zinc-400 mt-2">
-                  Gérez vos préférences en matière de cookies et de confidentialité
+                <p className="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                  Gérez vos préférences en matière de cookies
                 </p>
               </div>
 
               {/* Content */}
               <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
                 {/* Necessary cookies */}
-                <div className="flex flex-col sm:flex-row items-start justify-between gap-3 p-3 sm:p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
-                  <div className="flex-1">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-2 p-3 sm:p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-medium text-white text-sm sm:text-base mb-1">Cookies nécessaires</h3>
-                    <p className="text-xs sm:text-sm text-zinc-400">
-                      Essentiels au fonctionnement du site. Ne peuvent pas être désactivés.
+                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                      Essentiels au fonctionnement du site
                     </p>
                   </div>
-                  <div className="flex items-center self-start">
+                  <div className="flex items-center self-start flex-shrink-0">
                     <div className="px-2 sm:px-3 py-1 bg-primary/20 text-primary text-xs font-medium rounded-full whitespace-nowrap">
                       Toujours actifs
                     </div>
@@ -282,19 +282,20 @@ const CookieConsent = () => {
                 </div>
 
                 {/* Analytics cookies */}
-                <div className="flex flex-col sm:flex-row items-start justify-between gap-3 p-3 sm:p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
-                  <div className="flex-1">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-2 p-3 sm:p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-medium text-white text-sm sm:text-base mb-1">Cookies analytiques</h3>
-                    <p className="text-xs sm:text-sm text-zinc-400">
-                      Nous aident à comprendre comment vous utilisez notre site.
+                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                      Pour comprendre votre usage
                     </p>
                   </div>
-                  <div className="flex items-center self-start">
+                  <div className="flex items-center self-start flex-shrink-0">
                     <button
                       onClick={() => setPreferences({ ...preferences, analytics: !preferences.analytics })}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                         preferences.analytics ? 'bg-primary' : 'bg-zinc-600'
                       }`}
+                      aria-label="Toggle analytics cookies"
                     >
                       <span
                         className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
@@ -306,19 +307,20 @@ const CookieConsent = () => {
                 </div>
 
                 {/* Marketing cookies */}
-                <div className="flex flex-col sm:flex-row items-start justify-between gap-3 p-3 sm:p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
-                  <div className="flex-1">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-2 p-3 sm:p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-medium text-white text-sm sm:text-base mb-1">Cookies marketing</h3>
-                    <p className="text-xs sm:text-sm text-zinc-400">
-                      Utilisés pour personnaliser les publicités et le contenu.
+                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                      Pour personnaliser le contenu
                     </p>
                   </div>
-                  <div className="flex items-center self-start">
+                  <div className="flex items-center self-start flex-shrink-0">
                     <button
                       onClick={() => setPreferences({ ...preferences, marketing: !preferences.marketing })}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                         preferences.marketing ? 'bg-primary' : 'bg-zinc-600'
                       }`}
+                      aria-label="Toggle marketing cookies"
                     >
                       <span
                         className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
