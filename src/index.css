@@ -800,6 +800,21 @@ body > div:has(iframe[src*="app.cal.com"]):not([data-cal-link]):not([data-cal-na
   translate: none !important;
 }
 
+/* Cookie consent portal - ensure fixed positioning works */
+#cookie-consent-portal {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+  transform: none !important;
+  pointer-events: none;
+}
+
+#cookie-consent-portal > * {
+  pointer-events: auto;
+}
+
 /* Cal.com modal container - target all variations including parent-child relationships */
 div[class*="cal-modal"] > div,
 div[class*="cal-popup"] > div,
