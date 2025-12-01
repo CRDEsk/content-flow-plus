@@ -250,9 +250,9 @@ const CookieConsent = () => {
                 ease: "easeInOut"
               }
             }}
-            className="fixed inset-x-4 top-1/2 -translate-y-1/2 z-[102] max-w-lg mx-auto max-h-[85vh] overflow-y-auto"
+            className="fixed inset-x-4 top-[5vh] bottom-[5vh] z-[102] max-w-lg mx-auto flex flex-col"
           >
-            <div className="bg-zinc-900 border border-primary/20 rounded-lg shadow-2xl overflow-hidden">
+            <div className="bg-zinc-900 border border-primary/20 rounded-lg shadow-2xl overflow-hidden flex flex-col h-full">
               {/* Header */}
               <div className="bg-gradient-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b border-primary/20">
                 <div className="flex items-center gap-2 sm:gap-3">
@@ -265,7 +265,7 @@ const CookieConsent = () => {
               </div>
 
               {/* Content */}
-              <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+              <div className="p-4 sm:p-6 space-y-3 overflow-y-auto flex-1">
                 {/* Necessary cookies */}
                 <div className="flex flex-col sm:flex-row items-start justify-between gap-2 p-3 sm:p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
                   <div className="flex-1 min-w-0">
@@ -333,19 +333,19 @@ const CookieConsent = () => {
               </div>
 
               {/* Footer */}
-              <div className="p-4 sm:p-6 bg-zinc-800/30 border-t border-zinc-700 flex flex-col gap-3">
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 text-xs sm:text-sm">
+              <div className="p-3 sm:p-4 bg-zinc-800/30 border-t border-zinc-700 flex flex-col gap-2 flex-shrink-0">
+                <div className="flex flex-wrap gap-2 text-xs">
                   <Link
                     to="/politique-cookies"
                     className="text-primary hover:underline"
                   >
-                    Politique des cookies
+                    Cookies
                   </Link>
                   <Link
                     to="/politique-confidentialite"
                     className="text-primary hover:underline"
                   >
-                    Politique de confidentialité
+                    Confidentialité
                   </Link>
                 </div>
                 <div className="flex gap-2 justify-end">
@@ -353,7 +353,7 @@ const CookieConsent = () => {
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowCustomize(false)}
-                    className="text-zinc-400 hover:text-white text-xs sm:text-sm"
+                    className="text-zinc-400 hover:text-white text-xs h-8"
                   >
                     Annuler
                   </Button>
@@ -361,7 +361,7 @@ const CookieConsent = () => {
                     variant="default"
                     size="sm"
                     onClick={handleSavePreferences}
-                    className="bg-primary text-black hover:bg-primary/90 text-xs sm:text-sm"
+                    className="bg-primary text-black hover:bg-primary/90 text-xs h-8"
                   >
                     Enregistrer
                   </Button>
