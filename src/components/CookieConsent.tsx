@@ -186,12 +186,12 @@ const CookieConsent = () => {
                   </Link>
                 </p>
               </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex items-center gap-2 flex-shrink-0 pointer-events-auto">
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowCustomize(true)}
-                  className="text-zinc-400 hover:text-white"
+                  className="text-zinc-400 hover:text-white pointer-events-auto"
                 >
                   <Settings className="w-4 h-4 mr-1" />
                   Personnaliser
@@ -200,7 +200,7 @@ const CookieConsent = () => {
                   variant="ghost"
                   size="sm"
                   onClick={handleRejectAll}
-                  className="text-zinc-400 hover:text-white"
+                  className="text-zinc-400 hover:text-white pointer-events-auto"
                 >
                   Refuser
                 </Button>
@@ -208,7 +208,7 @@ const CookieConsent = () => {
                   variant="default"
                   size="sm"
                   onClick={handleAcceptAll}
-                  className="bg-primary text-black hover:bg-primary/90"
+                  className="bg-primary text-black hover:bg-primary/90 pointer-events-auto"
                 >
                   Tout accepter
                 </Button>
@@ -250,9 +250,9 @@ const CookieConsent = () => {
                 ease: "easeInOut"
               }
             }}
-            className="fixed inset-x-4 top-[5vh] bottom-[5vh] z-[102] max-w-lg mx-auto flex flex-col"
+            className="fixed inset-x-4 top-[5vh] bottom-[5vh] z-[102] max-w-lg mx-auto flex flex-col pointer-events-auto"
           >
-            <div className="bg-zinc-900 border border-primary/20 rounded-lg shadow-2xl overflow-hidden flex flex-col h-full">
+            <div className="bg-zinc-900 border border-primary/20 rounded-lg shadow-2xl overflow-hidden flex flex-col h-full pointer-events-auto">
               {/* Header */}
               <div className="bg-gradient-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b border-primary/20">
                 <div className="flex items-center gap-2 sm:gap-3">
@@ -348,12 +348,12 @@ const CookieConsent = () => {
                     Confidentialité
                   </Link>
                 </div>
-                <div className="flex gap-2 justify-end">
+                <div className="flex gap-2 justify-end pointer-events-auto">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowCustomize(false)}
-                    className="text-zinc-400 hover:text-white text-xs h-8"
+                    className="text-zinc-400 hover:text-white text-xs h-8 pointer-events-auto cursor-pointer"
                   >
                     Annuler
                   </Button>
@@ -361,7 +361,7 @@ const CookieConsent = () => {
                     variant="default"
                     size="sm"
                     onClick={handleSavePreferences}
-                    className="bg-primary text-black hover:bg-primary/90 text-xs h-8"
+                    className="bg-primary text-black hover:bg-primary/90 text-xs h-8 pointer-events-auto cursor-pointer"
                   >
                     Enregistrer
                   </Button>
