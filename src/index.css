@@ -395,7 +395,7 @@ nav[class*="lg:hidden"] a[class*="from-primary"] span {
     }
 
     /* Reduce repaints on scroll */
-    body {
+    #root {
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
     }
