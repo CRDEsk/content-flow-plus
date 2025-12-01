@@ -30,6 +30,18 @@ const CookieConsent = () => {
   useEffect(() => {
     const container = document.createElement('div');
     container.id = 'cookie-consent-portal';
+    
+    // Add explicit styles to ensure fixed positioning works
+    container.style.cssText = `
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 9999 !important;
+      pointer-events: none;
+      transform: none !important;
+    `;
+    
     document.body.appendChild(container);
     setPortalContainer(container);
     
@@ -155,7 +167,8 @@ const CookieConsent = () => {
               ease: "easeInOut"
             }
           }}
-          className="fixed bottom-0 left-0 right-0 z-[100] bg-black/95 backdrop-blur-md border-t border-primary/20 shadow-lg"
+          className="relative w-full bg-black/95 backdrop-blur-md border-t border-primary/20 shadow-lg pointer-events-auto"
+          style={{ transform: 'none' }}
         >
           <div className="container mx-auto px-4 py-4">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
