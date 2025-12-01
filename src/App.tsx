@@ -26,13 +26,19 @@ const lazyWithRetry = (componentImport: () => Promise<any>) => {
       
       // Only retry in production, not in development
       if (import.meta.env.PROD) {
-        // Check if this is a MIME type error (server returning HTML instead of JS)
-        const isMimeError = errorMessage.includes('MIME type') || errorMessage.includes('text/html');
+        // Check for various types of loading errors
+        const isLoadError = 
+          errorMessage.includes('MIME type') || 
+          errorMessage.includes('text/html') ||
+          errorMessage.includes('Failed to fetch') ||
+          errorMessage.includes('NetworkError') ||
+          errorMessage.includes('Loading chunk') ||
+          errorMessage.includes('Importing a module script failed');
         
         // Check if we've already tried reloading
         const retryCount = parseInt(window.sessionStorage.getItem('chunk-load-retry-count') || '0');
         
-        if (retryCount < 1 && isMimeError) {
+        if (retryCount < 1 && isLoadError) {
           // For MIME errors, reload immediately (likely a server config issue)
           window.sessionStorage.setItem('chunk-load-retry-count', String(retryCount + 1));
           // Use requestIdleCallback or setTimeout to avoid interrupting React

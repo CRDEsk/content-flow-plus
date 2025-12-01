@@ -10,6 +10,7 @@ interface State {
   hasError: boolean;
   error: Error | null;
   errorInfo: ErrorInfo | null;
+  isRetrying: boolean;
 }
 
 interface ErrorBoundaryProps extends Props {
@@ -21,10 +22,19 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, State> {
     hasError: false,
     error: null,
     errorInfo: null,
+    isRetrying: false,
   };
 
   public static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error, errorInfo: null };
+    // In production, check if we should retry
+    if (import.meta.env.PROD) {
+      const retryCount = parseInt(sessionStorage.getItem('error-retry-count') || '0');
+      if (retryCount < 1) {
+        // We'll retry, so show loading state instead of error
+        return { hasError: true, error, errorInfo: null, isRetrying: true };
+      }
+    }
+    return { hasError: true, error, errorInfo: null, isRetrying: false };
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -50,18 +60,24 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, State> {
       const retryCount = parseInt(sessionStorage.getItem('error-retry-count') || '0');
       
       if (retryCount < 1) {
+        // Set retrying state immediately
+        this.setState({
+          isRetrying: true,
+        });
+        
         // Increment retry count
         sessionStorage.setItem('error-retry-count', String(retryCount + 1));
         
-        // Reset error state and reload after a short delay
+        // Reset error state and reload after a shorter delay
         setTimeout(() => {
           this.setState({
             hasError: false,
             error: null,
             errorInfo: null,
+            isRetrying: false,
           });
           window.location.reload();
-        }, 1500);
+        }, 500);
         
         return; // Don't set error state, just retry
       }
@@ -71,6 +87,7 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, State> {
     this.setState({
       error,
       errorInfo,
+      isRetrying: false,
     });
   }
 
@@ -85,6 +102,15 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, State> {
   };
 
   public render() {
+    // Show loading spinner during retry
+    if (this.state.hasError && this.state.isRetrying) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-black">
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+        </div>
+      );
+    }
+
     if (this.state.hasError) {
       const { t } = this.props;
       return (
