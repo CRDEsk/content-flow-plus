@@ -250,49 +250,49 @@ const CookieConsent = () => {
                 ease: "easeInOut"
               }
             }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[102] w-full max-w-lg mx-4"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[102] w-[calc(100%-2rem)] max-w-lg max-h-[90vh] overflow-y-auto"
           >
             <div className="bg-zinc-900 border border-primary/20 rounded-lg shadow-2xl overflow-hidden">
               {/* Header */}
-              <div className="bg-gradient-to-r from-primary/10 to-transparent p-6 border-b border-primary/20">
-                <div className="flex items-center gap-3">
-                  <Settings className="w-6 h-6 text-primary" />
-                  <h2 className="text-xl font-semibold text-white">Préférences des cookies</h2>
+              <div className="bg-gradient-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b border-primary/20">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <Settings className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                  <h2 className="text-lg sm:text-xl font-semibold text-white">Préférences des cookies</h2>
                 </div>
-                <p className="text-sm text-zinc-400 mt-2">
+                <p className="text-xs sm:text-sm text-zinc-400 mt-2">
                   Gérez vos préférences en matière de cookies et de confidentialité
                 </p>
               </div>
 
               {/* Content */}
-              <div className="p-6 space-y-4">
+              <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
                 {/* Necessary cookies */}
-                <div className="flex items-start justify-between p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-3 p-3 sm:p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
                   <div className="flex-1">
-                    <h3 className="font-medium text-white mb-1">Cookies nécessaires</h3>
-                    <p className="text-sm text-zinc-400">
+                    <h3 className="font-medium text-white text-sm sm:text-base mb-1">Cookies nécessaires</h3>
+                    <p className="text-xs sm:text-sm text-zinc-400">
                       Essentiels au fonctionnement du site. Ne peuvent pas être désactivés.
                     </p>
                   </div>
-                  <div className="ml-4 flex items-center">
-                    <div className="px-3 py-1 bg-primary/20 text-primary text-xs font-medium rounded-full">
+                  <div className="flex items-center self-start">
+                    <div className="px-2 sm:px-3 py-1 bg-primary/20 text-primary text-xs font-medium rounded-full whitespace-nowrap">
                       Toujours actifs
                     </div>
                   </div>
                 </div>
 
                 {/* Analytics cookies */}
-                <div className="flex items-start justify-between p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-3 p-3 sm:p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
                   <div className="flex-1">
-                    <h3 className="font-medium text-white mb-1">Cookies analytiques</h3>
-                    <p className="text-sm text-zinc-400">
+                    <h3 className="font-medium text-white text-sm sm:text-base mb-1">Cookies analytiques</h3>
+                    <p className="text-xs sm:text-sm text-zinc-400">
                       Nous aident à comprendre comment vous utilisez notre site.
                     </p>
                   </div>
-                  <div className="ml-4">
+                  <div className="flex items-center self-start">
                     <button
                       onClick={() => setPreferences({ ...preferences, analytics: !preferences.analytics })}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
                         preferences.analytics ? 'bg-primary' : 'bg-zinc-600'
                       }`}
                     >
@@ -306,17 +306,17 @@ const CookieConsent = () => {
                 </div>
 
                 {/* Marketing cookies */}
-                <div className="flex items-start justify-between p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-3 p-3 sm:p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
                   <div className="flex-1">
-                    <h3 className="font-medium text-white mb-1">Cookies marketing</h3>
-                    <p className="text-sm text-zinc-400">
+                    <h3 className="font-medium text-white text-sm sm:text-base mb-1">Cookies marketing</h3>
+                    <p className="text-xs sm:text-sm text-zinc-400">
                       Utilisés pour personnaliser les publicités et le contenu.
                     </p>
                   </div>
-                  <div className="ml-4">
+                  <div className="flex items-center self-start">
                     <button
                       onClick={() => setPreferences({ ...preferences, marketing: !preferences.marketing })}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
                         preferences.marketing ? 'bg-primary' : 'bg-zinc-600'
                       }`}
                     >
@@ -331,26 +331,27 @@ const CookieConsent = () => {
               </div>
 
               {/* Footer */}
-              <div className="p-6 bg-zinc-800/30 border-t border-zinc-700 flex flex-col sm:flex-row gap-3">
-                <Link
-                  to="/politique-cookies"
-                  className="text-sm text-primary hover:underline"
-                >
-                  Politique des cookies
-                </Link>
-                <Link
-                  to="/politique-confidentialite"
-                  className="text-sm text-primary hover:underline"
-                >
-                  Politique de confidentialité
-                </Link>
-                <div className="flex-1" />
-                <div className="flex gap-2">
+              <div className="p-4 sm:p-6 bg-zinc-800/30 border-t border-zinc-700 flex flex-col gap-3">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 text-xs sm:text-sm">
+                  <Link
+                    to="/politique-cookies"
+                    className="text-primary hover:underline"
+                  >
+                    Politique des cookies
+                  </Link>
+                  <Link
+                    to="/politique-confidentialite"
+                    className="text-primary hover:underline"
+                  >
+                    Politique de confidentialité
+                  </Link>
+                </div>
+                <div className="flex gap-2 justify-end">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowCustomize(false)}
-                    className="text-zinc-400 hover:text-white"
+                    className="text-zinc-400 hover:text-white text-xs sm:text-sm"
                   >
                     Annuler
                   </Button>
@@ -358,7 +359,7 @@ const CookieConsent = () => {
                     variant="default"
                     size="sm"
                     onClick={handleSavePreferences}
-                    className="bg-primary text-black hover:bg-primary/90"
+                    className="bg-primary text-black hover:bg-primary/90 text-xs sm:text-sm"
                   >
                     Enregistrer
                   </Button>
