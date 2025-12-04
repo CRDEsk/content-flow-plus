@@ -93,6 +93,7 @@ const PolitiqueRemboursement = lazyWithRetry(() => import("./pages/PolitiqueRemb
 const PolitiqueCookies = lazyWithRetry(() => import("./pages/PolitiqueCookies"));
 const CRDPresentation = lazyWithRetry(() => import("./pages/CRDPresentation"));
 const CreatorPresentation = lazyWithRetry(() => import("./pages/CreatorPresentation"));
+const AgencyPresentation2 = lazyWithRetry(() => import("./pages/AgencyPresentation2"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -713,6 +714,7 @@ const AppContent = () => {
           <Route path="/politique-cookies" element={<PageTransition><PolitiqueCookies /></PageTransition>} />
           <Route path="/presentation" element={<PageTransition><CRDPresentation /></PageTransition>} />
           <Route path="/presentation-createurs" element={<PageTransition><CreatorPresentation /></PageTransition>} />
+          <Route path="/agency-presentation-2" element={<PageTransition><AgencyPresentation2 /></PageTransition>} />
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </Suspense>
