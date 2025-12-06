@@ -94,6 +94,7 @@ const PolitiqueCookies = lazyWithRetry(() => import("./pages/PolitiqueCookies"))
 const CRDPresentation = lazyWithRetry(() => import("./pages/CRDPresentation"));
 const CreatorPresentation = lazyWithRetry(() => import("./pages/CreatorPresentation"));
 const AgencyPresentation2 = lazyWithRetry(() => import("./pages/AgencyPresentation2"));
+const Presentation = lazyWithRetry(() => import("./pages/Presentation"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -155,7 +156,8 @@ const AppContent = () => {
     '/international-protection',
     '/pour-agences',
     '/presentation',
-    '/presentation-createurs'
+    '/presentation-createurs',
+    '/pr'
   ];
   const shouldShowCookieBanner = !excludedPages.includes(location.pathname);
 
@@ -715,6 +717,7 @@ const AppContent = () => {
           <Route path="/presentation" element={<PageTransition><CRDPresentation /></PageTransition>} />
           <Route path="/presentation-createurs" element={<PageTransition><CreatorPresentation /></PageTransition>} />
           <Route path="/agency-presentation-2" element={<PageTransition><AgencyPresentation2 /></PageTransition>} />
+          <Route path="/pr" element={<PageTransition><Presentation /></PageTransition>} />
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </Suspense>
