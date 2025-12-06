@@ -27,7 +27,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { t } = useLanguage();
+  const { t, language: currentLanguage } = useLanguage();
 
   // Get brand theme based on current route
   const brandTheme = getBrandTheme(location.pathname, { usePurpleTheme });
@@ -192,6 +192,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
     { type: 'divider' },
     // Group 3: About & Contact
     { label: t("header.about"), href: "/a-propos" },
+    { label: t("header.blog"), href: "/blog" },
     { label: t("header.contact"), href: "/contact" },
     { label: t("header.mySpace"), href: "https://espace.contentremovaldesk.com", external: true },
   ];

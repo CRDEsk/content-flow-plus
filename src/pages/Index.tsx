@@ -8,6 +8,7 @@ import HowItWorksSection from "@/components/HowItWorksSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
+import BlogPreviewSection from "@/components/BlogPreviewSection";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
@@ -52,6 +53,7 @@ const Index = () => {
           <TestimonialsSection />
           <FAQSection />
           <CaseStudiesSection />
+          <BlogPreviewSection />
         </main>
         <Footer />
       </div>

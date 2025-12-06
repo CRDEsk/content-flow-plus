@@ -95,6 +95,19 @@ const CRDPresentation = lazyWithRetry(() => import("./pages/CRDPresentation"));
 const CreatorPresentation = lazyWithRetry(() => import("./pages/CreatorPresentation"));
 const AgencyPresentation2 = lazyWithRetry(() => import("./pages/AgencyPresentation2"));
 const Presentation = lazyWithRetry(() => import("./pages/Presentation"));
+const BlogList = lazyWithRetry(() => import("./blog/pages/BlogList"));
+const BlogPost = lazyWithRetry(() => import("./blog/pages/BlogPost"));
+const BlogCategory = lazyWithRetry(() => import("./blog/pages/BlogCategory"));
+const BlogTag = lazyWithRetry(() => import("./blog/pages/BlogTag"));
+
+// Check if we're on blog subdomain
+const isBlogSubdomain = () => {
+  if (typeof window === 'undefined') {
+    return process.env.BLOG_SUBDOMAIN === 'true';
+  }
+  return window.location.hostname === 'blog.contentremovaldesk.com' || 
+         window.location.hostname === 'localhost' && process.env.BLOG_SUBDOMAIN === 'true';
+};
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -718,6 +731,24 @@ const AppContent = () => {
           <Route path="/presentation-createurs" element={<PageTransition><CreatorPresentation /></PageTransition>} />
           <Route path="/agency-presentation-2" element={<PageTransition><AgencyPresentation2 /></PageTransition>} />
           <Route path="/pr" element={<PageTransition><Presentation /></PageTransition>} />
+          {/* Blog routes - work on both main domain and subdomain */}
+          {isBlogSubdomain() ? (
+            <>
+              {/* Subdomain: routes at root */}
+              <Route path="/" element={<PageTransition><BlogList /></PageTransition>} />
+              <Route path="/category/:category" element={<PageTransition><BlogCategory /></PageTransition>} />
+              <Route path="/tag/:tag" element={<PageTransition><BlogTag /></PageTransition>} />
+              <Route path="/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
+            </>
+          ) : (
+            <>
+              {/* Main domain: routes with /blog prefix */}
+              <Route path="/blog" element={<PageTransition><BlogList /></PageTransition>} />
+              <Route path="/blog/category/:category" element={<PageTransition><BlogCategory /></PageTransition>} />
+              <Route path="/blog/tag/:tag" element={<PageTransition><BlogTag /></PageTransition>} />
+              <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
+            </>
+          )}
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </Suspense>
