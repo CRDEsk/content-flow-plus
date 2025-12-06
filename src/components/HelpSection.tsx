@@ -1,9 +1,6 @@
 import { DollarSign, Shield, Crown, Lock, ArrowRight, Sparkles, Zap, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/hooks/useLanguage";
-import { Link } from "react-router-dom";
-import { getBlogListRoute } from "@/blog/utils/routes";
-import { Link } from "react-router-dom";
 
 const HelpSection = () => {
   const { t, language } = useLanguage();
@@ -160,30 +157,30 @@ const HelpSection = () => {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                size="lg"
-                className="group bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-8 py-6 shadow-2xl hover:scale-105 transition-all duration-300"
-                asChild
-              >
-                <a href="https://scan.contentremovaldesk.com/scan">
-                  <span className="flex items-center gap-2">
-                    {t("help.ctaButton")}
-                    <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </a>
-              </Button>
+            <Button 
+              size="lg"
+              className="group bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-8 py-6 shadow-2xl hover:scale-105 transition-all duration-300"
+              asChild
+            >
+              <a href="https://scan.contentremovaldesk.com/scan">
+                <span className="flex items-center gap-2">
+                  {t("help.ctaButton")}
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </a>
+            </Button>
               <Button 
                 size="lg"
                 variant="outline"
                 className="group border-zinc-700 hover:border-primary/50 text-white font-semibold rounded-full px-8 py-6 shadow-2xl hover:scale-105 transition-all duration-300"
                 asChild
               >
-                <Link to={getBlogListRoute()}>
+                <a href="https://blog.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
                   <span className="flex items-center gap-2">
                     {language === 'fr' ? 'Lire nos guides' : 'Read Our Guides'}
                     <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </span>
-                </Link>
+                </a>
               </Button>
             </div>
           </div>
