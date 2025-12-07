@@ -1,7 +1,7 @@
 // Service Worker for ContentRemovalDesk
-// Version 1.0.0
-const CACHE_NAME = 'crd-v1';
-const RUNTIME_CACHE = 'crd-runtime-v1';
+// Version 1.1.0 - Fixed 404 caching and navigation handling
+const CACHE_NAME = 'crd-v1.1';
+const RUNTIME_CACHE = 'crd-runtime-v1.1';
 
 // Assets to cache on install
 const PRECACHE_ASSETS = [
@@ -55,6 +55,53 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // For navigation requests (page loads), always try network first
+  // This prevents caching 404 responses and ensures SPA routing works
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          // If we get a 404, serve index.html for SPA routing
+          if (response.status === 404) {
+            return caches.match('/index.html').then((cachedIndex) => {
+              if (cachedIndex) {
+                return cachedIndex;
+              }
+              // If index.html not in cache, fetch it
+              return fetch('/index.html');
+            });
+          }
+          
+          // If network succeeds with 200, cache and return
+          if (response && response.status === 200 && response.type === 'basic') {
+            const responseToCache = response.clone();
+            caches.open(RUNTIME_CACHE).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          
+          return response;
+        })
+        .catch(() => {
+          // Network failed, try to serve from cache
+          return caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+            // Fallback to index.html for SPA routing
+            return caches.match('/index.html').then((cachedIndex) => {
+              if (cachedIndex) {
+                return cachedIndex;
+              }
+              return fetch('/index.html');
+            });
+          });
+        })
+    );
+    return;
+  }
+
+  // For other requests (assets), use cache-first strategy
   event.respondWith(
     caches.match(event.request)
       .then((cachedResponse) => {
@@ -66,7 +113,7 @@ self.addEventListener('fetch', (event) => {
         // Otherwise fetch from network
         return fetch(event.request)
           .then((response) => {
-            // Don't cache non-successful responses or redirects
+            // Don't cache non-successful responses, redirects, or 404s
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
@@ -82,11 +129,7 @@ self.addEventListener('fetch', (event) => {
             return response;
           })
           .catch((error) => {
-            // If network fails and it's a navigation request, return offline page
-            if (event.request.mode === 'navigate') {
-              return caches.match('/index.html');
-            }
-            // Otherwise, fail silently for other resources
+            // Fail silently for asset requests
             return new Response('Network error', {
               status: 408,
               headers: { 'Content-Type': 'text/plain' }
