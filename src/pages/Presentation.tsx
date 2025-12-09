@@ -19,6 +19,20 @@ const Presentation = () => {
       color: "from-primary to-primary/80"
     },
     {
+      title: "CRD Presentation (English)",
+      description: "Main ContentRemovalDesk presentation in English",
+      route: "/presentation-en",
+      icon: Shield,
+      color: "from-primary to-primary/80"
+    },
+    {
+      title: "Hard Site Escalations",
+      description: "Difficult sites & server-level removal for elite agencies",
+      route: "/hardsite-escalations",
+      icon: Shield,
+      color: "from-orange-500 to-orange-600"
+    },
+    {
       title: "Creator Presentation",
       description: "Presentation for content creators",
       route: "/presentation-createurs",

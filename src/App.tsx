@@ -92,6 +92,8 @@ const CGV = lazyWithRetry(() => import("./pages/CGV"));
 const PolitiqueRemboursement = lazyWithRetry(() => import("./pages/PolitiqueRemboursement"));
 const PolitiqueCookies = lazyWithRetry(() => import("./pages/PolitiqueCookies"));
 const CRDPresentation = lazyWithRetry(() => import("./pages/CRDPresentation"));
+const CRDPresentationEN = lazyWithRetry(() => import("./pages/CRDPresentationEN"));
+const HardSiteEscalations = lazyWithRetry(() => import("./pages/HardSiteEscalations"));
 const CreatorPresentation = lazyWithRetry(() => import("./pages/CreatorPresentation"));
 const AgencyPresentation2 = lazyWithRetry(() => import("./pages/AgencyPresentation2"));
 const Presentation = lazyWithRetry(() => import("./pages/Presentation"));
@@ -156,6 +158,8 @@ const AppContent = () => {
     '/international-protection',
     '/pour-agences',
     '/presentation',
+    '/presentation-en',
+    '/hardsite-escalations',
     '/presentation-createurs',
     '/pr'
   ];
@@ -715,6 +719,8 @@ const AppContent = () => {
           <Route path="/politique-remboursement" element={<PageTransition><PolitiqueRemboursement /></PageTransition>} />
           <Route path="/politique-cookies" element={<PageTransition><PolitiqueCookies /></PageTransition>} />
           <Route path="/presentation" element={<PageTransition><CRDPresentation /></PageTransition>} />
+          <Route path="/presentation-en" element={<PageTransition><CRDPresentationEN /></PageTransition>} />
+          <Route path="/hardsite-escalations" element={<PageTransition><HardSiteEscalations /></PageTransition>} />
           <Route path="/presentation-createurs" element={<PageTransition><CreatorPresentation /></PageTransition>} />
           <Route path="/agency-presentation-2" element={<PageTransition><AgencyPresentation2 /></PageTransition>} />
           <Route path="/pr" element={<PageTransition><Presentation /></PageTransition>} />
