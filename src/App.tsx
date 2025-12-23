@@ -5,12 +5,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
 import { LanguageProvider } from "@/hooks/useLanguage";
+import { SnowThemeProvider, useSnowTheme } from "@/hooks/useSnowTheme";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import NetworkStatus from "@/components/NetworkStatus";
 import { Analytics } from "@vercel/analytics/react";
 import { initAnalytics, trackPageView } from "@/lib/analytics";
 import { hasCookieConsent } from "@/lib/cookies";
 import CookieConsent from "@/components/CookieConsent";
+import SnowParticles from "@/components/SnowParticles";
 
 // Lazy loading with retry logic - handle chunk loading failures gracefully
 const lazyWithRetry = (componentImport: () => Promise<any>) => {
@@ -697,8 +699,11 @@ const AppContent = () => {
     };
   }, []);
 
+  const { snowEnabled } = useSnowTheme();
+  
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#000000', position: 'relative' }}>
+      {snowEnabled && <SnowParticles />}
       <Suspense fallback={<PageLoader />}>
         <Routes location={location}>
           <Route path="/" element={<PageTransition><Index /></PageTransition>} />
@@ -736,17 +741,19 @@ const App = () => {
   return (
     <ErrorBoundary>
       <LanguageProvider>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <NetworkStatus />
-            <Toaster />
-            <Sonner />
-            <Analytics />
-            <BrowserRouter>
-              <AppContent />
-            </BrowserRouter>
-          </TooltipProvider>
-        </QueryClientProvider>
+        <SnowThemeProvider>
+          <QueryClientProvider client={queryClient}>
+            <TooltipProvider>
+              <NetworkStatus />
+              <Toaster />
+              <Sonner />
+              <Analytics />
+              <BrowserRouter>
+                <AppContent />
+              </BrowserRouter>
+            </TooltipProvider>
+          </QueryClientProvider>
+        </SnowThemeProvider>
       </LanguageProvider>
     </ErrorBoundary>
   );
