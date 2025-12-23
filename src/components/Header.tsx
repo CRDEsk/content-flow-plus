@@ -204,10 +204,30 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
     ? "text-blue-200"
     : "text-primary";
 
+  // Check if announcement banner should be shown
+  const showAnnouncement = true; // Set to false to hide the banner
+  const announcementHeight = showAnnouncement ? 'top-[36px] sm:top-[40px]' : 'top-0';
+
   return (
     <>
+      {/* Announcement Banner */}
+      {showAnnouncement && (
+        <div className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-primary/8 via-transparent to-primary/8 backdrop-blur-xl border-b border-primary/5">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-center gap-2 py-2 sm:py-2.5">
+              <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-primary/50 animate-pulse" />
+              <p className="text-[10px] sm:text-xs text-foreground/70 text-center font-medium tracking-wide">
+                <span className="text-primary/70">✨</span>
+                <span className="mx-1.5 sm:mx-2">Pause de fin d'année – Nos services seront en pause du 25 décembre au 5 janvier. Merci pour votre confiance et très belles fêtes !</span>
+                <span className="text-primary/70">✨</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <header 
-        className={`fixed top-0 left-0 right-0 w-full z-50 ${
+        className={`fixed ${announcementHeight} left-0 right-0 w-full z-50 ${
           scrolled 
             ? `bg-black/98 backdrop-blur-3xl border-b shadow-2xl py-3 ${
                 isAgencyPage 
@@ -218,7 +238,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
         }`}
         style={{ 
           position: 'fixed',
-          transition: 'background-color 0.3s ease-out, padding 0.3s ease-out, border-color 0.3s ease-out',
+          transition: 'background-color 0.3s ease-out, padding 0.3s ease-out, border-color 0.3s ease-out, top 0.3s ease-out',
           willChange: scrolled ? 'auto' : 'background-color, padding',
           WebkitTransform: 'translateZ(0)',
           transform: 'translateZ(0)',
