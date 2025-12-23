@@ -5,11 +5,15 @@ import {
   Users,
   Building2,
   ArrowRight,
-  Shield
+  Shield,
+  Snowflake
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useSnowTheme } from "@/hooks/useSnowTheme";
 
 const Presentation = () => {
+  const { snowEnabled, toggleSnow } = useSnowTheme();
+  
   const presentations = [
     {
       title: "CRD Presentation",
@@ -67,6 +71,32 @@ const Presentation = () => {
           <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
             Select a presentation to view
           </p>
+        </motion.div>
+
+        {/* Snow Theme Toggle */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex justify-center mb-12"
+        >
+          <Button
+            onClick={toggleSnow}
+            variant="outline"
+            className={`flex items-center gap-3 px-6 py-3 rounded-full border-2 transition-all duration-300 ${
+              snowEnabled 
+                ? 'border-primary/50 bg-primary/10 text-primary hover:bg-primary/20' 
+                : 'border-zinc-700 text-zinc-400 hover:border-zinc-600 hover:text-zinc-300'
+            }`}
+          >
+            <Snowflake className={`w-5 h-5 ${snowEnabled ? 'animate-spin' : ''}`} style={{ animationDuration: '3s' }} />
+            <span className="font-medium">
+              {snowEnabled ? 'Snow Effect: ON' : 'Snow Effect: OFF'}
+            </span>
+            <div className={`w-10 h-5 rounded-full relative transition-colors duration-300 ${snowEnabled ? 'bg-primary' : 'bg-zinc-700'}`}>
+              <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-md transition-all duration-300 ${snowEnabled ? 'left-5' : 'left-0.5'}`} />
+            </div>
+          </Button>
         </motion.div>
 
         {/* Presentation Cards */}
@@ -135,4 +165,3 @@ const Presentation = () => {
 };
 
 export default Presentation;
-
