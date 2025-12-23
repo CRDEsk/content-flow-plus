@@ -677,7 +677,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                   stiffness: 300,
                   mass: 0.8,
                 }}
-                className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950/85 border-r border-zinc-900/40 shadow-2xl"
+                className="lg:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-zinc-950 border-r border-primary/20 shadow-2xl shadow-primary/10"
                 style={{ 
                   touchAction: 'pan-y',
                   WebkitTransform: 'translateZ(0)',
@@ -696,9 +696,9 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                 aria-label="Menu mobile"
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Animated background gradient */}
+                {/* Animated background gradient with primary color */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 pointer-events-none"
+                  className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 pointer-events-none"
                   animate={{
                     opacity: [0.3, 0.5, 0.3],
                   }}
@@ -727,7 +727,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="flex items-center p-5 border-b border-zinc-900/40 bg-gradient-to-b from-zinc-950/70 to-zinc-950/50 flex-shrink-0"
+                    className="flex items-center p-5 border-b border-primary/20 bg-gradient-to-b from-zinc-950 to-zinc-950/90 flex-shrink-0"
                     style={{ flexShrink: 0 }}
                   >
                     <div className="flex items-center gap-2.5">
@@ -743,29 +743,22 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                         }}
                       >
                         <div
-                          className="absolute inset-0 rounded-xl blur-md opacity-60"
-                          style={{ backgroundImage: brandGradientStyle.backgroundImage }}
+                          className="absolute inset-0 rounded-xl blur-md opacity-60 bg-gradient-to-br from-primary via-primary/70 to-primary/50"
                         ></div>
                         <div
-                          className="relative w-full h-full rounded-xl flex items-center justify-center shadow-lg"
-                          style={{
-                            backgroundImage: brandGradientStyle.backgroundImage,
-                            boxShadow: `0 10px 25px ${brandTheme.accent}33`
-                          }}
+                          className="relative w-full h-full rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-br from-primary to-primary/80 shadow-primary/30"
                         >
                           <Shield className="w-4 h-4 text-black" strokeWidth={2.5} />
                         </div>
                       </motion.div>
                       <div className="flex flex-col">
                         <div
-                          className="font-display font-bold text-xs text-transparent bg-clip-text"
-                          style={brandGradientStyle}
+                          className="font-display font-bold text-xs text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/80"
                         >
                           ContentRemovalDesk
                         </div>
                         <div
-                          className="text-[7px] uppercase tracking-[0.2em] font-semibold"
-                          style={{ color: brandTheme.accent }}
+                          className="text-[7px] uppercase tracking-[0.2em] font-semibold text-primary/70"
                         >
                           Protection Numérique
                         </div>
@@ -796,7 +789,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                               transition={{ delay: 0.15 + (index * 0.03), duration: 0.2 }}
                               className="relative my-3 mx-2"
                             >
-                              <div className="h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent" />
+                              <div className="h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
                             </motion.div>
                           );
                         }
@@ -865,7 +858,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="p-4 border-t border-zinc-900/40 bg-zinc-950/90 flex-shrink-0"
+                    className="p-4 border-t border-primary/20 bg-zinc-950 flex-shrink-0"
                     style={{ 
                       flexShrink: 0,
                       position: 'relative',
