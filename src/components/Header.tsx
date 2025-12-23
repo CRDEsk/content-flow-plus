@@ -208,7 +208,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
   // Check if announcement banner should be shown
   // Hide it while the mobile menu is open to avoid UI collisions.
   const showAnnouncement = showAnnouncementBanner && !isMobileMenuOpen;
-  const announcementHeight = showAnnouncement ? 'top-[72px] sm:top-[40px]' : 'top-0';
+  const announcementHeight = showAnnouncement ? 'top-[52px] sm:top-[40px]' : 'top-0';
 
   return (
     <>
@@ -216,9 +216,10 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
       <AnimatePresence>
         {showAnnouncement && (
           <motion.div 
-            initial={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -36 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.3}
@@ -229,11 +230,11 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
             }}
             className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-primary/8 via-transparent to-primary/8 backdrop-blur-xl border-b border-primary/5 cursor-grab active:cursor-grabbing"
           >
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-center gap-2 py-2 sm:py-2.5 relative">
+            <div className="container mx-auto px-2 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2.5 relative">
                 <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-primary/50 animate-pulse" />
-                <p className="text-[10px] sm:text-xs text-foreground/70 text-center font-medium tracking-wide pr-0 sm:pr-6">
-                  Pause de fin d'année – Nos services seront en pause du 25 décembre au 5 janvier. Merci pour votre confiance et très belles fêtes !
+                <p className="text-[9px] leading-tight sm:text-xs text-foreground/70 text-center font-medium tracking-wide pr-0 sm:pr-6">
+                  Pause de fin d'année – Services en pause du 25 déc. au 5 jan. Bonnes fêtes !
                 </p>
                 {/* Desktop close button only (mobile = swipe to dismiss) */}
                 <button
