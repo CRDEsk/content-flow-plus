@@ -208,7 +208,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
   // Check if announcement banner should be shown
   // Hide it while the mobile menu is open to avoid UI collisions.
   const showAnnouncement = showAnnouncementBanner && !isMobileMenuOpen;
-  const announcementHeight = showAnnouncement ? 'top-[52px] sm:top-[40px]' : 'top-0';
+  const announcementHeight = showAnnouncement ? 'top-[40px] sm:top-[40px]' : 'top-0';
 
   return (
     <>
