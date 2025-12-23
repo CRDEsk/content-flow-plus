@@ -206,7 +206,8 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
     : "text-primary";
 
   // Check if announcement banner should be shown
-  const showAnnouncement = showAnnouncementBanner;
+  // Hide it while the mobile menu is open to avoid UI collisions.
+  const showAnnouncement = showAnnouncementBanner && !isMobileMenuOpen;
   const announcementHeight = showAnnouncement ? 'top-[36px] sm:top-[40px]' : 'top-0';
 
   return (
@@ -231,12 +232,13 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-center gap-2 py-2 sm:py-2.5 relative">
                 <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-primary/50 animate-pulse" />
-                <p className="text-[10px] sm:text-xs text-foreground/70 text-center font-medium tracking-wide pr-6">
+                <p className="text-[10px] sm:text-xs text-foreground/70 text-center font-medium tracking-wide pr-0 sm:pr-6">
                   Pause de fin d'année – Nos services seront en pause du 25 décembre au 5 janvier. Merci pour votre confiance et très belles fêtes !
                 </p>
+                {/* Desktop close button only (mobile = swipe to dismiss) */}
                 <button
                   onClick={() => setShowAnnouncementBanner(false)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/10 transition-colors duration-200"
+                  className="hidden sm:inline-flex absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/10 transition-colors duration-200"
                   aria-label="Fermer l'annonce"
                 >
                   <X className="w-3.5 h-3.5 text-foreground/50 hover:text-foreground/80" />
