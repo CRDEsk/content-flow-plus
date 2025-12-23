@@ -24,6 +24,7 @@ interface HeaderProps {
 
 const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLanguageCurrency = false, language = 'English', currency = 'EUR', hideStartButton = false, languageCurrencySwitcher, subtitleText, usePurpleTheme = false }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showAnnouncementBanner, setShowAnnouncementBanner] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -205,26 +206,46 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
     : "text-primary";
 
   // Check if announcement banner should be shown
-  const showAnnouncement = true; // Set to false to hide the banner
+  const showAnnouncement = showAnnouncementBanner;
   const announcementHeight = showAnnouncement ? 'top-[36px] sm:top-[40px]' : 'top-0';
 
   return (
     <>
-      {/* Announcement Banner */}
-      {showAnnouncement && (
-        <div className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-primary/8 via-transparent to-primary/8 backdrop-blur-xl border-b border-primary/5">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-center gap-2 py-2 sm:py-2.5">
-              <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-primary/50 animate-pulse" />
-              <p className="text-[10px] sm:text-xs text-foreground/70 text-center font-medium tracking-wide">
-                <span className="text-primary/70">✨</span>
-                <span className="mx-1.5 sm:mx-2">Pause de fin d'année – Nos services seront en pause du 25 décembre au 5 janvier. Merci pour votre confiance et très belles fêtes !</span>
-                <span className="text-primary/70">✨</span>
-              </p>
+      {/* Announcement Banner - Swipe to dismiss on mobile */}
+      <AnimatePresence>
+        {showAnnouncement && (
+          <motion.div 
+            initial={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -36 }}
+            transition={{ duration: 0.2 }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.3}
+            onDragEnd={(_, info) => {
+              if (Math.abs(info.offset.x) > 100) {
+                setShowAnnouncementBanner(false);
+              }
+            }}
+            className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-primary/8 via-transparent to-primary/8 backdrop-blur-xl border-b border-primary/5 cursor-grab active:cursor-grabbing"
+          >
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-center gap-2 py-2 sm:py-2.5 relative">
+                <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-primary/50 animate-pulse" />
+                <p className="text-[10px] sm:text-xs text-foreground/70 text-center font-medium tracking-wide pr-6">
+                  Pause de fin d'année – Nos services seront en pause du 25 décembre au 5 janvier. Merci pour votre confiance et très belles fêtes !
+                </p>
+                <button
+                  onClick={() => setShowAnnouncementBanner(false)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/10 transition-colors duration-200"
+                  aria-label="Fermer l'annonce"
+                >
+                  <X className="w-3.5 h-3.5 text-foreground/50 hover:text-foreground/80" />
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <header 
         className={`fixed ${announcementHeight} left-0 right-0 w-full z-50 ${
@@ -468,46 +489,52 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
         </div>
       </header>
 
-      {/* Desktop Dropdown Menu - positioned within container */}
-      <div className="hidden lg:block fixed top-0 left-0 right-0 z-40 pointer-events-none" style={{ top: showAnnouncement ? '36px' : '0' }}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 3xl:px-12 4xl:px-16 5xl:px-20 max-w-[2600px] relative">
-          <AnimatePresence>
-            {!hideMenu && isMenuOpen && (
-              <>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="fixed inset-0 bg-transparent pointer-events-auto"
-                  onClick={() => setIsMenuOpen(false)}
+      {/* Desktop Dropdown Menu - positioned correctly below header */}
+      <AnimatePresence>
+        {!hideMenu && isMenuOpen && (
+          <>
+            {/* Backdrop overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="hidden lg:block fixed inset-0 bg-transparent z-40"
+              onClick={() => setIsMenuOpen(false)}
+              style={{ 
+                touchAction: 'none',
+                WebkitTransform: 'translateZ(0)',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden'
+              }}
+            />
+            {/* Menu container positioned within page container */}
+            <div 
+              className="hidden lg:block fixed left-0 right-0 z-50 pointer-events-none"
+              style={{ 
+                top: showAnnouncement ? 'calc(36px + 4rem)' : '4rem'
+              }}
+            >
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8 3xl:px-12 4xl:px-16 5xl:px-20 max-w-[2600px] relative">
+                <motion.nav
+                  id="desktop-menu"
+                  initial={{ opacity: 0, scaleY: 0, scaleX: 0.9, y: -10 }}
+                  animate={{ opacity: 1, scaleY: 1, scaleX: 1, y: 0 }}
+                  exit={{ opacity: 0, scaleY: 0, scaleX: 0.9, y: -10 }}
+                  transition={{ duration: 0.15, ease: [0.25, 0.8, 0.25, 1] }}
+                  className="absolute right-0 top-0 mt-2 z-50 pointer-events-auto"
                   style={{ 
-                    touchAction: 'none',
+                    transformOrigin: "top right",
                     WebkitTransform: 'translateZ(0)',
-                    transform: 'translateZ(0)',
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden'
+                    transform: 'translateZ(0)'
                   }}
-                />
-              {/* Desktop Menu - Only shows on desktop */}
-              <motion.nav
-                id="desktop-menu"
-                initial={{ opacity: 0, scaleY: 0, scaleX: 0.9, y: -10 }}
-                animate={{ opacity: 1, scaleY: 1, scaleX: 1, y: 0 }}
-                exit={{ opacity: 0, scaleY: 0, scaleX: 0.9, y: -10 }}
-                transition={{ duration: 0.15, ease: [0.25, 0.8, 0.25, 1] }}
-                className="hidden lg:block absolute top-full right-0 mt-3 z-50"
-                style={{ 
-                  transformOrigin: "top right",
-                  WebkitTransform: 'translateZ(0)',
-                  transform: 'translateZ(0)'
-                }}
-                role="navigation"
-                aria-label="Menu principal"
-              >
-                <div className={`relative bg-zinc-900/98 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 overflow-hidden border min-w-[300px] ${
-                  isAgencyPage ? 'border-blue-500/20' : 'border-primary/20'
-                }`}>
+                  role="navigation"
+                  aria-label="Menu principal"
+                >
+                  <div className={`relative bg-zinc-900/98 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 overflow-hidden border min-w-[300px] ${
+                    isAgencyPage ? 'border-blue-500/20' : 'border-primary/20'
+                  }`}>
                   <div className={`absolute inset-0 bg-gradient-to-br opacity-50 pointer-events-none ${
                     isAgencyPage ? 'from-blue-500/5 via-transparent to-blue-500/5' : 'from-primary/5 via-transparent to-primary/5'
                   }`} />
@@ -603,11 +630,11 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                   <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
                 </div>
               </motion.nav>
-            </>
-          )}
-        </AnimatePresence>
-        </div>
-      </div>
+            </div>
+          </div>
+        </>
+      )}
+    </AnimatePresence>
 
       {/* Mobile Menu - Only shows on mobile */}
       <AnimatePresence>
