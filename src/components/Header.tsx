@@ -248,8 +248,8 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
           boxShadow: 'none'
         }}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 3xl:px-12 4xl:px-16 5xl:px-20 max-w-[2600px]">
+          <div className="flex items-center justify-between gap-4 3xl:gap-6 4xl:gap-8 relative">
             
             {/* Logo - Safari Optimized */}
             {!hideLogo && (
@@ -468,25 +468,27 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
         </div>
       </header>
 
-      {/* Desktop Dropdown Menu */}
-      <AnimatePresence>
-          {!hideMenu && isMenuOpen && (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="hidden lg:block fixed inset-0 bg-transparent z-40 overflow-hidden"
-                onClick={() => setIsMenuOpen(false)}
-                style={{ 
-                  touchAction: 'none',
-                  WebkitTransform: 'translateZ(0)',
-                  transform: 'translateZ(0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden'
-                }}
-              />
+      {/* Desktop Dropdown Menu - positioned within container */}
+      <div className="hidden lg:block fixed top-0 left-0 right-0 z-40 pointer-events-none" style={{ top: showAnnouncement ? '36px' : '0' }}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 3xl:px-12 4xl:px-16 5xl:px-20 max-w-[2600px] relative">
+          <AnimatePresence>
+            {!hideMenu && isMenuOpen && (
+              <>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="fixed inset-0 bg-transparent pointer-events-auto"
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{ 
+                    touchAction: 'none',
+                    WebkitTransform: 'translateZ(0)',
+                    transform: 'translateZ(0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden'
+                  }}
+                />
               {/* Desktop Menu - Only shows on desktop */}
               <motion.nav
                 id="desktop-menu"
@@ -494,7 +496,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                 animate={{ opacity: 1, scaleY: 1, scaleX: 1, y: 0 }}
                 exit={{ opacity: 0, scaleY: 0, scaleX: 0.9, y: -10 }}
                 transition={{ duration: 0.15, ease: [0.25, 0.8, 0.25, 1] }}
-                className="hidden lg:block fixed top-[4.5rem] right-6 z-50"
+                className="hidden lg:block absolute top-full right-0 mt-3 z-50"
                 style={{ 
                   transformOrigin: "top right",
                   WebkitTransform: 'translateZ(0)',
@@ -603,7 +605,9 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
               </motion.nav>
             </>
           )}
-      </AnimatePresence>
+        </AnimatePresence>
+        </div>
+      </div>
 
       {/* Mobile Menu - Only shows on mobile */}
       <AnimatePresence>
