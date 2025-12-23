@@ -371,6 +371,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                   </a>
                 </Button>
               )}
+              {/* Language/Currency Switcher - Desktop only */}
               {languageCurrencySwitcher && (
                 <div className="hidden lg:flex items-center gap-2 relative z-50">
                   {languageCurrencySwitcher}

@@ -1,8 +1,9 @@
-import { Phone, Mail, Instagram, Shield, Clock, MapPin, ExternalLink } from "lucide-react";
+import { Phone, Mail, Instagram, Shield, Clock, MapPin, ExternalLink, Snowflake } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { motion } from "framer-motion";
 import { getBrandTheme } from "@/utils/brandTheme";
+import { useSnowTheme } from "@/hooks/useSnowTheme";
 
 const Footer = () => {
   const location = useLocation();
@@ -12,6 +13,7 @@ const Footer = () => {
   const brandGradientStyle = {
     backgroundImage: `linear-gradient(90deg, ${brandTheme.from}, ${brandTheme.via}, ${brandTheme.to})`
   };
+  const { snowEnabled, toggleSnow, isHolidaySeason } = useSnowTheme();
 
   const quickLinks = [
     { label: t("footer.quickLinks.home"), href: "/" },
@@ -304,12 +306,34 @@ const Footer = () => {
                 </span>
               </div>
               
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800/50">
-                <div className="relative">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <div className="absolute inset-0 bg-green-500/50 rounded-full blur-sm animate-pulse" />
+              <div className="flex items-center gap-3">
+                {/* Snow toggle - only visible during holiday season */}
+                {isHolidaySeason && (
+                  <button
+                    onClick={toggleSnow}
+                    className={`group p-2 rounded-full transition-all duration-300 border ${
+                      snowEnabled 
+                        ? 'bg-primary/20 border-primary/50 hover:bg-primary/30' 
+                        : 'bg-zinc-900/50 border-zinc-800/50 hover:border-zinc-700/50'
+                    }`}
+                    title={snowEnabled ? (language === "fr" ? "Désactiver la neige" : "Disable snow") : (language === "fr" ? "Activer la neige" : "Enable snow")}
+                    aria-label={snowEnabled ? "Disable snow effect" : "Enable snow effect"}
+                  >
+                    <Snowflake className={`w-4 h-4 transition-all duration-300 ${
+                      snowEnabled 
+                        ? 'text-primary group-hover:rotate-45' 
+                        : 'text-zinc-500 group-hover:text-zinc-400'
+                    }`} />
+                  </button>
+                )}
+                
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800/50">
+                  <div className="relative">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    <div className="absolute inset-0 bg-green-500/50 rounded-full blur-sm animate-pulse" />
+                  </div>
+                  <span className="text-xs text-zinc-400 font-medium">{t("footer.serviceActive")}</span>
                 </div>
-                <span className="text-xs text-zinc-400 font-medium">{t("footer.serviceActive")}</span>
               </div>
             </div>
           </motion.div>
