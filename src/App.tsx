@@ -699,7 +699,23 @@ const AppContent = () => {
     };
   }, []);
 
-  const { snowEnabled } = useSnowTheme();
+  const { snowEnabled, isHolidaySeason } = useSnowTheme();
+  
+  // Apply Christmas theme class during holiday season
+  useEffect(() => {
+    if (isHolidaySeason) {
+      document.documentElement.classList.add('christmas-theme');
+      document.body.classList.add('christmas-theme');
+    } else {
+      document.documentElement.classList.remove('christmas-theme');
+      document.body.classList.remove('christmas-theme');
+    }
+    
+    return () => {
+      document.documentElement.classList.remove('christmas-theme');
+      document.body.classList.remove('christmas-theme');
+    };
+  }, [isHolidaySeason]);
   
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#000000', position: 'relative' }}>
