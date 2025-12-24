@@ -43,7 +43,7 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
 
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 bg-black overflow-hidden pt-32 sm:pt-28 md:pt-24">
+    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 bg-black overflow-hidden pt-40 sm:pt-36 md:pt-32">
       {/* Premium mesh gradient background - Optimized for Safari & 4K */}
       <div className="absolute inset-0" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
         <div 
