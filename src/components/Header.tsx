@@ -493,6 +493,12 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
         </div>
       </header>
 
+      {/* Spacer to prevent page content from sitting under the fixed banner/header */}
+      <div
+        aria-hidden="true"
+        className={showAnnouncement ? "h-32" : "h-24"}
+      />
+
       {/* Desktop Dropdown Menu - positioned correctly below header */}
       <AnimatePresence>
         {!hideMenu && isMenuOpen && (
@@ -517,7 +523,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
             <div 
               className="hidden lg:block fixed left-0 right-0 z-50 pointer-events-none"
               style={{ 
-                top: showAnnouncement ? 'calc(36px + 4rem)' : '4rem'
+                top: showAnnouncement ? 'calc(40px + 4rem)' : '4rem'
               }}
             >
               <div className="container mx-auto px-4 sm:px-6 lg:px-8 3xl:px-12 4xl:px-16 5xl:px-20 max-w-[2600px] relative">
