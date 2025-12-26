@@ -99,6 +99,7 @@ const HardSiteEscalations = lazyWithRetry(() => import("./pages/HardSiteEscalati
 const CreatorPresentation = lazyWithRetry(() => import("./pages/CreatorPresentation"));
 const AgencyPresentation2 = lazyWithRetry(() => import("./pages/AgencyPresentation2"));
 const Presentation = lazyWithRetry(() => import("./pages/Presentation"));
+const OnboardingPresentation = lazyWithRetry(() => import("./pages/OnboardingPresentation"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -729,6 +730,7 @@ const AppContent = () => {
           <Route path="/presentation-createurs" element={<PageTransition><CreatorPresentation /></PageTransition>} />
           <Route path="/agency-presentation-2" element={<PageTransition><AgencyPresentation2 /></PageTransition>} />
           <Route path="/pr" element={<PageTransition><Presentation /></PageTransition>} />
+          <Route path="/pr/onboarding" element={<PageTransition><OnboardingPresentation /></PageTransition>} />
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </Suspense>

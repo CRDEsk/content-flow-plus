@@ -234,7 +234,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
               <div className="flex items-center justify-center gap-1.5 py-1 sm:py-1.5 relative">
                 <span className="hidden sm:inline w-1 h-1 rounded-full bg-primary/60 animate-pulse" />
                 <p className="text-[10px] sm:text-xs text-foreground/80 text-center font-medium tracking-wide">
-                  Agence certifiée • Google Trusted • Intervention 24/7
+                  Pause de fin d'année – Services en pause du 25 déc. au 5 jan. Bonnes fêtes !
                 </p>
                 <button
                   onClick={() => setShowAnnouncementBanner(false)}

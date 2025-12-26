@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Zap, Scale, Calendar } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
@@ -79,8 +80,8 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
         <div className="text-center space-y-12 2xl:space-y-16">
           
           {/* Trust badge */}
-          <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 group mt-4 sm:mt-0">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse flex-shrink-0" />
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 hover:border-primary/50 transition-all duration-500 group mt-4 sm:mt-0">
+            <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse flex-shrink-0" />
             <span className="text-xs sm:text-sm font-medium text-zinc-400 group-hover:text-foreground transition-colors text-center">
               {language === 'en' ? (
                 <>
@@ -97,25 +98,25 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
           </div>
 
           {/* Main headline with stagger animation */}
-          <div className="space-y-8 2xl:space-y-12 animate-fade-in">
+          <div className="space-y-6 sm:space-y-8 2xl:space-y-12 animate-fade-in">
             <h1 className="font-display font-bold leading-[1.1] tracking-tight">
-              <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-foreground mb-4 2xl:mb-6">
+              <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-foreground mb-4 sm:mb-6">
                 {t("hero.title")}
               </span>
-              <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl">
+              <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl">
                 <span className="relative inline-block">
                   <span className="text-primary">{t("hero.titleHighlight")}</span>
-                  <div className="absolute -bottom-2 2xl:-bottom-3 left-0 right-0 h-1 2xl:h-1.5 bg-primary/30 blur-sm" />
+                  <div className="absolute -bottom-2 left-0 right-0 h-1 bg-primary/30 blur-sm" />
                 </span>
               </span>
             </h1>
             
-            <div className="space-y-4 2xl:space-y-6 max-w-4xl 2xl:max-w-5xl mx-auto">
-              <p className="text-xl sm:text-2xl lg:text-3xl 2xl:text-4xl text-zinc-300 font-medium leading-relaxed">
+            <div className="space-y-4 sm:space-y-6 max-w-4xl 2xl:max-w-5xl mx-auto">
+              <p className="text-xl sm:text-2xl lg:text-3xl text-zinc-300 font-medium leading-relaxed">
                 {t("hero.subtitle").replace(/\s+\?/g, '\u00A0?')}
               </p>
               
-              <p className="text-lg sm:text-xl 2xl:text-2xl text-zinc-400 font-normal max-w-3xl 2xl:max-w-4xl mx-auto leading-relaxed">
+              <p className="text-lg sm:text-xl text-zinc-400 font-normal max-w-3xl 2xl:max-w-4xl mx-auto leading-relaxed">
                 {language === 'en' ? (
                   <>
                     <span className="text-foreground font-semibold">French agency specialized in digital protection.</span><br className="hidden sm:block" />
@@ -132,16 +133,16 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 2xl:gap-6 justify-center items-center pt-4 2xl:pt-8">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
             <Button 
               size="lg"
-              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-6 sm:px-8 lg:px-10 2xl:px-14 py-4 sm:py-5 lg:py-6 2xl:py-7 text-sm sm:text-base lg:text-lg 2xl:text-xl shadow-2xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
+              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-black font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl shadow-2xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
               asChild
             >
               <a href="https://scan.contentremovaldesk.com/scan">
-                <span className="relative z-10 flex items-center gap-2 2xl:gap-3 justify-center">
+                <span className="relative z-10 flex items-center gap-2 sm:gap-3 justify-center">
                   {t("hero.cta")}
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               </a>
@@ -152,46 +153,46 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
               data-cal-namespace="diagnostic-createur"
               data-cal-link="chan-aoufi-ttauyj/diagnostic-createur"
               data-cal-config='{"layout":"month_view"}'
-              className="group relative overflow-hidden bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/50 hover:border-primary/50 text-white font-semibold rounded-full px-6 sm:px-8 lg:px-10 2xl:px-14 py-4 sm:py-5 lg:py-6 2xl:py-7 text-sm sm:text-base lg:text-lg 2xl:text-xl shadow-2xl shadow-zinc-900/20 hover:shadow-primary/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
+              className="group relative overflow-hidden bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/50 hover:border-primary/50 text-white font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl shadow-2xl shadow-zinc-900/20 hover:shadow-primary/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
             >
-              <span className="relative z-10 flex items-center gap-2 2xl:gap-3 justify-center">
-                <Calendar className="h-4 w-4 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6" />
+              <span className="relative z-10 flex items-center gap-3 justify-center">
+                <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />
                 Réserver un rendez-vous
-                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform" />
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             </Button>
           </div>
 
           {/* Trust indicators with icons */}
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 lg:gap-8 2xl:gap-12 pt-8 sm:pt-10 lg:pt-12 2xl:pt-16">
-            <div className="flex items-center gap-2 sm:gap-3 2xl:gap-4 group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 2xl:w-16 2xl:h-16 rounded-lg sm:rounded-xl 2xl:rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 flex items-center justify-center border border-zinc-700/50 group-hover:border-primary/50 transition-all duration-300 group-hover:scale-110 flex-shrink-0">
-                <Shield className="h-5 w-5 sm:h-6 sm:w-6 2xl:h-8 2xl:w-8 text-primary" />
+          <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 lg:gap-6 2xl:gap-8 pt-6 sm:pt-8 lg:pt-10 2xl:pt-12">
+            <div className="flex items-center gap-1.5 sm:gap-2 2xl:gap-3 group">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 2xl:w-12 2xl:h-12 rounded-lg sm:rounded-xl 2xl:rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 flex items-center justify-center border border-zinc-700/50 group-hover:border-primary/50 transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                <Shield className="h-4 w-4 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6 text-primary" />
               </div>
               <div className="text-left">
-                <div className="text-xs sm:text-sm 2xl:text-lg font-semibold text-foreground">{t("hero.trustConfidential")}</div>
-                <div className="text-[10px] sm:text-xs 2xl:text-sm text-zinc-500">{language === 'en' ? 'Absolute discretion' : 'Discrétion absolue'}</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm 2xl:text-base font-semibold text-foreground">{t("hero.trustConfidential")}</div>
+                <div className="text-[8px] sm:text-[10px] 2xl:text-xs text-zinc-500">{language === 'en' ? 'Absolute discretion' : 'Discrétion absolue'}</div>
               </div>
             </div>
             
-            <div className="flex items-center gap-2 sm:gap-3 2xl:gap-4 group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 2xl:w-16 2xl:h-16 rounded-lg sm:rounded-xl 2xl:rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 flex items-center justify-center border border-zinc-700/50 group-hover:border-primary/50 transition-all duration-300 group-hover:scale-110 flex-shrink-0">
-                <Zap className="h-5 w-5 sm:h-6 sm:w-6 2xl:h-8 2xl:w-8 text-primary" />
+            <div className="flex items-center gap-1.5 sm:gap-2 2xl:gap-3 group">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 2xl:w-12 2xl:h-12 rounded-lg sm:rounded-xl 2xl:rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 flex items-center justify-center border border-zinc-700/50 group-hover:border-primary/50 transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                <Zap className="h-4 w-4 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6 text-primary" />
               </div>
               <div className="text-left">
-                <div className="text-xs sm:text-sm 2xl:text-lg font-semibold text-foreground">{t("hero.trustSupport")}</div>
-                <div className="text-[10px] sm:text-xs 2xl:text-sm text-zinc-500">{language === 'en' ? 'Fast intervention' : 'Intervention rapide'}</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm 2xl:text-base font-semibold text-foreground">{t("hero.trustSupport")}</div>
+                <div className="text-[8px] sm:text-[10px] 2xl:text-xs text-zinc-500">{language === 'en' ? 'Fast intervention' : 'Intervention rapide'}</div>
               </div>
             </div>
             
-            <div className="flex items-center gap-2 sm:gap-3 2xl:gap-4 group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 2xl:w-16 2xl:h-16 rounded-lg sm:rounded-xl 2xl:rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 flex items-center justify-center border border-zinc-700/50 group-hover:border-primary/50 transition-all duration-300 group-hover:scale-110 flex-shrink-0">
-                <Scale className="h-5 w-5 sm:h-6 sm:w-6 2xl:h-8 2xl:w-8 text-primary" />
+            <div className="flex items-center gap-1.5 sm:gap-2 2xl:gap-3 group">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 2xl:w-12 2xl:h-12 rounded-lg sm:rounded-xl 2xl:rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 flex items-center justify-center border border-zinc-700/50 group-hover:border-primary/50 transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                <Scale className="h-4 w-4 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6 text-primary" />
               </div>
               <div className="text-left">
-                <div className="text-xs sm:text-sm 2xl:text-lg font-semibold text-foreground">{t("hero.trustExpert")}</div>
-                <div className="text-[10px] sm:text-xs 2xl:text-sm text-zinc-500">{language === 'en' ? 'Strict legal framework' : 'Cadre juridique strict'}</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm 2xl:text-base font-semibold text-foreground">{t("hero.trustExpert")}</div>
+                <div className="text-[8px] sm:text-[10px] 2xl:text-xs text-zinc-500">{language === 'en' ? 'Strict legal framework' : 'Cadre juridique strict'}</div>
               </div>
             </div>
           </div>
