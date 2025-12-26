@@ -208,18 +208,18 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
   // Check if announcement banner should be shown
   // Hide it while the mobile menu is open to avoid UI collisions.
   const showAnnouncement = showAnnouncementBanner && !isMobileMenuOpen;
-  const announcementHeight = showAnnouncement ? 'top-[40px] sm:top-[40px]' : 'top-0';
+  const announcementHeight = showAnnouncement ? 'top-[28px]' : 'top-0';
 
   return (
     <>
-      {/* Announcement Banner - Swipe to dismiss on mobile */}
+      {/* Announcement Banner - Compact */}
       <AnimatePresence>
         {showAnnouncement && (
           <motion.div 
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -36 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -28 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.3}
@@ -228,21 +228,20 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                 setShowAnnouncementBanner(false);
               }
             }}
-            className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-primary/8 via-transparent to-primary/8 backdrop-blur-xl border-b border-primary/5 cursor-grab active:cursor-grabbing"
+            className="fixed top-0 left-0 right-0 z-[60] bg-black/80 backdrop-blur-md border-b border-primary/10 cursor-grab active:cursor-grabbing"
           >
-            <div className="container mx-auto px-2 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2.5 relative">
-                <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-primary/50 animate-pulse" />
-                <p className="text-[9px] leading-tight sm:text-xs text-foreground/70 text-center font-medium tracking-wide pr-0 sm:pr-6">
-                  Pause de fin d'année – Services en pause du 25 déc. au 5 jan. Bonnes fêtes !
+            <div className="container mx-auto px-3 sm:px-6">
+              <div className="flex items-center justify-center gap-1.5 py-1 sm:py-1.5 relative">
+                <span className="hidden sm:inline w-1 h-1 rounded-full bg-primary/60 animate-pulse" />
+                <p className="text-[10px] sm:text-xs text-foreground/80 text-center font-medium tracking-wide">
+                  Agence certifiée • Google Trusted • Intervention 24/7
                 </p>
-                {/* Desktop close button only (mobile = swipe to dismiss) */}
                 <button
                   onClick={() => setShowAnnouncementBanner(false)}
-                  className="hidden sm:inline-flex absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/10 transition-colors duration-200"
+                  className="absolute right-2 sm:right-4 p-0.5 rounded-full hover:bg-white/10 transition-colors duration-200"
                   aria-label="Fermer l'annonce"
                 >
-                  <X className="w-3.5 h-3.5 text-foreground/50 hover:text-foreground/80" />
+                  <X className="w-3 h-3 text-foreground/50 hover:text-foreground/80" />
                 </button>
               </div>
             </div>
@@ -493,11 +492,6 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
         </div>
       </header>
 
-      {/* Spacer to prevent page content from sitting under the fixed banner/header */}
-      <div
-        aria-hidden="true"
-        className={showAnnouncement ? "h-32" : "h-24"}
-      />
 
       {/* Desktop Dropdown Menu - positioned correctly below header */}
       <AnimatePresence>
@@ -523,7 +517,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
             <div 
               className="hidden lg:block fixed left-0 right-0 z-50 pointer-events-none"
               style={{ 
-                top: showAnnouncement ? 'calc(40px + 4rem)' : '4rem'
+                top: showAnnouncement ? 'calc(28px + 4rem)' : '4rem'
               }}
             >
               <div className="container mx-auto px-4 sm:px-6 lg:px-8 3xl:px-12 4xl:px-16 5xl:px-20 max-w-[2600px] relative">
