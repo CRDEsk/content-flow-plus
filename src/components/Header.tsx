@@ -279,54 +279,19 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
             <Link to="/" className="group relative z-10 flex-shrink-0">
               <div className="flex items-center gap-2.5">
                 <div 
-                  className={`relative overflow-hidden rounded-xl ${scrolled ? 'w-9 h-9' : 'w-11 h-11'}`}
+                  className={`relative overflow-hidden rounded-xl group-hover:scale-105 ${scrolled ? 'w-9 h-9' : 'w-11 h-11'}`}
                   style={{
-                    transition: 'width 0.3s ease-out, height 0.3s ease-out',
+                    transition: 'width 0.3s ease-out, height 0.3s ease-out, transform 0.2s ease-out',
                     willChange: scrolled ? 'auto' : 'width, height',
                     WebkitTransform: 'translateZ(0)',
                     transform: 'translateZ(0)'
                   }}
                 >
-                  <div 
-                    className={`absolute inset-0 blur-md opacity-60 group-hover:opacity-90 ${
-                      isAgencyPage 
-                        ? 'bg-gradient-to-br from-blue-500 via-blue-500/70 to-blue-500/50' 
-                        : usePurpleTheme
-                        ? 'bg-gradient-to-br from-purple-500 via-purple-500/70 to-purple-500/50'
-                        : 'bg-gradient-to-br from-primary via-primary/70 to-primary/50'
-                    }`}
-                    style={{ 
-                      transition: 'opacity 0.2s ease-out',
-                      willChange: 'opacity',
-                      WebkitTransform: 'translateZ(0)',
-                      transform: 'translateZ(0)'
-                    }}
-                  ></div>
-                  <div 
-                    className={`relative w-full h-full flex items-center justify-center group-hover:scale-105 ${
-                      isAgencyPage
-                        ? 'bg-gradient-to-br from-blue-500 to-blue-500/80 shadow-xl shadow-blue-500/20'
-                        : usePurpleTheme
-                        ? 'bg-gradient-to-br from-purple-500 to-purple-500/80 shadow-xl shadow-purple-500/20'
-                        : 'bg-gradient-to-br from-primary to-primary/80 shadow-xl shadow-primary/20'
-                    }`}
-                    style={{ 
-                      isolation: 'isolate',
-                      transition: 'transform 0.2s ease-out',
-                      willChange: 'transform',
-                      WebkitTransform: 'translateZ(0)',
-                      transform: 'translateZ(0)'
-                    }}
-                  >
-                    <Shield 
-                      className={`text-black ${scrolled ? 'w-4 h-4' : 'w-5 h-5'}`} 
-                      strokeWidth={2.5}
-                      style={{
-                        transition: 'width 0.3s ease-out, height 0.3s ease-out',
-                        willChange: scrolled ? 'auto' : 'width, height'
-                      }}
-                    />
-                  </div>
+                  <img 
+                    src="/logo-icon.svg" 
+                    alt="ContentRemovalDesk" 
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="flex flex-col">
                   <div 
