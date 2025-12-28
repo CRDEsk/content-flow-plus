@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, ShieldCheck } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -274,51 +274,29 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 3xl:px-12 4xl:px-16 5xl:px-20 max-w-[2600px]">
           <div className="flex items-center justify-between gap-4 3xl:gap-6 4xl:gap-8 relative">
             
-            {/* Logo - Safari Optimized */}
+            {/* Logo - Text Only */}
             {!hideLogo && (
             <Link to="/" className="group relative z-10 flex-shrink-0">
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-col">
                 <div 
-                  className={`relative overflow-hidden rounded-2xl group-hover:scale-105 ${scrolled ? 'w-9 h-9' : 'w-11 h-11'} ${
-                    isAgencyPage
-                      ? 'bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 shadow-lg shadow-blue-500/30'
-                      : usePurpleTheme
-                      ? 'bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 shadow-lg shadow-purple-500/30'
-                      : 'bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500 shadow-lg shadow-amber-500/30'
-                  } flex items-center justify-center`}
+                  className={`font-display font-bold tracking-tight text-foreground ${scrolled ? 'text-sm' : 'text-base'} leading-tight group-hover:opacity-80 transition-opacity`}
                   style={{
-                    transition: 'width 0.3s ease-out, height 0.3s ease-out, transform 0.2s ease-out',
-                    willChange: scrolled ? 'auto' : 'width, height',
-                    WebkitTransform: 'translateZ(0)',
-                    transform: 'translateZ(0)'
+                    transition: 'font-size 0.3s ease-out',
+                    willChange: scrolled ? 'auto' : 'font-size'
                   }}
                 >
-                  <ShieldCheck 
-                    className={`text-black/80 ${scrolled ? 'w-5 h-5' : 'w-6 h-6'}`}
-                    strokeWidth={2}
-                  />
+                  ContentRemovalDesk
                 </div>
-                <div className="flex flex-col">
-                  <div 
-                    className={`font-display font-bold tracking-tight text-foreground ${scrolled ? 'text-[11px]' : 'text-xs'} leading-tight`}
-                    style={{
-                      transition: 'font-size 0.3s ease-out',
-                      willChange: scrolled ? 'auto' : 'font-size'
-                    }}
-                  >
-                    ContentRemovalDesk
-                  </div>
-                  <div 
-                    className={`text-[7px] uppercase tracking-[0.2em] leading-none font-semibold ${
-                      scrolled ? 'opacity-70' : 'opacity-100'
-                    } ${subtitleColorClass}`}
-                    style={{
-                      transition: 'opacity 0.3s ease-out',
-                      willChange: scrolled ? 'auto' : 'opacity'
-                    }}
-                  >
-                    {subtitleText || (showLanguageCurrency ? `${language} • ${currency}` : 'Protection Numérique')}
-                  </div>
+                <div 
+                  className={`text-[8px] uppercase tracking-[0.2em] leading-none font-semibold ${
+                    scrolled ? 'opacity-70' : 'opacity-100'
+                  } ${subtitleColorClass}`}
+                  style={{
+                    transition: 'opacity 0.3s ease-out',
+                    willChange: scrolled ? 'auto' : 'opacity'
+                  }}
+                >
+                  {subtitleText || (showLanguageCurrency ? `${language} • ${currency}` : 'Protection Numérique')}
                 </div>
               </div>
             </Link>
@@ -704,40 +682,18 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
                     className="flex items-center p-5 border-b border-primary/20 bg-gradient-to-b from-zinc-950 to-zinc-950/90 flex-shrink-0"
                     style={{ flexShrink: 0 }}
                   >
-                    <div className="flex items-center gap-2.5">
-                      <motion.div 
-                        className="relative w-9 h-9"
-                        animate={{
-                          scale: [1, 1.05, 1],
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
+                    <div className="flex flex-col">
                         <div
-                          className="absolute inset-0 rounded-xl blur-md opacity-60 bg-gradient-to-br from-primary via-primary/70 to-primary/50"
-                        ></div>
-                        <div
-                          className="relative w-full h-full rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-br from-primary to-primary/80 shadow-primary/30"
-                        >
-                          <ShieldCheck className="w-4 h-4 text-black" strokeWidth={2.5} />
-                        </div>
-                      </motion.div>
-                      <div className="flex flex-col">
-                        <div
-                          className="font-display font-bold text-xs text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/80"
+                          className="font-display font-bold text-sm text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/80"
                         >
                           ContentRemovalDesk
                         </div>
                         <div
-                          className="text-[7px] uppercase tracking-[0.2em] font-semibold text-primary/70"
+                          className="text-[8px] uppercase tracking-[0.2em] font-semibold text-primary/70"
                         >
                           Protection Numérique
                         </div>
                       </div>
-                    </div>
                   </motion.div>
                   
                   {/* Navigation Items - Scrollable */}
