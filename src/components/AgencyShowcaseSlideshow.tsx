@@ -69,12 +69,8 @@ const slides: Slide[] = [
         en: "Protection Health Index"
       },
       subtitle: {
-        fr: "Surveillance en temps réel",
-        en: "Real-time monitoring"
-      },
-      description: {
-        fr: "Score de protection automatique qui indique l'état de santé global de vos créateurs avec alertes prioritaires.",
-        en: "Automatic protection score indicating the overall health status of your creators with priority alerts."
+        fr: "Surveillance • Alertes • Priorités",
+        en: "Monitoring • Alerts • Priorities"
       },
       stats: [
         { label: { fr: "Statut", en: "Status" }, value: "Stable", icon: CheckCircle2 },
@@ -94,12 +90,8 @@ const slides: Slide[] = [
         en: "Multi-Creator Management"
       },
       subtitle: {
-        fr: "Ajoutez et gérez jusqu'à 100 créateurs",
-        en: "Add and manage up to 100 creators"
-      },
-      description: {
-        fr: "Ajout simplifié, suivi individuel par créateur avec niveaux de risque, statuts de protection et alertes personnalisées.",
-        en: "Simplified addition, individual tracking per creator with risk levels, protection statuses and personalized alerts."
+        fr: "Jusqu'à 100 • Suivi individuel • Risques",
+        en: "Up to 100 • Individual tracking • Risks"
       },
       stats: [
         { label: { fr: "Niveau faible", en: "Low Risk" }, value: "32 créateurs", icon: CheckCircle2 },
@@ -119,12 +111,8 @@ const slides: Slide[] = [
         en: "Structured Legal Escalations"
       },
       subtitle: {
-        fr: "Pour les cas complexes",
-        en: "For complex cases"
-      },
-      description: {
-        fr: "Système d'escalade professionnel via des procédures encadrées et des partenaires spécialisés. Intervention pour registrars offshore, hosts récalcitrants, plateformes complexes et CDN.",
-        en: "Professional escalation system via structured procedures and specialized partners. Intervention for offshore registrars, uncooperative hosts, complex platforms and CDNs."
+        fr: "Partenaires spécialisés • Offshore • CDN",
+        en: "Specialized partners • Offshore • CDN"
       },
       stats: [
         { label: { fr: "Escalades en cours", en: "Active Escalations" }, value: "8", icon: Scale },
@@ -146,12 +134,8 @@ const slides: Slide[] = [
         en: "Consolidated Reports"
       },
       subtitle: {
-        fr: "Preuves et statistiques détaillées",
-        en: "Detailed proof and statistics"
-      },
-      description: {
-        fr: "Générez des rapports professionnels en PDF avec toutes les preuves, statistiques et analyses par créateur ou globalement.",
-        en: "Generate professional PDF reports with all proof, statistics and analyses per creator or globally."
+        fr: "PDF • Preuves • Statistiques",
+        en: "PDF • Proof • Statistics"
       },
       stats: [
         { label: { fr: "Rapports mensuels", en: "Monthly Reports" }, value: "24", icon: FileText },
@@ -171,12 +155,8 @@ const slides: Slide[] = [
         en: "Priority Removal"
       },
       subtitle: {
-        fr: "Vos créateurs passent en première ligne",
-        en: "Your creators get priority treatment"
-      },
-      description: {
-        fr: "Traitement accéléré et prioritaire pour tous vos modèles avec retraits automatisés et suivi en temps réel.",
-        en: "Accelerated and priority processing for all your models with automated removals and real-time tracking."
+        fr: "Priorité • Automatisé • 24-48h",
+        en: "Priority • Automated • 24-48h"
       },
       stats: [
         { label: { fr: "Délai moyen", en: "Average Delay" }, value: "24-48h", icon: Clock },
@@ -196,12 +176,8 @@ const slides: Slide[] = [
         en: "Google De-indexing"
       },
       subtitle: {
-        fr: "Supprimez les références dans les moteurs",
-        en: "Remove references from search engines"
-      },
-      description: {
-        fr: "Système automatisé de désindexation Google pour retirer les contenus des résultats de recherche rapidement.",
-        en: "Automated Google de-indexing system to remove content from search results quickly."
+        fr: "Google • Automatisé • Rapide",
+        en: "Google • Automated • Fast"
       },
       stats: [
         { label: { fr: "Requêtes traitées", en: "Requests Processed" }, value: "892", icon: FileText },
@@ -221,12 +197,8 @@ const slides: Slide[] = [
         en: "Custom Branding"
       },
       subtitle: {
-        fr: "Marque blanche complète",
-        en: "Complete white-label"
-      },
-      description: {
-        fr: "Personnalisez votre interface avec logo, couleurs, sous-domaine dédié et thème pour une expérience sur-mesure.",
-        en: "Customize your interface with logo, colors, dedicated subdomain and theme for a tailored experience."
+        fr: "Logo • Couleurs • Sous-domaine",
+        en: "Logo • Colors • Subdomain"
       },
       stats: [
         { label: { fr: "Logo personnalisé", en: "Custom Logo" }, value: "✓", icon: CheckCircle2 },
@@ -246,12 +218,8 @@ const slides: Slide[] = [
         en: "Smart Alerts"
       },
       subtitle: {
-        fr: "Soyez informés en temps réel",
-        en: "Stay informed in real-time"
-      },
-      description: {
-        fr: "Système d'alertes prioritaire qui vous notifie instantanément des nouvelles fuites, escalades et problèmes critiques.",
-        en: "Priority alert system that instantly notifies you of new leaks, escalations and critical issues."
+        fr: "Temps réel • Fuites • Critiques",
+        en: "Real-time • Leaks • Critical"
       },
       stats: [
         { label: { fr: "Alertes haute priorité", en: "High Priority Alerts" }, value: "3", icon: AlertTriangle },
@@ -271,12 +239,8 @@ const slides: Slide[] = [
         en: "Dedicated Support"
       },
       subtitle: {
-        fr: "Votre équipe, notre priorité",
-        en: "Your team, our priority"
-      },
-      description: {
-        fr: "Contact unique, réponses rapides, escalades prioritaires et support 24/7 pour votre agence.",
-        en: "Single point of contact, quick responses, priority escalations and 24/7 support for your agency."
+        fr: "24/7 • Contact dédié • < 2h",
+        en: "24/7 • Dedicated contact • < 2h"
       },
       stats: [
         { label: { fr: "Temps de réponse", en: "Response Time" }, value: "< 2h", icon: Clock },
@@ -359,90 +323,124 @@ export function AgencyShowcaseSlideshow({
 
                     return (
                       <div className="w-full px-4">
-                        <div className="flex flex-col gap-6 lg:gap-7 items-center lg:items-start">
-                          {/* Icon on top/left */}
-                          <div className="flex-shrink-0">
+                        <div className="flex flex-col items-center justify-center h-full min-h-[350px] md:min-h-[400px]">
+                          {/* Animated Icon */}
+                          <motion.div
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ 
+                              scale: 1, 
+                              rotate: 0,
+                              y: [0, -10, 0]
+                            }}
+                            transition={{ 
+                              scale: { duration: 0.6, ease: "easeOut" },
+                              rotate: { duration: 0.6, ease: "easeOut" },
+                              y: { 
+                                duration: 2, 
+                                repeat: Infinity, 
+                                ease: "easeInOut",
+                                delay: 0.6
+                              }
+                            }}
+                            className="relative mb-6"
+                          >
+                            <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-blue-500/30 via-blue-600/20 to-blue-700/10 border-2 border-blue-500/40 shadow-2xl shadow-blue-500/30">
+                              <Icon className="w-16 h-16 md:w-20 md:h-20 text-blue-400" />
+                            </div>
+                            {/* Glow effect */}
                             <motion.div
-                              initial={{ scale: 0.9, opacity: 0 }}
-                              animate={{ scale: 1, opacity: 1 }}
-                              transition={{ duration: 0.4 }}
-                              className="relative"
-                            >
-                              <div className="p-5 md:p-6 rounded-xl bg-gradient-to-br from-blue-500/20 via-blue-600/10 to-blue-700/5 border border-blue-500/30 shadow-lg">
-                                <Icon className="w-14 h-14 md:w-16 md:h-16 text-blue-400" />
-                              </div>
-                            </motion.div>
-                          </div>
+                              animate={{
+                                opacity: [0.3, 0.6, 0.3],
+                                scale: [1, 1.2, 1],
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                              }}
+                              className="absolute inset-0 bg-blue-500/20 blur-xl rounded-2xl -z-10"
+                            />
+                          </motion.div>
                           
-                          {/* Content */}
-                          <div className="flex-1 w-full text-center lg:text-left space-y-4">
-                            {/* Badge */}
-                            {isEmphasized && (
-                              <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.4 }}
-                                className="flex justify-center lg:justify-start mb-2"
-                              >
-                                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-xs font-semibold uppercase tracking-wide">
-                                  <AlertTriangle className="w-3.5 h-3.5" />
-                                  Spécialité CRD
-                                </span>
-                              </motion.div>
-                            )}
-                            
-                            {/* Title and subtitle */}
-                            <motion.div
-                              initial={{ opacity: 0, y: 10 }}
+                          {/* Key Words - Animated */}
+                          <div className="text-center space-y-3">
+                            <motion.h2
+                              initial={{ opacity: 0, y: 20 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.4, delay: 0.1 }}
-                              className="space-y-2"
+                              transition={{ duration: 0.5, delay: 0.3 }}
+                              className="text-3xl md:text-4xl lg:text-5xl font-bold text-white"
                             >
-                              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white">
-                                {content.title[language]}
-                              </h2>
-                              <p className="text-lg md:text-xl text-zinc-300">
-                                {content.subtitle[language]}
-                              </p>
-                            </motion.div>
-
-                            {/* Description */}
-                            <motion.p
+                              {content.title[language].split(' ').map((word, i) => (
+                                <motion.span
+                                  key={i}
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ 
+                                    duration: 0.3, 
+                                    delay: 0.4 + i * 0.1 
+                                  }}
+                                  className="inline-block mr-2"
+                                >
+                                  {word}
+                                </motion.span>
+                              ))}
+                            </motion.h2>
+                            
+                            {/* Highlighted key phrases */}
+                            <motion.div
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
-                              transition={{ duration: 0.4, delay: 0.2 }}
-                              className="text-sm md:text-base text-zinc-400 leading-relaxed"
+                              transition={{ duration: 0.5, delay: 0.7 }}
+                              className="flex flex-wrap justify-center gap-2 md:gap-3 mt-4"
                             >
-                              {content.description[language]}
-                            </motion.p>
+                              {content.subtitle[language].split(' • ').map((phrase, i) => (
+                                <motion.span
+                                  key={i}
+                                  initial={{ opacity: 0, scale: 0.8 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ 
+                                    duration: 0.3, 
+                                    delay: 0.8 + i * 0.1 
+                                  }}
+                                  className="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-sm md:text-base font-medium"
+                                >
+                                  {phrase}
+                                </motion.span>
+                              ))}
+                            </motion.div>
 
-                            {/* Stats grid */}
+                            {/* Visual Stats - Minimal */}
                             {content.stats && (
                               <motion.div
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.3 }}
-                                className={`grid ${isEmphasized ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3'} gap-3 md:gap-4 mt-6`}
+                                transition={{ duration: 0.5, delay: 1 }}
+                                className="flex flex-wrap justify-center gap-4 md:gap-6 mt-6"
                               >
-                                {content.stats.map((stat, index) => {
+                                {content.stats.slice(0, 3).map((stat, index) => {
                                   const StatIcon = stat.icon;
                                   return (
-                                    <div
+                                    <motion.div
                                       key={index}
-                                      className="p-4 rounded-lg bg-zinc-900/50 border border-zinc-800/50 hover:border-blue-500/40 transition-all duration-300 group"
+                                      initial={{ opacity: 0, scale: 0 }}
+                                      animate={{ opacity: 1, scale: 1 }}
+                                      transition={{ 
+                                        duration: 0.4, 
+                                        delay: 1.1 + index * 0.15,
+                                        type: "spring",
+                                        stiffness: 200
+                                      }}
+                                      whileHover={{ scale: 1.1, y: -5 }}
+                                      className="flex flex-col items-center gap-2 p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/50 hover:border-blue-500/50 transition-all duration-300"
                                     >
-                                      <div className="flex items-center gap-2 mb-2">
-                                        {StatIcon && (
-                                          <div className="p-1.5 rounded-md bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
-                                            <StatIcon className="w-4 h-4 text-blue-400" />
-                                          </div>
-                                        )}
-                                        <span className="text-xs font-medium text-zinc-400">
-                                          {stat.label[language]}
-                                        </span>
-                                      </div>
-                                      <p className="text-xl md:text-2xl font-bold text-white">{stat.value}</p>
-                                    </div>
+                                      {StatIcon && (
+                                        <StatIcon className="w-6 h-6 md:w-8 md:h-8 text-blue-400" />
+                                      )}
+                                      <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
+                                      <span className="text-xs text-zinc-400 text-center max-w-[80px]">
+                                        {stat.label[language]}
+                                      </span>
+                                    </motion.div>
                                   );
                                 })}
                               </motion.div>
