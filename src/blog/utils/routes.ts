@@ -1,23 +1,19 @@
 /**
  * Blog Route Utilities
- * Handles route paths for both main domain and subdomain
+ * Blog routes are on main domain at /blog path
  */
-
-import { isBlogSubdomain } from '../config/blogConfig';
 
 /**
  * Get the blog route path
- * On subdomain: removes /blog prefix
- * On main domain: keeps /blog prefix
+ * Always uses /blog prefix since blog is on main domain
  */
 const getBlogRoute = (path: string): string => {
-  if (isBlogSubdomain()) {
-    // On subdomain, remove /blog prefix
-    return path.replace(/^\/blog/, '') || '/';
-  }
-  // On main domain, ensure /blog prefix
+  // Ensure /blog prefix
   if (!path.startsWith('/blog')) {
-    return `/blog${path}`;
+    if (path === '/' || path === '') {
+      return '/blog';
+    }
+    return `/blog${path.startsWith('/') ? path : '/' + path}`;
   }
   return path;
 };
