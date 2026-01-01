@@ -326,6 +326,89 @@ export function AgencyShowcaseSlideshow({
     return (currentSlide + offset + slides.length) % slides.length;
   };
 
+  const renderSlide = (slideIndex: number, position: 'prev' | 'current' | 'next') => {
+    const slide = slides[slideIndex];
+    const Icon = slide.icon;
+    const content = slide.content;
+    const isEmphasized = slide.emphasis;
+    
+    const opacity = position === 'current' ? 1 : 0.3;
+    const scale = position === 'current' ? 1 : 0.85;
+    const xOffset = position === 'prev' ? -20 : position === 'next' ? 20 : 0;
+
+    return (
+      <motion.div
+        key={`${slideIndex}-${position}`}
+        initial={{ opacity: 0, x: xOffset, scale: 0.9 }}
+        animate={{ 
+          opacity, 
+          x: xOffset, 
+          scale,
+          transition: { duration: 0.5, ease: "easeInOut" }
+        }}
+        className={`flex-shrink-0 w-full max-w-4xl ${position === 'current' ? 'z-10' : 'z-0'}`}
+      >
+        <div className="bg-transparent p-6 md:p-8">
+          {/* Icon and title */}
+          <div className="flex items-start gap-6 mb-6">
+            <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+              <Icon className="w-12 h-12 text-blue-400" />
+            </div>
+            <div className="flex-1">
+              {isEmphasized && position === 'current' && (
+                <div className="mb-3">
+                  <span className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-semibold uppercase tracking-wide">
+                    <AlertTriangle className="w-3 h-3" />
+                    Spécialité CRD
+                  </span>
+                </div>
+              )}
+              <h2 className="text-2xl md:text-3xl font-bold mb-2 leading-tight text-white">
+                {content.title[language]}
+              </h2>
+              <p className="text-base md:text-lg text-zinc-300">
+                {content.subtitle[language]}
+              </p>
+            </div>
+          </div>
+
+          {/* Description */}
+          <p className="text-sm md:text-base text-zinc-300 mb-6 leading-relaxed">
+            {content.description[language]}
+          </p>
+
+          {/* Stats grid - only show for current slide */}
+          {content.stats && position === 'current' && (
+            <div className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-3`}>
+              {content.stats.map((stat, index) => {
+                const StatIcon = stat.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="p-3 rounded-lg bg-zinc-900/30 border border-zinc-800/50"
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      {StatIcon && (
+                        <StatIcon className="w-4 h-4 text-blue-400" />
+                      )}
+                      <span className="text-xs font-medium text-zinc-400">
+                        {stat.label[language]}
+                      </span>
+                    </div>
+                    <p className="text-lg md:text-xl font-bold text-white">{stat.value}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </motion.div>
+    );
+  };
+
   return (
     <div className={`w-full bg-transparent relative overflow-hidden ${className}`}>
       <div className="relative z-10 w-full">
