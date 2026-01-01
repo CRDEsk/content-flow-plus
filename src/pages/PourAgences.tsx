@@ -35,7 +35,6 @@ import {
   XCircle
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import AgencyShowcaseSlideshow from "@/components/AgencyShowcaseSlideshow";
 
 const PourAgences = () => {
   useEffect(() => {
@@ -477,9 +476,9 @@ const PourAgences = () => {
               boxShadow: '0 20px 60px 0 rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 0 100px rgba(59, 130, 246, 0.05)',
             }}
           >
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
-              {/* Left side - Hero content */}
-              <div className="text-center lg:text-left space-y-7 sm:space-y-8">
+            <div className="max-w-5xl mx-auto">
+              {/* Hero content - Centered */}
+              <div className="text-center space-y-7 sm:space-y-8">
                 {/* Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: -10 }}
