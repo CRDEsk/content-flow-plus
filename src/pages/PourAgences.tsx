@@ -35,6 +35,7 @@ import {
   XCircle
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import AgencyShowcaseSlideshow from "@/components/AgencyShowcaseSlideshow";
 
 const PourAgences = () => {
   useEffect(() => {
@@ -1334,6 +1335,13 @@ const PourAgences = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* SECTION 10 - Interactive Showcase */}
+      <AgencyShowcaseSlideshow 
+        initialLanguage="fr"
+        autoPlay={true}
+        slideDuration={6000}
+      />
 
       <Footer />
     </div>
