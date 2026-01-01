@@ -319,61 +319,7 @@ const PourAgences = () => {
             }
           },
           hideEventTypeDetails: false,
-          layout: "month_view",
-          customCss: `
-            /* Selected dates and days - comprehensive override */
-            [data-cal-namespace="agence"] [data-cal-selected],
-            [data-cal-namespace="agence"] .cal-selected,
-            [data-cal-namespace="agence"] button[data-cal-selected],
-            [data-cal-namespace="agence"] .cal-day-selected,
-            [data-cal-namespace="agence"] [aria-selected="true"],
-            [data-cal-namespace="agence"] .cal-day-selected button,
-            [data-cal-namespace="agence"] button[aria-selected="true"],
-            [data-cal-namespace="agence"] [data-state="selected"],
-            [data-cal-namespace="agence"] button[data-state="selected"] {
-              background-color: #3B82F6 !important;
-              border-color: #3B82F6 !important;
-              color: white !important;
-            }
-            
-            /* Selected date indicators (dots) */
-            [data-cal-namespace="agence"] .cal-day-selected button::before,
-            [data-cal-namespace="agence"] .cal-day-selected::before,
-            [data-cal-namespace="agence"] [data-cal-selected]::before,
-            [data-cal-namespace="agence"] button[data-cal-selected]::before,
-            [data-cal-namespace="agence"] [aria-selected="true"]::before,
-            [data-cal-namespace="agence"] .cal-day-selected::after,
-            [data-cal-namespace="agence"] [data-cal-selected]::after {
-              background-color: #3B82F6 !important;
-              border-color: #3B82F6 !important;
-            }
-            
-            /* Time slot selections */
-            [data-cal-namespace="agence"] [data-time-slot-selected],
-            [data-cal-namespace="agence"] button[data-time-slot-selected],
-            [data-cal-namespace="agence"] .time-slot-selected,
-            [data-cal-namespace="agence"] button[data-slot-selected] {
-              background-color: #3B82F6 !important;
-              border-color: #3B82F6 !important;
-              color: white !important;
-            }
-            
-            /* Hover states */
-            [data-cal-namespace="agence"] button:hover,
-            [data-cal-namespace="agence"] .cal-day:hover,
-            [data-cal-namespace="agence"] [data-time-slot]:hover,
-            [data-cal-namespace="agence"] button[data-time-slot]:hover {
-              background-color: rgba(59, 130, 246, 0.2) !important;
-              border-color: #3B82F6 !important;
-            }
-            
-            /* Force blue on any selected/active state */
-            [data-cal-namespace="agence"] [class*="selected"],
-            [data-cal-namespace="agence"] [class*="active"] {
-              background-color: #3B82F6 !important;
-              border-color: #3B82F6 !important;
-            }
-          `
+          layout: "month_view"
         });
         
         // Watch for dynamically added Cal.com elements and force blue styling
