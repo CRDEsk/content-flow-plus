@@ -293,16 +293,16 @@ export function AgencyShowcaseSlideshow({
 
   return (
     <div className={`w-full relative ${className}`}>
-      {/* Fixed height container to prevent jumping */}
-      <div className="relative w-full h-[420px] md:h-[480px] flex items-center justify-center overflow-hidden">
+      {/* Dashboard container - Fixed height */}
+      <div className="relative w-full h-[500px] md:h-[580px] flex items-center justify-center overflow-hidden">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, scale: 0.97 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.97 }}
+            exit={{ opacity: 0, scale: 0.98 }}
             transition={{ 
-              duration: 0.4,
+              duration: 0.5,
               ease: [0.25, 0.46, 0.45, 0.94]
             }}
             className="w-full absolute inset-0 flex items-center justify-center"
@@ -313,127 +313,118 @@ export function AgencyShowcaseSlideshow({
               const content = slide.content;
 
               return (
-                <div className="w-full px-2 md:px-4">
-                  <div className="flex flex-col items-center justify-center h-full space-y-4">
-                    {/* Animated Icon - More prominent */}
-                    <motion.div
-                      initial={{ scale: 0, rotate: -180 }}
-                      animate={{ 
-                        scale: 1, 
-                        rotate: 0,
-                        y: [0, -8, 0]
+                <div className="w-full h-full px-2 md:px-4">
+                  {/* Dashboard Frame - Glass panel with perspective */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, rotateY: -2 }}
+                    animate={{ opacity: 1, y: 0, rotateY: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="relative w-full h-full max-w-2xl mx-auto"
+                    style={{
+                      perspective: '1000px',
+                      transformStyle: 'preserve-3d'
+                    }}
+                  >
+                    <div 
+                      className="relative w-full h-full rounded-xl overflow-hidden border border-zinc-800/50"
+                      style={{
+                        background: 'rgba(0, 0, 0, 0.5)',
+                        backdropFilter: 'blur(20px) saturate(180%)',
+                        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                        boxShadow: '0 20px 60px 0 rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 0 80px rgba(59, 130, 246, 0.05)',
+                        transform: 'perspective(1000px) rotateY(-2deg)',
                       }}
-                      transition={{ 
-                        scale: { duration: 0.4, ease: "easeOut" },
-                        rotate: { duration: 0.4, ease: "easeOut" },
-                        y: { 
-                          duration: 2.5, 
-                          repeat: Infinity, 
-                          ease: "easeInOut",
-                          delay: 0.4
-                        }
-                      }}
-                      className="relative mb-2"
                     >
-                      <div className="p-4 md:p-5 rounded-xl bg-gradient-to-br from-blue-500/30 via-blue-600/20 to-blue-700/15 border border-blue-500/50 shadow-xl shadow-blue-500/20">
-                        <Icon className="w-12 h-12 md:w-14 md:h-14 text-blue-400" />
+                      {/* Dashboard Header */}
+                      <div className="flex items-center justify-between p-4 border-b border-zinc-800/50 bg-zinc-900/30">
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 rounded-lg bg-blue-500/20 border border-blue-500/30">
+                            <Icon className="w-5 h-5 text-blue-400" />
+                          </div>
+                          <div>
+                            <h3 className="text-sm font-semibold text-white">{content.title[language]}</h3>
+                            <p className="text-xs text-zinc-400">{content.subtitle[language].split(' • ')[0]}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {content.subtitle[language].split(' • ').slice(1).map((phrase, i) => (
+                            <span key={i} className="px-2 py-0.5 rounded text-[10px] bg-blue-500/10 border border-blue-500/20 text-blue-300">
+                              {phrase}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      {/* Subtle glow */}
-                      <motion.div
-                        animate={{
-                          opacity: [0.15, 0.3, 0.15],
-                          scale: [1, 1.15, 1],
-                        }}
-                        transition={{
-                          duration: 2.5,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                        className="absolute inset-0 bg-blue-500/15 blur-xl rounded-xl -z-10"
-                      />
-                    </motion.div>
-                    
-                    {/* Title - Cleaner */}
-                    <motion.h2
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: 0.15 }}
-                      className="text-xl md:text-2xl lg:text-3xl font-bold text-white text-center leading-tight"
-                    >
-                      {content.title[language]}
-                    </motion.h2>
-                    
-                    {/* Key phrases - Minimal badges */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3, delay: 0.25 }}
-                      className="flex flex-wrap justify-center gap-1.5 mt-1"
-                    >
-                      {content.subtitle[language].split(' • ').map((phrase, i) => (
-                        <motion.span
-                          key={i}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ 
-                            duration: 0.2, 
-                            delay: 0.3 + i * 0.05,
-                            type: "spring",
-                            stiffness: 500
-                          }}
-                          className="px-2.5 py-1 rounded-md bg-blue-500/10 border border-blue-500/25 text-blue-300 text-xs font-medium"
-                        >
-                          {phrase}
-                        </motion.span>
-                      ))}
-                    </motion.div>
 
-                    {/* Stats - Better design */}
-                    {content.stats && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 0.4 }}
-                        className="grid grid-cols-3 gap-2.5 md:gap-3 mt-5 w-full max-w-sm"
-                      >
-                        {content.stats.slice(0, 3).map((stat, index) => {
-                          const StatIcon = stat.icon;
-                          return (
-                            <motion.div
-                              key={index}
-                              initial={{ opacity: 0, scale: 0.9 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ 
-                                duration: 0.25, 
-                                delay: 0.5 + index * 0.08,
-                                type: "spring",
-                                stiffness: 400
-                              }}
-                              whileHover={{ scale: 1.03, y: -2 }}
-                              className="group relative flex flex-col items-center justify-center p-3 md:p-3.5 rounded-lg bg-zinc-900/50 border border-zinc-800/50 hover:border-blue-500/40 transition-all duration-200"
-                            >
-                              {/* Icon - Top */}
-                              {StatIcon && (
-                                <div className="mb-2 p-1.5 rounded-md bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/15 transition-colors">
-                                  <StatIcon className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
+                      {/* Dashboard Content */}
+                      <div className="p-4 md:p-6 h-[calc(100%-73px)] overflow-hidden">
+                        {/* KPI Row */}
+                        <div className="grid grid-cols-3 gap-3 mb-4">
+                          {content.stats && content.stats.slice(0, 3).map((stat, index) => {
+                            const StatIcon = stat.icon;
+                            return (
+                              <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 + index * 0.1 }}
+                                className="p-3 rounded-lg bg-zinc-900/50 border border-zinc-800/50"
+                              >
+                                <div className="flex items-center gap-2 mb-2">
+                                  {StatIcon && (
+                                    <StatIcon className="w-4 h-4 text-blue-400" />
+                                  )}
+                                  <span className="text-[10px] text-zinc-400">{stat.label[language]}</span>
                                 </div>
-                              )}
-                              
-                              {/* Value - Prominent */}
-                              <p className="text-lg md:text-xl font-bold text-white mb-0.5">
-                                {stat.value}
-                              </p>
-                              
-                              {/* Label - Tiny but readable */}
-                              <span className="text-[9px] md:text-[10px] text-zinc-400 text-center leading-tight px-0.5">
-                                {stat.label[language]}
-                              </span>
+                                <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+
+                        {/* Table/List View */}
+                        <div className="space-y-2">
+                          {[1, 2, 3, 4].map((row, i) => (
+                            <motion.div
+                              key={i}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.5 + i * 0.05 }}
+                              className="flex items-center justify-between p-3 rounded-lg bg-zinc-900/30 border border-zinc-800/30 hover:bg-zinc-900/50 hover:border-zinc-800/50 transition-all"
+                            >
+                              <div className="flex items-center gap-3">
+                                <div className="w-2 h-2 rounded-full bg-blue-500/50"></div>
+                                <div>
+                                  <div className="text-sm font-medium text-white">Créateur {String.fromCharCode(65 + i)}</div>
+                                  <div className="text-xs text-zinc-400">Protection active</div>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">
+                                  Stable
+                                </span>
+                              </div>
                             </motion.div>
-                          );
-                        })}
-                      </motion.div>
-                    )}
-                  </div>
+                          ))}
+                        </div>
+
+                      {/* Subtle gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-blue-600/5 pointer-events-none" />
+                    </div>
+
+                    {/* Glow effect behind */}
+                    <motion.div
+                      animate={{
+                        opacity: [0.1, 0.2, 0.1],
+                        scale: [1, 1.02, 1],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                      className="absolute inset-0 bg-blue-500/10 blur-3xl rounded-xl -z-10"
+                    />
+                  </motion.div>
                 </div>
               );
             })()}
