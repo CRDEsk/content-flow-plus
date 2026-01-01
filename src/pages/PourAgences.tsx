@@ -1263,8 +1263,9 @@ const PourAgences = () => {
                   <p className="text-lg sm:text-xl font-semibold text-blue-400 mb-2">
                     {tier.range}
                   </p>
-                  <p className="text-sm text-zinc-400 mb-3 sm:mb-4">
-                    👉 {tier.for}
+                  <p className="text-sm text-zinc-400 mb-3 sm:mb-4 flex items-center gap-2">
+                    <Target className="w-4 h-4 text-blue-400" />
+                    {tier.for}
                   </p>
                   <p className="text-sm sm:text-base text-zinc-300 leading-relaxed mb-4">
                     {tier.description}
