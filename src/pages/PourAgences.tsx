@@ -665,10 +665,10 @@ const PourAgences = () => {
                   }}
                   asChild
                 >
-                  <a href="mailto:support@contentremovaldesk.com">
+                  <a href="https://espace.contentremovaldesk.com/create-agency" target="_blank" rel="noopener noreferrer">
                     <span className="flex items-center gap-3 justify-center">
-                      <Headphones className="h-5 w-5 sm:h-6 sm:w-6" />
-                      Parler à un expert
+                      <Users className="h-5 w-5 sm:h-6 sm:w-6" />
+                      Créer mon agence
                     </span>
                   </a>
                 </Button>
@@ -704,12 +704,12 @@ const PourAgences = () => {
               {
                 icon: Flame,
                 title: "Suppression prioritaire",
-                description: "Vos créateurs passent en première ligne. Retraits accélérés, traitement immédiat."
+                description: "Vos créateurs passent en première ligne. Retraits accélérés, traitement prioritaire."
               },
               {
                 icon: Scale,
-                title: "Escalades juridiques",
-                description: "Pour les cas critiques. Nos équipes juridiques gèrent les registrars, hosts offshore, et plateformes complexes."
+                title: "Escalades juridiques structurées",
+                description: "Pour les cas critiques, via des procédures encadrées et des partenaires spécialisés (registrars, hébergeurs, plateformes complexes)."
               },
               {
                 icon: BarChart3,
@@ -719,7 +719,7 @@ const PourAgences = () => {
               {
                 icon: Headphones,
                 title: "Support dédié",
-                description: "Pour votre équipe. Un contact unique, des réponses immédiates, escalades prioritaires."
+                description: "Pour votre équipe. Un contact unique, des réponses rapides, escalades prioritaires."
               }
             ].map((item, index) => {
               const Icon = item.icon;
@@ -772,7 +772,7 @@ const PourAgences = () => {
 
       {/* SECTION 3 - Dashboard Features */}
       <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-zinc-950/30">
-        <div className="container mx-auto max-w-7xl">
+        <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -781,92 +781,46 @@ const PourAgences = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
-              Tout ce dont vous avez besoin en un coup d'œil
+              Tout ce qui compte, en un coup d'œil
             </h2>
-            <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
-              Un tableau de bord qui vous fait gagner du temps, pas qui vous en fait perdre
+            <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto mb-8">
+              Un tableau de bord pensé pour les agences — pas pour les geeks.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
-            {[
-              {
-                icon: Users,
-                title: "Vue d'ensemble de vos créateurs",
-                description: "Voir en un instant qui est protégé, qui a besoin d'attention, et où en sont les choses pour chacun."
-              },
-              {
-                icon: Activity,
-                title: "Alertes intelligentes",
-                description: "On vous alerte uniquement sur ce qui compte vraiment. Plus besoin de chercher dans 50 emails."
-              },
-              {
-                icon: CheckCircle2,
-                title: "Preuves de suppression",
-                description: "Tout ce qui a été supprimé, documenté et prêt à être partagé avec vos clients."
-              },
-              {
-                icon: TrendingUp,
-                title: "Suivi des performances",
-                description: "Voir l'évolution de la protection de vos créateurs dans le temps."
-              },
-              {
-                icon: AlertTriangle,
-                title: "Priorités claires",
-                description: "On vous dit quoi traiter en premier. Plus de stress, plus de cas oubliés."
-              },
-              {
-                icon: Shield,
-                title: "Santé globale",
-                description: "Un indicateur simple : tout va bien, attention requise, ou action urgente."
-              }
-            ].map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ 
-                    delay: index * 0.08, 
-                    duration: 0.6, 
-                    ease: [0.25, 0.46, 0.45, 0.94] 
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.4)',
-                    backdropFilter: 'blur(30px) saturate(180%)',
-                    WebkitBackdropFilter: 'blur(30px) saturate(180%)',
-                    border: '1px solid rgba(59, 130, 246, 0.2)',
-                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.4)';
-                    e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(59, 130, 246, 0.2), inset 0 0 80px rgba(59, 130, 246, 0.1)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
-                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)';
-                  }}
-                >
-                  <div className="relative z-10">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-6 h-6 sm:w-7 sm:w-7 text-blue-400" />
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-10 lg:p-12 transition-all duration-300 max-w-4xl mx-auto"
+            style={{
+              background: 'rgba(0, 0, 0, 0.5)',
+              backdropFilter: 'blur(30px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+              border: '1px solid rgba(59, 130, 246, 0.3)',
+              boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)',
+            }}
+          >
+            <ul className="space-y-4 text-base sm:text-lg text-zinc-300">
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-blue-400 mt-0.5 flex-shrink-0" />
+                <span><strong className="text-foreground">Vue instantanée</strong> de l'état de protection de chaque créateur</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-blue-400 mt-0.5 flex-shrink-0" />
+                <span><strong className="text-foreground">Alertes uniquement</strong> sur ce qui nécessite une action</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-blue-400 mt-0.5 flex-shrink-0" />
+                <span><strong className="text-foreground">Historique clair</strong> des suppressions avec preuves</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-blue-400 mt-0.5 flex-shrink-0" />
+                <span><strong className="text-foreground">Indicateur de santé global</strong> pour prioriser sans stress</span>
+              </li>
+            </ul>
+          </motion.div>
         </div>
       </section>
 
@@ -900,7 +854,7 @@ const PourAgences = () => {
               {
                 icon: Lock,
                 title: "Réduisez vos risques.",
-                description: "Les escalades juridiques deviennent notre responsabilité, pas la vôtre."
+                description: "Les escalades complexes sont gérées via des procédures structurées et des partenaires spécialisés."
               }
             ].map((block, index) => {
               const Icon = block.icon;
@@ -968,44 +922,34 @@ const PourAgences = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
-              Votre marque, votre interface
+              Votre marque. Pas la nôtre.
             </h2>
-            <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
-              Vos créateurs voient votre agence, pas la nôtre
+            <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto mb-8">
+              Vos créateurs vivent une expérience 100% à l'image de votre agence.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-6">
             {[
               {
-                icon: Globe,
-                title: "Votre propre espace",
-                description: "Un espace dédié avec votre nom. Vos créateurs accèdent directement à votre interface personnalisée."
-              },
-              {
-                icon: Palette,
-                title: "Branding complet",
-                description: "Logo, couleurs, thème. Tout reflète votre identité visuelle. Simple à configurer, impact immédiat."
+                icon: Eye,
+                title: "Interface personnalisée",
+                description: "À votre branding"
               },
               {
                 icon: FileText,
-                title: "Rapports à votre image",
-                description: "Tous les rapports portent votre logo et vos couleurs. Prêts à être partagés avec vos clients sans retouche."
+                title: "Rapports professionnels",
+                description: "Prêts à être envoyés"
               },
               {
-                icon: Eye,
-                title: "Expérience transparente",
-                description: "Vos créateurs ne voient que votre marque. L'expérience est fluide et cohérente avec votre identité."
+                icon: Globe,
+                title: "Accès via votre espace",
+                description: "Dédié"
               },
               {
                 icon: Building2,
-                title: "Domaine personnalisé",
-                description: "Option pour utiliser votre propre domaine. Vos créateurs accèdent via votre URL, pas la nôtre."
-              },
-              {
-                icon: Lock,
-                title: "Contrôle total",
-                description: "Vous gérez tout depuis votre tableau de bord. Changements instantanés, sans intervention technique."
+                title: "Option domaine personnalisé",
+                description: "Disponible"
               }
             ].map((feature, index) => {
               const Icon = feature.icon;
@@ -1045,6 +989,9 @@ const PourAgences = () => {
               );
             })}
           </div>
+          <p className="text-center text-sm text-zinc-500 mt-6">
+            Configuration simple depuis le tableau de bord. Aucun développement requis.
+          </p>
         </div>
       </section>
 
@@ -1087,7 +1034,7 @@ const PourAgences = () => {
               Escalades juridiques intégrées
             </h3>
             <p className="text-base sm:text-lg text-zinc-300 leading-relaxed mb-6">
-              Certains sites résistent aux DMCA standards. Pour ces cas, on propose une escalade juridique renforcée : intervention directe auprès des registrars, hébergeurs, et si nécessaire, action en justice.
+              Certains sites résistent aux DMCA standards. Pour ces cas, on propose une escalade juridique renforcée : intervention directe auprès des registrars, hébergeurs, et, si requis, procédures légales avancées via partenaires spécialisés.
             </p>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
@@ -1277,6 +1224,7 @@ const PourAgences = () => {
               {
                 name: "Start",
                 range: "Pour débuter",
+                for: "Pour studios et petites agences",
                 description: "Idéal pour les petites agences qui commencent. Tous les outils essentiels pour protéger vos créateurs.",
                 features: [
                   "Gestion jusqu'à 10 créateurs",
@@ -1290,6 +1238,7 @@ const PourAgences = () => {
               {
                 name: "Scale",
                 range: "Pour grandir",
+                for: "Pour agences en croissance avec volume",
                 description: "Pour les agences en croissance. Traitement prioritaire et outils avancés pour gérer plus de créateurs efficacement.",
                 features: [
                   "Gestion jusqu'à 50 créateurs",
@@ -1303,6 +1252,7 @@ const PourAgences = () => {
               {
                 name: "Infrastructure",
                 range: "Pour les grandes agences",
+                for: "Pour structures établies et multi-équipes",
                 description: "Solution complète pour les grandes structures. Automatisation maximale, priorité absolue, et support premium.",
                 features: [
                   "Gestion jusqu'à 100 créateurs",
@@ -1363,8 +1313,11 @@ const PourAgences = () => {
                   <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                     {tier.name}
                   </h3>
-                  <p className="text-lg sm:text-xl font-semibold text-blue-400 mb-3 sm:mb-4">
+                  <p className="text-lg sm:text-xl font-semibold text-blue-400 mb-2">
                     {tier.range}
+                  </p>
+                  <p className="text-sm text-zinc-400 mb-3 sm:mb-4">
+                    👉 {tier.for}
                   </p>
                   <p className="text-sm sm:text-base text-zinc-300 leading-relaxed mb-4">
                     {tier.description}
