@@ -199,12 +199,48 @@ const PourAgences = () => {
 
         cal("ui", {
           cssVarsPerTheme: {
-            light: { "cal-brand": "#3B82F6" },
-            dark: { "cal-brand": "#3B82F6" }
+            light: { 
+              "cal-brand": "#3B82F6",
+              "cal-brand-emphasis": "#2563EB",
+              "cal-brand-text": "#3B82F6"
+            },
+            dark: { 
+              "cal-brand": "#3B82F6",
+              "cal-brand-emphasis": "#2563EB",
+              "cal-brand-text": "#3B82F6"
+            }
           },
           hideEventTypeDetails: false,
           layout: "month_view"
         });
+
+        // Inject custom CSS to override yellow colors with blue
+        const styleId = 'cal-blue-override';
+        if (!document.getElementById(styleId)) {
+          const style = document.createElement('style');
+          style.id = styleId;
+          style.textContent = `
+            [data-cal-namespace="agence"] [data-cal-selected],
+            [data-cal-namespace="agence"] .cal-selected,
+            [data-cal-namespace="agence"] button[data-cal-selected],
+            [data-cal-namespace="agence"] .cal-day-selected,
+            [data-cal-namespace="agence"] [aria-selected="true"],
+            [data-cal-namespace="agence"] .cal-day-selected button {
+              background-color: #3B82F6 !important;
+              border-color: #3B82F6 !important;
+              color: white !important;
+            }
+            [data-cal-namespace="agence"] button:hover,
+            [data-cal-namespace="agence"] .cal-day:hover {
+              background-color: rgba(59, 130, 246, 0.2) !important;
+              border-color: #3B82F6 !important;
+            }
+            [data-cal-namespace="agence"] .cal-day-selected button::before {
+              background-color: #3B82F6 !important;
+            }
+          `;
+          document.head.appendChild(style);
+        }
       } catch (error) {
         console.error("Failed to initialize Cal.com for agence namespace", error);
       }
