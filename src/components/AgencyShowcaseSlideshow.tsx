@@ -327,35 +327,28 @@ export function AgencyShowcaseSlideshow({
   };
 
   return (
-    <div className={`w-full bg-transparent relative overflow-hidden ${className}`}>
+    <div className={`w-full bg-transparent relative ${className}`}>
       <div className="relative z-10 w-full">
         {/* Smooth carousel container - fixed height */}
-        <div className="relative overflow-hidden py-12 md:py-16 min-h-[600px] md:min-h-[700px]">
-          <div className="relative h-full" style={{ 
-            transform: 'translate3d(0, 0, 0)',
-            WebkitTransform: 'translate3d(0, 0, 0)',
-            backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden',
-          } as React.CSSProperties}>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ 
-                  duration: 0.6, 
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                  opacity: { duration: 0.4 }
-                }}
-                className="w-full absolute inset-0"
-                style={{
-                  transform: 'translate3d(0, 0, 0)',
-                  WebkitTransform: 'translate3d(0, 0, 0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                } as React.CSSProperties}
-              >
+        <div className="relative py-12 md:py-16 min-h-[500px] md:min-h-[600px]">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ 
+                duration: 0.5, 
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              className="w-full"
+              style={{
+                transform: 'translate3d(0, 0, 0)',
+                WebkitTransform: 'translate3d(0, 0, 0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+              } as React.CSSProperties}
+            >
                 {(() => {
                   const slide = slides[currentSlide];
                   const Icon = slide.icon;
@@ -363,7 +356,7 @@ export function AgencyShowcaseSlideshow({
                   const isEmphasized = slide.emphasis;
 
                   return (
-                    <div className="max-w-6xl mx-auto px-4 h-full flex flex-col justify-center">
+                    <div className="max-w-6xl mx-auto px-4">
                       <div className="bg-transparent">
                         {/* Icon and title */}
                         <div className="flex items-start gap-6 mb-6">
@@ -389,11 +382,11 @@ export function AgencyShowcaseSlideshow({
                         </div>
 
                         {/* Description */}
-                        <p className="text-base md:text-lg text-zinc-300 mb-6 leading-relaxed max-w-4xl">
+                        <p className="text-base md:text-lg text-zinc-300 mb-8 leading-relaxed max-w-4xl">
                           {content.description[language]}
                         </p>
 
-                        {/* Stats grid - fixed height container */}
+                        {/* Stats grid */}
                         {content.stats && (
                           <div className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-4`}>
                             {content.stats.map((stat, index) => {
@@ -402,12 +395,6 @@ export function AgencyShowcaseSlideshow({
                                 <div
                                   key={index}
                                   className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/50 hover:border-blue-500/30 transition-all duration-300"
-                                  style={{
-                                    transform: 'translate3d(0, 0, 0)',
-                                    WebkitTransform: 'translate3d(0, 0, 0)',
-                                    backfaceVisibility: 'hidden',
-                                    WebkitBackfaceVisibility: 'hidden',
-                                  } as React.CSSProperties}
                                 >
                                   <div className="flex items-center gap-2 mb-2">
                                     {StatIcon && (
@@ -427,33 +414,8 @@ export function AgencyShowcaseSlideshow({
                     </div>
                   );
                 })()}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Minimal slide indicators - fixed position */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center gap-2">
-          {slides.map((_, index) => (
-            <motion.button
-              key={index}
-              initial={false}
-              animate={{
-                width: index === currentSlide ? 32 : 6,
-                opacity: index === currentSlide ? 1 : 0.4,
-              }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="h-1.5 rounded-full transition-all"
-              style={{
-                backgroundColor: index === currentSlide ? '#3B82F6' : '#3f3f46',
-              }}
-              onClick={() => {
-                setCurrentSlide(index);
-                onSlideChange?.(index);
-              }}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </div>
