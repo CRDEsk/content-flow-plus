@@ -382,8 +382,8 @@ const PourAgences = () => {
     <div className="min-h-screen bg-black text-white antialiased">
       <Header />
 
-      {/* SECTION 1 - Hero */}
-      <section className="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-24 sm:pt-32 pb-16 sm:pb-20">
+      {/* SECTION 1 - Unified Hero Banner with Slideshow */}
+      <section className="relative min-h-[95vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-24 sm:pt-32 pb-20 sm:pb-24">
         {/* Ultra-optimized background for Safari - minimal animations */}
         <div className="absolute inset-0 overflow-hidden" style={{ 
           transform: 'translateZ(0)', 
@@ -463,22 +463,24 @@ const PourAgences = () => {
           />
         </div>
 
-        <div className="container mx-auto max-w-6xl relative z-10">
+        <div className="container mx-auto max-w-7xl relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center space-y-8 rounded-3xl p-8 sm:p-12 lg:p-16"
+            className="rounded-3xl p-6 sm:p-8 lg:p-12"
             style={{
               background: 'rgba(0, 0, 0, 0.4)',
               backdropFilter: 'blur(40px) saturate(180%)',
               WebkitBackdropFilter: 'blur(40px) saturate(180%)',
               border: '1px solid rgba(59, 130, 246, 0.2)',
               boxShadow: '0 20px 60px 0 rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 0 100px rgba(59, 130, 246, 0.05)',
-              transform: 'translateY(-20px)',
             }}
           >
-            {/* Badge - Liquid Glass */}
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Left side - Hero content */}
+              <div className="text-center lg:text-left space-y-6">
+                {/* Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: -10 }}
               animate={{ 
@@ -494,15 +496,6 @@ const PourAgences = () => {
                 WebkitBackdropFilter: 'blur(20px) saturate(180%)',
                 border: '1px solid rgba(59, 130, 246, 0.4)',
                 boxShadow: '0 4px 20px 0 rgba(59, 130, 246, 0.2), inset 0 0 40px rgba(59, 130, 246, 0.1)',
-              }}
-              whileHover={{ scale: 1.05 }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.6)';
-                e.currentTarget.style.boxShadow = '0 6px 30px 0 rgba(59, 130, 246, 0.3), inset 0 0 60px rgba(59, 130, 246, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.4)';
-                e.currentTarget.style.boxShadow = '0 4px 20px 0 rgba(59, 130, 246, 0.2), inset 0 0 40px rgba(59, 130, 246, 0.1)';
               }}
             >
               <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
@@ -528,7 +521,7 @@ const PourAgences = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-xl sm:text-2xl lg:text-3xl text-zinc-200 max-w-4xl mx-auto leading-relaxed font-medium"
+                  className="text-xl sm:text-2xl lg:text-3xl text-zinc-200 leading-relaxed font-medium"
             >
               Sans charge mentale. Sans chaos. Tout dans un seul tableau de bord.
             </motion.p>
@@ -538,7 +531,7 @@ const PourAgences = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed"
+                  className="text-base sm:text-lg text-zinc-300 leading-relaxed"
             >
               Pour les studios, managers, agents et agences créatives.
             </motion.p>
@@ -548,7 +541,7 @@ const PourAgences = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
+                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2"
             >
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -558,11 +551,10 @@ const PourAgences = () => {
                 transition={{ delay: 0.6, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="relative"
               >
-                {/* Removed glow for Safari performance */}
                 <button
                   type="button"
                   data-cal-namespace="agence"
-                  data-cal-link="contentremovaldesk/agence"
+                      data-cal-link="contentremovaldesk/agence"
                   data-cal-config='{"layout":"month_view"}'
                   className="group relative text-white font-semibold rounded-full px-5 sm:px-6 lg:px-7 py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base lg:text-base transition-all duration-300 w-full sm:w-auto cursor-pointer overflow-hidden"
                   style={{
@@ -579,7 +571,6 @@ const PourAgences = () => {
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  {/* Removed shimmer and glow effects for Safari performance */}
                   <span className="relative z-10 flex items-center gap-3 justify-center">
                     <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />
                     Demander une démonstration
@@ -612,27 +603,27 @@ const PourAgences = () => {
                   }}
                   asChild
                 >
-                  <a href="https://espace.contentremovaldesk.com/create-agency" target="_blank" rel="noopener noreferrer">
+                      <a href="https://espace.contentremovaldesk.com/create-agency" target="_blank" rel="noopener noreferrer">
                     <span className="flex items-center gap-3 justify-center">
-                      <Users className="h-5 w-5 sm:h-6 sm:w-6" />
-                      Créer mon agence
+                          <Users className="h-5 w-5 sm:h-6 sm:w-6" />
+                          Créer mon agence
                     </span>
                   </a>
                 </Button>
               </motion.div>
             </motion.div>
+              </div>
+
+              {/* Right side - Integrated Slideshow */}
+              <div className="relative">
+                <AgencyShowcaseSlideshow className="opacity-100" />
+              </div>
+            </div>
           </motion.div>
         </div>
 
         {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
-      </section>
-
-      {/* Integrated Slideshow Banner - Subtle */}
-      <section className="relative -mt-16 sm:-mt-20 lg:-mt-24 px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
-        <div className="container mx-auto max-w-7xl">
-          <AgencyShowcaseSlideshow className="opacity-95" />
-        </div>
       </section>
 
       {/* SECTION 2 - Positioning */}

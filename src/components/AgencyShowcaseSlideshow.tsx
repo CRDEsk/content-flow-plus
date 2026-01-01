@@ -329,22 +329,10 @@ export function AgencyShowcaseSlideshow({
 
   return (
     <div className={`w-full relative ${className}`}>
-      {/* Subtle integrated banner - matches hero style */}
-      <div className="relative z-10 w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Main card container - matches hero glassmorphism */}
-          <div className="relative rounded-3xl overflow-hidden" style={{
-            background: 'rgba(0, 0, 0, 0.4)',
-            backdropFilter: 'blur(40px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(40px) saturate(180%)',
-            border: '1px solid rgba(59, 130, 246, 0.2)',
-            boxShadow: '0 20px 60px 0 rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 0 100px rgba(59, 130, 246, 0.05)',
-          }}>
-            {/* Subtle gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-blue-600/5 pointer-events-none" />
-            
-            {/* Content */}
-            <div className="relative py-8 md:py-12 min-h-[400px] md:min-h-[450px]">
+      {/* Integrated slideshow - no outer card, just content */}
+      <div className="relative w-full">
+        {/* Content */}
+        <div className="relative py-4 md:py-6 min-h-[350px] md:min-h-[400px]">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={currentSlide}
@@ -465,8 +453,6 @@ export function AgencyShowcaseSlideshow({
                   })()}
                 </motion.div>
               </AnimatePresence>
-            </div>
-          </div>
         </div>
       </div>
     </div>
