@@ -21,7 +21,18 @@ import {
   Star,
   Calendar,
   Flame,
-  Scale
+  Scale,
+  Activity,
+  AlertTriangle,
+  CheckCircle2,
+  Globe,
+  Palette,
+  Building2,
+  Download,
+  Eye,
+  Bell,
+  TrendingUp,
+  XCircle
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -759,7 +770,7 @@ const PourAgences = () => {
         </div>
       </section>
 
-      {/* SECTION 3 - Agency Features */}
+      {/* SECTION 3 - Dashboard Features */}
       <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-zinc-950/30">
         <div className="container mx-auto max-w-7xl">
           <motion.div
@@ -770,41 +781,44 @@ const PourAgences = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
-              Une solution pensée pour scaler
+              Tableau de bord centralisé
             </h2>
+            <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
+              Tous vos créateurs, toutes vos données, un seul endroit
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
             {[
               {
                 icon: Users,
-                title: "Gestion multi-créateurs sans friction",
-                description: "Un seul tableau. Tous vos créateurs. Scan, suivi, retraits, preuves. Tout centralisé."
+                title: "Modèles actifs",
+                description: "Suivez le nombre de créateurs que vous gérez en temps réel. Comptage automatique excluant les managers."
               },
               {
-                icon: FileText,
-                title: "Rapports consolidés pour votre agence",
-                description: "D'un coup d'œil : ce qui a été supprimé, ce qui reste, les priorités."
+                icon: Activity,
+                title: "Fuites détectées (30j)",
+                description: "Toutes les fuites détectées dans les 30 derniers jours avec comparaison et tendance (hausse/baisse/stable)."
               },
               {
-                icon: Headphones,
-                title: "Support agence dédié (24/7)",
-                description: "Un contact unique. Des réponses immédiates. Escalades prioritaires."
+                icon: CheckCircle2,
+                title: "Contenu supprimé",
+                description: "Total des fuites supprimées avec statut 'removed'/'supprimé'. Affiche le total + l'incrément des 30 derniers jours."
               },
               {
-                icon: Code,
-                title: "API complète & intégrations",
-                description: "Plug-and-play avec vos systèmes internes, CRM, ou dashboards."
+                icon: TrendingUp,
+                title: "Google désindexé",
+                description: "Total des demandes de désindexation Google complétées avec succès."
               },
               {
-                icon: TrendingDown,
-                title: "Tarification dégressive pensée pour scaler",
-                description: "Plus vous protégez, plus vous économisez."
+                icon: AlertTriangle,
+                title: "Cas en attente",
+                description: "Fuites non résolues nécessitant une attention. Alerte rouge si >5 cas en attente."
               },
               {
                 icon: Shield,
-                title: "Accès prioritaire aux escalades",
-                description: "Vos créateurs passent en première ligne dans nos traitements juridiques & techniques."
+                title: "Indice de santé",
+                description: "Statut de protection global : Stable (<3 fuites), À risque (3-10), Critique (>10). Badge visuel avec métriques."
               }
             ].map((feature, index) => {
               const Icon = feature.icon;
@@ -851,6 +865,95 @@ const PourAgences = () => {
                 </motion.div>
               );
             })}
+          </div>
+
+          {/* Additional Dashboard Features */}
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mt-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
+              style={{
+                background: 'rgba(0, 0, 0, 0.4)',
+                backdropFilter: 'blur(30px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                border: '1px solid rgba(59, 130, 246, 0.2)',
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+              }}
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6">
+                <BarChart3 className="w-6 h-6 sm:w-7 sm:w-7 text-blue-400" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">
+                Vue d'ensemble des modèles
+              </h3>
+              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-4">
+                Tableau affichant jusqu'à 10 modèles avec :
+              </p>
+              <ul className="space-y-2 text-sm text-zinc-400">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Nom du modèle et niveau de risque (Faible/Moyen/Élevé)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Date de dernière fuite détectée</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Badge de statut (Protégé/En cours/Attention)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Accès direct aux rapports détaillés par modèle</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
+              style={{
+                background: 'rgba(0, 0, 0, 0.4)',
+                backdropFilter: 'blur(30px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                border: '1px solid rgba(59, 130, 246, 0.2)',
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+              }}
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6">
+                <Bell className="w-6 h-6 sm:w-7 sm:w-7 text-blue-400" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">
+                Alertes & priorités
+              </h3>
+              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-4">
+                Système d'alertes intelligent :
+              </p>
+              <ul className="space-y-2 text-sm text-zinc-400">
+                <li className="flex items-start gap-2">
+                  <XCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-red-400">Haute priorité :</strong> Nouvelles fuites (3 plus récentes)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <AlertTriangle className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-amber-400">Moyenne priorité :</strong> Autorisations DMCA manquantes, retards</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <XCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-red-400">Haute priorité :</strong> Alertes d'escalade</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Triées par priorité, jusqu'à 5 alertes affichées</span>
+                </li>
+              </ul>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -942,7 +1045,394 @@ const PourAgences = () => {
         </div>
       </section>
 
-      {/* SECTION 5 - Tarification */}
+      {/* SECTION 5 - White-Labeling */}
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
+              White-label complet
+            </h2>
+            <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
+              Votre marque, votre sous-domaine, votre interface
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {[
+              {
+                icon: Globe,
+                title: "Sous-domaine personnalisé",
+                description: "Chaque agence obtient son propre sous-domaine : {slug}.contentremovaldesk.com. Détection automatique et chargement de votre branding."
+              },
+              {
+                icon: Palette,
+                title: "Personnalisation complète",
+                description: "Logo, couleurs primaires/secondaires, thème (sombre/clair), nom de l'entreprise. Application en temps réel avec prévisualisation."
+              },
+              {
+                icon: FileText,
+                title: "Rapports white-label",
+                description: "Rapports PDF professionnels avec votre logo, vos couleurs et votre branding. Prêts à être partagés avec vos clients."
+              },
+              {
+                icon: Eye,
+                title: "Interface personnalisée",
+                description: "Vos créateurs voient votre marque, pas la nôtre. Favicon, images OG, titres de page - tout est personnalisable."
+              },
+              {
+                icon: Building2,
+                title: "Domaine personnalisé",
+                description: "Support pour domaines personnalisés avec vérification DNS. Instructions complètes fournies dans les paramètres."
+              },
+              {
+                icon: Lock,
+                title: "Contrôle total",
+                description: "Gestion complète depuis le tableau de bord. Sauvegarde automatique des couleurs, sauvegarde manuelle pour logos/thèmes."
+              }
+            ].map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ 
+                    delay: index * 0.08, 
+                    duration: 0.6, 
+                    ease: [0.25, 0.46, 0.45, 0.94] 
+                  }}
+                  whileHover={{ scale: 1.02 }}
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.4)',
+                    backdropFilter: 'blur(30px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                    border: '1px solid rgba(59, 130, 246, 0.2)',
+                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+                  }}
+                >
+                  <div className="relative z-10">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-6 h-6 sm:w-7 sm:w-7 text-blue-400" />
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 6 - Escalations */}
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-zinc-950/30">
+        <div className="container mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
+              Système d'escalades juridiques
+            </h2>
+            <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
+              Pour les cas complexes nécessitant une intervention juridique renforcée
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
+              style={{
+                background: 'rgba(0, 0, 0, 0.4)',
+                backdropFilter: 'blur(30px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                border: '1px solid rgba(59, 130, 246, 0.2)',
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+              }}
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6">
+                <Scale className="w-6 h-6 sm:w-7 sm:w-7 text-blue-400" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">
+                Processus d'escalade
+              </h3>
+              <ol className="space-y-3 text-sm text-zinc-400">
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">1</span>
+                  <span>Sélection du modèle depuis le tableau de bord</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">2</span>
+                  <span>Sélection des fuites nécessitant une escalade</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">3</span>
+                  <span>Affichage du prix total (calculé par plateforme)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">4</span>
+                  <span>Acceptation des conditions et politique de remboursement</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">5</span>
+                  <span>Soumission et traitement du paiement (Stripe)</span>
+                </li>
+              </ol>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
+              style={{
+                background: 'rgba(0, 0, 0, 0.4)',
+                backdropFilter: 'blur(30px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                border: '1px solid rgba(59, 130, 246, 0.2)',
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+              }}
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6">
+                <TrendingUp className="w-6 h-6 sm:w-7 sm:w-7 text-blue-400" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">
+                Tarification par plateforme
+              </h3>
+              <ul className="space-y-3 text-sm text-zinc-400">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-foreground">leakimedia :</strong> €1,000 - ETA 6 mois</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-foreground">amateurdoporn :</strong> €800 - ETA 3 mois</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-foreground">borntobefuck :</strong> €800 - ETA 3 mois</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-foreground">Autres plateformes :</strong> €200 - ETA 4-8 semaines</span>
+                </li>
+              </ul>
+              <p className="mt-4 text-xs text-zinc-500">
+                Le prix total est calculé dynamiquement en fonction des fuites sélectionnées. Suivi complet du statut d'escalade depuis le tableau de bord.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 7 - Reports */}
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
+              Rapports professionnels
+            </h2>
+            <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
+              Rapports PDF consolidés prêts à être partagés avec vos clients
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+            {[
+              {
+                icon: FileText,
+                title: "Rapport mensuel (tous modèles)",
+                description: "Sélectionnez un mois et générez un rapport PDF complet avec : résumé exécutif (KPIs), répartition des fuites par statut, détails du contenu supprimé, logs d'emails DMCA, résumé des escalades, et breakdown par modèle."
+              },
+              {
+                icon: Users,
+                title: "Rapport créateur (modèle unique)",
+                description: "Rapport détaillé pour un modèle spécifique avec toutes les statistiques, fuites, actions DMCA, et escalades pour la période sélectionnée. Parfait pour le partage avec un client individuel."
+              }
+            ].map((report, index) => {
+              const Icon = report.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ 
+                    delay: index * 0.1, 
+                    duration: 0.7, 
+                    ease: [0.25, 0.46, 0.45, 0.94] 
+                  }}
+                  whileHover={{ scale: 1.02 }}
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-10 transition-all duration-300"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.5)',
+                    backdropFilter: 'blur(30px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                    border: '1px solid rgba(59, 130, 246, 0.3)',
+                    boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)',
+                  }}
+                >
+                  <div className="relative z-10">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center mb-6 sm:mb-8 group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-blue-400" />
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">
+                      {report.title}
+                    </h3>
+                    <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">
+                      {report.description}
+                    </p>
+                    <div className="mt-4 flex items-center gap-2 text-sm text-blue-400">
+                      <Download className="w-4 h-4" />
+                      <span>Format PDF professionnel avec branding</span>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 8 - KYC & Onboarding */}
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-zinc-950/30">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
+              Onboarding sécurisé
+            </h2>
+            <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
+              Processus KYC complet et signature du Contrat d'Agence Principal
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-10 transition-all duration-300"
+              style={{
+                background: 'rgba(0, 0, 0, 0.5)',
+                backdropFilter: 'blur(30px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+                boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)',
+              }}
+            >
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
+                Formulaire KYC
+              </h3>
+              <ul className="space-y-3 text-sm text-zinc-300">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Identification de l'agence (nom légal, forme juridique, numéro d'enregistrement)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Adresses enregistrées et opérationnelles</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Représentant légal (identité, autorité)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Vérification d'identité (pièce d'identité, preuve d'adresse, selfie)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Vérification d'entreprise (certificat, extrait du registre, licence)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <span>Informations de facturation</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-10 transition-all duration-300"
+              style={{
+                background: 'rgba(0, 0, 0, 0.5)',
+                backdropFilter: 'blur(30px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+                boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)',
+              }}
+            >
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
+                Processus d'onboarding
+              </h3>
+              <ol className="space-y-3 text-sm text-zinc-300">
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">1</span>
+                  <span><strong className="text-foreground">Contrat :</strong> Signature du Contrat d'Agence Principal (signature digitale)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">2</span>
+                  <span><strong className="text-foreground">Branding :</strong> Configuration du logo, couleurs, thème (optionnel)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">3</span>
+                  <span><strong className="text-foreground">Domaine :</strong> Choix du sous-domaine (optionnel domaine personnalisé)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">4</span>
+                  <span><strong className="text-foreground">Équipe :</strong> Invitation des membres de l'équipe (optionnel)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">5</span>
+                  <span><strong className="text-foreground">Paiement :</strong> Abonnement au plan choisi (Stripe)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">6</span>
+                  <span><strong className="text-foreground">Complété :</strong> Prêt à utiliser le système</span>
+                </li>
+              </ol>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 9 - Tarification */}
       <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-zinc-950/30">
         <div className="container mx-auto max-w-6xl">
           <motion.div
@@ -960,19 +1450,46 @@ const PourAgences = () => {
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8 mb-12">
             {[
               {
-                range: "1 – 5 créateurs",
-                description: "Tarif réduit, idéal pour les petites agences et studios.",
+                name: "Agency Start",
+                range: "Jusqu'à 10 créateurs",
+                description: "Workflows DMCA manuels, file de traitement standard, accès aux escalades (facturées séparément).",
+                features: [
+                  "10 créateurs maximum",
+                  "Workflows DMCA manuels",
+                  "File de traitement standard",
+                  "Accès aux escalades",
+                  "Support standard"
+                ],
                 highlight: false
               },
               {
-                range: "6 – 15 créateurs",
-                description: "Tarification optimisée, support dédié inclus.",
-                highlight: false
-              },
-              {
-                range: "15+ créateurs",
-                description: "Conditions sur mesure + escalades prioritaires + SLA contractuels.",
+                name: "Agency Scale",
+                range: "Jusqu'à 50 créateurs",
+                description: "Workflows DMCA semi-automatisés, file de traitement prioritaire, support prioritaire, gestion avancée des cas.",
+                features: [
+                  "50 créateurs maximum",
+                  "Workflows DMCA semi-automatisés",
+                  "File de traitement prioritaire",
+                  "Support prioritaire",
+                  "Gestion avancée des cas",
+                  "Tout ce qui est inclus dans Start"
+                ],
                 highlight: true
+              },
+              {
+                name: "Agency Infrastructure",
+                range: "Jusqu'à 100 créateurs",
+                description: "Workflows DMCA automatisés, priorité maximale, gestion registrar/hébergeur/CDN, rapports white-label inclus, canal de support dédié.",
+                features: [
+                  "100 créateurs maximum",
+                  "Workflows DMCA automatisés",
+                  "Priorité maximale de traitement",
+                  "Gestion registrar/hébergeur/CDN",
+                  "Rapports white-label inclus",
+                  "Canal de support dédié",
+                  "Tout ce qui est inclus dans Scale"
+                ],
+                highlight: false
               }
             ].map((tier, index) => (
               <motion.div
@@ -1020,12 +1537,23 @@ const PourAgences = () => {
                       <span className="text-xs font-semibold text-blue-400">Recommandé</span>
                     </div>
                   )}
-                  <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">
-                    {tier.range}
+                  <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+                    {tier.name}
                   </h3>
-                  <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">
+                  <p className="text-lg sm:text-xl font-semibold text-blue-400 mb-3 sm:mb-4">
+                    {tier.range}
+                  </p>
+                  <p className="text-sm sm:text-base text-zinc-300 leading-relaxed mb-4">
                     {tier.description}
                   </p>
+                  <ul className="space-y-2">
+                    {tier.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-zinc-400">
+                        <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </motion.div>
             ))}
