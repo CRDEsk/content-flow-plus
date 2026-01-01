@@ -628,6 +628,13 @@ const PourAgences = () => {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
       </section>
 
+      {/* Integrated Slideshow Banner - Subtle */}
+      <section className="relative -mt-16 sm:-mt-20 lg:-mt-24 px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
+        <div className="container mx-auto max-w-7xl">
+          <AgencyShowcaseSlideshow className="opacity-95" />
+        </div>
+      </section>
+
       {/* SECTION 2 - Positioning */}
       <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">

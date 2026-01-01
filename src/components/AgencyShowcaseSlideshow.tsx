@@ -329,36 +329,22 @@ export function AgencyShowcaseSlideshow({
 
   return (
     <div className={`w-full relative ${className}`}>
-      {/* Banner-style container */}
+      {/* Subtle integrated banner - matches hero style */}
       <div className="relative z-10 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center justify-center mb-6"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20">
-              <Sparkles className="w-4 h-4 text-blue-400" />
-              <span className="text-sm font-semibold text-blue-400">Nos systèmes en action</span>
-            </div>
-          </motion.div>
-
-          {/* Main card container */}
+          {/* Main card container - matches hero glassmorphism */}
           <div className="relative rounded-3xl overflow-hidden" style={{
             background: 'rgba(0, 0, 0, 0.4)',
-            backdropFilter: 'blur(30px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+            backdropFilter: 'blur(40px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(180%)',
             border: '1px solid rgba(59, 130, 246, 0.2)',
-            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+            boxShadow: '0 20px 60px 0 rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 0 100px rgba(59, 130, 246, 0.05)',
           }}>
             {/* Subtle gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-blue-600/5 pointer-events-none" />
             
             {/* Content */}
-            <div className="relative py-12 md:py-16 min-h-[500px] md:min-h-[600px]">
+            <div className="relative py-8 md:py-12 min-h-[400px] md:min-h-[450px]">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={currentSlide}
@@ -384,95 +370,90 @@ export function AgencyShowcaseSlideshow({
                     const isEmphasized = slide.emphasis;
 
                     return (
-                      <div className="max-w-7xl mx-auto px-6 md:px-8">
-                        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
-                          {/* Large icon on left side - banner style */}
-                          <div className="flex-shrink-0 w-full lg:w-auto flex justify-center lg:justify-start">
+                      <div className="max-w-6xl mx-auto px-6 md:px-8">
+                        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center lg:items-start">
+                          {/* Icon on left - subtle and integrated */}
+                          <div className="flex-shrink-0">
                             <motion.div
                               initial={{ scale: 0.9, opacity: 0 }}
                               animate={{ scale: 1, opacity: 1 }}
-                              transition={{ duration: 0.5, delay: 0.2 }}
+                              transition={{ duration: 0.4 }}
                               className="relative"
                             >
-                              {/* Glowing background effect */}
-                              <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full scale-150" />
-                              <div className="relative p-8 md:p-10 rounded-3xl bg-gradient-to-br from-blue-500/30 via-blue-600/20 to-blue-700/10 border-2 border-blue-500/40 shadow-2xl shadow-blue-500/20">
-                                <Icon className="w-20 h-20 md:w-24 md:h-24 text-blue-400 drop-shadow-lg" />
+                              <div className="p-6 md:p-7 rounded-2xl bg-gradient-to-br from-blue-500/20 via-blue-600/10 to-blue-700/5 border border-blue-500/30 shadow-lg">
+                                <Icon className="w-16 h-16 md:w-18 md:h-18 text-blue-400" />
                               </div>
                             </motion.div>
                           </div>
                           
-                          {/* Content on right */}
-                          <div className="flex-1 w-full">
-                            {/* Badge */}
+                          {/* Content */}
+                          <div className="flex-1 w-full text-center lg:text-left">
+                            {/* Badge - subtle */}
                             {isEmphasized && (
                               <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5 }}
-                                className="mb-4"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.4 }}
+                                className="mb-3 flex justify-center lg:justify-start"
                               >
-                                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-xs font-semibold uppercase tracking-wide shadow-lg">
-                                  <AlertTriangle className="w-4 h-4" />
+                                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-xs font-semibold uppercase tracking-wide">
+                                  <AlertTriangle className="w-3.5 h-3.5" />
                                   Spécialité CRD
                                 </span>
                               </motion.div>
                             )}
                             
-                            {/* Title and subtitle */}
+                            {/* Title and subtitle - matches hero style */}
                             <motion.div
-                              initial={{ opacity: 0, y: 20 }}
+                              initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.5, delay: 0.1 }}
+                              transition={{ duration: 0.4, delay: 0.1 }}
                             >
-                              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-white">
+                              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 leading-tight text-white">
                                 {content.title[language]}
                               </h2>
-                              <p className="text-xl md:text-2xl text-zinc-300 mb-6">
+                              <p className="text-lg md:text-xl text-zinc-300 mb-4">
                                 {content.subtitle[language]}
                               </p>
                             </motion.div>
 
-                            {/* Description */}
+                            {/* Description - subtle */}
                             <motion.p
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
-                              transition={{ duration: 0.5, delay: 0.3 }}
-                              className="text-base md:text-lg text-zinc-300 mb-8 leading-relaxed"
+                              transition={{ duration: 0.4, delay: 0.2 }}
+                              className="text-sm md:text-base text-zinc-400 mb-6 leading-relaxed max-w-3xl mx-auto lg:mx-0"
                             >
                               {content.description[language]}
                             </motion.p>
 
-                            {/* Stats grid - banner style */}
+                            {/* Stats grid - compact */}
                             {content.stats && (
                               <motion.div
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.4 }}
-                                className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'} gap-4`}
+                                transition={{ duration: 0.4, delay: 0.3 }}
+                                className={`grid ${isEmphasized ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3'} gap-3 md:gap-4`}
                               >
                                 {content.stats.map((stat, index) => {
                                   const StatIcon = stat.icon;
                                   return (
-                                    <motion.div
+                                    <div
                                       key={index}
-                                      initial={{ opacity: 0, scale: 0.9 }}
-                                      animate={{ opacity: 1, scale: 1 }}
-                                      transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-                                      className="p-5 rounded-xl bg-zinc-900/60 border border-zinc-800/50 hover:border-blue-500/50 hover:bg-zinc-900/80 transition-all duration-300 group backdrop-blur-sm"
+                                      className="p-4 rounded-lg bg-zinc-900/50 border border-zinc-800/50 hover:border-blue-500/40 transition-all duration-300 group"
                                     >
-                                      <div className="flex items-center gap-3 mb-3">
+                                      <div className="flex items-center gap-2 mb-2">
                                         {StatIcon && (
-                                          <div className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/30 group-hover:from-blue-500/30 group-hover:to-blue-600/20 transition-all duration-300 shadow-sm">
-                                            <StatIcon className="w-5 h-5 text-blue-400" />
+                                          <div className="p-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
+                                            <StatIcon className="w-4 h-4 text-blue-400" />
                                           </div>
                                         )}
-                                        <span className="text-sm font-medium text-zinc-400">
+                                        <span className="text-xs font-medium text-zinc-400">
                                           {stat.label[language]}
                                         </span>
                                       </div>
-                                      <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
-                                    </motion.div>
+                                      <p className="text-xl md:text-2xl font-bold text-white">{stat.value}</p>
+                                    </div>
                                   );
                                 })}
                               </motion.div>
