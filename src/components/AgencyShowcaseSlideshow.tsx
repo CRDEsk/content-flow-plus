@@ -406,6 +406,7 @@ export function AgencyShowcaseSlideshow({
                             </motion.div>
                           ))}
                         </div>
+                      </div>
 
                       {/* Subtle gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-blue-600/5 pointer-events-none" />
@@ -425,6 +426,7 @@ export function AgencyShowcaseSlideshow({
                       className="absolute inset-0 bg-blue-500/10 blur-3xl rounded-xl -z-10"
                     />
                   </motion.div>
+                </div>
                 </div>
               );
             })()}
