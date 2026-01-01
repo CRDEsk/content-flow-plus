@@ -330,9 +330,9 @@ export function AgencyShowcaseSlideshow({
   return (
     <div className={`w-full relative ${className}`}>
       {/* Integrated slideshow - no outer card, just content */}
-      <div className="relative w-full">
+      <div className="relative w-full h-full flex items-center">
         {/* Content */}
-        <div className="relative py-4 md:py-6 min-h-[350px] md:min-h-[400px]">
+        <div className="relative w-full min-h-[300px] md:min-h-[350px] flex items-center">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={currentSlide}
@@ -358,9 +358,9 @@ export function AgencyShowcaseSlideshow({
                     const isEmphasized = slide.emphasis;
 
                     return (
-                      <div className="max-w-6xl mx-auto px-6 md:px-8">
-                        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center lg:items-start">
-                          {/* Icon on left - subtle and integrated */}
+                      <div className="w-full px-2">
+                        <div className="flex flex-col gap-4 lg:gap-5 items-center lg:items-start">
+                          {/* Icon on top/left - compact */}
                           <div className="flex-shrink-0">
                             <motion.div
                               initial={{ scale: 0.9, opacity: 0 }}
@@ -368,49 +368,49 @@ export function AgencyShowcaseSlideshow({
                               transition={{ duration: 0.4 }}
                               className="relative"
                             >
-                              <div className="p-6 md:p-7 rounded-2xl bg-gradient-to-br from-blue-500/20 via-blue-600/10 to-blue-700/5 border border-blue-500/30 shadow-lg">
-                                <Icon className="w-16 h-16 md:w-18 md:h-18 text-blue-400" />
+                              <div className="p-4 md:p-5 rounded-xl bg-gradient-to-br from-blue-500/20 via-blue-600/10 to-blue-700/5 border border-blue-500/30 shadow-lg">
+                                <Icon className="w-12 h-12 md:w-14 md:h-14 text-blue-400" />
                               </div>
                             </motion.div>
                           </div>
                           
                           {/* Content */}
-                          <div className="flex-1 w-full text-center lg:text-left">
+                          <div className="flex-1 w-full text-center lg:text-left space-y-3">
                             {/* Badge - subtle */}
                             {isEmphasized && (
                               <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.4 }}
-                                className="mb-3 flex justify-center lg:justify-start"
+                                className="flex justify-center lg:justify-start"
                               >
-                                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-xs font-semibold uppercase tracking-wide">
-                                  <AlertTriangle className="w-3.5 h-3.5" />
+                                <span className="inline-flex items-center gap-2 px-2.5 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-xs font-semibold uppercase tracking-wide">
+                                  <AlertTriangle className="w-3 h-3" />
                                   Spécialité CRD
                                 </span>
                               </motion.div>
                             )}
                             
-                            {/* Title and subtitle - matches hero style */}
+                            {/* Title and subtitle */}
                             <motion.div
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ duration: 0.4, delay: 0.1 }}
                             >
-                              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 leading-tight text-white">
+                              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-1.5 leading-tight text-white">
                                 {content.title[language]}
                               </h2>
-                              <p className="text-lg md:text-xl text-zinc-300 mb-4">
+                              <p className="text-base md:text-lg text-zinc-300 mb-3">
                                 {content.subtitle[language]}
                               </p>
                             </motion.div>
 
-                            {/* Description - subtle */}
+                            {/* Description */}
                             <motion.p
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               transition={{ duration: 0.4, delay: 0.2 }}
-                              className="text-sm md:text-base text-zinc-400 mb-6 leading-relaxed max-w-3xl mx-auto lg:mx-0"
+                              className="text-xs md:text-sm text-zinc-400 leading-relaxed"
                             >
                               {content.description[language]}
                             </motion.p>
@@ -421,26 +421,26 @@ export function AgencyShowcaseSlideshow({
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.4, delay: 0.3 }}
-                                className={`grid ${isEmphasized ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3'} gap-3 md:gap-4`}
+                                className={`grid ${isEmphasized ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3'} gap-2 md:gap-3 mt-4`}
                               >
                                 {content.stats.map((stat, index) => {
                                   const StatIcon = stat.icon;
                                   return (
                                     <div
                                       key={index}
-                                      className="p-4 rounded-lg bg-zinc-900/50 border border-zinc-800/50 hover:border-blue-500/40 transition-all duration-300 group"
+                                      className="p-3 rounded-lg bg-zinc-900/50 border border-zinc-800/50 hover:border-blue-500/40 transition-all duration-300 group"
                                     >
-                                      <div className="flex items-center gap-2 mb-2">
+                                      <div className="flex items-center gap-1.5 mb-1.5">
                                         {StatIcon && (
-                                          <div className="p-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
-                                            <StatIcon className="w-4 h-4 text-blue-400" />
+                                          <div className="p-1 rounded-md bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
+                                            <StatIcon className="w-3.5 h-3.5 text-blue-400" />
                                           </div>
                                         )}
-                                        <span className="text-xs font-medium text-zinc-400">
+                                        <span className="text-[10px] md:text-xs font-medium text-zinc-400">
                                           {stat.label[language]}
                                         </span>
                                       </div>
-                                      <p className="text-xl md:text-2xl font-bold text-white">{stat.value}</p>
+                                      <p className="text-lg md:text-xl font-bold text-white">{stat.value}</p>
                                     </div>
                                   );
                                 })}
