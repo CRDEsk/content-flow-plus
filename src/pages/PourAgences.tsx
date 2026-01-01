@@ -781,10 +781,10 @@ const PourAgences = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
-              Tableau de bord centralisé
+              Tout ce dont vous avez besoin en un coup d'œil
             </h2>
             <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
-              Tous vos créateurs, toutes vos données, un seul endroit
+              Un tableau de bord qui vous fait gagner du temps, pas qui vous en fait perdre
             </p>
           </motion.div>
 
@@ -792,33 +792,33 @@ const PourAgences = () => {
             {[
               {
                 icon: Users,
-                title: "Modèles actifs",
-                description: "Suivez le nombre de créateurs que vous gérez en temps réel. Comptage automatique excluant les managers."
+                title: "Vue d'ensemble de vos créateurs",
+                description: "Voir en un instant qui est protégé, qui a besoin d'attention, et où en sont les choses pour chacun."
               },
               {
                 icon: Activity,
-                title: "Fuites détectées (30j)",
-                description: "Toutes les fuites détectées dans les 30 derniers jours avec comparaison et tendance (hausse/baisse/stable)."
+                title: "Alertes intelligentes",
+                description: "On vous alerte uniquement sur ce qui compte vraiment. Plus besoin de chercher dans 50 emails."
               },
               {
                 icon: CheckCircle2,
-                title: "Contenu supprimé",
-                description: "Total des fuites supprimées avec statut 'removed'/'supprimé'. Affiche le total + l'incrément des 30 derniers jours."
+                title: "Preuves de suppression",
+                description: "Tout ce qui a été supprimé, documenté et prêt à être partagé avec vos clients."
               },
               {
                 icon: TrendingUp,
-                title: "Google désindexé",
-                description: "Total des demandes de désindexation Google complétées avec succès."
+                title: "Suivi des performances",
+                description: "Voir l'évolution de la protection de vos créateurs dans le temps."
               },
               {
                 icon: AlertTriangle,
-                title: "Cas en attente",
-                description: "Fuites non résolues nécessitant une attention. Alerte rouge si >5 cas en attente."
+                title: "Priorités claires",
+                description: "On vous dit quoi traiter en premier. Plus de stress, plus de cas oubliés."
               },
               {
                 icon: Shield,
-                title: "Indice de santé",
-                description: "Statut de protection global : Stable (<3 fuites), À risque (3-10), Critique (>10). Badge visuel avec métriques."
+                title: "Santé globale",
+                description: "Un indicateur simple : tout va bien, attention requise, ou action urgente."
               }
             ].map((feature, index) => {
               const Icon = feature.icon;
@@ -867,94 +867,6 @@ const PourAgences = () => {
             })}
           </div>
 
-          {/* Additional Dashboard Features */}
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mt-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
-              style={{
-                background: 'rgba(0, 0, 0, 0.4)',
-                backdropFilter: 'blur(30px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
-                border: '1px solid rgba(59, 130, 246, 0.2)',
-                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
-              }}
-            >
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6">
-                <BarChart3 className="w-6 h-6 sm:w-7 sm:w-7 text-blue-400" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">
-                Vue d'ensemble des modèles
-              </h3>
-              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-4">
-                Tableau affichant jusqu'à 10 modèles avec :
-              </p>
-              <ul className="space-y-2 text-sm text-zinc-400">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Nom du modèle et niveau de risque (Faible/Moyen/Élevé)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Date de dernière fuite détectée</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Badge de statut (Protégé/En cours/Attention)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Accès direct aux rapports détaillés par modèle</span>
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
-              style={{
-                background: 'rgba(0, 0, 0, 0.4)',
-                backdropFilter: 'blur(30px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
-                border: '1px solid rgba(59, 130, 246, 0.2)',
-                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
-              }}
-            >
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6">
-                <Bell className="w-6 h-6 sm:w-7 sm:w-7 text-blue-400" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">
-                Alertes & priorités
-              </h3>
-              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-4">
-                Système d'alertes intelligent :
-              </p>
-              <ul className="space-y-2 text-sm text-zinc-400">
-                <li className="flex items-start gap-2">
-                  <XCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-                  <span><strong className="text-red-400">Haute priorité :</strong> Nouvelles fuites (3 plus récentes)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-                  <span><strong className="text-amber-400">Moyenne priorité :</strong> Autorisations DMCA manquantes, retards</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <XCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-                  <span><strong className="text-red-400">Haute priorité :</strong> Alertes d'escalade</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Triées par priorité, jusqu'à 5 alertes affichées</span>
-                </li>
-              </ul>
-            </motion.div>
-          </div>
         </div>
       </section>
 
@@ -1056,10 +968,10 @@ const PourAgences = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
-              White-label complet
+              Votre marque, votre interface
             </h2>
             <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
-              Votre marque, votre sous-domaine, votre interface
+              Vos créateurs voient votre agence, pas la nôtre
             </p>
           </motion.div>
 
@@ -1067,33 +979,33 @@ const PourAgences = () => {
             {[
               {
                 icon: Globe,
-                title: "Sous-domaine personnalisé",
-                description: "Chaque agence obtient son propre sous-domaine : {slug}.contentremovaldesk.com. Détection automatique et chargement de votre branding."
+                title: "Votre propre espace",
+                description: "Un espace dédié avec votre nom. Vos créateurs accèdent directement à votre interface personnalisée."
               },
               {
                 icon: Palette,
-                title: "Personnalisation complète",
-                description: "Logo, couleurs primaires/secondaires, thème (sombre/clair), nom de l'entreprise. Application en temps réel avec prévisualisation."
+                title: "Branding complet",
+                description: "Logo, couleurs, thème. Tout reflète votre identité visuelle. Simple à configurer, impact immédiat."
               },
               {
                 icon: FileText,
-                title: "Rapports white-label",
-                description: "Rapports PDF professionnels avec votre logo, vos couleurs et votre branding. Prêts à être partagés avec vos clients."
+                title: "Rapports à votre image",
+                description: "Tous les rapports portent votre logo et vos couleurs. Prêts à être partagés avec vos clients sans retouche."
               },
               {
                 icon: Eye,
-                title: "Interface personnalisée",
-                description: "Vos créateurs voient votre marque, pas la nôtre. Favicon, images OG, titres de page - tout est personnalisable."
+                title: "Expérience transparente",
+                description: "Vos créateurs ne voient que votre marque. L'expérience est fluide et cohérente avec votre identité."
               },
               {
                 icon: Building2,
                 title: "Domaine personnalisé",
-                description: "Support pour domaines personnalisés avec vérification DNS. Instructions complètes fournies dans les paramètres."
+                description: "Option pour utiliser votre propre domaine. Vos créateurs accèdent via votre URL, pas la nôtre."
               },
               {
                 icon: Lock,
                 title: "Contrôle total",
-                description: "Gestion complète depuis le tableau de bord. Sauvegarde automatique des couleurs, sauvegarde manuelle pour logos/thèmes."
+                description: "Vous gérez tout depuis votre tableau de bord. Changements instantanés, sans intervention technique."
               }
             ].map((feature, index) => {
               const Icon = feature.icon;
@@ -1138,7 +1050,7 @@ const PourAgences = () => {
 
       {/* SECTION 6 - Escalations */}
       <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-zinc-950/30">
-        <div className="container mx-auto max-w-7xl">
+        <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -1147,101 +1059,60 @@ const PourAgences = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
-              Système d'escalades juridiques
+              Pour les cas difficiles
             </h2>
             <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
-              Pour les cas complexes nécessitant une intervention juridique renforcée
+              Quand un simple DMCA ne suffit pas, on passe à l'escalade juridique
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
-              style={{
-                background: 'rgba(0, 0, 0, 0.4)',
-                backdropFilter: 'blur(30px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
-                border: '1px solid rgba(59, 130, 246, 0.2)',
-                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
-              }}
-            >
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6">
-                <Scale className="w-6 h-6 sm:w-7 sm:w-7 text-blue-400" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-10 transition-all duration-300 max-w-3xl mx-auto"
+            style={{
+              background: 'rgba(0, 0, 0, 0.5)',
+              backdropFilter: 'blur(30px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+              border: '1px solid rgba(59, 130, 246, 0.3)',
+              boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)',
+            }}
+          >
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center mb-6 sm:mb-8">
+              <Scale className="w-8 h-8 sm:w-10 sm:h-10 text-blue-400" />
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
+              Escalades juridiques intégrées
+            </h3>
+            <p className="text-base sm:text-lg text-zinc-300 leading-relaxed mb-6">
+              Certains sites résistent aux DMCA standards. Pour ces cas, on propose une escalade juridique renforcée : intervention directe auprès des registrars, hébergeurs, et si nécessaire, action en justice.
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Sélection simple</p>
+                  <p className="text-sm text-zinc-400">Choisissez les fuites qui nécessitent une escalade depuis votre tableau de bord</p>
+                </div>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">
-                Processus d'escalade
-              </h3>
-              <ol className="space-y-3 text-sm text-zinc-400">
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">1</span>
-                  <span>Sélection du modèle depuis le tableau de bord</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">2</span>
-                  <span>Sélection des fuites nécessitant une escalade</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">3</span>
-                  <span>Affichage du prix total (calculé par plateforme)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">4</span>
-                  <span>Acceptation des conditions et politique de remboursement</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">5</span>
-                  <span>Soumission et traitement du paiement (Stripe)</span>
-                </li>
-              </ol>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300"
-              style={{
-                background: 'rgba(0, 0, 0, 0.4)',
-                backdropFilter: 'blur(30px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
-                border: '1px solid rgba(59, 130, 246, 0.2)',
-                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
-              }}
-            >
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4 sm:mb-6">
-                <TrendingUp className="w-6 h-6 sm:w-7 sm:w-7 text-blue-400" />
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Suivi transparent</p>
+                  <p className="text-sm text-zinc-400">Vous voyez où en est chaque escalade, étape par étape</p>
+                </div>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">
-                Tarification par plateforme
-              </h3>
-              <ul className="space-y-3 text-sm text-zinc-400">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span><strong className="text-foreground">leakimedia :</strong> €1,000 - ETA 6 mois</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span><strong className="text-foreground">amateurdoporn :</strong> €800 - ETA 3 mois</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span><strong className="text-foreground">borntobefuck :</strong> €800 - ETA 3 mois</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span><strong className="text-foreground">Autres plateformes :</strong> €200 - ETA 4-8 semaines</span>
-                </li>
-              </ul>
-              <p className="mt-4 text-xs text-zinc-500">
-                Le prix total est calculé dynamiquement en fonction des fuites sélectionnées. Suivi complet du statut d'escalade depuis le tableau de bord.
-              </p>
-            </motion.div>
-          </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Tarification claire</p>
+                  <p className="text-sm text-zinc-400">Le coût dépend de la plateforme et de la complexité. Tout est affiché avant validation</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -1256,10 +1127,10 @@ const PourAgences = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
-              Rapports professionnels
+              Rapports prêts à partager
             </h2>
             <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
-              Rapports PDF consolidés prêts à être partagés avec vos clients
+              Générez des rapports professionnels en un clic, avec votre branding
             </p>
           </motion.div>
 
@@ -1267,13 +1138,13 @@ const PourAgences = () => {
             {[
               {
                 icon: FileText,
-                title: "Rapport mensuel (tous modèles)",
-                description: "Sélectionnez un mois et générez un rapport PDF complet avec : résumé exécutif (KPIs), répartition des fuites par statut, détails du contenu supprimé, logs d'emails DMCA, résumé des escalades, et breakdown par modèle."
+                title: "Rapport global",
+                description: "Vue d'ensemble de tous vos créateurs sur une période. Parfait pour vos réunions internes ou pour montrer l'impact global de votre protection."
               },
               {
                 icon: Users,
-                title: "Rapport créateur (modèle unique)",
-                description: "Rapport détaillé pour un modèle spécifique avec toutes les statistiques, fuites, actions DMCA, et escalades pour la période sélectionnée. Parfait pour le partage avec un client individuel."
+                title: "Rapport par créateur",
+                description: "Rapport détaillé pour un créateur spécifique. Idéal à partager directement avec votre client pour lui montrer ce qui a été fait."
               }
             ].map((report, index) => {
               const Icon = report.icon;
@@ -1310,7 +1181,7 @@ const PourAgences = () => {
                     </p>
                     <div className="mt-4 flex items-center gap-2 text-sm text-blue-400">
                       <Download className="w-4 h-4" />
-                      <span>Format PDF professionnel avec branding</span>
+                      <span>PDF professionnel, prêt à envoyer</span>
                     </div>
                   </div>
                 </motion.div>
@@ -1320,9 +1191,9 @@ const PourAgences = () => {
         </div>
       </section>
 
-      {/* SECTION 8 - KYC & Onboarding */}
+      {/* SECTION 8 - Getting Started */}
       <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-zinc-950/30">
-        <div className="container mx-auto max-w-6xl">
+        <div className="container mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -1331,104 +1202,58 @@ const PourAgences = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 sm:mb-6">
-              Onboarding sécurisé
+              Mise en place simple
             </h2>
             <p className="text-xl sm:text-2xl text-zinc-300 max-w-3xl mx-auto">
-              Processus KYC complet et signature du Contrat d'Agence Principal
+              Onboarding rapide, documentation claire, support dédié
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-10 transition-all duration-300"
-              style={{
-                background: 'rgba(0, 0, 0, 0.5)',
-                backdropFilter: 'blur(30px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
-                border: '1px solid rgba(59, 130, 246, 0.3)',
-                boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)',
-              }}
-            >
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
-                Formulaire KYC
-              </h3>
-              <ul className="space-y-3 text-sm text-zinc-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Identification de l'agence (nom légal, forme juridique, numéro d'enregistrement)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Adresses enregistrées et opérationnelles</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Représentant légal (identité, autorité)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Vérification d'identité (pièce d'identité, preuve d'adresse, selfie)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Vérification d'entreprise (certificat, extrait du registre, licence)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <span>Informations de facturation</span>
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-10 transition-all duration-300"
-              style={{
-                background: 'rgba(0, 0, 0, 0.5)',
-                backdropFilter: 'blur(30px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
-                border: '1px solid rgba(59, 130, 246, 0.3)',
-                boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)',
-              }}
-            >
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
-                Processus d'onboarding
-              </h3>
-              <ol className="space-y-3 text-sm text-zinc-300">
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">1</span>
-                  <span><strong className="text-foreground">Contrat :</strong> Signature du Contrat d'Agence Principal (signature digitale)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">2</span>
-                  <span><strong className="text-foreground">Branding :</strong> Configuration du logo, couleurs, thème (optionnel)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">3</span>
-                  <span><strong className="text-foreground">Domaine :</strong> Choix du sous-domaine (optionnel domaine personnalisé)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">4</span>
-                  <span><strong className="text-foreground">Équipe :</strong> Invitation des membres de l'équipe (optionnel)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">5</span>
-                  <span><strong className="text-foreground">Paiement :</strong> Abonnement au plan choisi (Stripe)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-semibold text-blue-400">6</span>
-                  <span><strong className="text-foreground">Complété :</strong> Prêt à utiliser le système</span>
-                </li>
-              </ol>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-10 transition-all duration-300"
+            style={{
+              background: 'rgba(0, 0, 0, 0.5)',
+              backdropFilter: 'blur(30px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+              border: '1px solid rgba(59, 130, 246, 0.3)',
+              boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.3), inset 0 0 80px rgba(59, 130, 246, 0.15)',
+            }}
+          >
+            <div className="space-y-4 text-base text-zinc-300">
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-blue-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Vérification rapide</p>
+                  <p>On vérifie votre identité et celle de votre agence. Processus sécurisé, documents stockés de manière confidentielle.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-blue-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Configuration en quelques minutes</p>
+                  <p>Logo, couleurs, sous-domaine. Tout se configure facilement depuis votre tableau de bord.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-blue-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Ajout de vos créateurs</p>
+                  <p>Invitez vos créateurs par email. Ils complètent leur profil et sont automatiquement liés à votre agence.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-blue-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Support dédié</p>
+                  <p>Une équipe dédiée vous accompagne pendant la mise en place et répond à toutes vos questions.</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -1450,43 +1275,41 @@ const PourAgences = () => {
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8 mb-12">
             {[
               {
-                name: "Agency Start",
-                range: "Jusqu'à 10 créateurs",
-                description: "Workflows DMCA manuels, file de traitement standard, accès aux escalades (facturées séparément).",
+                name: "Start",
+                range: "Pour débuter",
+                description: "Idéal pour les petites agences qui commencent. Tous les outils essentiels pour protéger vos créateurs.",
                 features: [
-                  "10 créateurs maximum",
-                  "Workflows DMCA manuels",
-                  "File de traitement standard",
+                  "Gestion jusqu'à 10 créateurs",
+                  "Tableau de bord complet",
+                  "Rapports consolidés",
                   "Accès aux escalades",
-                  "Support standard"
+                  "Support dédié"
                 ],
                 highlight: false
               },
               {
-                name: "Agency Scale",
-                range: "Jusqu'à 50 créateurs",
-                description: "Workflows DMCA semi-automatisés, file de traitement prioritaire, support prioritaire, gestion avancée des cas.",
+                name: "Scale",
+                range: "Pour grandir",
+                description: "Pour les agences en croissance. Traitement prioritaire et outils avancés pour gérer plus de créateurs efficacement.",
                 features: [
-                  "50 créateurs maximum",
-                  "Workflows DMCA semi-automatisés",
-                  "File de traitement prioritaire",
+                  "Gestion jusqu'à 50 créateurs",
+                  "Traitement prioritaire",
+                  "Workflows optimisés",
                   "Support prioritaire",
-                  "Gestion avancée des cas",
                   "Tout ce qui est inclus dans Start"
                 ],
                 highlight: true
               },
               {
-                name: "Agency Infrastructure",
-                range: "Jusqu'à 100 créateurs",
-                description: "Workflows DMCA automatisés, priorité maximale, gestion registrar/hébergeur/CDN, rapports white-label inclus, canal de support dédié.",
+                name: "Infrastructure",
+                range: "Pour les grandes agences",
+                description: "Solution complète pour les grandes structures. Automatisation maximale, priorité absolue, et support premium.",
                 features: [
-                  "100 créateurs maximum",
-                  "Workflows DMCA automatisés",
-                  "Priorité maximale de traitement",
-                  "Gestion registrar/hébergeur/CDN",
-                  "Rapports white-label inclus",
-                  "Canal de support dédié",
+                  "Gestion jusqu'à 100 créateurs",
+                  "Automatisation complète",
+                  "Priorité maximale",
+                  "Rapports white-label",
+                  "Support premium dédié",
                   "Tout ce qui est inclus dans Scale"
                 ],
                 highlight: false
