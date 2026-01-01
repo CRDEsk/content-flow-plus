@@ -298,7 +298,7 @@ interface AgencyShowcaseSlideshowProps {
 
 export function AgencyShowcaseSlideshow({
   autoPlay = true,
-  slideDuration = 10000,
+  slideDuration = 5000,
   onSlideChange,
   className = ''
 }: AgencyShowcaseSlideshowProps) {
@@ -321,6 +321,11 @@ export function AgencyShowcaseSlideshow({
     return () => clearInterval(interval);
   }, [isPlaying, slideDuration, onSlideChange]);
 
+  // Helper to get slide index with wrapping
+  const getSlideIndex = (offset: number) => {
+    return (currentSlide + offset + slides.length) % slides.length;
+  };
+
 
   const currentSlideData = slides[currentSlide];
   const Icon = currentSlideData.icon;
@@ -329,100 +334,33 @@ export function AgencyShowcaseSlideshow({
 
   return (
     <div className={`w-full bg-transparent relative overflow-hidden ${className}`}>
-      {/* Main content - seamless and minimal */}
-      <div className="relative z-10 w-full flex flex-col">
+      <div className="relative z-10 w-full">
+        {/* Carousel container */}
+        <div className="relative overflow-hidden py-12 md:py-16">
+          <div className="flex items-center justify-center gap-4 md:gap-8 px-4">
+            {/* Previous slide */}
+            <div className="hidden md:block flex-shrink-0 w-1/4">
+              {renderSlide(getSlideIndex(-1), 'prev')}
+            </div>
 
-        {/* Slide content - minimal and embedded */}
-        <div className="flex items-center justify-center p-4 md:p-8 py-12 md:py-16">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="max-w-6xl w-full"
-            >
-              <div className="bg-transparent p-8 md:p-12">
-                {/* Icon and title - minimal */}
-                <div className="flex items-start gap-6 mb-8">
-                  <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
-                    <Icon className="w-12 h-12 text-blue-400" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-xs font-medium text-zinc-500">
-                        {currentSlide + 1} / {slides.length}
-                      </span>
-                      <div className="flex-1 h-1 bg-zinc-800/30 rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full bg-blue-500"
-                          initial={{ width: 0 }}
-                          animate={{ width: isPlaying ? '100%' : '0%' }}
-                          transition={{ duration: slideDuration / 1000, ease: "linear" }}
-                        />
-                      </div>
-                    </div>
-                    {isEmphasized && (
-                      <div className="mb-3">
-                        <span className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-semibold uppercase tracking-wide">
-                          <AlertTriangle className="w-3 h-3" />
-                          Spécialité CRD
-                        </span>
-                      </div>
-                    )}
-                    <h2 className="text-3xl md:text-4xl font-bold mb-3 leading-tight text-white">
-                      {slideContent.title[language]}
-                    </h2>
-                    <p className="text-lg md:text-xl text-zinc-300">
-                      {slideContent.subtitle[language]}
-                    </p>
-                  </div>
-                </div>
+            {/* Current slide */}
+            <div className="flex-shrink-0 w-full md:w-1/2">
+              {renderSlide(currentSlide, 'current')}
+            </div>
 
-                {/* Description */}
-                <p className="text-base md:text-lg text-zinc-300 mb-8 leading-relaxed max-w-4xl">
-                  {slideContent.description[language]}
-                </p>
-
-                {/* Stats grid - minimal */}
-                {slideContent.stats && (
-                  <div className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-4`}>
-                    {slideContent.stats.map((stat, index) => {
-                      const StatIcon = stat.icon;
-                      return (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          className="p-4 rounded-lg bg-zinc-900/30 border border-zinc-800/50 hover:border-blue-500/30 transition-colors"
-                        >
-                          <div className="flex items-center gap-2 mb-2">
-                            {StatIcon && (
-                              <StatIcon className="w-5 h-5 text-blue-400" />
-                            )}
-                            <span className="text-xs font-medium text-zinc-400">
-                              {stat.label[language]}
-                            </span>
-                          </div>
-                          <p className="text-xl md:text-2xl font-bold text-white">{stat.value}</p>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+            {/* Next slide */}
+            <div className="hidden md:block flex-shrink-0 w-1/4">
+              {renderSlide(getSlideIndex(1), 'next')}
+            </div>
+          </div>
         </div>
 
-        {/* Minimal slide indicators only */}
+        {/* Minimal slide indicators */}
         <div className="pb-8 flex items-center justify-center gap-2">
           {slides.map((_, index) => (
             <div
               key={index}
-              className={`h-1.5 rounded-full transition-all ${
+              className={`h-1.5 rounded-full transition-all duration-300 ${
                 index === currentSlide
                   ? 'bg-blue-500 w-8'
                   : 'bg-zinc-800 w-1.5'
