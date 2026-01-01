@@ -83,7 +83,7 @@ const FAQSection = () => {
             <button
               type="button"
               data-cal-namespace="diagnostic-createur"
-              data-cal-link="chan-aoufi-ttauyj/diagnostic-createur"
+              data-cal-link="contentremovaldesk/diagnostic-createur"
               data-cal-config='{"layout":"month_view"}'
               className="group inline-flex items-center gap-2 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5 bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/50 hover:border-primary/50 rounded-full transition-all duration-300 text-xs sm:text-sm lg:text-base w-full sm:w-auto justify-center"
             >

@@ -437,7 +437,7 @@ const PourAgences = () => {
                 <button
                   type="button"
                   data-cal-namespace="agence"
-                  data-cal-link="chan-aoufi-ttauyj/agence"
+                  data-cal-link="contentremovaldesk/agence"
                   data-cal-config='{"layout":"month_view"}'
                   className="group relative text-white font-semibold rounded-full px-5 sm:px-6 lg:px-7 py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base lg:text-base transition-all duration-300 w-full sm:w-auto cursor-pointer overflow-hidden"
                   style={{
@@ -878,7 +878,7 @@ const PourAgences = () => {
               <button
                 type="button"
                 data-cal-namespace="agence"
-                data-cal-link="chan-aoufi-ttauyj/agence"
+                data-cal-link="contentremovaldesk/agence"
                 data-cal-config='{"layout":"month_view"}'
                 className="group relative text-white font-semibold rounded-full px-5 sm:px-6 lg:px-7 py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base lg:text-base transition-all duration-300 cursor-pointer overflow-hidden"
                 style={{

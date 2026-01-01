@@ -177,7 +177,7 @@ const EscaladesLegal = () => {
                   className="group"
                   type="button"
                   data-cal-namespace="diagnostic-createur"
-                  data-cal-link="chan-aoufi-ttauyj/diagnostic-createur"
+                  data-cal-link="contentremovaldesk/diagnostic-createur"
                   data-cal-config='{"layout":"month_view"}'
                 >
                 Demander une escalade

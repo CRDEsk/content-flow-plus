@@ -151,7 +151,7 @@ const HeroSection = ({ isLoggedIn = false }: HeroSectionProps) => {
               size="lg"
               type="button"
               data-cal-namespace="diagnostic-createur"
-              data-cal-link="chan-aoufi-ttauyj/diagnostic-createur"
+              data-cal-link="contentremovaldesk/diagnostic-createur"
               data-cal-config='{"layout":"month_view"}'
               className="group relative overflow-hidden bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/50 hover:border-primary/50 text-white font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl shadow-2xl shadow-zinc-900/20 hover:shadow-primary/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
             >
