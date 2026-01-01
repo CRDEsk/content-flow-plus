@@ -326,122 +326,150 @@ export function AgencyShowcaseSlideshow({
     return (currentSlide + offset + slides.length) % slides.length;
   };
 
-  const renderSlide = (slideIndex: number, position: 'prev' | 'current' | 'next') => {
-    const slide = slides[slideIndex];
-    const Icon = slide.icon;
-    const content = slide.content;
-    const isEmphasized = slide.emphasis;
-    
-    const opacity = position === 'current' ? 1 : 0.3;
-    const scale = position === 'current' ? 1 : 0.85;
-    const xOffset = position === 'prev' ? -20 : position === 'next' ? 20 : 0;
-
-    return (
-      <motion.div
-        key={`${slideIndex}-${position}`}
-        initial={{ opacity: 0, x: xOffset, scale: 0.9 }}
-        animate={{ 
-          opacity, 
-          x: xOffset, 
-          scale,
-          transition: { duration: 0.5, ease: "easeInOut" }
-        }}
-        className={`flex-shrink-0 w-full max-w-4xl ${position === 'current' ? 'z-10' : 'z-0'}`}
-      >
-        <div className="bg-transparent p-6 md:p-8">
-          {/* Icon and title */}
-          <div className="flex items-start gap-6 mb-6">
-            <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
-              <Icon className="w-12 h-12 text-blue-400" />
-            </div>
-            <div className="flex-1">
-              {isEmphasized && position === 'current' && (
-                <div className="mb-3">
-                  <span className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-semibold uppercase tracking-wide">
-                    <AlertTriangle className="w-3 h-3" />
-                    Spécialité CRD
-                  </span>
-                </div>
-              )}
-              <h2 className="text-2xl md:text-3xl font-bold mb-2 leading-tight text-white">
-                {content.title[language]}
-              </h2>
-              <p className="text-base md:text-lg text-zinc-300">
-                {content.subtitle[language]}
-              </p>
-            </div>
-          </div>
-
-          {/* Description */}
-          <p className="text-sm md:text-base text-zinc-300 mb-6 leading-relaxed">
-            {content.description[language]}
-          </p>
-
-          {/* Stats grid - only show for current slide */}
-          {content.stats && position === 'current' && (
-            <div className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-3`}>
-              {content.stats.map((stat, index) => {
-                const StatIcon = stat.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className="p-3 rounded-lg bg-zinc-900/30 border border-zinc-800/50"
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      {StatIcon && (
-                        <StatIcon className="w-4 h-4 text-blue-400" />
-                      )}
-                      <span className="text-xs font-medium text-zinc-400">
-                        {stat.label[language]}
-                      </span>
-                    </div>
-                    <p className="text-lg md:text-xl font-bold text-white">{stat.value}</p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </motion.div>
-    );
-  };
-
   return (
     <div className={`w-full bg-transparent relative overflow-hidden ${className}`}>
       <div className="relative z-10 w-full">
-        {/* Carousel container */}
-        <div className="relative overflow-hidden py-12 md:py-16">
-          <div className="flex items-center justify-center gap-4 md:gap-8 px-4">
-            {/* Previous slide */}
-            <div className="hidden md:block flex-shrink-0 w-1/4">
-              {renderSlide(getSlideIndex(-1), 'prev')}
-            </div>
+        {/* Smooth carousel container */}
+        <div className="relative overflow-hidden py-12 md:py-20">
+          <div className="relative" style={{ 
+            transform: 'translate3d(0, 0, 0)',
+            WebkitTransform: 'translate3d(0, 0, 0)',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+          } as React.CSSProperties}>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ 
+                  duration: 0.8, 
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                  opacity: { duration: 0.6 }
+                }}
+                className="w-full"
+                style={{
+                  transform: 'translate3d(0, 0, 0)',
+                  WebkitTransform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                } as React.CSSProperties}
+              >
+                {(() => {
+                  const slide = slides[currentSlide];
+                  const Icon = slide.icon;
+                  const content = slide.content;
+                  const isEmphasized = slide.emphasis;
 
-            {/* Current slide */}
-            <div className="flex-shrink-0 w-full md:w-1/2">
-              {renderSlide(currentSlide, 'current')}
-            </div>
+                  return (
+                    <div className="max-w-6xl mx-auto px-4">
+                      <div className="bg-transparent">
+                        {/* Icon and title */}
+                        <motion.div 
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.1, duration: 0.6 }}
+                          className="flex items-start gap-6 mb-8"
+                        >
+                          <div className="p-5 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex-shrink-0">
+                            <Icon className="w-14 h-14 text-blue-400" />
+                          </div>
+                          <div className="flex-1">
+                            {isEmphasized && (
+                              <motion.div 
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="mb-4"
+                              >
+                                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-semibold uppercase tracking-wide">
+                                  <AlertTriangle className="w-3.5 h-3.5" />
+                                  Spécialité CRD
+                                </span>
+                              </motion.div>
+                            )}
+                            <h2 className="text-3xl md:text-4xl font-bold mb-3 leading-tight text-white">
+                              {content.title[language]}
+                            </h2>
+                            <p className="text-lg md:text-xl text-zinc-300">
+                              {content.subtitle[language]}
+                            </p>
+                          </div>
+                        </motion.div>
 
-            {/* Next slide */}
-            <div className="hidden md:block flex-shrink-0 w-1/4">
-              {renderSlide(getSlideIndex(1), 'next')}
-            </div>
+                        {/* Description */}
+                        <motion.p 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.2, duration: 0.6 }}
+                          className="text-base md:text-lg text-zinc-300 mb-8 leading-relaxed max-w-4xl"
+                        >
+                          {content.description[language]}
+                        </motion.p>
+
+                        {/* Stats grid */}
+                        {content.stats && (
+                          <motion.div 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.3, duration: 0.6 }}
+                            className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-4`}
+                          >
+                            {content.stats.map((stat, index) => {
+                              const StatIcon = stat.icon;
+                              return (
+                                <motion.div
+                                  key={index}
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
+                                  className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/50 hover:border-blue-500/30 transition-all duration-300"
+                                  style={{
+                                    transform: 'translate3d(0, 0, 0)',
+                                    WebkitTransform: 'translate3d(0, 0, 0)',
+                                    backfaceVisibility: 'hidden',
+                                    WebkitBackfaceVisibility: 'hidden',
+                                  } as React.CSSProperties}
+                                >
+                                  <div className="flex items-center gap-2 mb-2">
+                                    {StatIcon && (
+                                      <StatIcon className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                                    )}
+                                    <span className="text-xs font-medium text-zinc-400">
+                                      {stat.label[language]}
+                                    </span>
+                                  </div>
+                                  <p className="text-xl md:text-2xl font-bold text-white">{stat.value}</p>
+                                </motion.div>
+                              );
+                            })}
+                          </motion.div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })()}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
         {/* Minimal slide indicators */}
         <div className="pb-8 flex items-center justify-center gap-2">
           {slides.map((_, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                index === currentSlide
-                  ? 'bg-blue-500 w-8'
-                  : 'bg-zinc-800 w-1.5'
-              }`}
+              initial={false}
+              animate={{
+                width: index === currentSlide ? 32 : 6,
+                opacity: index === currentSlide ? 1 : 0.5,
+              }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="h-1.5 rounded-full bg-blue-500"
+              style={{
+                backgroundColor: index === currentSlide ? '#3B82F6' : '#3f3f46',
+              }}
             />
           ))}
         </div>
