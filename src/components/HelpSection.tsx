@@ -1,6 +1,7 @@
 import { DollarSign, Shield, Crown, Lock, ArrowRight, Sparkles, Zap, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/hooks/useLanguage";
+import { Link } from "react-router-dom";
 
 const HelpSection = () => {
   const { t, language } = useLanguage();
