@@ -294,15 +294,15 @@ export function AgencyShowcaseSlideshow({
   return (
     <div className={`w-full relative ${className}`}>
       {/* Fixed height container to prevent jumping */}
-      <div className="relative w-full h-[450px] md:h-[500px] flex items-center justify-center overflow-hidden">
+      <div className="relative w-full h-[420px] md:h-[480px] flex items-center justify-center overflow-hidden">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, scale: 0.96, x: 20 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            exit={{ opacity: 0, scale: 0.96, x: -20 }}
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.97 }}
             transition={{ 
-              duration: 0.5,
+              duration: 0.4,
               ease: [0.25, 0.46, 0.45, 0.94]
             }}
             className="w-full absolute inset-0 flex items-center justify-center"
@@ -313,122 +313,119 @@ export function AgencyShowcaseSlideshow({
               const content = slide.content;
 
               return (
-                <div className="w-full px-4">
-                  <div className="flex flex-col items-center justify-center h-full space-y-5">
-                    {/* Animated Icon with floating effect */}
+                <div className="w-full px-2 md:px-4">
+                  <div className="flex flex-col items-center justify-center h-full space-y-4">
+                    {/* Animated Icon - More prominent */}
                     <motion.div
                       initial={{ scale: 0, rotate: -180 }}
                       animate={{ 
                         scale: 1, 
                         rotate: 0,
-                        y: [0, -10, 0]
+                        y: [0, -8, 0]
                       }}
                       transition={{ 
-                        scale: { duration: 0.5, ease: "easeOut" },
-                        rotate: { duration: 0.5, ease: "easeOut" },
+                        scale: { duration: 0.4, ease: "easeOut" },
+                        rotate: { duration: 0.4, ease: "easeOut" },
                         y: { 
-                          duration: 3, 
+                          duration: 2.5, 
                           repeat: Infinity, 
                           ease: "easeInOut",
-                          delay: 0.5
+                          delay: 0.4
                         }
                       }}
-                      className="relative mb-3"
+                      className="relative mb-2"
                     >
-                      <div className="p-5 md:p-6 rounded-2xl bg-gradient-to-br from-blue-500/25 via-blue-600/15 to-blue-700/10 border-2 border-blue-500/40 shadow-2xl shadow-blue-500/25">
-                        <Icon className="w-14 h-14 md:w-16 md:h-16 text-blue-400" />
+                      <div className="p-4 md:p-5 rounded-xl bg-gradient-to-br from-blue-500/30 via-blue-600/20 to-blue-700/15 border border-blue-500/50 shadow-xl shadow-blue-500/20">
+                        <Icon className="w-12 h-12 md:w-14 md:h-14 text-blue-400" />
                       </div>
-                      {/* Pulsing glow effect */}
+                      {/* Subtle glow */}
                       <motion.div
                         animate={{
-                          opacity: [0.2, 0.4, 0.2],
-                          scale: [1, 1.2, 1],
+                          opacity: [0.15, 0.3, 0.15],
+                          scale: [1, 1.15, 1],
                         }}
                         transition={{
-                          duration: 3,
+                          duration: 2.5,
                           repeat: Infinity,
                           ease: "easeInOut"
                         }}
-                        className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-2xl -z-10"
+                        className="absolute inset-0 bg-blue-500/15 blur-xl rounded-xl -z-10"
                       />
                     </motion.div>
                     
-                    {/* Title */}
+                    {/* Title - Cleaner */}
                     <motion.h2
-                      initial={{ opacity: 0, y: 10 }}
+                      initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: 0.2 }}
-                      className="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-center"
+                      transition={{ duration: 0.3, delay: 0.15 }}
+                      className="text-xl md:text-2xl lg:text-3xl font-bold text-white text-center leading-tight"
                     >
                       {content.title[language]}
                     </motion.h2>
                     
-                    {/* Key phrases as badges */}
+                    {/* Key phrases - Minimal badges */}
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ duration: 0.4, delay: 0.3 }}
-                      className="flex flex-wrap justify-center gap-2 mt-2"
+                      transition={{ duration: 0.3, delay: 0.25 }}
+                      className="flex flex-wrap justify-center gap-1.5 mt-1"
                     >
                       {content.subtitle[language].split(' • ').map((phrase, i) => (
                         <motion.span
                           key={i}
-                          initial={{ opacity: 0, scale: 0.8 }}
+                          initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ 
-                            duration: 0.25, 
-                            delay: 0.4 + i * 0.06,
+                            duration: 0.2, 
+                            delay: 0.3 + i * 0.05,
                             type: "spring",
-                            stiffness: 400
+                            stiffness: 500
                           }}
-                          className="px-3 py-1.5 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-300 text-xs md:text-sm font-medium backdrop-blur-sm"
+                          className="px-2.5 py-1 rounded-md bg-blue-500/10 border border-blue-500/25 text-blue-300 text-xs font-medium"
                         >
                           {phrase}
                         </motion.span>
                       ))}
                     </motion.div>
 
-                    {/* Stats Grid - Creative card design */}
+                    {/* Stats - Better design */}
                     {content.stats && (
                       <motion.div
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.5 }}
-                        className="grid grid-cols-3 gap-3 md:gap-4 mt-6 w-full max-w-md"
+                        transition={{ duration: 0.3, delay: 0.4 }}
+                        className="grid grid-cols-3 gap-2.5 md:gap-3 mt-5 w-full max-w-sm"
                       >
                         {content.stats.slice(0, 3).map((stat, index) => {
                           const StatIcon = stat.icon;
                           return (
                             <motion.div
                               key={index}
-                              initial={{ opacity: 0, scale: 0.85, y: 10 }}
-                              animate={{ opacity: 1, scale: 1, y: 0 }}
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              animate={{ opacity: 1, scale: 1 }}
                               transition={{ 
-                                duration: 0.35, 
-                                delay: 0.6 + index * 0.1,
+                                duration: 0.25, 
+                                delay: 0.5 + index * 0.08,
                                 type: "spring",
-                                stiffness: 300
+                                stiffness: 400
                               }}
-                              whileHover={{ scale: 1.05, y: -4 }}
-                              className="group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-br from-zinc-900/60 to-zinc-950/60 border border-zinc-800/60 hover:border-blue-500/50 transition-all duration-300 backdrop-blur-sm overflow-hidden"
+                              whileHover={{ scale: 1.03, y: -2 }}
+                              className="group relative flex flex-col items-center justify-center p-3 md:p-3.5 rounded-lg bg-zinc-900/50 border border-zinc-800/50 hover:border-blue-500/40 transition-all duration-200"
                             >
-                              {/* Subtle gradient overlay on hover */}
-                              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-600/0 group-hover:from-blue-500/10 group-hover:to-blue-600/5 transition-all duration-300" />
+                              {/* Icon - Top */}
+                              {StatIcon && (
+                                <div className="mb-2 p-1.5 rounded-md bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/15 transition-colors">
+                                  <StatIcon className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
+                                </div>
+                              )}
                               
-                              {/* Icon */}
-                              <div className="relative mb-2 p-2 rounded-lg bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/20 group-hover:border-blue-500/40 transition-all duration-300">
-                                {StatIcon && (
-                                  <StatIcon className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
-                                )}
-                              </div>
-                              
-                              {/* Value */}
-                              <p className="text-xl md:text-2xl font-bold text-white mb-1 relative z-10">
+                              {/* Value - Prominent */}
+                              <p className="text-lg md:text-xl font-bold text-white mb-0.5">
                                 {stat.value}
                               </p>
                               
-                              {/* Label - compact */}
-                              <span className="text-[10px] md:text-xs text-zinc-400 text-center leading-tight relative z-10 px-1">
+                              {/* Label - Tiny but readable */}
+                              <span className="text-[9px] md:text-[10px] text-zinc-400 text-center leading-tight px-0.5">
                                 {stat.label[language]}
                               </span>
                             </motion.div>

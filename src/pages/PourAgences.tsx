@@ -477,9 +477,9 @@ const PourAgences = () => {
               boxShadow: '0 20px 60px 0 rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 0 100px rgba(59, 130, 246, 0.05)',
             }}
           >
-            <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-20 items-start">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
               {/* Left side - Hero content */}
-              <div className="text-center lg:text-left space-y-6 sm:space-y-7">
+              <div className="text-center lg:text-left space-y-5 sm:space-y-6">
                 {/* Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: -10 }}
