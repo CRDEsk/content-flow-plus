@@ -175,12 +175,12 @@ const HelpSection = () => {
                 className="group border-zinc-700 hover:border-primary/50 text-white font-semibold rounded-full px-8 py-6 shadow-2xl hover:scale-105 transition-all duration-300"
                 asChild
               >
-                <a href="https://blog.contentremovaldesk.com" target="_blank" rel="noopener noreferrer">
+                <Link to="/blog">
                   <span className="flex items-center gap-2">
                     {language === 'fr' ? 'Lire nos guides' : 'Read Our Guides'}
                     <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </span>
-                </a>
+                </Link>
               </Button>
             </div>
           </div>

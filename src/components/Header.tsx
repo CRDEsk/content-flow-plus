@@ -193,7 +193,7 @@ const Header = ({ isLoggedIn = false, hideLogo = false, hideMenu = false, showLa
     { type: 'divider' },
     // Group 3: About & Contact
     { label: t("header.about"), href: "/a-propos" },
-    { label: t("header.blog"), href: "https://blog.contentremovaldesk.com", external: true },
+    { label: t("header.blog"), href: "/blog" },
     { label: t("header.contact"), href: "/contact" },
     { label: t("header.mySpace"), href: "https://espace.contentremovaldesk.com", external: true },
   ];
