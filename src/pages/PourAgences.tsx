@@ -578,36 +578,37 @@ const PourAgences = () => {
                 </button>
               </motion.div>
               <motion.div
-                whileHover={{ scale: 1.05, y: -2 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="relative"
               >
-                <a 
-                  href="https://espace.contentremovaldesk.com/create-agency?theme=agency&source=pour-agences" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="group relative text-white font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl transition-all duration-300 w-full sm:w-auto cursor-pointer overflow-hidden inline-flex items-center justify-center gap-3"
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="group border-2 text-foreground font-semibold rounded-full px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 text-base sm:text-lg lg:text-xl transition-all duration-300 w-full sm:w-auto"
                   style={{
-                    background: 'linear-gradient(to right, rgba(59, 130, 246, 1), rgba(37, 99, 235, 1))',
-                    border: '1px solid rgba(59, 130, 246, 0.4)',
-                    boxShadow: '0 8px 32px 0 rgba(59, 130, 246, 0.4), inset 0 0 60px rgba(59, 130, 246, 0.2)',
+                    background: 'rgba(0, 0, 0, 0.4)',
+                    backdropFilter: 'blur(20px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                    border: '2px solid rgba(59, 130, 246, 0.3)',
+                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(59, 130, 246, 0.6), inset 0 0 80px rgba(59, 130, 246, 0.3)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.5)';
+                    e.currentTarget.style.boxShadow = '0 12px 40px 0 rgba(59, 130, 246, 0.2), inset 0 0 80px rgba(59, 130, 246, 0.1)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(59, 130, 246, 0.4), inset 0 0 60px rgba(59, 130, 246, 0.2)';
-                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)';
                   }}
+                  asChild
                 >
-                  <Users className="h-5 w-5 sm:h-6 sm:w-6" />
-                  Créer mon agence
-                  <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform" />
-                </a>
+                      <a href="https://espace.contentremovaldesk.com/create-agency" target="_blank" rel="noopener noreferrer">
+                    <span className="flex items-center gap-3 justify-center">
+                          <Users className="h-5 w-5 sm:h-6 sm:w-6" />
+                          Créer mon agence
+                    </span>
+                  </a>
+                </Button>
               </motion.div>
             </motion.div>
               </div>
