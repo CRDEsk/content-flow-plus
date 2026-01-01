@@ -611,13 +611,6 @@ const PourAgences = () => {
                 </Button>
               </motion.div>
             </motion.div>
-              </div>
-
-              {/* Right side - Integrated Slideshow */}
-              <div className="relative">
-                <AgencyShowcaseSlideshow className="opacity-100" />
-              </div>
-            </div>
           </motion.div>
         </div>
 
