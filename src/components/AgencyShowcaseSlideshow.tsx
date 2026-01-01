@@ -14,11 +14,7 @@ import {
   Search,
   Download,
   Scale,
-  Clock,
-  ChevronLeft,
-  ChevronRight,
-  Play,
-  Pause
+  Clock
 } from 'lucide-react';
 
 interface SlideContent {
@@ -294,7 +290,6 @@ const slides: Slide[] = [
 ];
 
 interface AgencyShowcaseSlideshowProps {
-  initialLanguage?: 'fr' | 'en';
   autoPlay?: boolean;
   slideDuration?: number;
   onSlideChange?: (slideIndex: number) => void;
@@ -302,15 +297,14 @@ interface AgencyShowcaseSlideshowProps {
 }
 
 export function AgencyShowcaseSlideshow({
-  initialLanguage = 'fr',
   autoPlay = true,
-  slideDuration = 6000,
+  slideDuration = 10000,
   onSlideChange,
   className = ''
 }: AgencyShowcaseSlideshowProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(autoPlay);
-  const [language, setLanguage] = useState<'fr' | 'en'>(initialLanguage);
+  const [isPlaying] = useState(autoPlay);
+  const language = 'fr'; // Fixed to French only
 
   // Auto-advance slides
   useEffect(() => {
@@ -327,22 +321,6 @@ export function AgencyShowcaseSlideshow({
     return () => clearInterval(interval);
   }, [isPlaying, slideDuration, onSlideChange]);
 
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-    onSlideChange?.(index);
-  };
-
-  const nextSlide = () => {
-    const next = (currentSlide + 1) % slides.length;
-    setCurrentSlide(next);
-    onSlideChange?.(next);
-  };
-
-  const prevSlide = () => {
-    const prev = (currentSlide - 1 + slides.length) % slides.length;
-    setCurrentSlide(prev);
-    onSlideChange?.(prev);
-  };
 
   const currentSlideData = slides[currentSlide];
   const Icon = currentSlideData.icon;
@@ -350,67 +328,33 @@ export function AgencyShowcaseSlideshow({
   const isEmphasized = currentSlideData.emphasis;
 
   return (
-    <div className={`min-h-screen w-full bg-black relative overflow-hidden ${className}`}>
-      {/* Background gradient - blue theme */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${currentSlideData.bgGradient} transition-all duration-1000 ${isEmphasized ? 'opacity-100' : 'opacity-60'}`} />
-      
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.02]" style={{
-        backgroundImage: 'linear-gradient(rgba(96, 165, 250, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(96, 165, 250, 1) 1px, transparent 1px)',
-        backgroundSize: '60px 60px',
-      }} />
-      
-      {/* Main content */}
-      <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Language Toggle - Top Right */}
-        <div className="absolute top-6 right-6 z-20">
-          <div className="flex items-center gap-1 bg-black/80 backdrop-blur-sm border border-blue-500/30 rounded-lg p-1">
-            <button
-              onClick={() => setLanguage('fr')}
-              className={`px-3 py-1.5 rounded text-sm font-medium transition-all ${
-                language === 'fr'
-                  ? 'bg-blue-500 text-white'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              FR
-            </button>
-            <button
-              onClick={() => setLanguage('en')}
-              className={`px-3 py-1.5 rounded text-sm font-medium transition-all ${
-                language === 'en'
-                  ? 'bg-blue-500 text-white'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              EN
-            </button>
-          </div>
-        </div>
+    <div className={`w-full bg-transparent relative overflow-hidden ${className}`}>
+      {/* Main content - seamless and minimal */}
+      <div className="relative z-10 w-full flex flex-col">
 
-        {/* Slide content */}
-        <div className="flex-1 flex items-center justify-center p-4 md:p-8 pt-24">
+        {/* Slide content - minimal and embedded */}
+        <div className="flex items-center justify-center p-4 md:p-8 py-12 md:py-16">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, x: 100, scale: 0.9 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: -100, scale: 0.9 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
               className="max-w-6xl w-full"
             >
-              <div className={`bg-black/90 backdrop-blur-xl rounded-3xl border-2 ${isEmphasized ? 'border-blue-500/50 shadow-2xl shadow-blue-500/20' : 'border-blue-500/30 shadow-2xl'} p-12 md:p-16`}>
-                {/* Icon and title */}
-                <div className="flex items-start gap-8 mb-10">
-                  <div className={`p-5 rounded-2xl bg-blue-500/20 border border-blue-500/30 ${isEmphasized ? 'scale-110' : ''} transition-transform`}>
-                    <Icon className={`w-16 h-16 ${currentSlideData.color}`} />
+              <div className="bg-transparent p-8 md:p-12">
+                {/* Icon and title - minimal */}
+                <div className="flex items-start gap-6 mb-8">
+                  <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+                    <Icon className="w-12 h-12 text-blue-400" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-medium text-zinc-400">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-xs font-medium text-zinc-500">
                         {currentSlide + 1} / {slides.length}
                       </span>
-                      <div className="flex-1 h-1.5 bg-zinc-800/50 rounded-full overflow-hidden">
+                      <div className="flex-1 h-1 bg-zinc-800/30 rounded-full overflow-hidden">
                         <motion.div
                           className="h-full bg-blue-500"
                           initial={{ width: 0 }}
@@ -421,29 +365,29 @@ export function AgencyShowcaseSlideshow({
                     </div>
                     {isEmphasized && (
                       <div className="mb-3">
-                        <span className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-xs font-semibold uppercase tracking-wide">
+                        <span className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-semibold uppercase tracking-wide">
                           <AlertTriangle className="w-3 h-3" />
-                          {language === 'fr' ? 'Spécialité CRD' : 'CRD Specialty'}
+                          Spécialité CRD
                         </span>
                       </div>
                     )}
-                    <h2 className={`${isEmphasized ? 'text-5xl md:text-6xl' : 'text-4xl md:text-5xl'} font-bold mb-4 leading-tight text-white`}>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-3 leading-tight text-white">
                       {slideContent.title[language]}
                     </h2>
-                    <p className="text-2xl text-zinc-300">
+                    <p className="text-lg md:text-xl text-zinc-300">
                       {slideContent.subtitle[language]}
                     </p>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className={`${isEmphasized ? 'text-xl' : 'text-lg'} text-zinc-200 mb-10 leading-relaxed max-w-4xl`}>
+                <p className="text-base md:text-lg text-zinc-300 mb-8 leading-relaxed max-w-4xl">
                   {slideContent.description[language]}
                 </p>
 
-                {/* Stats grid */}
+                {/* Stats grid - minimal */}
                 {slideContent.stats && (
-                  <div className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-4 mt-10`}>
+                  <div className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-4`}>
                     {slideContent.stats.map((stat, index) => {
                       const StatIcon = stat.icon;
                       return (
@@ -452,17 +396,17 @@ export function AgencyShowcaseSlideshow({
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.1 }}
-                          className="p-5 rounded-xl bg-black/60 border border-blue-500/30 backdrop-blur-sm hover:bg-black/80 transition-colors"
+                          className="p-4 rounded-lg bg-zinc-900/30 border border-zinc-800/50 hover:border-blue-500/30 transition-colors"
                         >
-                          <div className="flex items-center gap-3 mb-3">
+                          <div className="flex items-center gap-2 mb-2">
                             {StatIcon && (
-                              <StatIcon className="w-6 h-6 text-blue-400" />
+                              <StatIcon className="w-5 h-5 text-blue-400" />
                             )}
-                            <span className="text-sm font-medium text-zinc-400">
+                            <span className="text-xs font-medium text-zinc-400">
                               {stat.label[language]}
                             </span>
                           </div>
-                          <p className={`${isEmphasized ? 'text-3xl' : 'text-2xl'} font-bold text-white`}>{stat.value}</p>
+                          <p className="text-xl md:text-2xl font-bold text-white">{stat.value}</p>
                         </motion.div>
                       );
                     })}
@@ -473,67 +417,20 @@ export function AgencyShowcaseSlideshow({
           </AnimatePresence>
         </div>
 
-        {/* Controls */}
-        <div className="p-6 flex items-center justify-center gap-4">
-          <button
-            onClick={prevSlide}
-            className="w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm border border-blue-500/30 flex items-center justify-center hover:bg-black/70 hover:border-blue-500/50 transition-colors text-white"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          {/* Slide indicators */}
-          <div className="flex items-center gap-2">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`h-2 rounded-full transition-all ${
-                  index === currentSlide
-                    ? 'bg-blue-500 w-8'
-                    : 'bg-zinc-700 hover:bg-zinc-600 w-2'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm border border-blue-500/30 flex items-center justify-center hover:bg-black/70 hover:border-blue-500/50 transition-colors text-white"
-            aria-label={isPlaying ? 'Pause' : 'Play'}
-          >
-            {isPlaying ? (
-              <Pause className="w-5 h-5" />
-            ) : (
-              <Play className="w-5 h-5" />
-            )}
-          </button>
-
-          <button
-            onClick={nextSlide}
-            className="w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm border border-blue-500/30 flex items-center justify-center hover:bg-black/70 hover:border-blue-500/50 transition-colors text-white"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+        {/* Minimal slide indicators only */}
+        <div className="pb-8 flex items-center justify-center gap-2">
+          {slides.map((_, index) => (
+            <div
+              key={index}
+              className={`h-1.5 rounded-full transition-all ${
+                index === currentSlide
+                  ? 'bg-blue-500 w-8'
+                  : 'bg-zinc-800 w-1.5'
+              }`}
+            />
+          ))}
         </div>
       </div>
-
-      {/* Keyboard navigation */}
-      <div
-        className="absolute inset-0"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'ArrowLeft') prevSlide();
-          if (e.key === 'ArrowRight') nextSlide();
-          if (e.key === ' ') {
-            e.preventDefault();
-            setIsPlaying(!isPlaying);
-          }
-        }}
-      />
     </div>
   );
 }

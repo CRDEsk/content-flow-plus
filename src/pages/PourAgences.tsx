@@ -1338,9 +1338,8 @@ const PourAgences = () => {
 
       {/* SECTION 10 - Interactive Showcase */}
       <AgencyShowcaseSlideshow 
-        initialLanguage="fr"
         autoPlay={true}
-        slideDuration={6000}
+        slideDuration={10000}
       />
 
       <Footer />
