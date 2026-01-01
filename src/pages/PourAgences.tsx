@@ -1344,12 +1344,6 @@ const PourAgences = () => {
         </div>
       </section>
 
-      {/* SECTION 10 - Interactive Showcase */}
-      <AgencyShowcaseSlideshow 
-        autoPlay={true}
-        slideDuration={5000}
-      />
-
       <Footer />
     </div>
   );
