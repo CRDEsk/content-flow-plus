@@ -329,9 +329,9 @@ export function AgencyShowcaseSlideshow({
   return (
     <div className={`w-full bg-transparent relative overflow-hidden ${className}`}>
       <div className="relative z-10 w-full">
-        {/* Smooth carousel container */}
-        <div className="relative overflow-hidden py-12 md:py-20">
-          <div className="relative" style={{ 
+        {/* Smooth carousel container - fixed height */}
+        <div className="relative overflow-hidden py-12 md:py-16 min-h-[600px] md:min-h-[700px]">
+          <div className="relative h-full" style={{ 
             transform: 'translate3d(0, 0, 0)',
             WebkitTransform: 'translate3d(0, 0, 0)',
             backfaceVisibility: 'hidden',
@@ -340,15 +340,15 @@ export function AgencyShowcaseSlideshow({
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={currentSlide}
-                initial={{ opacity: 0, x: 100 }}
+                initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
+                exit={{ opacity: 0, x: -50 }}
                 transition={{ 
-                  duration: 0.8, 
+                  duration: 0.6, 
                   ease: [0.25, 0.46, 0.45, 0.94],
-                  opacity: { duration: 0.6 }
+                  opacity: { duration: 0.4 }
                 }}
-                className="w-full"
+                className="w-full absolute inset-0"
                 style={{
                   transform: 'translate3d(0, 0, 0)',
                   WebkitTransform: 'translate3d(0, 0, 0)',
@@ -363,67 +363,44 @@ export function AgencyShowcaseSlideshow({
                   const isEmphasized = slide.emphasis;
 
                   return (
-                    <div className="max-w-6xl mx-auto px-4">
+                    <div className="max-w-6xl mx-auto px-4 h-full flex flex-col justify-center">
                       <div className="bg-transparent">
                         {/* Icon and title */}
-                        <motion.div 
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.1, duration: 0.6 }}
-                          className="flex items-start gap-6 mb-8"
-                        >
+                        <div className="flex items-start gap-6 mb-6">
                           <div className="p-5 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex-shrink-0">
                             <Icon className="w-14 h-14 text-blue-400" />
                           </div>
                           <div className="flex-1">
                             {isEmphasized && (
-                              <motion.div 
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.2 }}
-                                className="mb-4"
-                              >
+                              <div className="mb-3">
                                 <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-semibold uppercase tracking-wide">
                                   <AlertTriangle className="w-3.5 h-3.5" />
                                   Spécialité CRD
                                 </span>
-                              </motion.div>
+                              </div>
                             )}
-                            <h2 className="text-3xl md:text-4xl font-bold mb-3 leading-tight text-white">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-2 leading-tight text-white">
                               {content.title[language]}
                             </h2>
                             <p className="text-lg md:text-xl text-zinc-300">
                               {content.subtitle[language]}
                             </p>
                           </div>
-                        </motion.div>
+                        </div>
 
                         {/* Description */}
-                        <motion.p 
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.2, duration: 0.6 }}
-                          className="text-base md:text-lg text-zinc-300 mb-8 leading-relaxed max-w-4xl"
-                        >
+                        <p className="text-base md:text-lg text-zinc-300 mb-6 leading-relaxed max-w-4xl">
                           {content.description[language]}
-                        </motion.p>
+                        </p>
 
-                        {/* Stats grid */}
+                        {/* Stats grid - fixed height container */}
                         {content.stats && (
-                          <motion.div 
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.3, duration: 0.6 }}
-                            className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-4`}
-                          >
+                          <div className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-4`}>
                             {content.stats.map((stat, index) => {
                               const StatIcon = stat.icon;
                               return (
-                                <motion.div
+                                <div
                                   key={index}
-                                  initial={{ opacity: 0, y: 20 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
                                   className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/50 hover:border-blue-500/30 transition-all duration-300"
                                   style={{
                                     transform: 'translate3d(0, 0, 0)',
@@ -441,10 +418,10 @@ export function AgencyShowcaseSlideshow({
                                     </span>
                                   </div>
                                   <p className="text-xl md:text-2xl font-bold text-white">{stat.value}</p>
-                                </motion.div>
+                                </div>
                               );
                             })}
-                          </motion.div>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -455,21 +432,26 @@ export function AgencyShowcaseSlideshow({
           </div>
         </div>
 
-        {/* Minimal slide indicators */}
-        <div className="pb-8 flex items-center justify-center gap-2">
+        {/* Minimal slide indicators - fixed position */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center gap-2">
           {slides.map((_, index) => (
-            <motion.div
+            <motion.button
               key={index}
               initial={false}
               animate={{
                 width: index === currentSlide ? 32 : 6,
-                opacity: index === currentSlide ? 1 : 0.5,
+                opacity: index === currentSlide ? 1 : 0.4,
               }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="h-1.5 rounded-full bg-blue-500"
+              className="h-1.5 rounded-full transition-all"
               style={{
                 backgroundColor: index === currentSlide ? '#3B82F6' : '#3f3f46',
               }}
+              onClick={() => {
+                setCurrentSlide(index);
+                onSlideChange?.(index);
+              }}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
