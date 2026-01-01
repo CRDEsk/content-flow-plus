@@ -427,7 +427,6 @@ export function AgencyShowcaseSlideshow({
                     />
                   </motion.div>
                 </div>
-                </div>
               );
             })()}
           </motion.div>
