@@ -197,50 +197,217 @@ const PourAgences = () => {
         const cal = await getCalApi({ namespace: "agence" });
         if (!isMounted) return;
 
-        cal("ui", {
-          cssVarsPerTheme: {
-            light: { 
-              "cal-brand": "#3B82F6",
-              "cal-brand-emphasis": "#2563EB",
-              "cal-brand-text": "#3B82F6"
-            },
-            dark: { 
-              "cal-brand": "#3B82F6",
-              "cal-brand-emphasis": "#2563EB",
-              "cal-brand-text": "#3B82F6"
-            }
-          },
-          hideEventTypeDetails: false,
-          layout: "month_view"
-        });
-
-        // Inject custom CSS to override yellow colors with blue
+        // Inject custom CSS to override yellow colors with blue - COMPREHENSIVE
         const styleId = 'cal-blue-override';
         if (!document.getElementById(styleId)) {
           const style = document.createElement('style');
           style.id = styleId;
           style.textContent = `
+            /* Selected dates and days */
             [data-cal-namespace="agence"] [data-cal-selected],
             [data-cal-namespace="agence"] .cal-selected,
             [data-cal-namespace="agence"] button[data-cal-selected],
             [data-cal-namespace="agence"] .cal-day-selected,
             [data-cal-namespace="agence"] [aria-selected="true"],
-            [data-cal-namespace="agence"] .cal-day-selected button {
+            [data-cal-namespace="agence"] .cal-day-selected button,
+            [data-cal-namespace="agence"] button[aria-selected="true"],
+            [data-cal-namespace="agence"] [data-state="selected"],
+            [data-cal-namespace="agence"] button[data-state="selected"] {
               background-color: #3B82F6 !important;
               border-color: #3B82F6 !important;
               color: white !important;
             }
+            
+            /* Selected date indicators (dots) */
+            [data-cal-namespace="agence"] .cal-day-selected button::before,
+            [data-cal-namespace="agence"] .cal-day-selected::before,
+            [data-cal-namespace="agence"] [data-cal-selected]::before,
+            [data-cal-namespace="agence"] button[data-cal-selected]::before,
+            [data-cal-namespace="agence"] [aria-selected="true"]::before,
+            [data-cal-namespace="agence"] .cal-day-selected::after,
+            [data-cal-namespace="agence"] [data-cal-selected]::after {
+              background-color: #3B82F6 !important;
+              border-color: #3B82F6 !important;
+            }
+            
+            /* Time slot selections */
+            [data-cal-namespace="agence"] [data-time-slot-selected],
+            [data-cal-namespace="agence"] button[data-time-slot-selected],
+            [data-cal-namespace="agence"] .time-slot-selected,
+            [data-cal-namespace="agence"] button[data-slot-selected] {
+              background-color: #3B82F6 !important;
+              border-color: #3B82F6 !important;
+              color: white !important;
+            }
+            
+            /* Hover states */
             [data-cal-namespace="agence"] button:hover,
-            [data-cal-namespace="agence"] .cal-day:hover {
+            [data-cal-namespace="agence"] .cal-day:hover,
+            [data-cal-namespace="agence"] [data-time-slot]:hover,
+            [data-cal-namespace="agence"] button[data-time-slot]:hover {
               background-color: rgba(59, 130, 246, 0.2) !important;
               border-color: #3B82F6 !important;
             }
-            [data-cal-namespace="agence"] .cal-day-selected button::before {
+            
+            /* Override any yellow/amber colors */
+            [data-cal-namespace="agence"] [style*="yellow"],
+            [data-cal-namespace="agence"] [style*="#E5C268"],
+            [data-cal-namespace="agence"] [style*="#F59E0B"],
+            [data-cal-namespace="agence"] [style*="#FBBF24"],
+            [data-cal-namespace="agence"] [style*="rgb(229, 194, 104)"],
+            [data-cal-namespace="agence"] [style*="rgb(245, 158, 11)"] {
               background-color: #3B82F6 !important;
+              border-color: #3B82F6 !important;
+            }
+            
+            /* Calendar day cells with yellow background */
+            [data-cal-namespace="agence"] .cal-day[style*="yellow"],
+            [data-cal-namespace="agence"] .cal-day[style*="#E5C268"],
+            [data-cal-namespace="agence"] button[style*="yellow"],
+            [data-cal-namespace="agence"] button[style*="#E5C268"] {
+              background-color: #3B82F6 !important;
+              border-color: #3B82F6 !important;
+              color: white !important;
+            }
+            
+            /* Any element with yellow background color */
+            [data-cal-namespace="agence"] * {
+              --cal-brand: #3B82F6 !important;
+              --cal-brand-emphasis: #2563EB !important;
+            }
+            
+            /* Force blue on any selected state */
+            [data-cal-namespace="agence"] [class*="selected"],
+            [data-cal-namespace="agence"] [class*="active"] {
+              background-color: #3B82F6 !important;
+              border-color: #3B82F6 !important;
+            }
+            
+            /* Override Cal.com's default accent colors */
+            [data-cal-namespace="agence"] {
+              --cal-brand: #3B82F6 !important;
+              --cal-brand-emphasis: #2563EB !important;
+              --cal-brand-text: #FFFFFF !important;
             }
           `;
           document.head.appendChild(style);
         }
+        
+        // Use cal("ui") with comprehensive blue branding
+        cal("ui", {
+          cssVarsPerTheme: {
+            light: { 
+              "cal-brand": "#3B82F6",
+              "cal-brand-emphasis": "#2563EB",
+              "cal-brand-text": "#FFFFFF"
+            },
+            dark: { 
+              "cal-brand": "#3B82F6",
+              "cal-brand-emphasis": "#2563EB",
+              "cal-brand-text": "#FFFFFF"
+            }
+          },
+          hideEventTypeDetails: false,
+          layout: "month_view",
+          customCss: `
+            /* Selected dates and days - comprehensive override */
+            [data-cal-namespace="agence"] [data-cal-selected],
+            [data-cal-namespace="agence"] .cal-selected,
+            [data-cal-namespace="agence"] button[data-cal-selected],
+            [data-cal-namespace="agence"] .cal-day-selected,
+            [data-cal-namespace="agence"] [aria-selected="true"],
+            [data-cal-namespace="agence"] .cal-day-selected button,
+            [data-cal-namespace="agence"] button[aria-selected="true"],
+            [data-cal-namespace="agence"] [data-state="selected"],
+            [data-cal-namespace="agence"] button[data-state="selected"] {
+              background-color: #3B82F6 !important;
+              border-color: #3B82F6 !important;
+              color: white !important;
+            }
+            
+            /* Selected date indicators (dots) */
+            [data-cal-namespace="agence"] .cal-day-selected button::before,
+            [data-cal-namespace="agence"] .cal-day-selected::before,
+            [data-cal-namespace="agence"] [data-cal-selected]::before,
+            [data-cal-namespace="agence"] button[data-cal-selected]::before,
+            [data-cal-namespace="agence"] [aria-selected="true"]::before,
+            [data-cal-namespace="agence"] .cal-day-selected::after,
+            [data-cal-namespace="agence"] [data-cal-selected]::after {
+              background-color: #3B82F6 !important;
+              border-color: #3B82F6 !important;
+            }
+            
+            /* Time slot selections */
+            [data-cal-namespace="agence"] [data-time-slot-selected],
+            [data-cal-namespace="agence"] button[data-time-slot-selected],
+            [data-cal-namespace="agence"] .time-slot-selected,
+            [data-cal-namespace="agence"] button[data-slot-selected] {
+              background-color: #3B82F6 !important;
+              border-color: #3B82F6 !important;
+              color: white !important;
+            }
+            
+            /* Hover states */
+            [data-cal-namespace="agence"] button:hover,
+            [data-cal-namespace="agence"] .cal-day:hover,
+            [data-cal-namespace="agence"] [data-time-slot]:hover,
+            [data-cal-namespace="agence"] button[data-time-slot]:hover {
+              background-color: rgba(59, 130, 246, 0.2) !important;
+              border-color: #3B82F6 !important;
+            }
+            
+            /* Force blue on any selected/active state */
+            [data-cal-namespace="agence"] [class*="selected"],
+            [data-cal-namespace="agence"] [class*="active"] {
+              background-color: #3B82F6 !important;
+              border-color: #3B82F6 !important;
+            }
+          `
+        });
+        
+        // Watch for dynamically added Cal.com elements and force blue styling
+        const observer = new MutationObserver(() => {
+          const calContainer = document.querySelector('[data-cal-namespace="agence"]');
+          if (calContainer) {
+            // Force re-apply blue styles to any yellow elements
+            const allElements = calContainer.querySelectorAll('*');
+            allElements.forEach((el: Element) => {
+              const htmlEl = el as HTMLElement;
+              const style = window.getComputedStyle(htmlEl);
+              const bgColor = style.backgroundColor;
+              // Check if element has yellow/amber background
+              if (bgColor.includes('229, 194, 104') || 
+                  bgColor.includes('245, 158, 11') ||
+                  bgColor.includes('251, 191, 36') ||
+                  htmlEl.getAttribute('style')?.includes('yellow') ||
+                  htmlEl.getAttribute('style')?.includes('#E5C268') ||
+                  htmlEl.getAttribute('style')?.includes('#F59E0B')) {
+                htmlEl.style.setProperty('background-color', '#3B82F6', 'important');
+                htmlEl.style.setProperty('border-color', '#3B82F6', 'important');
+                if (htmlEl.tagName === 'BUTTON' || htmlEl.getAttribute('aria-selected') === 'true') {
+                  htmlEl.style.setProperty('color', 'white', 'important');
+                }
+              }
+            });
+          }
+        });
+        
+        // Start observing when Cal.com container appears
+        const checkAndObserve = () => {
+          const calContainer = document.querySelector('[data-cal-namespace="agence"]');
+          if (calContainer) {
+            observer.observe(calContainer, {
+              childList: true,
+              subtree: true,
+              attributes: true,
+              attributeFilter: ['style', 'class', 'aria-selected', 'data-cal-selected']
+            });
+          } else {
+            setTimeout(checkAndObserve, 100);
+          }
+        };
+        checkAndObserve();
+        
       } catch (error) {
         console.error("Failed to initialize Cal.com for agence namespace", error);
       }
