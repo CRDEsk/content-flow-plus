@@ -1,13 +1,12 @@
 import { blogPosts } from '../data/blogPosts';
-import { getBlogBaseUrl, isBlogSubdomain } from '../config/blogConfig';
+import { getBlogBaseUrl } from '../config/blogConfig';
 
 export const generateBlogSitemap = (): string => {
   const baseUrl = getBlogBaseUrl();
-  const isSubdomain = isBlogSubdomain();
   
-  // On subdomain, paths are at root. On main domain, they have /blog prefix
-  const getPostPath = (slug: string) => isSubdomain ? `/${slug}` : `/blog/${slug}`;
-  const getBlogListPath = () => isSubdomain ? '/' : '/blog';
+  // Blog is on main domain at /blog path
+  const getPostPath = (slug: string) => `/blog/${slug}`;
+  const getBlogListPath = () => '/blog';
 
   const urls = blogPosts.map(post => {
     const lastmod = post.updatedAt || post.publishedAt;
@@ -21,9 +20,9 @@ export const generateBlogSitemap = (): string => {
 
   // Add power pages
   const powerPages = [
-    { path: '/remove-onlyfans-leaks', priority: 0.9, changefreq: 'weekly' },
-    { path: '/remove-pornhub-content', priority: 0.9, changefreq: 'weekly' },
-    { path: '/analyze-pirate-site', priority: 0.8, changefreq: 'monthly' },
+    { path: '/blog/remove-onlyfans-leaks', priority: 0.9, changefreq: 'weekly' },
+    { path: '/blog/remove-pornhub-content', priority: 0.9, changefreq: 'weekly' },
+    { path: '/blog/analyze-pirate-site', priority: 0.8, changefreq: 'monthly' },
   ];
 
   const powerPagesUrls = powerPages.map(page => `  <url>
