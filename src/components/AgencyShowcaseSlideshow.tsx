@@ -14,7 +14,8 @@ import {
   Search,
   Download,
   Scale,
-  Clock
+  Clock,
+  Sparkles
 } from 'lucide-react';
 
 interface SlideContent {
@@ -383,66 +384,101 @@ export function AgencyShowcaseSlideshow({
                     const isEmphasized = slide.emphasis;
 
                     return (
-                      <div className="max-w-6xl mx-auto px-6 md:px-8">
-                        {/* Icon and title - banner style */}
-                        <div className="flex items-start gap-8 mb-8">
-                          {/* Large icon on left */}
-                          <div className="flex-shrink-0">
-                            <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/30 shadow-lg shadow-blue-500/10">
-                              <Icon className="w-16 h-16 md:w-20 md:h-20 text-blue-400" />
-                            </div>
+                      <div className="max-w-7xl mx-auto px-6 md:px-8">
+                        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+                          {/* Large icon on left side - banner style */}
+                          <div className="flex-shrink-0 w-full lg:w-auto flex justify-center lg:justify-start">
+                            <motion.div
+                              initial={{ scale: 0.9, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              transition={{ duration: 0.5, delay: 0.2 }}
+                              className="relative"
+                            >
+                              {/* Glowing background effect */}
+                              <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full scale-150" />
+                              <div className="relative p-8 md:p-10 rounded-3xl bg-gradient-to-br from-blue-500/30 via-blue-600/20 to-blue-700/10 border-2 border-blue-500/40 shadow-2xl shadow-blue-500/20">
+                                <Icon className="w-20 h-20 md:w-24 md:h-24 text-blue-400 drop-shadow-lg" />
+                              </div>
+                            </motion.div>
                           </div>
                           
-                          {/* Title and subtitle */}
-                          <div className="flex-1 pt-2">
+                          {/* Content on right */}
+                          <div className="flex-1 w-full">
+                            {/* Badge */}
                             {isEmphasized && (
-                              <div className="mb-4">
-                                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-xs font-semibold uppercase tracking-wide shadow-sm">
+                              <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="mb-4"
+                              >
+                                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-xs font-semibold uppercase tracking-wide shadow-lg">
                                   <AlertTriangle className="w-4 h-4" />
                                   Spécialité CRD
                                 </span>
-                              </div>
+                              </motion.div>
                             )}
-                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 leading-tight text-white">
-                              {content.title[language]}
-                            </h2>
-                            <p className="text-xl md:text-2xl text-zinc-300">
-                              {content.subtitle[language]}
-                            </p>
+                            
+                            {/* Title and subtitle */}
+                            <motion.div
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.5, delay: 0.1 }}
+                            >
+                              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-white">
+                                {content.title[language]}
+                              </h2>
+                              <p className="text-xl md:text-2xl text-zinc-300 mb-6">
+                                {content.subtitle[language]}
+                              </p>
+                            </motion.div>
+
+                            {/* Description */}
+                            <motion.p
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.5, delay: 0.3 }}
+                              className="text-base md:text-lg text-zinc-300 mb-8 leading-relaxed"
+                            >
+                              {content.description[language]}
+                            </motion.p>
+
+                            {/* Stats grid - banner style */}
+                            {content.stats && (
+                              <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4 }}
+                                className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'} gap-4`}
+                              >
+                                {content.stats.map((stat, index) => {
+                                  const StatIcon = stat.icon;
+                                  return (
+                                    <motion.div
+                                      key={index}
+                                      initial={{ opacity: 0, scale: 0.9 }}
+                                      animate={{ opacity: 1, scale: 1 }}
+                                      transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                                      className="p-5 rounded-xl bg-zinc-900/60 border border-zinc-800/50 hover:border-blue-500/50 hover:bg-zinc-900/80 transition-all duration-300 group backdrop-blur-sm"
+                                    >
+                                      <div className="flex items-center gap-3 mb-3">
+                                        {StatIcon && (
+                                          <div className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/30 group-hover:from-blue-500/30 group-hover:to-blue-600/20 transition-all duration-300 shadow-sm">
+                                            <StatIcon className="w-5 h-5 text-blue-400" />
+                                          </div>
+                                        )}
+                                        <span className="text-sm font-medium text-zinc-400">
+                                          {stat.label[language]}
+                                        </span>
+                                      </div>
+                                      <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
+                                    </motion.div>
+                                  );
+                                })}
+                              </motion.div>
+                            )}
                           </div>
                         </div>
-
-                        {/* Description */}
-                        <p className="text-base md:text-lg text-zinc-300 mb-10 leading-relaxed max-w-4xl pl-0 md:pl-28">
-                          {content.description[language]}
-                        </p>
-
-                        {/* Stats grid - banner style */}
-                        {content.stats && (
-                          <div className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-4 pl-0 md:pl-28`}>
-                            {content.stats.map((stat, index) => {
-                              const StatIcon = stat.icon;
-                              return (
-                                <div
-                                  key={index}
-                                  className="p-5 rounded-xl bg-zinc-900/50 border border-zinc-800/50 hover:border-blue-500/40 hover:bg-zinc-900/70 transition-all duration-300 group"
-                                >
-                                  <div className="flex items-center gap-3 mb-3">
-                                    {StatIcon && (
-                                      <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
-                                        <StatIcon className="w-5 h-5 text-blue-400" />
-                                      </div>
-                                    )}
-                                    <span className="text-sm font-medium text-zinc-400">
-                                      {stat.label[language]}
-                                    </span>
-                                  </div>
-                                  <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        )}
                       </div>
                     );
                   })()}
