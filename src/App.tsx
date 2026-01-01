@@ -100,6 +100,15 @@ const CreatorPresentation = lazyWithRetry(() => import("./pages/CreatorPresentat
 const AgencyPresentation2 = lazyWithRetry(() => import("./pages/AgencyPresentation2"));
 const Presentation = lazyWithRetry(() => import("./pages/Presentation"));
 const OnboardingPresentation = lazyWithRetry(() => import("./pages/OnboardingPresentation"));
+// Blog pages
+const BlogList = lazyWithRetry(() => import("./blog/pages/BlogList"));
+const BlogPost = lazyWithRetry(() => import("./blog/pages/BlogPost"));
+const BlogCategory = lazyWithRetry(() => import("./blog/pages/BlogCategory"));
+const BlogTag = lazyWithRetry(() => import("./blog/pages/BlogTag"));
+const RSSFeed = lazyWithRetry(() => import("./blog/pages/RSSFeed"));
+const PowerPageOnlyFans = lazyWithRetry(() => import("./blog/pages/PowerPageOnlyFans"));
+const PowerPagePornhub = lazyWithRetry(() => import("./blog/pages/PowerPagePornhub"));
+const PowerPageReportTool = lazyWithRetry(() => import("./blog/pages/PowerPageReportTool"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -731,6 +740,16 @@ const AppContent = () => {
           <Route path="/agency-presentation-2" element={<PageTransition><AgencyPresentation2 /></PageTransition>} />
           <Route path="/pr" element={<PageTransition><Presentation /></PageTransition>} />
           <Route path="/pr/onboarding" element={<PageTransition><OnboardingPresentation /></PageTransition>} />
+          {/* Blog routes */}
+          <Route path="/blog" element={<PageTransition><BlogList /></PageTransition>} />
+          <Route path="/rss.xml" element={<RSSFeed />} />
+          <Route path="/feed.json" element={<RSSFeed type="json" />} />
+          <Route path="/blog/category/:category" element={<PageTransition><BlogCategory /></PageTransition>} />
+          <Route path="/blog/tag/:tag" element={<PageTransition><BlogTag /></PageTransition>} />
+          <Route path="/remove-onlyfans-leaks" element={<PageTransition><PowerPageOnlyFans /></PageTransition>} />
+          <Route path="/remove-pornhub-content" element={<PageTransition><PowerPagePornhub /></PageTransition>} />
+          <Route path="/analyze-pirate-site" element={<PageTransition><PowerPageReportTool /></PageTransition>} />
+          <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </Suspense>
