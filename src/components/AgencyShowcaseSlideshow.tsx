@@ -326,12 +326,6 @@ export function AgencyShowcaseSlideshow({
     return (currentSlide + offset + slides.length) % slides.length;
   };
 
-
-  const currentSlideData = slides[currentSlide];
-  const Icon = currentSlideData.icon;
-  const slideContent = currentSlideData.content;
-  const isEmphasized = currentSlideData.emphasis;
-
   return (
     <div className={`w-full bg-transparent relative overflow-hidden ${className}`}>
       <div className="relative z-10 w-full">
