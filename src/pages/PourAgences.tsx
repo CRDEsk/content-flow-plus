@@ -468,7 +468,7 @@ const PourAgences = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl p-6 sm:p-8 lg:p-10"
+            className="rounded-3xl p-8 sm:p-10 lg:p-12 xl:p-16"
             style={{
               background: 'rgba(0, 0, 0, 0.4)',
               backdropFilter: 'blur(40px) saturate(180%)',
@@ -477,9 +477,9 @@ const PourAgences = () => {
               boxShadow: '0 20px 60px 0 rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 0 100px rgba(59, 130, 246, 0.05)',
             }}
           >
-            <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start">
               {/* Left side - Hero content */}
-              <div className="text-center lg:text-left space-y-4 sm:space-y-5">
+              <div className="text-center lg:text-left space-y-6 sm:space-y-7">
                 {/* Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: -10 }}
@@ -511,7 +511,7 @@ const PourAgences = () => {
               transition={{ delay: 0.2, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="font-display font-bold leading-[1.1] tracking-tight"
             >
-              <span className="block text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-foreground mb-3">
+              <span className="block text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-foreground mb-4">
                 La protection de 10, 20, 50 créateurs.
               </span>
             </motion.h1>
@@ -541,7 +541,7 @@ const PourAgences = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start pt-2"
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4"
             >
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
