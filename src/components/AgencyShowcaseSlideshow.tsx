@@ -327,95 +327,129 @@ export function AgencyShowcaseSlideshow({
   };
 
   return (
-    <div className={`w-full bg-transparent relative ${className}`}>
+    <div className={`w-full relative ${className}`}>
+      {/* Banner-style container */}
       <div className="relative z-10 w-full">
-        {/* Smooth carousel container - fixed height */}
-        <div className="relative py-12 md:py-16 min-h-[500px] md:min-h-[600px]">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ 
-                duration: 0.5, 
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
-              className="w-full"
-              style={{
-                transform: 'translate3d(0, 0, 0)',
-                WebkitTransform: 'translate3d(0, 0, 0)',
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
-              } as React.CSSProperties}
-            >
-                {(() => {
-                  const slide = slides[currentSlide];
-                  const Icon = slide.icon;
-                  const content = slide.content;
-                  const isEmphasized = slide.emphasis;
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-center mb-6"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20">
+              <Sparkles className="w-4 h-4 text-blue-400" />
+              <span className="text-sm font-semibold text-blue-400">Nos systèmes en action</span>
+            </div>
+          </motion.div>
 
-                  return (
-                    <div className="max-w-6xl mx-auto px-4">
-                      <div className="bg-transparent">
-                        {/* Icon and title */}
-                        <div className="flex items-start gap-6 mb-6">
-                          <div className="p-5 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex-shrink-0">
-                            <Icon className="w-14 h-14 text-blue-400" />
+          {/* Main card container */}
+          <div className="relative rounded-3xl overflow-hidden" style={{
+            background: 'rgba(0, 0, 0, 0.4)',
+            backdropFilter: 'blur(30px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+            border: '1px solid rgba(59, 130, 246, 0.2)',
+            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.05)',
+          }}>
+            {/* Subtle gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-blue-600/5 pointer-events-none" />
+            
+            {/* Content */}
+            <div className="relative py-12 md:py-16 min-h-[500px] md:min-h-[600px]">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }}
+                  className="w-full"
+                  style={{
+                    transform: 'translate3d(0, 0, 0)',
+                    WebkitTransform: 'translate3d(0, 0, 0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                  } as React.CSSProperties}
+                >
+                  {(() => {
+                    const slide = slides[currentSlide];
+                    const Icon = slide.icon;
+                    const content = slide.content;
+                    const isEmphasized = slide.emphasis;
+
+                    return (
+                      <div className="max-w-6xl mx-auto px-6 md:px-8">
+                        {/* Icon and title - banner style */}
+                        <div className="flex items-start gap-8 mb-8">
+                          {/* Large icon on left */}
+                          <div className="flex-shrink-0">
+                            <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/30 shadow-lg shadow-blue-500/10">
+                              <Icon className="w-16 h-16 md:w-20 md:h-20 text-blue-400" />
+                            </div>
                           </div>
-                          <div className="flex-1">
+                          
+                          {/* Title and subtitle */}
+                          <div className="flex-1 pt-2">
                             {isEmphasized && (
-                              <div className="mb-3">
-                                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-semibold uppercase tracking-wide">
-                                  <AlertTriangle className="w-3.5 h-3.5" />
+                              <div className="mb-4">
+                                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-xs font-semibold uppercase tracking-wide shadow-sm">
+                                  <AlertTriangle className="w-4 h-4" />
                                   Spécialité CRD
                                 </span>
                               </div>
                             )}
-                            <h2 className="text-3xl md:text-4xl font-bold mb-2 leading-tight text-white">
+                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 leading-tight text-white">
                               {content.title[language]}
                             </h2>
-                            <p className="text-lg md:text-xl text-zinc-300">
+                            <p className="text-xl md:text-2xl text-zinc-300">
                               {content.subtitle[language]}
                             </p>
                           </div>
                         </div>
 
                         {/* Description */}
-                        <p className="text-base md:text-lg text-zinc-300 mb-8 leading-relaxed max-w-4xl">
+                        <p className="text-base md:text-lg text-zinc-300 mb-10 leading-relaxed max-w-4xl pl-0 md:pl-28">
                           {content.description[language]}
                         </p>
 
-                        {/* Stats grid */}
+                        {/* Stats grid - banner style */}
                         {content.stats && (
-                          <div className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-4`}>
+                          <div className={`grid ${isEmphasized ? 'grid-cols-1 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'} gap-4 pl-0 md:pl-28`}>
                             {content.stats.map((stat, index) => {
                               const StatIcon = stat.icon;
                               return (
                                 <div
                                   key={index}
-                                  className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/50 hover:border-blue-500/30 transition-all duration-300"
+                                  className="p-5 rounded-xl bg-zinc-900/50 border border-zinc-800/50 hover:border-blue-500/40 hover:bg-zinc-900/70 transition-all duration-300 group"
                                 >
-                                  <div className="flex items-center gap-2 mb-2">
+                                  <div className="flex items-center gap-3 mb-3">
                                     {StatIcon && (
-                                      <StatIcon className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                                      <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
+                                        <StatIcon className="w-5 h-5 text-blue-400" />
+                                      </div>
                                     )}
-                                    <span className="text-xs font-medium text-zinc-400">
+                                    <span className="text-sm font-medium text-zinc-400">
                                       {stat.label[language]}
                                     </span>
                                   </div>
-                                  <p className="text-xl md:text-2xl font-bold text-white">{stat.value}</p>
+                                  <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
                                 </div>
                               );
                             })}
                           </div>
                         )}
                       </div>
-                    </div>
-                  );
-                })()}
-            </motion.div>
-          </AnimatePresence>
+                    );
+                  })()}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
       </div>
     </div>
