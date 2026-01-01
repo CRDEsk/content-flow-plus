@@ -293,8 +293,8 @@ export function AgencyShowcaseSlideshow({
 
   return (
     <div className={`w-full relative ${className}`}>
-      {/* Dashboard container - Fixed height */}
-      <div className="relative w-full h-[500px] md:h-[580px] flex items-center justify-center overflow-hidden">
+      {/* Dashboard container - Fixed height, larger */}
+      <div className="relative w-full h-[550px] md:h-[650px] flex items-center justify-center overflow-hidden">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={currentSlide}
@@ -336,19 +336,19 @@ export function AgencyShowcaseSlideshow({
                       }}
                     >
                       {/* Dashboard Header */}
-                      <div className="flex items-center justify-between p-4 border-b border-zinc-800/50 bg-zinc-900/30">
-                        <div className="flex items-center gap-3">
-                          <div className="p-2 rounded-lg bg-blue-500/20 border border-blue-500/30">
-                            <Icon className="w-5 h-5 text-blue-400" />
+                      <div className="flex items-center justify-between p-5 md:p-6 border-b border-zinc-800/50 bg-zinc-900/30">
+                        <div className="flex items-center gap-4">
+                          <div className="p-3 rounded-lg bg-blue-500/20 border border-blue-500/30">
+                            <Icon className="w-6 h-6 text-blue-400" />
                           </div>
                           <div>
-                            <h3 className="text-sm font-semibold text-white">{content.title[language]}</h3>
-                            <p className="text-xs text-zinc-400">{content.subtitle[language].split(' • ')[0]}</p>
+                            <h3 className="text-base md:text-lg font-semibold text-white">{content.title[language]}</h3>
+                            <p className="text-xs md:text-sm text-zinc-400 mt-0.5">{content.subtitle[language].split(' • ')[0]}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
                           {content.subtitle[language].split(' • ').slice(1).map((phrase, i) => (
-                            <span key={i} className="px-2 py-0.5 rounded text-[10px] bg-blue-500/10 border border-blue-500/20 text-blue-300">
+                            <span key={i} className="px-3 py-1.5 rounded-md text-xs bg-blue-500/10 border border-blue-500/20 text-blue-300 font-medium">
                               {phrase}
                             </span>
                           ))}
@@ -356,9 +356,9 @@ export function AgencyShowcaseSlideshow({
                       </div>
 
                       {/* Dashboard Content */}
-                      <div className="p-4 md:p-6 h-[calc(100%-73px)] overflow-hidden">
+                      <div className="p-5 md:p-6 lg:p-8 h-[calc(100%-85px)] overflow-hidden">
                         {/* KPI Row */}
-                        <div className="grid grid-cols-3 gap-3 mb-4">
+                        <div className="grid grid-cols-3 gap-4 md:gap-5 mb-6">
                           {content.stats && content.stats.slice(0, 3).map((stat, index) => {
                             const StatIcon = stat.icon;
                             return (
@@ -367,39 +367,39 @@ export function AgencyShowcaseSlideshow({
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3 + index * 0.1 }}
-                                className="p-3 rounded-lg bg-zinc-900/50 border border-zinc-800/50"
+                                className="p-4 md:p-5 rounded-xl bg-zinc-900/50 border border-zinc-800/50"
                               >
-                                <div className="flex items-center gap-2 mb-2">
+                                <div className="flex items-center gap-2.5 mb-3">
                                   {StatIcon && (
-                                    <StatIcon className="w-4 h-4 text-blue-400" />
+                                    <StatIcon className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
                                   )}
-                                  <span className="text-[10px] text-zinc-400">{stat.label[language]}</span>
+                                  <span className="text-xs md:text-sm text-zinc-400 font-medium">{stat.label[language]}</span>
                                 </div>
-                                <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
+                                <p className="text-3xl md:text-4xl font-bold text-white">{stat.value}</p>
                               </motion.div>
                             );
                           })}
                         </div>
 
                         {/* Table/List View */}
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           {[1, 2, 3, 4].map((row, i) => (
                             <motion.div
                               key={i}
                               initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: 0.5 + i * 0.05 }}
-                              className="flex items-center justify-between p-3 rounded-lg bg-zinc-900/30 border border-zinc-800/30 hover:bg-zinc-900/50 hover:border-zinc-800/50 transition-all"
+                              className="flex items-center justify-between p-4 md:p-5 rounded-xl bg-zinc-900/30 border border-zinc-800/30 hover:bg-zinc-900/50 hover:border-zinc-800/50 transition-all"
                             >
-                              <div className="flex items-center gap-3">
-                                <div className="w-2 h-2 rounded-full bg-blue-500/50"></div>
+                              <div className="flex items-center gap-4">
+                                <div className="w-2.5 h-2.5 rounded-full bg-blue-500/50"></div>
                                 <div>
-                                  <div className="text-sm font-medium text-white">Créateur {String.fromCharCode(65 + i)}</div>
-                                  <div className="text-xs text-zinc-400">Protection active</div>
+                                  <div className="text-base md:text-lg font-medium text-white">Créateur {String.fromCharCode(65 + i)}</div>
+                                  <div className="text-sm text-zinc-400">Protection active</div>
                                 </div>
                               </div>
                               <div className="flex items-center gap-2">
-                                <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">
+                                <span className="px-3 py-1.5 rounded-md text-xs md:text-sm bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-medium">
                                   Stable
                                 </span>
                               </div>
