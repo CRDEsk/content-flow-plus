@@ -199,8 +199,8 @@ const PourAgences = () => {
 
         cal("ui", {
           cssVarsPerTheme: {
-            light: { "cal-brand": "#0D0D0D" },
-            dark: { "cal-brand": "#FFDF7D" }
+            light: { "cal-brand": "#3B82F6" },
+            dark: { "cal-brand": "#3B82F6" }
           },
           hideEventTypeDetails: false,
           layout: "month_view"
