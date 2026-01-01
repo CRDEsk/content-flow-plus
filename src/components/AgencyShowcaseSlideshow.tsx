@@ -293,21 +293,21 @@ export function AgencyShowcaseSlideshow({
 
   return (
     <div className={`w-full relative ${className}`}>
-      {/* Integrated slideshow - no outer card, just content */}
-      <div className="relative w-full h-full flex items-center">
-        {/* Content */}
-        <div className="relative w-full min-h-[350px] md:min-h-[400px] flex items-center py-4">
+      {/* Integrated slideshow - fixed height container */}
+      <div className="relative w-full flex items-center">
+        {/* Fixed height container to prevent jumping */}
+        <div className="relative w-full h-[400px] md:h-[450px] flex items-center justify-center overflow-hidden">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={currentSlide}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
+                  initial={{ opacity: 0, scale: 0.95, x: 30 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, x: -30 }}
                   transition={{ 
-                    duration: 0.5, 
+                    duration: 0.6,
                     ease: [0.25, 0.46, 0.45, 0.94]
                   }}
-                  className="w-full"
+                  className="w-full absolute inset-0 flex items-center justify-center"
                   style={{
                     transform: 'translate3d(0, 0, 0)',
                     WebkitTransform: 'translate3d(0, 0, 0)',
@@ -322,76 +322,63 @@ export function AgencyShowcaseSlideshow({
                     const isEmphasized = slide.emphasis;
 
                     return (
-                      <div className="w-full px-4">
-                        <div className="flex flex-col items-center justify-center h-full min-h-[350px] md:min-h-[400px]">
-                          {/* Animated Icon */}
+                      <div className="w-full px-2">
+                        <div className="flex flex-col items-center justify-center h-full space-y-4">
+                          {/* Animated Icon - Smaller */}
                           <motion.div
                             initial={{ scale: 0, rotate: -180 }}
                             animate={{ 
                               scale: 1, 
                               rotate: 0,
-                              y: [0, -10, 0]
+                              y: [0, -8, 0]
                             }}
                             transition={{ 
-                              scale: { duration: 0.6, ease: "easeOut" },
-                              rotate: { duration: 0.6, ease: "easeOut" },
+                              scale: { duration: 0.5, ease: "easeOut" },
+                              rotate: { duration: 0.5, ease: "easeOut" },
                               y: { 
-                                duration: 2, 
+                                duration: 2.5, 
                                 repeat: Infinity, 
                                 ease: "easeInOut",
-                                delay: 0.6
+                                delay: 0.5
                               }
                             }}
-                            className="relative mb-6"
+                            className="relative mb-2"
                           >
-                            <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-blue-500/30 via-blue-600/20 to-blue-700/10 border-2 border-blue-500/40 shadow-2xl shadow-blue-500/30">
-                              <Icon className="w-16 h-16 md:w-20 md:h-20 text-blue-400" />
+                            <div className="p-4 md:p-5 rounded-xl bg-gradient-to-br from-blue-500/30 via-blue-600/20 to-blue-700/10 border-2 border-blue-500/40 shadow-xl shadow-blue-500/20">
+                              <Icon className="w-12 h-12 md:w-14 md:h-14 text-blue-400" />
                             </div>
                             {/* Glow effect */}
                             <motion.div
                               animate={{
-                                opacity: [0.3, 0.6, 0.3],
-                                scale: [1, 1.2, 1],
+                                opacity: [0.2, 0.5, 0.2],
+                                scale: [1, 1.15, 1],
                               }}
                               transition={{
-                                duration: 2,
+                                duration: 2.5,
                                 repeat: Infinity,
                                 ease: "easeInOut"
                               }}
-                              className="absolute inset-0 bg-blue-500/20 blur-xl rounded-2xl -z-10"
+                              className="absolute inset-0 bg-blue-500/15 blur-lg rounded-xl -z-10"
                             />
                           </motion.div>
                           
-                          {/* Key Words - Animated */}
-                          <div className="text-center space-y-3">
+                          {/* Key Words - Compact */}
+                          <div className="text-center space-y-2">
                             <motion.h2
-                              initial={{ opacity: 0, y: 20 }}
+                              initial={{ opacity: 0, y: 15 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.5, delay: 0.3 }}
-                              className="text-3xl md:text-4xl lg:text-5xl font-bold text-white"
+                              transition={{ duration: 0.4, delay: 0.2 }}
+                              className="text-2xl md:text-3xl font-bold text-white"
                             >
-                              {content.title[language].split(' ').map((word, i) => (
-                                <motion.span
-                                  key={i}
-                                  initial={{ opacity: 0, y: 20 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ 
-                                    duration: 0.3, 
-                                    delay: 0.4 + i * 0.1 
-                                  }}
-                                  className="inline-block mr-2"
-                                >
-                                  {word}
-                                </motion.span>
-                              ))}
+                              {content.title[language]}
                             </motion.h2>
                             
-                            {/* Highlighted key phrases */}
+                            {/* Highlighted key phrases - Compact */}
                             <motion.div
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
-                              transition={{ duration: 0.5, delay: 0.7 }}
-                              className="flex flex-wrap justify-center gap-2 md:gap-3 mt-4"
+                              transition={{ duration: 0.4, delay: 0.4 }}
+                              className="flex flex-wrap justify-center gap-2 mt-3"
                             >
                               {content.subtitle[language].split(' • ').map((phrase, i) => (
                                 <motion.span
@@ -399,45 +386,47 @@ export function AgencyShowcaseSlideshow({
                                   initial={{ opacity: 0, scale: 0.8 }}
                                   animate={{ opacity: 1, scale: 1 }}
                                   transition={{ 
-                                    duration: 0.3, 
-                                    delay: 0.8 + i * 0.1 
+                                    duration: 0.25, 
+                                    delay: 0.5 + i * 0.08,
+                                    type: "spring",
+                                    stiffness: 300
                                   }}
-                                  className="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-sm md:text-base font-medium"
+                                  className="px-2.5 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs md:text-sm font-medium"
                                 >
                                   {phrase}
                                 </motion.span>
                               ))}
                             </motion.div>
 
-                            {/* Visual Stats - Minimal */}
+                            {/* Visual Stats - Compact */}
                             {content.stats && (
                               <motion.div
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 15 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 1 }}
-                                className="flex flex-wrap justify-center gap-4 md:gap-6 mt-6"
+                                transition={{ duration: 0.4, delay: 0.6 }}
+                                className="flex flex-wrap justify-center gap-3 md:gap-4 mt-4"
                               >
                                 {content.stats.slice(0, 3).map((stat, index) => {
                                   const StatIcon = stat.icon;
                                   return (
                                     <motion.div
                                       key={index}
-                                      initial={{ opacity: 0, scale: 0 }}
+                                      initial={{ opacity: 0, scale: 0.8 }}
                                       animate={{ opacity: 1, scale: 1 }}
                                       transition={{ 
-                                        duration: 0.4, 
-                                        delay: 1.1 + index * 0.15,
+                                        duration: 0.3, 
+                                        delay: 0.7 + index * 0.1,
                                         type: "spring",
-                                        stiffness: 200
+                                        stiffness: 300
                                       }}
-                                      whileHover={{ scale: 1.1, y: -5 }}
-                                      className="flex flex-col items-center gap-2 p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/50 hover:border-blue-500/50 transition-all duration-300"
+                                      whileHover={{ scale: 1.05, y: -3 }}
+                                      className="flex flex-col items-center gap-1.5 p-3 rounded-lg bg-zinc-900/40 border border-zinc-800/50 hover:border-blue-500/50 transition-all duration-300"
                                     >
                                       {StatIcon && (
-                                        <StatIcon className="w-6 h-6 md:w-8 md:h-8 text-blue-400" />
+                                        <StatIcon className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
                                       )}
-                                      <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
-                                      <span className="text-xs text-zinc-400 text-center max-w-[80px]">
+                                      <p className="text-xl md:text-2xl font-bold text-white">{stat.value}</p>
+                                      <span className="text-[10px] md:text-xs text-zinc-400 text-center max-w-[70px] leading-tight">
                                         {stat.label[language]}
                                       </span>
                                     </motion.div>

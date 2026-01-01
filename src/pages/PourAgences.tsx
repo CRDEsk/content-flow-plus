@@ -468,7 +468,7 @@ const PourAgences = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl p-8 sm:p-10 lg:p-12 xl:p-16"
+            className="rounded-3xl p-10 sm:p-12 lg:p-16 xl:p-20"
             style={{
               background: 'rgba(0, 0, 0, 0.4)',
               backdropFilter: 'blur(40px) saturate(180%)',
@@ -477,7 +477,7 @@ const PourAgences = () => {
               boxShadow: '0 20px 60px 0 rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 0 100px rgba(59, 130, 246, 0.05)',
             }}
           >
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-20 items-start">
               {/* Left side - Hero content */}
               <div className="text-center lg:text-left space-y-6 sm:space-y-7">
                 {/* Badge */}
